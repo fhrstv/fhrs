@@ -123,6 +123,46 @@ video {
     width: 100%;
     max-height: 400px; /* ضبط الارتفاع الأقصى */
 }
+
+
+
+
+/* حاوية الفيديو */
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* تحديد عرض الحاوية حسب الحاجة */
+    height: 450px; /* تحديد ارتفاع الحاوية حسب الحاجة */
+    background: #000; /* خلفية داكنة للمربع */
+}
+
+/* صورة الغلاف أو المشهد الثابت */
+.video-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* زر التشغيل */
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5); /* خلفية نصف شفافة */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
     </style>
 </head>
 <body>
