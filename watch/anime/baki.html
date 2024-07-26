@@ -151,18 +151,18 @@ video {
         const mediaIds = ['tt12343534'];
 
         mediaIds.forEach(mediaId => {
-            const apiUrl = `https://api.themoviedb.org/3/find/${mediaId}?api_key=${tmdbApiKey}&language=en&external_source=imdb_id`;
+            const apiUrl = `https://api.themoviedb.org/3/find/${mediaId}?api_key=${tmdbApiKey}&language=ar&external_source=imdb_id`;
 
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
                     if (data.movie_results.length > 0) {
                         const tmdbMovieId = data.movie_results[0].id;
-                        const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=en`;
+                        const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=ar`;
                         displayMediaDetails(tmdbApiUrl, 'movie');
                     } else if (data.tv_results.length > 0) {
                         const tmdbTvId = data.tv_results[0].id;
-                        const tmdbApiUrl = `https://api.themoviedb.org/3/tv/${tmdbTvId}?api_key=${tmdbApiKey}&language=en`;
+                        const tmdbApiUrl = `https://api.themoviedb.org/3/tv/${tmdbTvId}?api_key=${tmdbApiKey}&language=ar`;
                         displayMediaDetails(tmdbApiUrl, 'tv');
                     } else {
                         console.error('No data found for media with ID:', mediaId);
@@ -181,9 +181,9 @@ video {
                         <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
                         <h2 class="movie-title">${data.title || data.name}</h2>
                         <div class="movie-details">
-                            <p><strong>Genre:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
-                            <p><strong>IMDB:</strong> ${imdbRating}/10</p>
-                            <p><strong>Story:</strong> <span class="story">${trimmedOverview}</span></p>
+                            <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>التقييم:</strong> ${imdbRating}/10</p>
+                            <p><strong>القصة:</strong> <span class="story">${trimmedOverview}</span></p>
                         </div>
                     `;
                     document.getElementById('movieInfo').innerHTML = mediaInfo;
