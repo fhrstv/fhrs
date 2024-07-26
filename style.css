@@ -1,0 +1,72 @@
+/* المربعات الحمراء */
+a {
+    text-decoration: none;
+    color: #333;
+    display: inline-block;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: red;
+    transition: background-color 0.3s;
+    margin: 0 auto; /* توسيط العناصر */
+    width: 200px; /* تحديد عرض العناصر */
+    text-align: center; /* توسيط النص داخل العناصر */
+
+
+}
+
+/* مربع البحث */
+.search-box {
+    text-align: center;
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%; /* يمتلئ عرض الشاشة بالكامل */
+    max-width: 300px; /* حد أقصى لعرض المربع */
+    box-sizing: border-box; /* يأخذ الحواف في الاعتبار */
+}
+
+input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px; /* تباعد بين الحقل والزر */
+}
+
+/* تعديل للشاشات الصغيرة (تقنية التجاوب) */
+@media (max-width: 600px) {
+    h2 {
+        font-size: 24px; /* تصغير حجم العنوان للهواتف الصغيرة */
+    }
+    .search-box {
+        margin-top: 10px;
+    }
+
+    /* تصغير عرض مربع البحث لتناسب الشاشات الصغيرة */
+    input[type="text"] {
+        max-width: 100%;
+    }
+}
+
+#searchForm {
+    display: on;
+}
+
+
+
+.faq-box {
+    border: 2px solid red;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+
+

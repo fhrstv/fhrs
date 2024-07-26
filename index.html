@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>فهرس</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+
+   
+
+
+<link rel="stylesheet" type="text/css" href="style.css">
+    <script src="scripit.js" defer></script>
+
+    <style>
+        /* الأسلوب العام للصفحة */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #000
+        }
+
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
+      
+      .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        /* عنوان الصفحة */
+        h1 {
+            margin: 0;
+        }
+
+        /* منطقة العرض للأفلام والمسلسلات */
+        .content {
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; /* توسيط المحتوى */
+        }
+
+        /* قائمة لعرض الأفلام والمسلسلات */
+        .movie-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: center; /* توسيط العناصر */
+        }
+
+        .movie-item {
+            margin: 10px;
+        }
+
+        /* المربعات الحمراء */
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            font-size: 25px; /* تكبير حجم الخط داخل المربعات الحمراء */
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+
+        /* توسيط عنوان الأفلام والمسلسلات والالانمي */
+        h2 {
+            text-align: center;
+        }
+
+        /* مربع البحث */
+        .search-box {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%; /* يمتلئ عرض الشاشة بالكامل */
+            max-width: 300px; /* حد أقصى لعرض المربع */
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* تعديل للشاشات الصغيرة (تقنية التجاوب) */
+        @media (max-width: 600px) {
+            h2 {
+                font-size: 24px; /* تصغير حجم العنوان للهواتف الصغيرة */
+            }
+            .search-box {
+                margin-top: 10px;
+            }
+        }
+    </style>
+    <!-- تضمين الخط العربي Tajawal -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap">
+</head>
+<body>
+    <header>
+        <h1>فهرس/h1>
+    </header>
+    <div class="content">
+        <h2>اكبر موقع فهرسه بالوطن العربي</h2>
+<h3>جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين<br>نحن لا نخزن و لا نرفع و لا ننشر <br>فقط نعرض اسهل طريقة للمشاهدة </h3>
+<h4>موقعنا خالي من الاعلانات ، و الاعلانات التي تظهر اثناء ضغطك على المشاهدة خاصة للشركات المستضيفه وليست لنا</h4>
+
+        <!-- نتائج البحث -->
+        <div class="search-results" id="searchResults">
+            <!-- هنا سيتم عرض نتائج البحث -->
+        </div>
+        <!-- قائمة الأفلام والمسلسلات الأخرى -->
+        <ul class="movie-list">
+            <!-- إضافة العناصر هنا -->
+           <li class="movie-item"><a href="Movies">الافلام</a></li>
+         
+                    <li class="movie-item"><a href="Series">المسلسلات</a></li>
+
+                    
+
+            <li class="movie-item"><a href="Faq">الاسئلة الشائعة</a></li>
+
+
+            <li class="movie-item"><a href="Call">اتصل بنا<br>(للطلب أو الابلاغ)</a></li>
+            <!-- يمكنك إضافة المزيد من الأفلام والمسلسلات هنا -->
+<br>نبرئ ذمتنا أمام الله وأمام الآخرين من أي مقاطع أو محتوى مسيء أو غير أخلاقي، ونؤمن بأن كل فرد مسؤول عن أفعاله. لذا نرجو منكم تخطي اللقطات الغير اخلاقية، نحن نعمل جاهدين لضمان أن المحتوى الذي نقدمه هنا خالي من اللقطات الغير اخلاقية و شكرا لكم</br>
+        </ul>
+    </div>
+<script src="scripit.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
