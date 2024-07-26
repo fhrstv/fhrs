@@ -133,15 +133,7 @@
     flex-direction: row-reverse;
 }
 
-.play-button {
-    font-size: 36px;
-    padding: 20px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    line-height: 1;
-}
+
         
         /* تعديل iframe لجعل الفيديو من اليوتيوب أصغر */
 
@@ -150,6 +142,15 @@ video {
     width: 100%;
     max-height: 400px; /* ضبط الارتفاع الأقصى */
     background-color: black;
+}
+video::-webkit-media-controls-play-button {
+    background-color: red;
+    color: #fff;
+}
+
+video::-webkit-media-controls {
+    background-color: #333;
+    color: #fff;
 }
     </style>
 </head>
