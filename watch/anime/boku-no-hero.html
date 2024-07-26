@@ -1,0 +1,296 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>فهرس</title> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon"> 
+    <style> 
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f0f0f0; 
+            margin: 0; 
+            padding: 0; 
+        } 
+ 
+        header { 
+            background-color: #333; 
+            color: hsl(0, 94%, 46%); 
+            text-align: center; 
+            padding: 10px; 
+        } 
+ 
+        .container { 
+            max-width: 800px; 
+            margin: 20px auto; 
+            padding: 20px; /* تم تقليل التباعد الداخلي للمحتوى */ 
+            background-color: #fff; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            text-align: center; /* توسيط النص */ 
+            font-size: 18px; 
+        } 
+
+        .episode-box {
+            width: 70%; /* تحديد عرض مربع الحلقات */
+            margin: 20px auto; /* توسيط مربع الحلقات */
+            background-color: #f9f9f9; /* لون خلفية مربع الحلقات */
+            padding: 10px; /* تباعد داخلي لمربع الحلقات */
+            border-radius: 10px; /* تدوير حواف مربع الحلقات */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* ظل لمربع الحلقات */
+        }
+
+        h1 { 
+            color: #ff0000; 
+        } 
+        h4{ 
+            size: 100%; ; 
+        } 
+ 
+        iframe {
+            width: 100%;
+            height: 400px;
+        }
+        ul { 
+            list-style-type: none; 
+            padding: 0; 
+        } 
+ 
+        li { 
+            margin: 10px 0; 
+            text-align: center; /* توسيط النص */ 
+        } 
+        a:hover { 
+            background-color: gold; 
+        } 
+        a { 
+            text-decoration: none; 
+            color: #333; 
+            display: block; 
+            padding: 20px; 
+            border-radius: 5px; 
+            background-color: red; 
+            transition: background-color 0.3s; /* تغيير لون الخلفية عند التحويل */ 
+        } 
+ 
+        p { 
+            text-align: justify; 
+        } 
+        video {
+            width: 100%;
+            height: auto;
+        }
+
+        .movie-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .movie-poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .movie-info {
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .movie-info p {
+            margin-bottom: 10px;
+        }
+
+        .movie-title {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .story-title {
+            font-weight: bold;
+            margin-right: 10px; /* مسافة بين العنوان والنص */
+        }
+        
+.story {
+    font-family: "Arial", sans-serif; /* أو أي خط يدعم العربية */
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: right; /* محاذاة النص لليمين */
+    direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
+    white-space: pre-wrap; /* الحفاظ على التباعد بين الأسطر */
+    overflow-wrap: break-word; /* كسر الكلمات الطويلة التي تتجاوز العرض */
+}
+
+    </style> 
+</head> 
+<body> 
+    <header> 
+        <h1>فهرس</h1> 
+    </header> 
+    <div class="container"> 
+        <video id="videoPlayer" controls>
+            <source src="https://server.sanime.net/Video2/1969/1.mp4" type="video/mp4">
+        </video>
+        <h2></h2> 
+        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
+
+        <div class="episode-box">
+            <select id="episodes" onchange="changeEpisode(this.value)">
+                <option value="https://server.sanime.net/Video2/1969/1.mp4">الموسم الاول : الحلقة 1</option>
+                <option value="https://server.sanime.net/Video2/1969/2.mp4">الموسم الاول : الحلقة 2</option>
+                <option value="https://server.sanime.net/Video2/1969/3.mp4">الموسم الاول : الحلقة 3</option>
+                <option value="https://server.sanime.net/Video2/1969/4.mp4">الموسم الاول : الحلقة 4</option>
+                <option value="https://server.sanime.net/Video2/1969/5.mp4">الموسم الاول : الحلقة 5</option>
+                <option value="https://server.sanime.net/Video2/1969/6.mp4">الموسم الاول : الحلقة 6</option>
+                <option value="https://server.sanime.net/Video2/1969/7.mp4">الموسم الاول : الحلقة 7</option>
+                <option value="https://server.sanime.net/Video2/1969/8.mp4">الموسم الاول : الحلقة 8</option>
+                <option value="https://server.sanime.net/Video2/1969/9.mp4">الموسم الاول : الحلقة 9</option>
+                <option value="https://server.sanime.net/Video2/1969/10.mp4">الموسم الاول : الحلقة 10</option>
+                <option value="https://server.sanime.net/Video2/1969/11.mp4">الموسم الاول : الحلقة 11</option>
+                <option value="https://server.sanime.net/Video2/1969/12.mp4">الموسم الاول : الحلقة 12</option>
+                <option value="https://server.sanime.net/Video2/1969/13.mp4">الموسم الاول : الحلقة 13</option>
+                <option value="https://server.sanime.net/Video3/2356/1.mp4">الموسم الثاني : الحلقة 1</option>
+                <option value="https://server.sanime.net/Video3/2356/2.mp4">الموسم الثاني : الحلقة 2</option>
+                <option value="https://server.sanime.net/Video3/2356/3.mp4">الموسم الثاني : الحلقة 3</option>
+                <option value="https://server.sanime.net/Video3/2356/4.mp4">الموسم الثاني : الحلقة 4</option>
+                <option value="https://server.sanime.net/Video3/2356/5.mp4">الموسم الثاني : الحلقة 5</option>
+                <option value="https://server.sanime.net/Video3/2356/6.mp4">الموسم الثاني : الحلقة 6</option>
+                <option value="https://server.sanime.net/Video3/2356/7.mp4">الموسم الثاني : الحلقة 7</option>
+                <option value="https://server.sanime.net/Video3/2356/8.mp4">الموسم الثاني : الحلقة 8</option>
+                <option value="https://server.sanime.net/Video3/2356/9.mp4">الموسم الثاني : الحلقة 9</option>
+                <option value="https://server.sanime.net/Video3/2356/10.mp4">الموسم الثاني : الحلقة 10</option>
+                <option value="https://server.sanime.net/Video3/2356/11.mp4">الموسم الثاني : الحلقة 11</option>
+                <option value="https://server.sanime.net/Video3/2356/12.mp4">الموسم الثاني : الحلقة 12</option>
+                <option value="https://server.sanime.net/Video3/2356/13.mp4">الموسم الثاني : الحلقة 13</option>
+                <option value="https://server.sanime.net/Video3/2356/14.mp4">الموسم الثاني : الحلقة 14</option>
+                <option value="https://server.sanime.net/Video3/2356/15.mp4">الموسم الثاني : الحلقة 15</option>
+                <option value="https://server.sanime.net/Video3/2356/16.mp4">الموسم الثاني : الحلقة 16</option>
+                <option value="https://server.sanime.net/Video3/2356/17.mp4">الموسم الثاني : الحلقة 17</option>
+                <option value="https://server.sanime.net/Video3/2356/18.mp4">الموسم الثاني : الحلقة 18</option>
+                <option value="https://server.sanime.net/Video3/2356/19.mp4">الموسم الثاني : الحلقة 19</option>
+                <option value="https://server.sanime.net/Video3/2356/20.mp4">الموسم الثاني : الحلقة 20</option>
+                <option value="https://server.sanime.net/Video3/2356/21.mp4">الموسم الثاني : الحلقة 21</option>
+                <option value="https://server.sanime.net/Video3/2356/22.mp4">الموسم الثاني : الحلقة 22</option>
+                <option value="https://server.sanime.net/Video3/2356/23.mp4">الموسم الثاني : الحلقة 23</option>
+                <option value="https://server.sanime.net/Video3/2356/24.mp4">الموسم الثاني : الحلقة 24</option>
+                <option value="https://server.sanime.net/Video3/2356/25.mp4">الموسم الثاني : الحلقة 25</option>
+                <option value="https://server.sanime.net/Video3/2719/1.mp4">الموسم الثالث : الحلقة 1</option>
+                <option value="https://server.sanime.net/Video3/2719/2.mp4">الموسم الثالث : الحلقة 2</option>
+                <option value="https://server.sanime.net/Video3/2719/3.mp4">الموسم الثالث : الحلقة 3</option>
+                <option value="https://server.sanime.net/Video3/2719/4.mp4">الموسم الثالث : الحلقة 4</option>
+                <option value="https://server.sanime.net/Video3/2719/5.mp4">الموسم الثالث : الحلقة 5</option>
+                <option value="https://server.sanime.net/Video3/2719/6.mp4">الموسم الثالث : الحلقة 6</option>
+                <option value="https://server.sanime.net/Video3/2719/7.mp4">الموسم الثالث : الحلقة 7</option>
+                <option value="https://server.sanime.net/Video3/2719/8.mp4">الموسم الثالث : الحلقة 8</option>
+                <option value="https://server.sanime.net/Video3/2719/9.mp4">الموسم الثالث : الحلقة 9</option>
+                <option value="https://server.sanime.net/Video3/2719/10.mp4">الموسم الثالث : الحلقة 10</option>
+                <option value="https://server.sanime.net/Video3/2719/11.mp4">الموسم الثالث : الحلقة 11</option>
+                <option value="https://server.sanime.net/Video3/2719/12.mp4">الموسم الثالث : الحلقة 12</option>
+                <option value="https://server.sanime.net/Video3/2719/13.mp4">الموسم الثالث : الحلقة 13</option>
+                <option value="https://server.sanime.net/Video3/2719/14.mp4">الموسم الثالث : الحلقة 14</option>
+                <option value="https://server.sanime.net/Video3/2719/15.mp4">الموسم الثالث : الحلقة 15</option>
+                <option value="https://server.sanime.net/Video3/2719/16.mp4">الموسم الثالث : الحلقة 16</option>
+                <option value="https://server.sanime.net/Video3/2719/17.mp4">الموسم الثالث : الحلقة 17</option>
+                <option value="https://server.sanime.net/Video3/2719/18.mp4">الموسم الثالث : الحلقة 18</option>
+                <option value="https://server.sanime.net/Video3/2719/19.mp4">الموسم الثالث : الحلقة 19</option>
+                <option value="https://server.sanime.net/Video3/2719/20.mp4">الموسم الثالث : الحلقة 20</option>
+                <option value="https://server.sanime.net/Video3/2719/21.mp4">الموسم الثالث : الحلقة 21</option>
+                <option value="https://server.sanime.net/Video3/2719/22.mp4">الموسم الثالث : الحلقة 22</option>
+                <option value="https://server.sanime.net/Video3/2719/23.mp4">الموسم الثالث : الحلقة 23</option>
+                <option value="https://server.sanime.net/Video3/2719/24.mp4">الموسم الثالث : الحلقة 24</option>
+                <option value="https://server.sanime.net/Video3/2719/25.mp4">الموسم الثالث : الحلقة 25</option>
+                <option value="https://server.sanime.net/Video3/3272/1.mp4">الموسم الرابع : الحلقة 1</option>
+                <option value="https://server.sanime.net/Video3/3272/2.mp4">الموسم الرابع : الحلقة 2</option>
+                <option value="https://server.sanime.net/Video3/3272/3.mp4">الموسم الرابع : الحلقة 3</option>
+                <option value="https://server.sanime.net/Video3/3272/4.mp4">الموسم الرابع : الحلقة 4</option>
+                <option value="https://server.sanime.net/Video3/3272/5.mp4">الموسم الرابع : الحلقة 5</option>
+                <option value="https://server.sanime.net/Video3/3272/6.mp4">الموسم الرابع : الحلقة 6</option>
+                <option value="https://server.sanime.net/Video3/3272/7.mp4">الموسم الرابع : الحلقة 7</option>
+                <option value="https://server.sanime.net/Video3/3272/8.mp4">الموسم الرابع : الحلقة 8</option>
+                <option value="https://server.sanime.net/Video3/3272/9.mp4">الموسم الرابع : الحلقة 9</option>
+                <option value="https://server.sanime.net/Video3/3272/10.mp4">الموسم الرابع : الحلقة 10</option>
+                <option value="https://server.sanime.net/Video3/3272/11.mp4">الموسم الرابع : الحلقة 11</option>
+                <option value="https://server.sanime.net/Video3/3272/12.mp4">الموسم الرابع : الحلقة 12</option>
+                <option value="https://server.sanime.net/Video3/3272/13.mp4">الموسم الرابع : الحلقة 13</option>
+                <option value="https://server.sanime.net/Video3/3272/14.mp4">الموسم الرابع : الحلقة 14</option>
+                <option value="https://server.sanime.net/Video3/3272/15.mp4">الموسم الرابع : الحلقة 15</option>
+                <option value="https://server.sanime.net/Video3/3272/16.mp4">الموسم الرابع : الحلقة 16</option>
+                <option value="https://server.sanime.net/Video3/3272/17.mp4">الموسم الرابع : الحلقة 17</option>
+                <option value="https://server.sanime.net/Video3/3272/18.mp4">الموسم الرابع : الحلقة 18</option>
+                <option value="https://server.sanime.net/Video3/3272/19.mp4">الموسم الرابع : الحلقة 19</option>
+                <option value="https://server.sanime.net/Video3/3272/20.mp4">الموسم الرابع : الحلقة 20</option>
+                <option value="https://server.sanime.net/Video3/3272/21.mp4">الموسم الرابع : الحلقة 21</option>
+                <option value="https://server.sanime.net/Video3/3272/22.mp4">الموسم الرابع : الحلقة 22</option>
+                <option value="https://server.sanime.net/Video3/3272/23.mp4">الموسم الرابع : الحلقة 23</option>
+                <option value="https://server.sanime.net/Video3/3272/24.mp4">الموسم الرابع : الحلقة 24</option>
+                <option value="https://server.sanime.net/Video3/3272/25.mp4">الموسم الرابع : الحلقة 25</option>
+                <option value="https://server.sanime.net/Video2/4201/1.mp4">الموسم الخامس : الحلقة 1</option>
+                <option value="https://server.sanime.net/Video2/4201/2.mp4">الموسم الخامس : الحلقة 2</option>
+                <option value="https://server.sanime.net/Video2/4201/3.mp4">الموسم الخامس : الحلقة 3</option>
+                <option value="https://server.sanime.net/Video2/4201/4.mp4">الموسم الخامس : الحلقة 4</option>
+                <option value="https://server.sanime.net/Video2/4201/5.mp4">الموسم الخامس : الحلقة 5</option>
+                <option value="https://server.sanime.net/Video2/4201/6.mp4">الموسم الخامس : الحلقة 6</option>
+                <option value="https://server.sanime.net/Video2/4201/7.mp4">الموسم الخامس : الحلقة 7</option>
+                <option value="https://server.sanime.net/Video2/4201/8.mp4">الموسم الخامس : الحلقة 8</option>
+                <option value="https://server.sanime.net/Video2/4201/9.mp4">الموسم الخامس : الحلقة 9</option>
+                <option value="https://server.sanime.net/Video2/4201/10.mp4">الموسم الخامس : الحلقة 10</option>
+                <option value="https://server.sanime.net/Video2/4201/11.mp4">الموسم الخامس : الحلقة 11</option>
+                <option value="https://server.sanime.net/Video2/4201/12.mp4">الموسم الخامس : الحلقة 12</option>
+                <option value="https://server.sanime.net/Video2/4201/13.mp4">الموسم الخامس : الحلقة 13</option>
+                <option value="https://server.sanime.net/Video2/4201/14.mp4">الموسم الخامس : الحلقة 14</option>
+                <option value="https://server.sanime.net/Video2/4201/15.mp4">الموسم الخامس : الحلقة 15</option>
+                <option value="https://server.sanime.net/Video2/4201/16.mp4">الموسم الخامس : الحلقة 16</option>
+                <option value="https://server.sanime.net/Video2/4201/17.mp4">الموسم الخامس : الحلقة 17</option>
+                <option value="https://server.sanime.net/Video2/4201/18.mp4">الموسم الخامس : الحلقة 18</option>
+                <option value="https://server.sanime.net/Video2/4201/19.mp4">الموسم الخامس : الحلقة 19</option>
+                <option value="https://server.sanime.net/Video2/4201/20.mp4">الموسم الخامس : الحلقة 20</option>
+                <option value="https://server.sanime.net/Video2/4201/21.mp4">الموسم الخامس : الحلقة 21</option>
+                <option value="https://server.sanime.net/Video2/4201/22.mp4">الموسم الخامس : الحلقة 22</option>
+                <option value="https://server.sanime.net/Video2/4201/23.mp4">الموسم الخامس : الحلقة 23</option>
+                <option value="https://server.sanime.net/Video2/4201/24.mp4">الموسم الخامس : الحلقة 24</option>
+                <option value="https://server.sanime.net/Video2/4201/25.mp4">الموسم الخامس : الحلقة 25</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/1.mp4">الموسم السادس : الحلقة 1</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/2.mp4">الموسم السادس : الحلقة 2</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/3.mp4">الموسم السادس : الحلقة 3</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/4.mp4">الموسم السادس : الحلقة 4</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/5.mp4">الموسم السادس : الحلقة 5</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/6.mp4">الموسم السادس : الحلقة 6</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/7.mp4">الموسم السادس : الحلقة 7</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/8.mp4">الموسم السادس : الحلقة 8</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/9.mp4">الموسم السادس : الحلقة 9</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/10.mp4">الموسم السادس : الحلقة 10</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/11.mp4">الموسم السادس : الحلقة 11</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/12.mp4">الموسم السادس : الحلقة 12</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/13.mp4">الموسم السادس : الحلقة 13</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/14.mp4">الموسم السادس : الحلقة 14</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/15.mp4">الموسم السادس : الحلقة 15</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/16.mp4">الموسم السادس : الحلقة 16</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/17.mp4">الموسم السادس : الحلقة 17</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/18.mp4">الموسم السادس : الحلقة 18</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/19.mp4">الموسم السادس : الحلقة 19</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/20.mp4">الموسم السادس : الحلقة 20</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/21.mp4">الموسم السادس : الحلقة 21</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/22.mp4">الموسم السادس : الحلقة 22</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/23.mp4">الموسم السادس : الحلقة 23</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/24.mp4">الموسم السادس : الحلقة 24</option>
+                <option value="https://server.sanime.net/Video2/latest/11146/25.mp4">الموسم السادس : الحلقة 25</option>
+                <option value="https://server.sanime.net/Video/11502/1.mp4">الموسم السابع : الحلقة 1</option>
+                <!-- Add more options for each episode with their respective URLs -->
+            </select>
+        </div>
+
+        <a href="../../Anime">رجوع</a> 
+    </div> 
+
+    <script>
+        function changeEpisode(videoUrl) {
+            var videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.src = videoUrl;
+        }
+    </script>
+</body> 
+</html>

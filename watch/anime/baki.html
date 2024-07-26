@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <title>Video Player with Quality Selector</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <style>
+        .plyr__control--settings {
+            position: relative;
+        }
+        .quality-selector {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none;
+            z-index: 10;
+        }
+        .quality-selector ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .quality-selector li {
+            padding: 8px;
+            cursor: pointer;
+        }
+        .quality-selector li:hover {
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <video id="player" controls>
+            <source src="https://server.sanime.net/Video3/3888/1.mp4" type="video/mp4">
+        </video>
+        <div class="plyr__control--settings">
+            <button type="button" id="quality-btn">جودة</button>
+            <div class="quality-selector" id="quality-menu">
+                <ul>
+                    <li data-src="https://server.sanime.net/Video3/3888/1.mp4">1080p</li>
+                    <li data-src="https://server.sanime.net/Video3/3888/1_720.mp4">720p</li>
+                    <li data-src="https://server.sanime.net/Video3/3888/1_360.mp4">360p</li>
+                </ul>
+            </div>
+        </div>
+        <h2></h2>
+        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
+        <a href="../../Anime">رجوع</a>
+    </div>
+
+    <script src="https://cdn.plyr.io/3.6.8/plyr.polyfilled.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('player');
+            const qualityBtn = document.getElementById('quality-btn');
+            const qualityMenu = document.getElementById('quality-menu');
+
+            // تهيئة Plyr
+            const player = new Plyr(video);
+
+            // فتح وإغلاق قائمة الجودة
+            qualityBtn.addEventListener('click', () => {
+                qualityMenu.style.display = qualityMenu.style.display === 'none' || !qualityMenu.style.display ? 'block' : 'none';
+            });
+
+            // تغيير الجودة عند اختيارها من القائمة
+            qualityMenu.addEventListener('click', (event) => {
+                const item = event.target.closest('li');
+                if (item) {
+                    const src = item.getAttribute('data-src');
+                    player.source = { type: 'video', sources: [{ src }] };
+                    player.play();
+                    qualityMenu.style.display = 'none'; // إغلاق القائمة بعد التبديل
+                }
+            });
+
+            // إخفاء القائمة عند النقر خارجها
+            document.addEventListener('click', (event) => {
+                if (!qualityMenu.contains(event.target) && !qualityBtn.contains(event.target)) {
+                    qualityMenu.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

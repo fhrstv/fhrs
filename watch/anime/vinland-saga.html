@@ -1,0 +1,205 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>فهرس</title> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon"> 
+    <style> 
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f0f0f0; 
+            margin: 0; 
+            padding: 0; 
+        } 
+ 
+        header { 
+            background-color: #333; 
+            color: hsl(0, 94%, 46%); 
+            text-align: center; 
+            padding: 10px; 
+        } 
+ 
+        .container { 
+            max-width: 800px; 
+            margin: 20px auto; 
+            padding: 20px; /* تم تقليل التباعد الداخلي للمحتوى */ 
+            background-color: #fff; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            text-align: center; /* توسيط النص */ 
+            font-size: 18px; 
+        } 
+
+        .episode-box {
+            width: 70%; /* تحديد عرض مربع الحلقات */
+            margin: 20px auto; /* توسيط مربع الحلقات */
+            background-color: #f9f9f9; /* لون خلفية مربع الحلقات */
+            padding: 10px; /* تباعد داخلي لمربع الحلقات */
+            border-radius: 10px; /* تدوير حواف مربع الحلقات */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* ظل لمربع الحلقات */
+        }
+
+        h1 { 
+            color: #ff0000; 
+        } 
+        h4{ 
+            size: 100%; ; 
+        } 
+ 
+        iframe {
+            width: 100%;
+            height: 400px;
+        }
+        ul { 
+            list-style-type: none; 
+            padding: 0; 
+        } 
+ 
+        li { 
+            margin: 10px 0; 
+            text-align: center; /* توسيط النص */ 
+        } 
+        a:hover { 
+            background-color: gold; 
+        } 
+        a { 
+            text-decoration: none; 
+            color: #333; 
+            display: block; 
+            padding: 20px; 
+            border-radius: 5px; 
+            background-color: red; 
+            transition: background-color 0.3s; /* تغيير لون الخلفية عند التحويل */ 
+        } 
+ 
+        p { 
+            text-align: justify; 
+        } 
+        video {
+            width: 100%;
+            height: auto;
+        }
+
+        .movie-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .movie-poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .movie-info {
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .movie-info p {
+            margin-bottom: 10px;
+        }
+
+        .movie-title {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .story-title {
+            font-weight: bold;
+            margin-right: 10px; /* مسافة بين العنوان والنص */
+        }
+        
+.story {
+    font-family: "Arial", sans-serif; /* أو أي خط يدعم العربية */
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: right; /* محاذاة النص لليمين */
+    direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
+    white-space: pre-wrap; /* الحفاظ على التباعد بين الأسطر */
+    overflow-wrap: break-word; /* كسر الكلمات الطويلة التي تتجاوز العرض */
+}
+
+    </style> 
+</head> 
+<body> 
+    <header> 
+        <h1>فهرس</h1> 
+    </header> 
+    <div class="container"> 
+        <video id="videoPlayer" controls>
+            <source src="https://server.sanime.net/Video3/3240/1.mp4" type="video/mp4">
+        </video>
+        <h2></h2> 
+        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
+
+        <div class="episode-box">
+            <select id="episodes" onchange="changeEpisode(this.value)">
+                <option value="https://server.sanime.net/Video3/3240/1.mp4">الموسم الاول : الحلقة 1</option>
+                <option value="https://server.sanime.net/Video3/3240/2.mp4">الموسم الاول : الحلقة 2</option>
+                <option value="https://server.sanime.net/Video3/3240/3.mp4">الموسم الاول : الحلقة 3</option>
+                <option value="https://server.sanime.net/Video3/3240/4.mp4">الموسم الاول : الحلقة 4</option>
+                <option value="https://server.sanime.net/Video3/3240/5.mp4">الموسم الاول : الحلقة 5</option>
+                <option value="https://server.sanime.net/Video3/3240/6.mp4">الموسم الاول : الحلقة 6</option>
+                <option value="https://server.sanime.net/Video3/3240/7.mp4">الموسم الاول : الحلقة 7</option>
+                <option value="https://server.sanime.net/Video3/3240/8.mp4">الموسم الاول : الحلقة 8</option>
+                <option value="https://server.sanime.net/Video3/3240/9.mp4">الموسم الاول : الحلقة 9</option>
+                <option value="https://server.sanime.net/Video3/3240/10.mp4">الموسم الاول : الحلقة 10</option>
+                <option value="https://server.sanime.net/Video3/3240/11.mp4">الموسم الاول : الحلقة 11</option>
+                <option value="https://server.sanime.net/Video3/3240/12.mp4">الموسم الاول : الحلقة 12</option>
+                <option value="https://server.sanime.net/Video3/3240/13.mp4">الموسم الاول : الحلقة 13</option>
+                <option value="https://server.sanime.net/Video3/3240/14.mp4">الموسم الاول : الحلقة 14</option>
+                <option value="https://server.sanime.net/Video3/3240/15.mp4">الموسم الاول : الحلقة 15</option>
+                <option value="https://server.sanime.net/Video3/3240/16.mp4">الموسم الاول : الحلقة 16</option>
+                <option value="https://server.sanime.net/Video3/3240/17.mp4">الموسم الاول : الحلقة 17</option>
+                <option value="https://server.sanime.net/Video3/3240/18.mp4">الموسم الاول : الحلقة 18</option>
+                <option value="https://server.sanime.net/Video3/3240/19.mp4">الموسم الاول : الحلقة 19</option>
+                <option value="https://server.sanime.net/Video3/3240/20.mp4">الموسم الاول : الحلقة 20</option>
+                <option value="https://server.sanime.net/Video3/3240/21.mp4">الموسم الاول : الحلقة 21</option>
+                <option value="https://server.sanime.net/Video3/3240/22.mp4">الموسم الاول : الحلقة 22</option>
+                <option value="https://server.sanime.net/Video3/3240/23.mp4">الموسم الاول : الحلقة 23</option>
+                <option value="https://server.sanime.net/Video3/3240/24.mp4">الموسم الاول : الحلقة 24</option>
+                <option value="https://server.sanime.net/Video/11228/1.mp4">الموسم الثاني : الحلقة 1</option>
+                <option value="https://server.sanime.net/Video/11228/2.mp4">الموسم الثاني : الحلقة 2</option>
+                <option value="https://server.sanime.net/Video/11228/3.mp4">الموسم الثاني : الحلقة 3</option>
+                <option value="https://server.sanime.net/Video/11228/4.mp4">الموسم الثاني : الحلقة 4</option>
+                <option value="https://server.sanime.net/Video/11228/5.mp4">الموسم الثاني : الحلقة 5</option>
+                <option value="https://server.sanime.net/Video/11228/6.mp4">الموسم الثاني : الحلقة 6</option>
+                <option value="https://server.sanime.net/Video/11228/7.mp4">الموسم الثاني : الحلقة 7</option>
+                <option value="https://server.sanime.net/Video/11228/8.mp4">الموسم الثاني : الحلقة 8</option>
+                <option value="https://server.sanime.net/Video/11228/9.mp4">الموسم الثاني : الحلقة 9</option>
+                <option value="https://server.sanime.net/Video/11228/10.mp4">الموسم الثاني : الحلقة 10</option>
+                <option value="https://server.sanime.net/Video/11228/11.mp4">الموسم الثاني : الحلقة 11</option>
+                <option value="https://server.sanime.net/Video/11228/12.mp4">الموسم الثاني : الحلقة 12</option>
+                <option value="https://server.sanime.net/Video/11228/13.mp4">الموسم الثاني : الحلقة 13</option>
+                <option value="https://server.sanime.net/Video/11228/14.mp4">الموسم الثاني : الحلقة 14</option>
+                <option value="https://server.sanime.net/Video/11228/15.mp4">الموسم الثاني : الحلقة 15</option>
+                <option value="https://server.sanime.net/Video/11228/16.mp4">الموسم الثاني : الحلقة 16</option>
+                <option value="https://server.sanime.net/Video/11228/17.mp4">الموسم الثاني : الحلقة 17</option>
+                <option value="https://server.sanime.net/Video/11228/18.mp4">الموسم الثاني : الحلقة 18</option>
+                <option value="https://server.sanime.net/Video/11228/19.mp4">الموسم الثاني : الحلقة 19</option>
+                <option value="https://server.sanime.net/Video/11228/20.mp4">الموسم الثاني : الحلقة 20</option>
+                <option value="https://server.sanime.net/Video/11228/21.mp4">الموسم الثاني : الحلقة 21</option>
+                <option value="https://server.sanime.net/Video/11228/22.mp4">الموسم الثاني : الحلقة 22</option>
+                <option value="https://server.sanime.net/Video/11228/23.mp4">الموسم الثاني : الحلقة 23</option>
+                <option value="https://server.sanime.net/Video/11228/24.mp4">الموسم الثاني : الحلقة 24</option>
+                <!-- Add more options for each episode with their respective URLs -->
+            </select>
+        </div>
+
+        <a href="../../Anime">رجوع</a> 
+    </div> 
+
+    <script>
+        function changeEpisode(videoUrl) {
+            var videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.src = videoUrl;
+        }
+    </script>
+</body> 
+</html>
