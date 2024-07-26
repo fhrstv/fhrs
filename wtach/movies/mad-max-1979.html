@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>فهرس</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        .movie-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .movie-poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .movie-info {
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .movie-info p {
+            margin-bottom: 10px;
+        }
+
+        .movie-title {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>فهرس</h1>
+</header>
+
+<div class="container">
+    <img id="moviePoster" class="movie-poster" src="" alt="Movie Poster">
+    <div id="movieInfo" class="movie-info"></div>
+    <div id="trailerContainer" class="trailer-container"></div> <!-- هنا يتم عرض الفيديو -->
+    <h2>مشاهدة الفيلم</h2>
+    <iframe src="https://vidsrc.me/embed/movie?imdb=tt0079501" frameborder="0" allowfullscreen></iframe>
+    <h3>اذا لم تظهر الترجمة العربية<br>[cc] اضغط على مربع  
+    <br>[ Arabic ] و اختار كلمة 
+    <br> و اختار الترجمة المناسبة ، قم بتغيير الترجمة اذا في تاخير او تسريع 
+    <br> اذا لم تجد الترجمة المناسبة وجميع الترجمات العربية متاخرة او مسرعة او السيرفر لا يعمل  أرجوك قم بنسخ الرابط وأرسله لنا بسرعة لتغييره  
+    <br>  من خلال الذهاب الى صفحة اتصل بنا
+        </h3>
+    
+    <a href="../../Movies">رجوع</a>
+</div>
+
+<script>
+    const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
+    const imdbMovieId = 'tt0079501'; // Example IMDb movie ID (Arabic movie "خط الموت")
+    const apiUrl = `https://api.themoviedb.org/3/find/${imdbMovieId}?api_key=${tmdbApiKey}&language=en&external_source=imdb_id`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const tmdbMovieId = data.movie_results[0].id;
+            const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=en`;
+
+            fetch(tmdbApiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const posterUrl = `https://image.tmdb.org/t/p/w500/${data.poster_path}`;
+                    document.getElementById('moviePoster').src = posterUrl;
+
+                    const movieInfo = `
+                        <h2 class="movie-title">${data.title}</h2>
+                        <div class="movie-details">
+                            <p><strong>Genre:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>IMDB:</strong> ${data.vote_average}/10</p>
+                            <p><strong>Story:</strong> ${data.overview}</p>
+                        </div>
+                    `;
+                    document.getElementById('movieInfo').innerHTML = movieInfo;
+
+                    // Fetch movie trailer
+                    const trailerUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}/videos?api_key=${tmdbApiKey}&language=en`;
+                    fetch(trailerUrl)
+                        .then(response => response.json())
+                        .then(data => {
+                            const trailerKey = data.results[0].key;
+                            const trailerEmbedUrl = `https://www.youtube.com/embed/${trailerKey}`;
+                            const trailerContainer = document.getElementById('trailerContainer');
+                            trailerContainer.innerHTML = `
+                                <h3>أعلان الفيلم</h3>
+                                <iframe width="560" height="315" src="${trailerEmbedUrl}" frameborder="0" allowfullscreen></iframe>
+                            `;
+                        })
+                        .catch(error => console.error('Error fetching movie trailer:', error));
+                })
+                .catch(error => console.error('Error fetching movie details:', error));
+        })
+        .catch(error => console.error('Error fetching movie ID from IMDb:', error));
+</script>
+</body>
+</html>
