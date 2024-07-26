@@ -287,6 +287,12 @@ function displayMediaDetails(apiUrl, type) {
         .catch(error => console.error('Error fetching media details:', error));
 }
 </script>
-   
+    <script>
+        function changeEpisode(videoUrl) {
+            var videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.src = videoUrl;
+        }
+    </script>
+
 </body> 
 </html>
