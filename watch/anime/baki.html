@@ -117,70 +117,27 @@
             border-radius: 10px; /* تدوير حواف مربع الحلقات */
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* ظل لمربع الحلقات */
         }
+        
+        /* تعديل iframe لجعل الفيديو من اليوتيوب أصغر */
 
 /* تعديل حجم مشغل الفيديو */
 video {
     width: 100%;
     max-height: 400px; /* ضبط الارتفاع الأقصى */
 }
-
-
-
-
-/* حاوية الفيديو */
-.video-container {
-    position: relative;
-    width: 100%;
-    max-width: 800px; /* تحديد عرض الحاوية حسب الحاجة */
-    height: 450px; /* تحديد ارتفاع الحاوية حسب الحاجة */
-    background: #000; /* خلفية داكنة للمربع */
-}
-
-/* صورة الغلاف أو المشهد الثابت */
-.video-thumbnail {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* زر التشغيل */
-.play-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px;
-    color: #fff;
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.5); /* خلفية نصف شفافة */
-    padding: 10px;
-    border-radius: 5px;
-}
-
-
-
-
-
-
-
     </style>
 </head>
 <body>
     <header>
         <h1>فهرس</h1>
     </header>
-    <div class="video-container">
-    <!-- صورة غلاف الفيديو -->
-    <img class="video-thumbnail" src="cover-image.jpg" alt="Video Thumbnail">
-    <!-- زر التشغيل -->
-    <div class="play-button" onclick="playVideo()">▶</div>
-    <!-- مشغل الفيديو -->
-</div>
-        <h2>شاهد الان</h2>
+    <div class="container">
+        <div id="movieInfo"></div>
+        <div id="trailerContainer"></div>
         <video id="videoPlayer" controls>
             <source src="https://server.sanime.net/Video3/3888/1.mp4" type="video/mp4">
         </video>
-        
+        <h2></h2>
         <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
         <div class="episode-box">
             <select id="episodes" onchange="changeEpisode(this.value)">
@@ -195,18 +152,18 @@ video {
         const mediaIds = ['tt12343534'];
 
         mediaIds.forEach(mediaId => {
-            const apiUrl = `https://api.themoviedb.org/3/find/${mediaId}?api_key=${tmdbApiKey}&language=ar&external_source=imdb_id`;
+            const apiUrl = `https://api.themoviedb.org/3/find/${mediaId}?api_key=${tmdbApiKey}&language=en&external_source=imdb_id`;
 
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
                     if (data.movie_results.length > 0) {
                         const tmdbMovieId = data.movie_results[0].id;
-                        const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=ar`;
+                        const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=en`;
                         displayMediaDetails(tmdbApiUrl, 'movie');
                     } else if (data.tv_results.length > 0) {
                         const tmdbTvId = data.tv_results[0].id;
-                        const tmdbApiUrl = `https://api.themoviedb.org/3/tv/${tmdbTvId}?api_key=${tmdbApiKey}&language=ar`;
+                        const tmdbApiUrl = `https://api.themoviedb.org/3/tv/${tmdbTvId}?api_key=${tmdbApiKey}&language=en`;
                         displayMediaDetails(tmdbApiUrl, 'tv');
                     } else {
                         console.error('No data found for media with ID:', mediaId);
@@ -225,9 +182,9 @@ video {
                         <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
                         <h2 class="movie-title">${data.title || data.name}</h2>
                         <div class="movie-details">
-                            <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
-                            <p><strong>التقييم:</strong> ${imdbRating}/10</p>
-                            <p><strong>القصة:</strong> <span class="story">${trimmedOverview}</span></p>
+                            <p><strong>Genre:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>IMDB:</strong> ${imdbRating}/10</p>
+                            <p><strong>Story:</strong> <span class="story">${trimmedOverview}</span></p>
                         </div>
                     `;
                     document.getElementById('movieInfo').innerHTML = mediaInfo;
