@@ -153,10 +153,10 @@ video {
     <div class="container">
         <div id="movieInfo"></div>
         <div id="trailerContainer"></div>
+        <h2>شاهد الآن</h2>
         <video id="videoPlayer" controls>
             <source src="https://server.sanime.net/Video3/3888/1.mp4" type="video/mp4">
         </video>
-        <h2></h2>
         <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
         <div class="episode-box">
             <select id="episodes" onchange="changeEpisode(this.value)">
@@ -218,7 +218,7 @@ video {
                                 const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
                                 const trailerContainer = document.getElementById('trailerContainer');
                                 trailerContainer.innerHTML = `
-                                    <h3>أعلان المسلسل</h3>
+                                    <h3>التريلر</h3>
                                     <iframe width="560" height="315" src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
                                 `;
                             } else {
