@@ -169,9 +169,13 @@ video {
     <header>
         <h1>فهرس</h1>
     </header>
-    <div class="container">
-        <div id="movieInfo"></div>
-        <div id="trailerContainer"></div>
+    <div class="video-container">
+    <!-- صورة غلاف الفيديو -->
+    <img class="video-thumbnail" src="cover-image.jpg" alt="Video Thumbnail">
+    <!-- زر التشغيل -->
+    <div class="play-button" onclick="playVideo()">▶</div>
+    <!-- مشغل الفيديو -->
+</div>
         <h2>شاهد الان</h2>
         <video id="videoPlayer" controls>
             <source src="https://server.sanime.net/Video3/3888/1.mp4" type="video/mp4">
