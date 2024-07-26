@@ -201,7 +201,10 @@ video {
                         <div class="movie-details">
                             <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
                             <p><strong>التقييم:</strong> ${imdbRating}/10</p>
-                            <p><strong>القصة:</strong> <span class="story">${trimmedOverview}</span></p>
+                            <div class="story-container">
+                            <div class="story-title">: القصة</div>
+                            <div class="story">${trimmedOverview}</div>
+                        </div>
                         </div>
                     `;
                     document.getElementById('movieInfo').innerHTML = mediaInfo;
