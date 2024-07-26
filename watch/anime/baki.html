@@ -14,7 +14,6 @@
     margin: 0;
     padding: 0;
     color: #000;
-    text-align: center; /* لتوسيط النص في الجسم */
 }
 
 header {
@@ -30,10 +29,10 @@ header {
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
     font-size: 18px;
     border-radius: 10px;
     overflow: hidden;
-    text-align: center; /* لتوسيط النص داخل .container */
 }
 
 iframe {
@@ -61,55 +60,11 @@ p {
     margin-bottom: 10px;
 }
 
-.episode-box {
-    width: 70%; /* تحديد عرض مربع الحلقات */
-    margin: 20px auto; /* توسيط مربع الحلقات */
-    background-color: #f9f9f9; /* لون خلفية مربع الحلقات */
-    padding: 10px; /* تباعد داخلي لمربع الحلقات */
-    border-radius: 10px; /* تدوير حواف مربع الحلقات */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* ظل لمربع الحلقات */
-}
-
-h1 { 
-    color: #ff0000; 
-} 
-
-h4 { 
-    size: 100%;
-}
-
-ul { 
-    list-style-type: none; 
-    padding: 0; 
-}
-
-li { 
-    margin: 10px 0; 
-    text-align: center; /* توسيط النص */ 
-}
-
-a { 
-    text-decoration: none; 
-    color: #333; 
-    display: block; 
-    padding: 20px; 
-    border-radius: 5px; 
-    background-color: red; 
-    transition: background-color 0.3s; /* تغيير لون الخلفية عند التحويل */ 
-}
-
-video {
-    width: 100%;
-    height: auto;
-    margin-bottom: 20px; /* إضافة مساحة أسفل الفيديو */
-}
-
 .movie-details {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px; /* إضافة مساحة أسفل التفاصيل */
-    margin-top: 20px; /* إضافة مساحة أعلى التفاصيل */
+    color: #000;
 }
 
 .movie-poster {
@@ -122,6 +77,7 @@ video {
 .movie-info {
     text-align: center;
     padding: 0 20px;
+    color: #000;
 }
 
 .movie-info p {
@@ -141,12 +97,17 @@ video {
 
 .story {
     font-family: "Arial", sans-serif; /* أو أي خط يدعم العربية */
-    font-size: 14px; /* تصغير حجم الخط */
+    font-size: 17px;
     line-height: 1.6;
     text-align: right; /* محاذاة النص لليمين */
     direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
     white-space: pre-wrap; /* الحفاظ على التباعد بين الأسطر */
     overflow-wrap: break-word; /* كسر الكلمات الطويلة التي تتجاوز العرض */
+    color: #000;
+}
+
+h2, h3, a {
+    color: #000; /* تغيير اللون إلى الأسود */
 }
     </style> 
 </head> 
