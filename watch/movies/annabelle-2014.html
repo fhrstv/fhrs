@@ -135,49 +135,88 @@
 
 <script>
     const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
-    const imdbMovieId = 'tt3322940'; // Example IMDb movie ID (Arabic movie "خط الموت")
-    const apiUrl = `https://api.themoviedb.org/3/find/${imdbMovieId}?api_key=${tmdbApiKey}&language=en&external_source=imdb_id`;
 
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            const tmdbMovieId = data.movie_results[0].id;
-            const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=en`;
+    // استخراج معرف الفيلم من iframe
+    function extractImdbIdFromIframe() {
+        const iframe = document.getElementById('movieIframe');
+        const src = iframe.src;
+        const match = src.match(/imdb=(tt\d+)/);
+        return match ? match[1] : null;
+    }
 
-            fetch(tmdbApiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const posterUrl = `https://image.tmdb.org/t/p/w500/${data.poster_path}`;
-                    document.getElementById('moviePoster').src = posterUrl;
+    const imdbId = extractImdbIdFromIframe();
+    if (imdbId) {
+        const apiUrl = `https://api.themoviedb.org/3/find/${imdbId}?api_key=${tmdbApiKey}&language=en&external_source=imdb_id`;
 
-                    const movieInfo = `
-                        <h2 class="movie-title">${data.title}</h2>
-                        <div class="movie-details">
-                            <p><strong>Genre:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
-                            <p><strong>IMDB:</strong> ${data.vote_average}/10</p>
-                            <p><strong>Story:</strong> ${data.overview}</p>
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.movie_results.length > 0) { 
+                    const tmdbMovieId = data.movie_results[0].id;
+                    const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=ar`;
+                    displayMediaDetails(tmdbApiUrl, 'movie');
+                } else if (data.tv_results.length > 0) { 
+                    const tmdbTvId = data.tv_results[0].id;
+                    const tmdbApiUrl = `https://api.themoviedb.org/3/tv/${tmdbTvId}?api_key=${tmdbApiKey}&language=ar`;
+                    displayMediaDetails(tmdbApiUrl, 'tv');
+                } else {
+                    console.error('No data found for media with ID:', imdbId);
+                }
+            })
+            .catch(error => console.error('Error fetching media details:', error));
+    } else {
+        console.error('No IMDb ID found in the iframe src.');
+    }
+
+    function displayMediaDetails(apiUrl, type) {
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const imdbRating = (Math.round(data.vote_average * 10) / 10).toFixed(1);
+                const trimmedOverview = data.overview ? data.overview.trim() : 'لا توجد تفاصيل.';
+                const releaseYear = data.release_date ? data.release_date.split('-')[0] : 'غير متوفر';
+                const mediaInfo = `
+                    <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
+                    <h2 class="movie-title">${data.title || data.name}</h2>
+                    <div class="movie-details">
+                        <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
+                        <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                        <p><strong>التقييم:</strong> ${imdbRating}/10</p>
+                        <div class="story-container">
+                            <div class="story-title">: القصة</div>
+                            <div class="story">${trimmedOverview}</div>
                         </div>
-                    `;
-                    document.getElementById('movieInfo').innerHTML = movieInfo;
+                    </div>
+                `;
+                document.getElementById('movieInfo').innerHTML = mediaInfo;
 
-                    // Fetch movie trailer
-                    const trailerUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}/videos?api_key=${tmdbApiKey}&language=en`;
-                    fetch(trailerUrl)
-                        .then(response => response.json())
-                        .then(data => {
-                            const trailerKey = data.results[0].key;
-                            const trailerEmbedUrl = `https://www.youtube.com/embed/${trailerKey}`;
+                const videoType = type === 'movie' ? 'movie' : 'tv';
+                const videoUrl = `https://api.themoviedb.org/3/${videoType}/${data.id}?api_key=${tmdbApiKey}&append_to_response=videos`;
+                fetch(videoUrl)
+                    .then(response => response.json())
+                    .then(videoData => {
+                        if (videoData.videos.results.length > 0) {
+                            const videoKey = videoData.videos.results[0].key;
+                            const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
                             const trailerContainer = document.getElementById('trailerContainer');
                             trailerContainer.innerHTML = `
-                                <h3>أعلان الفيلم</h3>
-                                <iframe width="560" height="315" src="${trailerEmbedUrl}" frameborder="0" allowfullscreen></iframe>
+                                <h3>التريلر</h3>
+                                <iframe src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
                             `;
-                        })
-                        .catch(error => console.error('Error fetching movie trailer:', error));
-                })
-                .catch(error => console.error('Error fetching movie details:', error));
-        })
-        .catch(error => console.error('Error fetching movie ID from IMDb:', error));
+                        } else {
+                            console.error('No video found for this media.');
+                            const trailerContainer = document.getElementById('trailerContainer');
+                            trailerContainer.innerHTML = '<p>لا يوجد إعلان متوفر لهذا الفيلم.</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching media video:', error);
+                        const trailerContainer = document.getElementById('trailerContainer');
+                        trailerContainer.innerHTML = '<p>حدث خطأ في تحميل الإعلان.</p>';
+                    });
+            })
+            .catch(error => console.error('Error fetching media details:', error));
+    }
 </script>
 </body>
 </html>
