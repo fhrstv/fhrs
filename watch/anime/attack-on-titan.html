@@ -63,7 +63,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #000;
         }
 
         .movie-poster {
@@ -76,7 +75,6 @@
         .movie-info {
             text-align: center;
             padding: 0 20px;
-            color: #000;
         }
 
         .movie-info p {
@@ -88,23 +86,23 @@
             font-size: 24px;
             margin-bottom: 10px;
         }
-
-        .story-title {
+        
+       .story-title {
             font-weight: bold;
             margin-right: 10px; /* مسافة بين العنوان والنص */
         }
 
-        .story {
-            font-family: "Arial", sans-serif; /* أو أي خط يدعم العربية */
-            font-size: 17px;
-            line-height: 1.6;
-            text-align: right; /* محاذاة النص لليمين */
-            direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
-            white-space: pre-wrap; /* الحفاظ على التباعد بين الأسطر */
-            overflow-wrap: break-word; /* كسر الكلمات الطويلة التي تتجاوز العرض */
-            color: #000;
-        }
-
+.story {
+    font-family: "Arial", sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: right;
+    direction: rtl;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    text-align-last: right; /* لضمان محاذاة النص في النهاية لليمين */
+    display: block; /* لجعل النص يظهر ككتلة مستقلة */
+}
         h2, h3, a {
             color: #000; /* تغيير اللون إلى الأسود */
         }
@@ -168,7 +166,7 @@ video {
     </div>
     <script>
         const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
-        const mediaIds = ['tt12343534'];
+        const mediaIds = ['tt16183464'];
 
         mediaIds.forEach(mediaId => {
             const apiUrl = `https://api.themoviedb.org/3/find/${mediaId}?api_key=${tmdbApiKey}&language=ar&external_source=imdb_id`;
@@ -197,13 +195,18 @@ video {
                 .then(data => {
                     const imdbRating = (Math.round(data.vote_average * 10) / 10).toFixed(1);
                     const trimmedOverview = data.overview.trim();
+                    const releaseYear = data.release_date ? data.release_date.split('-')[0] : 'غير متوفر';
                     const mediaInfo = `
                         <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
                         <h2 class="movie-title">${data.title || data.name}</h2>
                         <div class="movie-details">
+                            <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
                             <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
                             <p><strong>التقييم:</strong> ${imdbRating}/10</p>
-                            <p><strong>القصة:</strong> <span class="story">${trimmedOverview}</span></p>
+                            <div class="story-container">
+                            <div class="story-title">: القصة</div>
+                            <div class="story">${trimmedOverview}</div>
+                        </div>
                         </div>
                     `;
                     document.getElementById('movieInfo').innerHTML = mediaInfo;
