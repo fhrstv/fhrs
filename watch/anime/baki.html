@@ -118,19 +118,19 @@
         }
 
         #episodes, #quality {
-            width: 45%;
-            font-size: 18px;
-            padding: 10px;
-            height: 50px;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            direction: rtl;
-            text-align: center;
-            flex-direction: row-reverse;
-        }
+    width: 100%;
+    font-size: 18px;
+    padding: 10px;
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    direction: rtl;
+    text-align: center;
+    flex-direction: row-reverse;
+}
         
         /* تعديل iframe لجعل الفيديو من اليوتيوب أصغر */
 
@@ -155,15 +155,19 @@
         </video>
         <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
         <div class="episode-box">
-            <select id="episodes" onchange="changeEpisode()">
-                <option value="1.mp4">الموسم الاول : الحلقة 1</option>
-                <option value="2.mp4">الموسم الاول : الحلقة 2</option>
-            </select>
-            <select id="quality" onchange="changeEpisode()">
-                <option value="high">جودة عالية</option>
-                <option value="low">جودة منخفضة</option>
-            </select>
-        </div>
+    <select id="episodes" onchange="changeEpisode(this.value)">
+        <option value="1">الموسم الاول : الحلقة 1</option>
+        <option value="2">الموسم الاول : الحلقة 2</option>
+        <!-- أضف باقي الحلقات هنا -->
+    </select>
+</div>
+
+<div id="qualityOptions" style="display:none;">
+    <select id="quality" onchange="updateQuality(this.value)">
+        <option value="high">جودة عالية</option>
+        <option value="low">جودة منخفضة</option>
+    </select>
+</div>
         <a href="../../Anime">رجوع</a>
     </div>
     <script>
@@ -235,17 +239,21 @@
                 .catch(error => console.error('Error fetching media details:', error));
         }
 
-        function changeEpisode() {
-            var episodeSelect = document.getElementById("episodes");
-            var qualitySelect = document.getElementById("quality");
-            var episodeValue = episodeSelect.value;
-            var qualityValue = qualitySelect.value;
-            var baseUrl = "https://server.sanime.net/Video3/3888/";
-            
-            var videoUrl = baseUrl + qualityValue + "/" + episodeValue;
-            var videoPlayer = document.getElementById("videoPlayer");
-            videoPlayer.src = videoUrl;
-        }
+        function changeEpisode(episodeNumber) {
+    // عرض خيارات الجودة عند تغيير الحلقة
+    document.getElementById("qualityOptions").style.display = "block";
+    // تخزين رقم الحلقة المختارة
+    sessionStorage.setItem("selectedEpisode", episodeNumber);
+}
+
+function updateQuality(quality) {
+    // الحصول على رقم الحلقة المختارة من التخزين
+    var episodeNumber = sessionStorage.getItem("selectedEpisode");
+    var baseUrl = "https://server.sanime.net/Video3/3888/";
+    var videoUrl = baseUrl + quality + "/" + episodeNumber + ".mp4";
+    var videoPlayer = document.getElementById("videoPlayer");
+    videoPlayer.src = videoUrl;
+}
     </script>
 </body>
 </html>
