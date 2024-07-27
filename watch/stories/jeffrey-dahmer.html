@@ -16,200 +16,102 @@
     <script src=".htaccess" defer></script>
 
     <style>
-
-        /* الأسلوب العام للصفحة */
-
+        /* CSS محدث */
         body {
-
-            font-family: 'Tajawal', Arial, sans-serif;
-
-            background-image: url('background.jpg'); /* رابط الصورة الخلفية */
-
-            background-size: cover; /* لتغطية الشاشة بالكامل */
-
-            background-repeat: no-repeat; /* لعدم تكرار الصورة */
-
-            background-attachment: fixed; /* تجعل الصورة ثابتة عند التمرير */
-
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
             margin: 0;
-
             padding: 0;
-
         }
-
-    
-
-        /* ترويسة الموقع */
 
         header {
-
             background-color: #333;
-
             color: hsl(0, 94%, 46%);
-
             text-align: center;
-
             padding: 10px;
-
         }
 
-
-
-        /* عنوان الصفحة */
-
-        h1 {
-
-            margin: 0;
-
-        }
-
-
-
-        /* منطقة العرض للأفلام والمسلسلات */
-
-        .content {
-
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
             padding: 20px;
-
+            background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-            text-align: center; /* توسيط المحتوى */
-
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
-
-
-        /* قائمة لعرض الأفلام والمسلسلات */
-
-        .movie-list {
-
-            list-style-type: none;
-
-            padding: 0;
-
-            text-align: center; /* توسيط العناصر */
-
+        iframe {
+            width: 100%;
+            height: 400px;
         }
-
-
-
-        .movie-item {
-
-            margin: 10px;
-
-        }
-
-
-
-        /* المربعات الحمراء */
 
         a {
-
             text-decoration: none;
-
             color: #333;
-
             display: block;
-
             padding: 20px;
-
             border-radius: 5px;
-
             background-color: red;
-
             transition: background-color 0.3s;
-
-            font-size: 25px; /* تكبير حجم الخط داخل المربعات الحمراء */
-
+            margin-top: 20px;
         }
-
-
 
         a:hover {
-
             background-color: gold;
-
         }
 
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
 
+        .movie-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-        /* توسيط عنوان الأفلام والمسلسلات والانمي */
+        .movie-poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
 
-        h2 {
-
+        .movie-info {
             text-align: center;
-
+            padding: 0 20px;
         }
 
-
-
-        /* مربع البحث */
-
-        .search-box {
-
-            text-align: center;
-
-            margin-top: 20px;
-
+        .movie-info p {
+            margin-bottom: 10px;
         }
 
-
-
-        input[type="text"] {
-
-            padding: 10px;
-
-            border-radius: 5px;
-
-            border: 1px solid #ccc;
-
-            width: 100%; /* يمتلئ عرض الشاشة بالكامل */
-
-            max-width: 300px; /* حد أقصى لعرض المربع */
-
+        .movie-title {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 10px;
         }
-
-
-
-        input[type="submit"] {
-
-            background-color: #333;
-
-            color: #fff;
-
-            padding: 10px 20px;
-
-            border: none;
-
-            border-radius: 5px;
-
-            cursor: pointer;
-
+        
+        .story-title {
+            font-weight: bold;
+            margin-right: 10px; /* مسافة بين العنوان والنص */
         }
-
-
-
-        /* تعديل للشاشات الصغيرة (تقنية التجاوب) */
-
-        @media (max-width: 600px) {
-
-            h2 {
-
-                font-size: 24px; /* تصغير حجم العنوان للهواتف الصغيرة */
-
-            }
-
-            .search-box {
-
-                margin-top: 10px;
-
-            }
-
-        }
-
+        
+.story {
+    font-family: "Arial", sans-serif; /* أو أي خط يدعم العربية */
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: right; /* محاذاة النص لليمين */
+    direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
+    white-space: pre-wrap; /* الحفاظ على التباعد بين الأسطر */
+    overflow-wrap: break-word; /* كسر الكلمات الطويلة التي تتجاوز العرض */
+}
+        
     </style>
-
-    <!-- تضمين الخط العربي Tajawal -->
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap">
 
