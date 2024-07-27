@@ -117,7 +117,7 @@
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
         }
 
-        #episodes {
+        #episodes, #quality {
     width: 100%;
     font-size: 18px;
     padding: 10px;
@@ -154,13 +154,20 @@
             <source src="https://server.sanime.net/Video3/3888/high/1.mp4" type="video/mp4">
         </video>
         <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
-        <div class="episode-box">
-    <select id="episodes" onchange="changeEpisode(this.value)">
-        <option value="1-high">الموسم الاول : الحلقة 1 - جودة عالية</option>
-        <option value="1-low">الموسم الاول : الحلقة 1 - جودة منخفضة</option>
-        <option value="2-high">الموسم الاول : الحلقة 2 - جودة عالية</option>
-        <option value="2-low">الموسم الاول : الحلقة 2 - جودة منخفضة</option>
+       <div class="episode-box">
+    <select id="episodes" onchange="showQualityOptions(this.value)">
+        <option value="" disabled selected>اختر الحلقة</option>
+        <option value="1">الموسم الاول : الحلقة 1</option>
+        <option value="2">الموسم الاول : الحلقة 2</option>
         <!-- أضف باقي الحلقات هنا -->
+    </select>
+</div>
+
+<div class="episode-box" id="qualityOptions" style="display:none;">
+    <select id="quality" onchange="changeEpisode()">
+        <option value="" disabled selected>اختر الجودة</option>
+        <option value="high">جودة عالية</option>
+        <option value="low">جودة منخفضة</option>
     </select>
 </div>
 
@@ -235,8 +242,17 @@
                 .catch(error => console.error('Error fetching media details:', error));
         }
 
-        function changeEpisode(value) {
-    var [episodeNumber, quality] = value.split('-');
+        function showQualityOptions(episodeNumber) {
+    // عرض خيارات الجودة عند اختيار الحلقة
+    document.getElementById("qualityOptions").style.display = "block";
+    // تخزين رقم الحلقة المختارة
+    sessionStorage.setItem("selectedEpisode", episodeNumber);
+}
+
+function changeEpisode() {
+    // الحصول على رقم الحلقة والجودة المختارة من التخزين
+    var episodeNumber = sessionStorage.getItem("selectedEpisode");
+    var quality = document.getElementById("quality").value;
     var baseUrl = "https://server.sanime.net/Video3/3888/";
     var videoUrl = baseUrl + quality + "/" + episodeNumber + ".mp4";
     var videoPlayer = document.getElementById("videoPlayer");
