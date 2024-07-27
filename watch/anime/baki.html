@@ -117,7 +117,7 @@
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
         }
 
-        #episodes, #quality {
+        #episodes {
     width: 100%;
     font-size: 18px;
     padding: 10px;
@@ -156,18 +156,14 @@
         <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
         <div class="episode-box">
     <select id="episodes" onchange="changeEpisode(this.value)">
-        <option value="1">الموسم الاول : الحلقة 1</option>
-        <option value="2">الموسم الاول : الحلقة 2</option>
+        <option value="1-high">الموسم الاول : الحلقة 1 - جودة عالية</option>
+        <option value="1-low">الموسم الاول : الحلقة 1 - جودة منخفضة</option>
+        <option value="2-high">الموسم الاول : الحلقة 2 - جودة عالية</option>
+        <option value="2-low">الموسم الاول : الحلقة 2 - جودة منخفضة</option>
         <!-- أضف باقي الحلقات هنا -->
     </select>
 </div>
 
-<div id="qualityOptions" style="display:none;">
-    <select id="quality" onchange="updateQuality(this.value)">
-        <option value="high">جودة عالية</option>
-        <option value="low">جودة منخفضة</option>
-    </select>
-</div>
         <a href="../../Anime">رجوع</a>
     </div>
     <script>
@@ -239,21 +235,14 @@
                 .catch(error => console.error('Error fetching media details:', error));
         }
 
-        function changeEpisode(episodeNumber) {
-    // عرض خيارات الجودة عند تغيير الحلقة
-    document.getElementById("qualityOptions").style.display = "block";
-    // تخزين رقم الحلقة المختارة
-    sessionStorage.setItem("selectedEpisode", episodeNumber);
-}
-
-function updateQuality(quality) {
-    // الحصول على رقم الحلقة المختارة من التخزين
-    var episodeNumber = sessionStorage.getItem("selectedEpisode");
+        function changeEpisode(value) {
+    var [episodeNumber, quality] = value.split('-');
     var baseUrl = "https://server.sanime.net/Video3/3888/";
     var videoUrl = baseUrl + quality + "/" + episodeNumber + ".mp4";
     var videoPlayer = document.getElementById("videoPlayer");
     videoPlayer.src = videoUrl;
 }
+
     </script>
 </body>
 </html>
