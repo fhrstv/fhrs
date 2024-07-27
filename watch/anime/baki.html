@@ -92,56 +92,54 @@
             margin-right: 10px; /* مسافة بين العنوان والنص */
         }
 
-.story {
-    font-family: "Arial", sans-serif;
-    font-size: 17px;
-    line-height: 1.6;
-    text-align: right;
-    direction: rtl;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    text-align-last: right; /* لضمان محاذاة النص في النهاية لليمين */
-    display: block; /* لجعل النص يظهر ككتلة مستقلة */
-}
+        .story {
+            font-family: "Arial", sans-serif;
+            font-size: 17px;
+            line-height: 1.6;
+            text-align: right;
+            direction: rtl;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            text-align-last: right; /* لضمان محاذاة النص في النهاية لليمين */
+            display: block; /* لجعل النص يظهر ككتلة مستقلة */
+        }
+
         h2, h3, a {
             color: #000; /* تغيير اللون إلى الأسود */
         }
 
         .episode-box {
-    width: 80%;
-    margin: 20px auto;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-}
+            width: 80%;
+            margin: 20px auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
 
-#episodes {
-    width: 100%;
-    font-size: 18px;
-    padding: 10px;
-    height: 50px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    direction: rtl;
-    text-align: center;
-    flex-direction: row-reverse;
-}
-
-
+        #episodes, #quality {
+            width: 45%;
+            font-size: 18px;
+            padding: 10px;
+            height: 50px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            direction: rtl;
+            text-align: center;
+            flex-direction: row-reverse;
+        }
         
         /* تعديل iframe لجعل الفيديو من اليوتيوب أصغر */
 
-/* تعديل حجم مشغل الفيديو */
-video {
-    width: 100%;
-    max-height: 400px; /* ضبط الارتفاع الأقصى */
-    background-color: black;
-}
-
+        /* تعديل حجم مشغل الفيديو */
+        video {
+            width: 100%;
+            max-height: 400px; /* ضبط الارتفاع الأقصى */
+            background-color: black;
+        }
     </style>
 </head>
 <body>
@@ -153,13 +151,17 @@ video {
         <div id="trailerContainer"></div>
         <h2>شاهد الآن</h2>
         <video id="videoPlayer" controls>
-            <source src="https://server.sanime.net/Video3/3888/1.mp4" type="video/mp4">
+            <source src="https://server.sanime.net/Video3/3888/high/1.mp4" type="video/mp4">
         </video>
         <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
         <div class="episode-box">
-            <select id="episodes" onchange="changeEpisode(this.value)">
-                <option value="https://server.sanime.net/Video3/3888/1.mp4">الموسم الاول : الحلقة 1</option>
-                <option value="https://server.sanime.net/Video3/3888/2.mp4">الموسم الاول : الحلقة 2</option>
+            <select id="episodes" onchange="changeEpisode()">
+                <option value="1.mp4">الموسم الاول : الحلقة 1</option>
+                <option value="2.mp4">الموسم الاول : الحلقة 2</option>
+            </select>
+            <select id="quality" onchange="changeEpisode()">
+                <option value="high">جودة عالية</option>
+                <option value="low">جودة منخفضة</option>
             </select>
         </div>
         <a href="../../Anime">رجوع</a>
@@ -233,7 +235,14 @@ video {
                 .catch(error => console.error('Error fetching media details:', error));
         }
 
-        function changeEpisode(videoUrl) {
+        function changeEpisode() {
+            var episodeSelect = document.getElementById("episodes");
+            var qualitySelect = document.getElementById("quality");
+            var episodeValue = episodeSelect.value;
+            var qualityValue = qualitySelect.value;
+            var baseUrl = "https://server.sanime.net/Video3/3888/";
+            
+            var videoUrl = baseUrl + qualityValue + "/" + episodeValue;
             var videoPlayer = document.getElementById("videoPlayer");
             videoPlayer.src = videoUrl;
         }
