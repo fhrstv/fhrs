@@ -1,5 +1,3 @@
-// random.js
-
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('randomButton').addEventListener('click', function() {
         // قائمة الروابط
