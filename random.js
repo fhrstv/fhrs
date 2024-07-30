@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
         randomButton.addEventListener('click', function() {
             console.log("Random button clicked");
 
-            // قائمة الروابط
+            // قائمة الروابط مع روابط اختبارية أخرى
             const links = [
-                'watch/movies/2012',
+                'watch/movies/2012',  // تأكد من أن هذا الرابط صحيح
                 'watch/series/11-22-63',
                 'watch/series/1899'
             ];
