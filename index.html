@@ -160,10 +160,14 @@
         }
         
         /* افترض أن العرض والطول هما 200px و 100px على التوالي */
+/* تأكد من أن الحاوية لها عرض كافٍ لتوسيط العناصر بداخلها */
+
+
+/* خصائص الزر العشوائي */
 #randomButton {
     text-decoration: none;
     color: #333;
-    display: flex;
+    display: inline-flex; /* استخدم inline-flex لضبط العنصر في منتصف الحاوية */
     align-items: center; /* توسيط النص عموديًا */
     justify-content: center; /* توسيط النص أفقيًا */
     padding: 20px;
@@ -171,7 +175,7 @@
     background-color: red;
     transition: background-color 0.3s;
     font-size: 25px; /* تكبير حجم الخط داخل المربع */
-    margin: 10px; /* لمحاذاة مع المربعات الأخرى */
+    margin: 20px auto; /* لتوسيط الزر في الحاوية */
     font-family: Arial, sans-serif; /* استخدم نفس الخط */
     text-align: center; /* لتوسيط النص أفقيًا */
     width: 200px; /* تأكد من مطابقته مع عرض باقي المربعات */
