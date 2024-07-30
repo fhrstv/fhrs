@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('randomButton').addEventListener('click', function() {
         // قائمة الروابط
         const links = [
-            'Anime',
-            'Series',
-            'Movies',
+            'Anime.html',
+            'Series.html',
+            'Movies.html',
             
         ];
 
