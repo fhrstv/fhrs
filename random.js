@@ -7,19 +7,43 @@ document.addEventListener('DOMContentLoaded', function() {
         randomButton.addEventListener('click', function() {
             console.log("Random button clicked");
 
-            // قائمة الروابط مع روابط اختبارية أخرى
-            const links = [
-                'watch/movies/2012',  // تأكد من أن هذا الرابط صحيح
-                'watch/series/11-22-63',
-                'watch/series/1899'
-            ];
+            // إرسال طلب لجلب محتوى صفحة "Movies"
+            fetch('Movies')
+                .then(response => response.text())
+                .then(text => {
+                    // تحليل النص للحصول على الروابط
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(text, 'text/html');
+                    const movieLinks = Array.from(doc.querySelectorAll('a'))
+                        .map(a => a.href)
+                        .filter(href => href.startsWith('watch/movies'));
 
-            // اختيار رابط عشوائي
-            const randomLink = links[Math.floor(Math.random() * links.length)];
-            console.log("Navigating to: " + randomLink);
+                    // إرسال طلب لجلب محتوى صفحة "Series"
+                    return fetch('Series')
+                        .then(response => response.text())
+                        .then(text => {
+                            // تحليل النص للحصول على الروابط
+                            const doc = parser.parseFromString(text, 'text/html');
+                            const seriesLinks = Array.from(doc.querySelectorAll('a'))
+                                .map(a => a.href)
+                                .filter(href => href.startsWith('watch/series'));
 
-            // الانتقال إلى الرابط العشوائي
-            window.location.href = randomLink;
+                            // دمج الروابط من الصفحتين
+                            const allLinks = [...movieLinks, ...seriesLinks];
+
+                            // اختيار رابط عشوائي
+                            if (allLinks.length > 0) {
+                                const randomLink = allLinks[Math.floor(Math.random() * allLinks.length)];
+                                console.log("Navigating to: " + randomLink);
+
+                                // الانتقال إلى الرابط العشوائي
+                                window.location.href = randomLink;
+                            } else {
+                                console.error("No valid links found.");
+                            }
+                        });
+                })
+                .catch(error => console.error('Error fetching pages:', error));
         });
     } else {
         console.error("Random button not found");
