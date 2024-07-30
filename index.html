@@ -167,19 +167,16 @@
 #randomButton {
     text-decoration: none;
     color: #333;
-    display: inline-flex; /* استخدم inline-flex لضبط العنصر في منتصف الحاوية */
-    align-items: center; /* توسيط النص عموديًا */
-    justify-content: center; /* توسيط النص أفقيًا */
+    display: block;
     padding: 20px;
     border-radius: 5px;
     background-color: red;
     transition: background-color 0.3s;
     font-size: 25px; /* تكبير حجم الخط داخل المربع */
-    margin: 20px auto; /* لتوسيط الزر في الحاوية */
-    font-family: Arial, sans-serif; /* استخدم نفس الخط */
     text-align: center; /* لتوسيط النص أفقيًا */
-    width: 200px; /* تأكد من مطابقته مع عرض باقي المربعات */
-    height: 100px; /* تأكد من مطابقته مع ارتفاع باقي المربعات */
+    width: 100%; /* جعل العرض يتناسب مع الحاوية */
+    max-width: 200px; /* تأكد من أن العرض لا يتجاوز 200px */
+    margin: 10px auto; /* توسيط الزر */
 }
 
 #randomButton:hover {
