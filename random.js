@@ -9,7 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // إرسال طلب لجلب محتوى صفحة "Movies"
             fetch('Movies')
-                .then(response => response.text())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok for Movies');
+                    }
+                    return response.text();
+                })
                 .then(text => {
                     // تحليل النص للحصول على الروابط
                     const parser = new DOMParser();
@@ -18,15 +23,24 @@ document.addEventListener('DOMContentLoaded', function() {
                         .map(a => a.href)
                         .filter(href => href.startsWith('watch/movies'));
 
+                    console.log('Movie links:', movieLinks);
+
                     // إرسال طلب لجلب محتوى صفحة "Series"
                     return fetch('Series')
-                        .then(response => response.text())
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok for Series');
+                            }
+                            return response.text();
+                        })
                         .then(text => {
                             // تحليل النص للحصول على الروابط
                             const doc = parser.parseFromString(text, 'text/html');
                             const seriesLinks = Array.from(doc.querySelectorAll('a'))
                                 .map(a => a.href)
                                 .filter(href => href.startsWith('watch/series'));
+
+                            console.log('Series links:', seriesLinks);
 
                             // دمج الروابط من الصفحتين
                             const allLinks = [...movieLinks, ...seriesLinks];
@@ -41,9 +55,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             } else {
                                 console.error("No valid links found.");
                             }
-                        });
+                        })
+                        .catch(error => console.error('Error fetching Series page:', error));
                 })
-                .catch(error => console.error('Error fetching pages:', error));
+                .catch(error => console.error('Error fetching Movies page:', error));
         });
     } else {
         console.error("Random button not found");
