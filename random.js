@@ -9,10 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // قائمة الروابط
             const links = [
-                'watch/movies-2012',
+                'watch/movies/2012',
                 'watch/series/11-22-63',
-                'watch/series/1899',
-                
+                'watch/series/1899'
             ];
 
             // اختيار رابط عشوائي
