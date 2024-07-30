@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // قائمة الروابط
             const links = [
-                'Movies',
-                'Anime',
-                'Series',
+                'watch/movies-2012',
+                'watch/series/11-22-63',
+                'watch/series/1899',
                 
             ];
 
