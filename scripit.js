@@ -71,3 +71,36 @@ document.getElementById("nextNewsButton").addEventListener("click", function () 
 
 
 
+document.getElementById('randomButton').addEventListener('click', getRandomTitle);
+
+function getRandomTitle() {
+    const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // مفتاح API الخاص بك
+    const page = Math.floor(Math.random() * 500) + 1; // TMDB يحتوي على 500 صفحة من الأفلام
+
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&page=${page}`)
+        .then(response => response.json())
+        .then(data => {
+            const results = data.results;
+            const randomIndex = Math.floor(Math.random() * results.length);
+            const randomMovie = results[randomIndex];
+            
+            displayResult(randomMovie);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function displayResult(movie) {
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = `
+        <h2>${movie.title}</h2>
+        <p>${movie.overview}</p>
+        <p>Release Date: ${movie.release_date}</p>
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} Poster">
+    `;
+}
+
+
+
+
+
+
