@@ -141,27 +141,26 @@
         <div id="movieInfo"></div>
         <div id="trailerContainer"></div>
         <h2>شاهد الآن</h2>
-        <div id="videoContainer">
-            <iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
-        <div class="episode-box">
-            <select id="episodes" onchange="changeEpisode(this.value)">
-                <option value="">اختر حلقة</option>
-                <option value="https://vk.com/video760598098_456251010?from=video">الحلقة 1</option>
-                <option value="https://vk.com/video760598098_456251011?from=video">الحلقة 2</option>
-                <option value="https://vk.com/video760598098_456251012?from=video">الحلقة 3</option>
-                <!-- المزيد من الخيارات -->
-            </select>
-        </div>
+        <!-- إزالة عنصر videoPlayer -->
+<div id="videoContainer">
+    <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<!-- تعديل قائمة الحلقات -->
+<select id="episodes" onchange="changeEpisode(this.value)">
+    <option value="">اختر حلقة</option>
+    <option value="https://vk.com/video760598098_456251010?from=video">الحلقة 1</option>
+    <option value="https://vk.com/video760598098_456251011?from=video">الحلقة 2</option>
+    <!-- المزيد من الخيارات -->
+</select>
+
        <a href="../../Series">رجوع</a>
     </div>
     <script>
-        function changeEpisode(videoUrl) {
-            var videoPlayer = document.getElementById("videoPlayer");
-            // استخدم الرابط كـ src للـ iframe
-            videoPlayer.src = videoUrl ? videoUrl : '';
-        }
-    </script>
+    function changeEpisode(videoUrl) {
+        var videoFrame = document.getElementById("videoFrame");
+        videoFrame.src = videoUrl ? videoUrl : '';
+    }
+</script>
 </body>
 </html>
