@@ -10,16 +10,38 @@
             height: 360px;
             border: none;
         }
-        /* قد تحتاج إلى تعديل هذا الجزء بناءً على البنية الحقيقية لعناصر الفيديو */
         .vk-embed .videoname,
         .vk-embed .video-title {
             display: none;
+        }
+        .episode-box {
+            margin-top: 20px;
+            text-align: center;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
     <div class="vk-embed">
-        <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=somehashvalue" allowfullscreen></iframe>
+        <iframe id="videoFrame" src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=somehashvalue" allowfullscreen></iframe>
     </div>
+    <div class="episode-box">
+        <select id="episodes" onchange="changeEpisode(this.value)">
+            <option value="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=somehashvalue">الحلقة 1</option>
+            <option value="https://vk.com/video_ext.php?oid=760598098&id=456251011&hash=somehashvalue">الحلقة 2</option>
+            <option value="https://vk.com/video_ext.php?oid=760598098&id=456251012&hash=somehashvalue">الحلقة 3</option>
+            <!-- أضف المزيد من الحلقات هنا -->
+        </select>
+    </div>
+
+    <script>
+        function changeEpisode(videoUrl) {
+            var videoFrame = document.getElementById("videoFrame");
+            videoFrame.src = videoUrl;
+        }
+    </script>
 </body>
 </html>
