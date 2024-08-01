@@ -93,7 +93,7 @@
         const releaseDate = data.release_date || data.first_air_date || "تاريخ الإصدار غير متوفر";
 
         document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
-        document.getElementById("overview").innerHTML = overview;
+        document.getElementById("overview").innerHTML = `القصة: ${overview}`;
         document.getElementById("poster").src = posterPath;
         document.getElementById("genres").innerHTML = `النوع: ${genres}`;
         document.getElementById("release-date").innerHTML = `تاريخ الإصدار: ${releaseDate}`;
