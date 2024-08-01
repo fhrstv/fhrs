@@ -10,40 +10,39 @@
 
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // ضع هنا مفتاح API الخاص بك
-        const contentType = 'tv'; // اختر 'movie' للأفلام و 'tv' للمسلسلات
         const contentId = 84250; // استبدل برمز الفيلم أو المسلسل
 
-        let url = '';
+        const movieUrl = `https://api.themoviedb.org/3/movie/${contentId}?api_key=${apiKey}&language=ar`;
+        const tvUrl = `https://api.themoviedb.org/3/tv/${contentId}?api_key=${apiKey}&language=ar`;
 
-        if (contentType === 'movie') {
-            url = `https://api.themoviedb.org/3/movie/${contentId}?api_key=${apiKey}&language=ar`;
-        } else if (contentType === 'tv') {
-            url = `https://api.themoviedb.org/3/tv/${contentId}?api_key=${apiKey}&language=ar`;
-        } else {
-            document.getElementById('result').textContent = 'نوع المحتوى غير معروف';
-            throw new Error('نوع المحتوى غير معروف');
-        }
-
-        fetch(url)
+        // محاولة جلب بيانات الفيلم أولاً
+        fetch(movieUrl)
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('الرمز غير صحيح أو غير موجود');
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('فيلم غير موجود، محاولة لجلب المسلسل...');
                 }
-                return response.json();
             })
             .then(data => {
-                let title = '';
-
-                if (contentType === 'movie') {
-                    title = data.title || 'عنوان غير متاح';
-                } else if (contentType === 'tv') {
-                    title = data.name || 'عنوان غير متاح';
-                }
-
-                document.getElementById('result').textContent = `العنوان: ${title}`;
+                document.getElementById('result').textContent = `العنوان: ${data.title}`;
             })
-            .catch(error => {
-                document.getElementById('result').textContent = error.message;
+            .catch(() => {
+                // محاولة جلب بيانات المسلسل إذا لم يكن الفيلم موجودًا
+                fetch(tvUrl)
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error('المحتوى غير موجود');
+                        }
+                    })
+                    .then(data => {
+                        document.getElementById('result').textContent = `العنوان: ${data.name}`;
+                    })
+                    .catch(error => {
+                        document.getElementById('result').textContent = error.message;
+                    });
             });
     </script>
 </body>
