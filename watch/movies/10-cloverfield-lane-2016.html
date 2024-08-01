@@ -7,24 +7,33 @@
     <style>
 
     .vk-embed {
-        width: 100%; /* عرض المشغل بالكامل بناءً على عرض الصفحة */
-        max-width: 500px; /* عرض المشغل في الوضع الأفقي */
-        height: auto; /* الارتفاع تلقائي بناءً على العرض */
-        margin: 0 auto; /* توسيط المشغل أفقياً */
         position: relative;
+        width: 100%;
+        height: auto;
+        max-width: 500px; /* أقصى عرض في الوضع الأفقي */
+        margin: 0 auto; /* توسيط المشغل أفقياً */
     }
 
     .vk-embed iframe {
         width: 100%;
         height: 100%;
+        border: none;
+        display: block;
     }
 
-    @media (max-aspect-ratio: 500/300) {
+    @media (orientation: portrait) {
         .vk-embed {
             max-width: 100%; /* تعديل العرض في الوضع العمودي */
-            height: auto;
+            aspect-ratio: 4 / 3; /* نسبة العرض إلى الارتفاع في الوضع العمودي */
         }
     }
+
+    @media (orientation: landscape) {
+        .vk-embed {
+            aspect-ratio: 5 / 3; /* نسبة العرض إلى الارتفاع في الوضع الأفقي */
+        }
+    }
+
 
 
 
