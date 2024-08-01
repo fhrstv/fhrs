@@ -8,22 +8,22 @@
         .vk-embed {
     position: relative;
     width: 100%;
-    max-width: 800px; /* ضبط العرض الأقصى حسب الحاجة */
+    max-width: 800px; /* يمكن تعديلها حسب الحاجة */
     margin: auto;
     padding-bottom: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
     background: #000; /* لون الخلفية */
-    overflow: hidden;
+    overflow: hidden; /* لتجنب التمرير */
 }
 
 .vk-embed iframe {
-    display: block;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border: none;
-}       
+    display: block;
+}
                         
                                 
                                         
