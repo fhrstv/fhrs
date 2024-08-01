@@ -186,7 +186,7 @@ a {
         document.getElementById("rating").innerHTML = `التقييم: ${rating}`;
 
         // جلب التريلر
-        fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`)
+        return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`)
     .then(response => response.json())
     .then(data => {
         console.log(data);
