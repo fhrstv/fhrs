@@ -6,14 +6,12 @@
     <title>تضمين فيديو VK</title>
     <style>
 
-    
     .vk-embed {
+        position: relative;
         width: 100%;
         max-width: 414px; /* عرض الفريم */
         margin: auto;
-        position: relative;
-        overflow: hidden;
-        padding-top: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
+        padding-top: calc(414px * 9 / 16); /* نسبة العرض إلى الارتفاع 16:9 */
     }
 
     .vk-embed iframe {
@@ -24,6 +22,7 @@
         height: 100%;
         border: none;
     }
+
 
 
 
