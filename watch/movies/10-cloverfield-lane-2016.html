@@ -10,9 +10,21 @@
 
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // ضع هنا مفتاح API الخاص بك
-        const movieId = 84250; // استبدل برمز الفيلم العربي الذي تود التحقق منه
+        const contentType = 'movie'; // اختر 'movie' للأفلام و 'tv' للمسلسلات
+        const contentId = 73791; // استبدل برمز الفيلم أو المسلسل
 
-        fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=ar`)
+        let url = '';
+
+        if (contentType === 'movie') {
+            url = `https://api.themoviedb.org/3/movie/${contentId}?api_key=${apiKey}&language=ar`;
+        } else if (contentType === 'tv') {
+            url = `https://api.themoviedb.org/3/tv/${contentId}?api_key=${apiKey}&language=ar`;
+        } else {
+            document.getElementById('result').textContent = 'نوع المحتوى غير معروف';
+            throw new Error('نوع المحتوى غير معروف');
+        }
+
+        fetch(url)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('الرمز غير صحيح أو غير موجود');
@@ -20,7 +32,15 @@
                 return response.json();
             })
             .then(data => {
-                document.getElementById('result').textContent = `العنوان: ${data.title}`;
+                let title = '';
+
+                if (contentType === 'movie') {
+                    title = data.title;
+                } else if (contentType === 'tv') {
+                    title = data.name;
+                }
+
+                document.getElementById('result').textContent = `العنوان: ${title}`;
             })
             .catch(error => {
                 document.getElementById('result').textContent = error.message;
