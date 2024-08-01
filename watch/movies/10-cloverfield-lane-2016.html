@@ -15,35 +15,23 @@
         const movieUrl = `https://api.themoviedb.org/3/movie/${contentId}?api_key=${apiKey}&language=ar`;
         const tvUrl = `https://api.themoviedb.org/3/tv/${contentId}?api_key=${apiKey}&language=ar`;
 
-        // محاولة جلب بيانات الفيلم أولاً
-        fetch(movieUrl)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('فيلم غير موجود، محاولة لجلب المسلسل...');
-                }
-            })
-            .then(data => {
-                document.getElementById('result').textContent = `العنوان: ${data.title}`;
-            })
-            .catch(() => {
-                // محاولة جلب بيانات المسلسل إذا لم يكن الفيلم موجودًا
-                fetch(tvUrl)
-                    .then(response => {
-                        if (response.ok) {
-                            return response.json();
-                        } else {
-                            throw new Error('المحتوى غير موجود');
-                        }
-                    })
-                    .then(data => {
-                        document.getElementById('result').textContent = `العنوان: ${data.name}`;
-                    })
-                    .catch(error => {
-                        document.getElementById('result').textContent = error.message;
-                    });
-            });
+        // إنشاء الطلبين للحصول على البيانات من كلا النوعين
+        Promise.all([
+            fetch(movieUrl).then(response => response.json().catch(() => null)),
+            fetch(tvUrl).then(response => response.json().catch(() => null))
+        ])
+        .then(([movieData, tvData]) => {
+            if (movieData && movieData.title) {
+                document.getElementById('result').textContent = `العنوان: ${movieData.title}`;
+            } else if (tvData && tvData.name) {
+                document.getElementById('result').textContent = `العنوان: ${tvData.name}`;
+            } else {
+                document.getElementById('result').textContent = 'المحتوى غير موجود';
+            }
+        })
+        .catch(error => {
+            document.getElementById('result').textContent = 'حدث خطأ: ' + error.message;
+        });
     </script>
 </body>
 </html>
