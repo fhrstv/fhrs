@@ -28,6 +28,10 @@
             height: 270px; /* يمكنك تعديل الارتفاع حسب الحاجة */
             border: none;
         }
+        h2 {
+            text-align: center;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -35,12 +39,12 @@
         <h1>فهرس</h1>
     </header>
 
-    <h2 style="text-align:center;">شاهد الآن</h2>
+    <h2>شاهد الآن</h2>
     <div class="vk-embed" id="vk-player">
         <!-- سيتم إدراج iframe هنا عبر JavaScript -->
     </div>
 
-    <h2 style="text-align:center;">التريلر</h2>
+    <h2>التريلر</h2>
     <div id="trailer">
         <!-- سيتم إدراج التريلر هنا عبر JavaScript -->
     </div>
@@ -50,6 +54,7 @@
         const vkPlayer = document.getElementById('vk-player');
         vkPlayer.innerHTML = `
             <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=&hd=2"
+                    frameborder="0"
                     allowfullscreen
                     webkitallowfullscreen
                     mozallowfullscreen
