@@ -7,11 +7,11 @@
     <style>
         .vk-embed {
             position: relative;
-            padding-bottom: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
+            width: 100%;
+            max-width: 640px; /* الحجم الأقصى للفيديو */
+            margin: auto; /* لتوسيط الفيديو */
             height: 0;
-            overflow: hidden;
-            max-width: 100%;
-            background: #000;
+            padding-bottom: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
         }
 
         .vk-embed iframe {
