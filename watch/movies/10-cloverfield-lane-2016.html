@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مشغل الفيديو الخاص بي</title>
+    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -13,17 +14,19 @@
             margin: 0;
             background: #f0f0f0;
         }
-        video {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #ccc;
+        .video-container {
+            max-width: 80%;
+            max-height: 80%;
         }
     </style>
 </head>
 <body>
-    <video controls>
-        <source src="https://m.vk.com/video760598098_456251010?from=video" type="video/mp4">
-        متصفحك لا يدعم تشغيل الفيديو.
-    </video>
+    <div class="video-container">
+        <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
+            <source src="رابط_الفيديو_المباشر" type="video/mp4">
+            <p class="vjs-no-js">لتشغيل الفيديو، يرجى تمكين JavaScript في متصفحك.</p>
+        </video>
+    </div>
+    <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
 </body>
 </html>
