@@ -18,26 +18,28 @@
 
   <script>
     const apiKey = "cf64a661774f647b7513facb9f1e55e5";
-    const mediaId = 84250; // or any other ID
+const mediaId = 84250; // or any other ID
 
-    fetch(`https://api.themoviedb.org/3/${mediaId}?api_key=${apiKey}&language=ar`)
-      .then(response => response.json())
-      .then(data => {
-        if (data.media_type === "movie") {
-          // it's a movie
-          document.getElementById("title").innerHTML = data.title;
-          document.getElementById("poster").src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
-          document.getElementById("overview").innerHTML = data.overview;
-        } else if (data.media_type === "tv") {
-          // it's a TV show
-          document.getElementById("title").innerHTML = data.name;
-          document.getElementById("poster").src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
-          document.getElementById("overview").innerHTML = data.summary;
-        } else {
-          console.log("Unknown media type");
-        }
-      })
-      .catch(error => console.error(error));
+fetch(`https://api.themoviedb.org/3/find/${mediaId}?api_key=${apiKey}&language=ar`)
+  .then(response => response.json())
+  .then(data => {
+    if (data.movie_results.length > 0) {
+      // it's a movie
+      const movie = data.movie_results[0];
+      document.getElementById("title").innerHTML = movie.title;
+      document.getElementById("poster").src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+      document.getElementById("overview").innerHTML = movie.overview;
+    } else if (data.tv_results.length > 0) {
+      // it's a TV show
+      const tvShow = data.tv_results[0];
+      document.getElementById("title").innerHTML = tvShow.name;
+      document.getElementById("poster").src = `https://image.tmdb.org/t/p/w500${tvShow.poster_path}`;
+      document.getElementById("overview").innerHTML = tvShow.summary;
+    } else {
+      console.log("Unknown media type");
+    }
+  })
+  .catch(error => console.error(error));
   </script>
 </body>
 </html>
