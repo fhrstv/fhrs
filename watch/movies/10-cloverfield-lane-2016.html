@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تضمين فيديو VK</title>
+    <title>صفحة متناسقة</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,41 +11,41 @@
             margin: 0;
             padding: 0;
             color: #000;
-            text-align: center; /* توسيط النصوص بشكل عام */
+            text-align: center;
         }
 
         header {
             background-color: #333;
-            color: hsl(0, 94%, 46%);
+            color: #fff;
             padding: 10px;
         }
 
         .vk-embed {
-    width: 100%; /* عرض المشغل بالكامل بناءً على عرض الصفحة */
-    max-width: 560px; /* عرض أقصى للمشغل مشابه ليوتيوب */
-    height: auto; /* الطول يعتمد على نسبة العرض إلى الارتفاع */
-    margin: 20px auto; /* توسيط المشغل أفقياً */
-    position: relative;
-}
+            width: 100%;
+            max-width: 560px; /* أقصى عرض للمشغل */
+            height: auto;
+            margin: 20px auto;
+            position: relative;
+        }
 
-.vk-embed::before {
-    content: "";
-    display: block;
-    padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) */
-}
+        .vk-embed::before {
+            content: "";
+            display: block;
+            padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) */
+        }
 
-.vk-embed iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
+        .vk-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
         .episode-box {
             width: 80%;
-            max-width: 500px; /* أقصى عرض للصندوق */
+            max-width: 560px;
             margin: 20px auto;
             background-color: #f9f9f9;
             padding: 20px;
@@ -56,15 +56,15 @@
         select {
             padding: 10px;
             font-size: 16px;
-            width: 100%; /* يجعل القائمة تمتد لعرض الحاوية */
+            width: 100%;
             box-sizing: border-box;
         }
 
         a {
             text-decoration: none;
-            color: #fff; /* لون النص */
+            color: #fff;
             display: inline-block;
-            padding: 15px 30px; /* حجم الزر */
+            padding: 15px 30px;
             border-radius: 5px;
             background-color: red;
             transition: background-color 0.3s;
@@ -74,6 +74,28 @@
         a:hover {
             background-color: gold;
             color: #333;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .episode-box {
+                width: 90%;
+            }
+
+            .vk-embed {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .episode-box {
+                width: 95%;
+                padding: 10px;
+            }
+
+            a {
+                padding: 10px 20px;
+            }
         }
     </style>
 </head>
