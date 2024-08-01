@@ -1,1 +1,156 @@
-<iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=6e203967347bcf14" width="640" height="360" frameborder="0" allowfullscreen="1" allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معلومات الفيلم أو المسلسل</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff; /* خلفية الصفحة بيضاء */
+            margin: 0;
+            padding: 0;
+            color: #000;
+            text-align: center;
+        }
+
+        header {
+            background-color: #777; /* لون الهيدر رصاصي */
+            color: red; /* لون كلمة فهرس أحمر */
+            text-align: center;
+            padding: 10px;
+        }
+
+        #poster {
+            width: 200px;
+            height: 300px;
+            margin: 20px 0;
+        }
+
+        #title {
+            color: red; /* لون عنوان الفيلم أحمر */
+            margin-bottom: 10px;
+        }
+
+        #genres,
+        #overview,
+        #release-date,
+        #rating {
+            color: black; /* لون النصوص الأسود */
+            margin-bottom: 10px;
+        }
+
+        #trailer,
+        #movie-player {
+            margin: 20px 0;
+        }
+
+        #trailer iframe,
+        #movie-player iframe {
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+            border: none;
+        }
+
+        .vk-embed {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .vk-embed iframe {
+            width: 100%;
+            max-width: 480px; /* عرض أصغر للمشغل */
+            height: 270px; /* ارتفاع أصغر للمشغل */
+            border: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+    </style>
+</head>
+<body>
+    <header> 
+        <h1>فهرس</h1> 
+    </header>
+    <div class="container">
+        <img id="poster" src="">
+        <h1 id="title"></h1>
+        <p id="genres"></p>
+        <p id="overview"></p>
+        <p id="release-date"></p>
+        <p id="rating"></p>
+        <h2>التريلر</h2>
+        <div id="trailer"></div>
+        <h3>شاهد الان</h3>
+        <div class="vk-embed">
+            <h2>شاهد الآن</h2>
+            <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=&hd=2" 
+                    frameborder="0" 
+                    allowfullscreen 
+                    webkitallowfullscreen 
+                    mozallowfullscreen 
+                    msallowfullscreen
+                    width="100%" 
+                    height="100vh">
+            </iframe>
+        </div>
+        <a href="../../Movies">رجوع</a>
+    </div>
+</body>
+<script>
+    const apiKey = "cf64a661774f647b7513facb9f1e55e5";
+    const mediaId = 84250;
+    const mediaType = "movie"; // أو "tv" إذا كان المسلسل
+
+    // جلب بيانات الفيلم أو المسلسل
+    fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const title = data.name || data.title;
+        const overview = data.overview || "لا توجد معلومات";
+        const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "";
+        const genres = data.genres && data.genres.length > 0 ? data.genres.map(genre => genre.name).join(", ") : "غير محدد";
+        const releaseDate = data.release_date || data.first_air_date || "تاريخ الإصدار غير متوفر";
+        const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
+
+        document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
+        document.getElementById("overview").innerHTML = `القصة: ${overview}`;
+        document.getElementById("poster").src = posterPath;
+        document.getElementById("genres").innerHTML = `النوع: ${genres}`;
+        document.getElementById("release-date").innerHTML = `تاريخ الإصدار: ${releaseDate}`;
+        document.getElementById("rating").innerHTML = `التقييم: ${rating}`;
+
+        // جلب التريلر
+        return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const trailers = data.results.filter(video => video.type === 'Trailer');
+        if (trailers.length > 0) {
+            const trailer = trailers[0];
+            const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
+            document.getElementById("trailer").innerHTML = `
+                <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
+            `;
+        } else {
+            document.getElementById("trailer").innerHTML = "لا يوجد تريلر متوفر.";
+        }
+      })
+      .catch(error => console.error(error));
+</script>
+</html>
