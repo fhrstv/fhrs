@@ -6,21 +6,24 @@
     <title>تضمين فيديو VK</title>
     <style>
     
-     .vk-embed {
-    width: 100%;
-    max-width: 800px; /* يمكنك تعديل العرض حسب الحاجة */
-    margin: auto;
-    padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) */
-}
+     <style>
+    .vk-embed {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        margin: auto;
+        padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) */
+    }
 
-.vk-embed iframe {
-    width: 200%;
-    height: 200%;
-    border: none;
-    display: block;
-    position: static; /* اجعل الوضعية ثابتة */
-}
-
+    .vk-embed iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+</style>
                       
                                 
                                         
