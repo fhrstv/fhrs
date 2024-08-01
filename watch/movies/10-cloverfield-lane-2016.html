@@ -71,11 +71,12 @@
         }
 
         .vk-embed iframe {
-            width: 100%;
-            max-width: 530px; /* عرض أصغر للمشغل */
-            height: 270px; /* ارتفاع أصغر للمشغل */
-            border: none;
-        }
+    width: 100%;
+    max-width: 600px; /* عرض أكبر للمشغل */
+    height: auto; /* اجعل الارتفاع يتناسب مع العرض */
+    aspect-ratio: 16 / 9; /* الحفاظ على نسبة العرض إلى الارتفاع */
+    border: none;
+}
 
         a {
             text-decoration: none;
