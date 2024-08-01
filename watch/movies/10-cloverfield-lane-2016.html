@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Download</title>
+    <title>مشغل الفيديو الخاص بي</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f0f0f0;
+        }
+        video {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
-    <h1>Download Video</h1>
-    <a id="download-link" href="#" download="video.mp4">
-        <button>Download Video</button>
-    </a>
-
-    <script>
-        // استبدل هذا الرابط برابط الفيديو الفعلي
-        const videoUrl = 'https://vidsrc.me/embed/movie?imdb=tt0147800'; 
-
-        // إعداد رابط التنزيل
-        document.getElementById('download-link').href = videoUrl;
-    </script>
+    <video controls>
+        <source src="https://m.vk.com/video760598098_456251010?from=video" type="video/mp4">
+        متصفحك لا يدعم تشغيل الفيديو.
+    </video>
 </body>
 </html>
