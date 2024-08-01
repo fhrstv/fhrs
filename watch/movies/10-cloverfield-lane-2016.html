@@ -41,17 +41,22 @@
             margin-bottom: 10px;
         }
 
-        #trailer,
-#movie-player {
-    margin: 20px 0;
-}
-
-#trailer iframe,
-#movie-player iframe {
+        .video-wrapper { /* الاسم الجديد */
     position: relative;
     width: 100%;
+    max-width: 560px; /* العرض الأقصى للتريلر */
     height: 0;
     padding-bottom: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
+    overflow: hidden;
+    margin: 0 auto; /* توسيط الحاوية */
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     border: none;
 }
 
@@ -139,7 +144,9 @@ a {
         <p id="release-date"></p>
         <p id="rating"></p>
         <h2>التريلر</h2>
-        <div id="trailer"></div>
+        <div id="trailer" class="video-wrapper"> <!-- استخدام الاسم الجديد هنا -->
+    <!-- iframe سيتم إضافته عبر JavaScript -->
+</div>
         <div class="vk-embed">
     <div class="iframe-container">
         <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=&hd=2" 
@@ -179,22 +186,22 @@ a {
         document.getElementById("rating").innerHTML = `التقييم: ${rating}`;
 
         // جلب التريلر
-        return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
-      })
-      .then(response => response.json())
-      .then(data => {
+        fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`)
+    .then(response => response.json())
+    .then(data => {
         console.log(data);
         const trailers = data.results.filter(video => video.type === 'Trailer');
         if (trailers.length > 0) {
             const trailer = trailers[0];
             const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
+            // تعيين src مباشرة لـ iframe داخل حاوية الفيديو
             document.getElementById("trailer").innerHTML = `
-                <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
+                <iframe src="${trailerUrl}" allowfullscreen></iframe>
             `;
         } else {
             document.getElementById("trailer").innerHTML = "لا يوجد تريلر متوفر.";
         }
-      })
-      .catch(error => console.error(error));
+    })
+    .catch(error => console.error(error));
 </script>
 </html>
