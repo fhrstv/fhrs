@@ -10,10 +10,6 @@
             height: 360px;
             border: none;
         }
-        .vk-embed .videoname,
-        .vk-embed .video-title {
-            display: none;
-        }
         .episode-box {
             margin-top: 20px;
             text-align: center;
@@ -22,21 +18,131 @@
             padding: 10px;
             font-size: 16px;
         }
+        /* إضافة الستايل السابق مع التعديلات */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        .movie-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .movie-poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .movie-info {
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .movie-info p {
+            margin-bottom: 10px;
+        }
+
+        .movie-title {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .story-title {
+            font-weight: bold;
+            margin-right: 10px; /* مسافة بين العنوان والنص */
+        }
+
+        .story {
+            font-family: "Arial", sans-serif;
+            font-size: 17px;
+            line-height: 1.6;
+            text-align: right;
+            direction: rtl;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            text-align-last: right; /* لضمان محاذاة النص في النهاية لليمين */
+            display: block; /* لجعل النص يظهر ككتلة مستقلة */
+        }
+
+        h2, h3, a {
+            color: #000; /* تغيير اللون إلى الأسود */
+        }
+
+        .episode-box {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
-    <div class="vk-embed">
-        <iframe id="videoFrame" src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=somehashvalue" allowfullscreen></iframe>
+    <header>
+        <h1>فهرس</h1>
+    </header>
+    <div class="container">
+        <div class="vk-embed">
+            <iframe id="videoFrame" src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=somehashvalue" allowfullscreen></iframe>
+        </div>
+        <div class="episode-box">
+            <select id="episodes" onchange="changeEpisode(this.value)">
+                <option value="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=somehashvalue">الحلقة 1</option>
+                <option value="https://vk.com/video_ext.php?oid=760598098&id=456251011&hash=somehashvalue">الحلقة 2</option>
+                <option value="https://vk.com/video_ext.php?oid=760598098&id=456251012&hash=somehashvalue">الحلقة 3</option>
+                <!-- أضف المزيد من الحلقات هنا -->
+            </select>
+        </div>
+        <a href="../../Series">رجوع</a>
     </div>
-    <div class="episode-box">
-        <select id="episodes" onchange="changeEpisode(this.value)">
-            <option value="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=somehashvalue">الحلقة 1</option>
-            <option value="https://vk.com/video_ext.php?oid=760598098&id=456251011&hash=somehashvalue">الحلقة 2</option>
-            <option value="https://vk.com/video_ext.php?oid=760598098&id=456251012&hash=somehashvalue">الحلقة 3</option>
-            <!-- أضف المزيد من الحلقات هنا -->
-        </select>
-    </div>
-
     <script>
         function changeEpisode(videoUrl) {
             var videoFrame = document.getElementById("videoFrame");
