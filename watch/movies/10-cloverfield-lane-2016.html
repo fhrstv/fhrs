@@ -80,19 +80,19 @@
 <script>
     const apiKey = "cf64a661774f647b7513facb9f1e55e5";
     const mediaId = 84250;
-    const mediaType = "movie"; // or "movie" if it's a movie
+    const mediaType = "movie"; // أو "tv" إذا كان المسلسل
 
     fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
       .then(response => response.json())
       .then(data => {
         console.log(data);
         const title = data.name || data.title;
-        const overview = data.overview;
-        const posterPath = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
-        const genres = data.genres.map(genre => genre.name).join(", ");
-        const releaseDate = data.release_date || data.first_air_date;
+        const overview = data.overview || "لا توجد معلومات";
+        const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "";
+        const genres = data.genres && data.genres.length > 0 ? data.genres.map(genre => genre.name).join(", ") : "غير محدد";
+        const releaseDate = data.release_date || data.first_air_date || "تاريخ الإصدار غير متوفر";
 
-        document.getElementById("title").innerHTML = title;
+        document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
         document.getElementById("overview").innerHTML = overview;
         document.getElementById("poster").src = posterPath;
         document.getElementById("genres").innerHTML = `النوع: ${genres}`;
