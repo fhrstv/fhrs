@@ -1,88 +1,32 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>معلومات الفيلم</title>
+    <title>تضمين فيديو VK</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #000;
-        }
-        header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
-            text-align: center;
-            padding: 10px;
-        }
         .vk-embed {
-            margin: 20px auto;
-            text-align: center;
+            position: relative;
+            padding-bottom: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
         }
+
         .vk-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 100%; /* ضمان ملء الشاشة */
-            height: auto; /* تغيير الارتفاع تلقائيًا مع العرض */
-            border: none;
-        }
-        h2 {
-            text-align: center;
-            margin: 20px 0;
+            height: 100%;
+            border: 0;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>فهرس</h1>
-    </header>
-
-    <h2>شاهد الآن</h2>
-    <div class="vk-embed" id="vk-player">
-        <!-- سيتم إدراج iframe هنا عبر JavaScript -->
+    <div class="vk-embed">
+        <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=6e203967347bcf14" frameborder="0" allowfullscreen="1" allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>
     </div>
-
-    <h2>التريلر</h2>
-    <div id="trailer">
-        <!-- سيتم إدراج التريلر هنا عبر JavaScript -->
-    </div>
-
-    <script>
-        // إدراج فيديو VK
-        const vkPlayer = document.getElementById('vk-player');
-        vkPlayer.innerHTML = `
-            <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=&hd=2"
-                    frameborder="0"
-                    allowfullscreen
-                    webkitallowfullscreen
-                    mozallowfullscreen
-                    msallowfullscreen>
-            </iframe>
-        `;
-
-        // جلب التريلر من TMDB
-        fetch('https://api.themoviedb.org/3/movie/84250/videos?api_key=cf64a661774f647b7513facb9f1e55e5&language=ar')
-            .then(response => response.json())
-            .then(data => {
-                const trailers = data.results.filter(video => video.type === 'Trailer');
-                if (trailers.length > 0) {
-                    const trailer = trailers[0];
-                    const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
-                    document.getElementById('trailer').innerHTML = `
-                        <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
-                    `;
-                } else {
-                    document.getElementById('trailer').innerHTML = "لا يوجد تريلر متوفر.";
-                }
-            })
-            .catch(error => console.error(error));
-    </script>
 </body>
 </html>
-
-
-
-
-<iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=6e203967347bcf14" width="640" height="360" frameborder="0" allowfullscreen="1" allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>
