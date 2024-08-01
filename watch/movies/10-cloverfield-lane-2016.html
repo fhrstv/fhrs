@@ -1,20 +1,23 @@
-
 <script>
-const apiKey = "cf64a661774f647b7513facb9f1e55e5";
-const tvShowId = 84250;
-const baseUrl = "https://api.themoviedb.org/3";
 
-fetch(`${baseUrl}/tv/${tvShowId}?api_key=${apiKey}&language=ar-SA`)
-  .then((response) => response.json())
-  .then((data) => {
-    const title = data.name;
-    const posterPath = data.poster_path;
+const apiKey = "YOUR_API_KEY_HERE";
+const mediaId = 84250;
+const mediaType = "tv"; // or "movie" if it's a movie
 
-    const html = `
-      <h2>${title}</h2>
-      <img src="https://image.tmdb.org/t/p/w500${posterPath}" alt="${title}">
-    `;
-    document.body.innerHTML += html;
+fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}`)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    const title = data.name || data.title;
+    const overview = data.overview;
+    const posterPath = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+    const genres = data.genres.map(genre => genre.name).join(", ");
+
+    document.getElementById("title").innerHTML = title;
+    document.getElementById("overview").innerHTML = overview;
+    document.getElementById("poster").src = posterPath;
+    document.getElementById("genres").innerHTML = genres;
   })
-  .catch((error) => console.error(error));
+  .catch(error => console.error(error));
+  
   </script>
