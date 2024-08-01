@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="ar">
-    <head> 
-        <title>فهرس</title> 
-        <meta charset="UTF-8"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-    <script src=".htaccess" defer></script>
+<head> 
+    <title>فهرس</title> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="أكبر موقع فهرسة للأفلام والمسلسلات">
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
-          body {
+        body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
@@ -59,28 +58,27 @@
         }
 
         .episode-box {
-    width: 80%;
-    margin: 20px auto;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-}
+            width: 80%;
+            margin: 20px auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
 
-#episodes {
-    width: 100%;
-    font-size: 18px;
-    padding: 10px;
-    height: 50px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    direction: rtl;
-    text-align: center;
-    flex-direction: row-reverse;
-}
+        #episodes {
+            width: 100%;
+            font-size: 18px;
+            padding: 10px;
+            height: 50px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            direction: rtl;
+            flex-direction: row-reverse;
+        }
 
         a {
             text-decoration: none;
@@ -106,7 +104,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #000
+            color: #000;
         }
 
         .movie-poster {
@@ -119,7 +117,7 @@
         .movie-info {
             text-align: center;
             padding: 0 20px;
-            color: #000
+            color: #000;
         }
 
         .movie-info p {
@@ -137,30 +135,26 @@
             margin-right: 10px; /* مسافة بين العنوان والنص */
         }
         
-.story {
-    font-family: "Arial", sans-serif; /* أو أي خط يدعم العربية */
-    font-size: 17px;
-    line-height: 1.6;
-    text-align: right; /* محاذاة النص لليمين */
-    direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
-    white-space: pre-wrap; /* الحفاظ على التباعد بين الأسطر */
-    overflow-wrap: break-word; /* كسر الكلمات الطويلة التي تتجاوز العرض */
-    color: #000
-}
+        .story {
+            font-family: "Arial", sans-serif; /* أو أي خط يدعم العربية */
+            font-size: 17px;
+            line-height: 1.6;
+            text-align: right; /* محاذاة النص لليمين */
+            direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
+            white-space: pre-wrap; /* الحفاظ على التباعد بين الأسطر */
+            overflow-wrap: break-word; /* كسر الكلمات الطويلة التي تتجاوز العرض */
+            color: #000;
+        }
 
         h2, h3, a {
-    color: #000; /* تغيير اللون إلى الأسود */
-}
-
-
+            color: #000; /* تغيير اللون إلى الأسود */
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>فهرس</h1>
     </header>
-    <div id="movieInfo"></div>
-<div id="trailerContainer"></div>
     <div class="vk-embed">
         <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=somehashvalue" allowfullscreen></iframe>
     </div>
@@ -173,58 +167,61 @@
         </select>
     </div>
     <a href="../../Series">رجوع</a>
+    <div id="movieInfo"></div>
+    <div id="trailerContainer"></div>
     <script>
-    const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
-const mediaIds = ['87701']; // استخدم رمز TMDB هنا
+        const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
+        const mediaIds = ['87701']; // استخدم رمز TMDB هنا
 
-mediaIds.forEach(mediaId => {
-    const apiUrl = `https://api.themoviedb.org/3/movie/${mediaId}?api_key=${tmdbApiKey}&language=ar`; // استعلام عن الفيلم
+        mediaIds.forEach(mediaId => {
+            const apiUrl = `https://api.themoviedb.org/3/movie/${mediaId}?api_key=${tmdbApiKey}&language=ar`; // استعلام عن الفيلم
 
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            console.log('Data from TMDB movie endpoint:', data); // عرض بيانات الفيلم
-
-            const rating = (Math.round(data.vote_average * 10) / 10).toFixed(1);
-            const trimmedOverview = data.overview.trim();
-            const releaseYear = data.release_date ? data.release_date.split('-')[0] : 'غير متوفر';
-            const mediaInfo = `
-                <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
-                <h2 class="movie-title">${data.title}</h2>
-                <div class="movie-details">
-                    <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
-                    <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
-                    <p><strong>التقييم:</strong> ${rating}/10</p>
-                    <div class="story-container">
-                        <div class="story-title">: القصة</div>
-                        <div class="story">${trimmedOverview}</div>
-                    </div>
-                </div>
-            `;
-            document.getElementById('movieInfo').innerHTML = mediaInfo;
-
-            const videoUrl = `https://api.themoviedb.org/3/movie/${mediaId}/videos?api_key=${tmdbApiKey}&language=ar`;
-            fetch(videoUrl)
+            fetch(apiUrl)
                 .then(response => response.json())
-                .then(videoData => {
-                    console.log('Data from TMDB videos endpoint:', videoData); // عرض بيانات الفيديو
+                .then(data => {
+                    console.log('Data from TMDB movie endpoint:', data); // عرض بيانات الفيلم
 
-                    if (videoData.results.length > 0) {
-                        const videoKey = videoData.results[0].key;
-                        const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
-                        const trailerContainer = document.getElementById('trailerContainer');
-                        trailerContainer.innerHTML = `
-                            <h3>التريلر</h3>
-                            <iframe width="560" height="315" src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
-                        `;
-                    } else {
-                        console.error('No video found for this media.');
-                    }
+                    const rating = (Math.round(data.vote_average * 10) / 10).toFixed(1);
+                    const trimmedOverview = data.overview.trim();
+                    const releaseYear = data.release_date ? data.release_date.split('-')[0] : 'غير متوفر';
+                    const mediaInfo = `
+                        <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
+                        <h2 class="movie-title">${data.title}</h2>
+                        <div class="movie-details">
+                            <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
+                            <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>التقييم:</strong> ${rating}/10</p>
+                            <div class="story-container">
+                                <div class="story-title">: القصة</div>
+                                <div class="story">${trimmedOverview}</div>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('movieInfo').innerHTML = mediaInfo;
+
+                    const videoUrl = `https://api.themoviedb.org/3/movie/${mediaId}/videos?api_key=${tmdbApiKey}&language=ar`;
+                    fetch(videoUrl)
+                        .then(response => response.json())
+                        .then(videoData => {
+                            console.log('Data from TMDB videos endpoint:', videoData); // عرض بيانات الفيديو
+
+                            if (videoData.results.length > 0) {
+                                const videoKey = videoData.results[0].key;
+                                const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
+                                const trailerContainer = document.getElementById('trailerContainer');
+                                trailerContainer.innerHTML = `
+                                    <h3>التريلر</h3>
+                                    <iframe width="560" height="315" src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
+                                `;
+                            } else {
+                                console.error('No video found for this media.');
+                            }
+                        })
+                        .catch(error => console.error('Error fetching media video:', error));
                 })
-                .catch(error => console.error('Error fetching media video:', error));
-        })
-        .catch(error => console.error('Error fetching media details:', error));
-});
+                .catch(error => console.error('Error fetching media details:', error));
+        });
+
         function changeEpisode(videoUrl) {
             var videoFrame = document.querySelector(".vk-embed iframe");
             videoFrame.src = videoUrl;
