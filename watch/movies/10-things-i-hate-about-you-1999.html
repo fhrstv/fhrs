@@ -7,16 +7,28 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #ffffff; /* خلفية الصفحة بيضاء */
             margin: 0;
             padding: 0;
             color: #000;
             text-align: center;
         }
+        
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
         header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
+            background-color: #777; /* لون الهيدر رصاصي */
+            color: red; /* لون كلمة فهرس أحمر */
             text-align: center;
             padding: 10px;
         }
@@ -28,7 +40,7 @@
         }
 
         #title {
-            color: red;
+            color: red; /* لون عنوان الفيلم أحمر */
             margin-bottom: 10px;
         }
 
@@ -36,7 +48,7 @@
         #overview,
         #release-date,
         #rating {
-            color: black;
+            color: black; /* لون النصوص الأسود */
             margin-bottom: 10px;
         }
 
@@ -60,8 +72,9 @@
 
         .vk-embed iframe {
     width: 100%;
-    max-width: 480px; /* عرض أصغر للمشغل */
-    height: 270px; /* ارتفاع أصغر للمشغل */
+    max-width: 600px; /* عرض أكبر للمشغل */
+    height: auto; /* اجعل الارتفاع يتناسب مع العرض */
+    aspect-ratio: 16 / 9; /* الحفاظ على نسبة العرض إلى الارتفاع */
     border: none;
 }
 
@@ -85,32 +98,29 @@
     <header> 
         <h1>فهرس</h1> 
     </header>
-        <div class="container">
-
-    <img id="poster" src="">
-    <h1 id="title"></h1>
-    <p id="genres"></p>
-    <p id="overview"></p>
-    <p id="release-date"></p>
-    <p id="rating"></p>
-    <h2>التريلر</h2>
-    <div id="trailer"></div>
-    <h3>شاهد الان</h3>
-    <div class="vk-embed">
-        <h2>شاهد الآن</h2>
-<div class="vk-embed">
-    <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=&hd=2" 
-            frameborder="0" 
-            allowfullscreen 
-            webkitallowfullscreen 
-            mozallowfullscreen 
-            msallowfullscreen
-            widht="100%" 
-            height="100vh">
-    </iframe>
-</div>
+    <div class="container">
+        <img id="poster" src="">
+        <h1 id="title"></h1>
+        <p id="genres"></p>
+        <p id="overview"></p>
+        <p id="release-date"></p>
+        <p id="rating"></p>
+        <h2>التريلر</h2>
+        <div id="trailer"></div>
+        <div class="vk-embed">
+            <h2>شاهد الآن</h2>
+            <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=&hd=2" 
+                    frameborder="0" 
+                    allowfullscreen 
+                    webkitallowfullscreen 
+                    mozallowfullscreen 
+                    msallowfullscreen
+                    width="100%" 
+                    height="100vh">
+            </iframe>
+        </div>
+        <a href="../../Movies">رجوع</a>
     </div>
-    <a href="../../Movies">رجوع</a>
 </body>
 <script>
     const apiKey = "cf64a661774f647b7513facb9f1e55e5";
