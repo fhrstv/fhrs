@@ -22,17 +22,25 @@
 
         .vk-embed {
     width: 100%; /* عرض المشغل بالكامل بناءً على عرض الصفحة */
-    max-width: 560px; /* أقصى عرض للمشغل */
+    max-width: 560px; /* عرض أقصى للمشغل مشابه ليوتيوب */
     height: auto; /* الطول يعتمد على نسبة العرض إلى الارتفاع */
     margin: 20px auto; /* توسيط المشغل أفقياً */
     position: relative;
 }
 
+.vk-embed::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) */
+}
+
 .vk-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 315px; /* ارتفاع الفيديو يتناسب مع العرض */
+    height: 100%;
     border: none;
-    object-fit: cover; /* ملء الإطار بشكل مناسب */
 }
 
         .episode-box {
