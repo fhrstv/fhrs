@@ -186,22 +186,22 @@ a {
         document.getElementById("rating").innerHTML = `التقييم: ${rating}`;
 
         // جلب التريلر
-        return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`)
-    .then(response => response.json())
-    .then(data => {
+        return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
+      })
+      .then(response => response.json())
+      .then(data => {
         console.log(data);
         const trailers = data.results.filter(video => video.type === 'Trailer');
         if (trailers.length > 0) {
             const trailer = trailers[0];
             const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
-            // تعيين src مباشرة لـ iframe داخل حاوية الفيديو
             document.getElementById("trailer").innerHTML = `
-                <iframe src="${trailerUrl}" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
             `;
         } else {
             document.getElementById("trailer").innerHTML = "لا يوجد تريلر متوفر.";
         }
-    })
-    .catch(error => console.error(error));
+      })
+      .catch(error => console.error(error));
 </script>
 </html>
