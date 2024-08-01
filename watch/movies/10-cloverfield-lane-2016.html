@@ -1,214 +1,40 @@
 <!DOCTYPE html>
 <html lang="ar">
-<head> 
-    <title>فهرس</title> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="أكبر موقع فهرسة للأفلام والمسلسلات">
-    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جلب معلومات الفيلم</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #000;
-        }
-
-        header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
-            text-align: center;
-            padding: 10px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            font-size: 18px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .vk-embed {
-            width: 100%;
-            max-width: 560px; /* أقصى عرض للمشغل */
-            height: auto;
-            margin: 20px auto;
-            position: relative;
-        }
-
-        .vk-embed::before {
-            content: "";
-            display: block;
-            padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) */
-        }
-
-        .vk-embed iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .episode-box {
-            width: 80%;
-            margin: 20px auto;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-        }
-
-        #episodes {
-            width: 100%;
-            font-size: 18px;
-            padding: 10px;
-            height: 50px;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            direction: rtl;
-            flex-direction: row-reverse;
-        }
-
-        a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
-
-        a:hover {
-            background-color: gold;
-        }
-
-        p {
-            text-align: justify;
-            margin-bottom: 10px;
-        }
-
-        .movie-details {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #000;
-        }
-
-        .movie-poster {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
         .movie-info {
             text-align: center;
-            padding: 0 20px;
-            color: #000;
         }
-
-        .movie-info p {
-            margin-bottom: 10px;
-        }
-
-        .movie-title {
-            color: #ff0000;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        
-        .story-title {
-            font-weight: bold;
-            margin-right: 10px; /* مسافة بين العنوان والنص */
-        }
-        
-        .story {
-            font-family: "Arial", sans-serif; /* أو أي خط يدعم العربية */
-            font-size: 17px;
-            line-height: 1.6;
-            text-align: right; /* محاذاة النص لليمين */
-            direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
-            white-space: pre-wrap; /* الحفاظ على التباعد بين الأسطر */
-            overflow-wrap: break-word; /* كسر الكلمات الطويلة التي تتجاوز العرض */
-            color: #000;
-        }
-
-        h2, h3, a {
-            color: #000; /* تغيير اللون إلى الأسود */
+        .movie-info img {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>فهرس</h1>
-    </header>
-    <div class="vk-embed">
-        <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=somehashvalue" allowfullscreen></iframe>
+    <div class="movie-info">
+        <h1 id="movie-title">تحميل معلومات الفيلم...</h1>
+        <img id="movie-poster" src="" alt="Poster">
     </div>
-    <div class="episode-box">
-        <select id="episodes" onchange="changeEpisode(this.value)">
-            <option value="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=somehashvalue">الحلقة 1</option>
-            <option value="https://vk.com/video_ext.php?oid=760598098&id=456251011&hash=somehashvalue">الحلقة 2</option>
-            <option value="https://vk.com/video_ext.php?oid=760598098&id=456251012&hash=somehashvalue">الحلقة 3</option>
-            <!-- أضف المزيد من الحلقات هنا -->
-        </select>
-    </div>
-    <a href="../../Series">رجوع</a>
-    <div id="movieInfo"></div>
-    <div id="trailerContainer"></div>
+
     <script>
-        const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
-const mediaIds = ['87701']; // استخدم رمز TMDB هنا
+        const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // ضع هنا مفتاح API الخاص بك
+        const movieId = 87701;
 
-mediaIds.forEach(mediaId => {
-    const apiUrl = `https://api.themoviedb.org/3/movie/${mediaId}?api_key=${tmdbApiKey}&language=ar`;
+        fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`)
+            .then(response => response.json())
+            .then(data => {
+                const title = data.title;
+                const posterPath = data.poster_path;
+                const baseUrl = 'https://image.tmdb.org/t/p/w500';
 
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            console.log('Data from TMDB movie endpoint:', data);
-
-            if (data) {
-                const rating = (Math.round(data.vote_average * 10) / 10).toFixed(1);
-                const trimmedOverview = data.overview.trim();
-                const releaseYear = data.release_date ? data.release_date.split('-')[0] : 'غير متوفر';
-                const mediaInfo = `
-                    <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
-                    <h2 class="movie-title">${data.title}</h2>
-                    <div class="movie-details">
-                        <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
-                        <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
-                        <p><strong>التقييم:</strong> ${rating}/10</p>
-                        <div class="story-container">
-                            <div class="story-title">: القصة</div>
-                            <div class="story">${trimmedOverview}</div>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('movieInfo').innerHTML = mediaInfo;
-            } else {
-                console.error('No data found for this media.');
-            }
-        })
-        .catch(error => console.error('Error fetching media details:', error));
-});
-        function changeEpisode(videoUrl) {
-            var videoFrame = document.querySelector(".vk-embed iframe");
-            videoFrame.src = videoUrl;
-        }
+                document.getElementById('movie-title').textContent = title;
+                document.getElementById('movie-poster').src = baseUrl + posterPath;
+            })
+            .catch(error => console.error('Error:', error));
     </script>
 </body>
 </html>
