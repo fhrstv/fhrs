@@ -66,19 +66,37 @@
         }
 
         .vk-embed {
-            margin: 20px auto;
-            text-align: center;
-        }
-
-        .vk-embed iframe {
+    position: relative;
     width: 100%;
-    max-width: 600px; /* عرض أكبر للمشغل */
-    height: auto; /* اجعل الارتفاع يتناسب مع العرض */
-    aspect-ratio: 16 / 9; /* الحفاظ على نسبة العرض إلى الارتفاع */
+    max-width: 600px; /* عرض أقصى للمشغل */
+    margin: 0 auto; /* توسيط الحاوية */
+}
+
+.iframe-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 للوضع الأفقي */
+    overflow: hidden;
+}
+
+.iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     border: none;
 }
 
-        a {
+/* ضمان أن يكون المشغل في الوضع العمودي بنفس أبعاد الوضع الأفقي */
+@media (orientation: portrait) {
+    .iframe-container {
+        padding-bottom: 56.25%; /* نفس نسبة العرض إلى الارتفاع للوضع العمودي */
+    }
+}
+
+a {
             text-decoration: none;
             color: #333;
             display: block;
@@ -92,25 +110,7 @@
         a:hover {
             background-color: gold;
         }
-        
-        .iframe-container {
-    position: relative;
-    width: 100%;
-    max-width: 600px; /* عرض أقصى للحاوية */
-    height: 0;
-    padding-bottom: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
-    overflow: hidden;
-    margin: 0 auto; /* توسيط الحاوية */
-}
 
-.iframe-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
     </style>
 </head>
 <body>
