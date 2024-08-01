@@ -5,19 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحة متناسقة</title>
     <style>
-        body {
+         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
-            color: #000;
-            text-align: center;
+            color: #000
         }
 
         header {
             background-color: #333;
-            color: #fff;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
             padding: 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         .vk-embed {
@@ -53,18 +65,11 @@
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
         }
 
-        select {
-            padding: 10px;
-            font-size: 16px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
         a {
             text-decoration: none;
-            color: #fff;
-            display: inline-block;
-            padding: 15px 30px;
+            color: #333;
+            display: block;
+            padding: 20px;
             border-radius: 5px;
             background-color: red;
             transition: background-color 0.3s;
@@ -73,30 +78,64 @@
 
         a:hover {
             background-color: gold;
-            color: #333;
         }
 
-        /* Media Queries */
-        @media (max-width: 768px) {
-            .episode-box {
-                width: 90%;
-            }
-
-            .vk-embed {
-                max-width: 100%;
-            }
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
         }
 
-        @media (max-width: 480px) {
-            .episode-box {
-                width: 95%;
-                padding: 10px;
-            }
-
-            a {
-                padding: 10px 20px;
-            }
+        .movie-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #000
         }
+
+        .movie-poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .movie-info {
+            text-align: center;
+            padding: 0 20px;
+            color: #000
+        }
+
+        .movie-info p {
+            margin-bottom: 10px;
+        }
+
+        .movie-title {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .story-title {
+            font-weight: bold;
+            margin-right: 10px; /* مسافة بين العنوان والنص */
+        }
+        
+.story {
+    font-family: "Arial", sans-serif; /* أو أي خط يدعم العربية */
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: right; /* محاذاة النص لليمين */
+    direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
+    white-space: pre-wrap; /* الحفاظ على التباعد بين الأسطر */
+    overflow-wrap: break-word; /* كسر الكلمات الطويلة التي تتجاوز العرض */
+    color: #000
+}
+
+        h2, h3, a {
+    color: #000; /* تغيير اللون إلى الأسود */
+}
+
+
     </style>
 </head>
 <body>
