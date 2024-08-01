@@ -6,97 +6,110 @@
   <title>معلومات الفيلم أو المسلسل</title>
   <style>
     body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #000
-        }
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* جعل الجسم يملأ الشاشة رأسياً */
+    }
 
-        header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
-            text-align: center;
-            padding: 10px;
-        }
+    header {
+        background-color: #333;
+        color: hsl(0, 94%, 46%);
+        text-align: center;
+        padding: 10px;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            font-size: 18px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-       
-
-        a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
-
-        a:hover {
-            background-color: gold;
-        }
-
-        p {
-            text-align: justify;
-            margin-bottom: 10px;
-        }
+    .container {
+        display: flex;
+        justify-content: center; /* توسيط المحتوى أفقياً */
+        align-items: center; /* توسيط المحتوى عمودياً */
+        width: 80%; /* عرض النصف */
+        max-width: 1000px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        box-sizing: border-box;
+        flex-direction: column; /* توسيط المحتوى عمودياً */
+        text-align: center;
+    }
 
     #poster {
-      width: 200px;
-      height: 300px;
-      margin: 20px;
-    }
-    #release-date {
-    font-weight: bold;
-    }
-    
-     #title {
-        color: red; /* لون العنوان باللون الأحمر */
+        width: 200px;
+        height: 300px;
+        margin-bottom: 20px;
     }
 
-    /* إضافة تنسيق للمعلومات الأخرى */
+    #title {
+        color: red;
+        margin-bottom: 10px;
+    }
+
     #genres,
     #overview,
     #release-date,
     #rating {
-        color: black; /* لون النصوص الأخرى باللون الأسود */
+        color: black;
+        margin-bottom: 10px;
     }
-    
-  </style>
+
+    #trailer {
+        margin: 20px 0;
+    }
+
+    #trailer iframe {
+        width: 100%;
+        max-width: 560px;
+        height: 315px;
+        border: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: #333;
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: red;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    a:hover {
+        background-color: gold;
+    }
+</style>
 </head>
 <body>
     <header> 
         <h1>فهرس</h1> 
     <div class="container">
+    <div class="content">
         <img id="poster" src="">
         <h1 id="title"></h1>
         <p id="genres"></p>
         <p id="overview"></p>
-        <p id="release-date">
-          <p id="rating"></p>
-        </p> <!-- إضافة الفقرة لتاريخ الإصدار -->
-
+        <p id="release-date"></p>
+        <p id="rating"></p>
+        <div id="trailer"></div> <!-- عنصر لعرض التريلر -->
         <a href="../../Movies">رجوع</a>
     </div>
+</div>
 </body>
 <script>
     const apiKey = "cf64a661774f647b7513facb9f1e55e5";
     const mediaId = 84250;
     const mediaType = "movie"; // أو "tv" إذا كان المسلسل
 
+    // جلب بيانات الفيلم أو المسلسل
     fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
       .then(response => response.json())
       .then(data => {
@@ -114,6 +127,23 @@
         document.getElementById("genres").innerHTML = `النوع: ${genres}`;
         document.getElementById("release-date").innerHTML = `تاريخ الإصدار: ${releaseDate}`;
         document.getElementById("rating").innerHTML = `التقييم: ${rating}`;
+
+        // جلب التريلر
+        return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const trailers = data.results.filter(video => video.type === 'Trailer');
+        if (trailers.length > 0) {
+            const trailer = trailers[0];
+            const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
+            document.getElementById("trailer").innerHTML = `
+                <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
+            `;
+        } else {
+            document.getElementById("trailer").innerHTML = "لا يوجد تريلر متوفر.";
+        }
       })
       .catch(error => console.error(error));
 </script>
