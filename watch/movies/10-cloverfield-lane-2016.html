@@ -1,68 +1,70 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>معلومات الفيلم أو المسلسل</title>
-  <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-        color: #000;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معلومات الفيلم أو المسلسل</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #000;
+            text-align: center;
+        }
 
-    header {
-        background-color: #333;
-        color: hsl(0, 94%, 46%);
-        text-align: center;
-        padding: 10px;
-    }
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
 
-    .container {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        font-size: 18px;
-        border-radius: 10px;
-        overflow: hidden;
-    }
+        #poster {
+            width: 200px;
+            height: 300px;
+            margin: 20px 0;
+        }
 
-    #poster {
-        width: 200px;
-        height: 300px;
-        margin: 20px 0;
-    }
+        #title {
+            color: red;
+            margin-bottom: 10px;
+        }
 
-    #title {
-        color: red;
-        margin-bottom: 10px;
-    }
+        #genres,
+        #overview,
+        #release-date,
+        #rating {
+            color: black;
+            margin-bottom: 10px;
+        }
 
-    #genres,
-    #overview,
-    #release-date,
-    #rating {
-        color: black;
-        margin-bottom: 10px;
-    }
+        #trailer,
+        #movie-player {
+            margin: 20px 0;
+        }
 
-    #trailer {
-        margin: 20px 0;
-    }
+        #trailer iframe,
+        #movie-player iframe {
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+            border: none;
+        }
 
-    #trailer iframe {
-        width: 100%;
-        max-width: 560px;
-        height: 315px;
-        border: none;
-    }
+        .vk-embed {
+            margin: 20px auto;
+            text-align: center;
+        }
 
-    a {
+        .vk-embed iframe {
+            width: 100%;
+            height: 360px;
+            border: none;
+        }
+
+        a {
             text-decoration: none;
             color: #333;
             display: block;
@@ -76,51 +78,21 @@
         a:hover {
             background-color: gold;
         }
-        
-        #movie-player {
-    width: 100%;
-    max-width: 560px;
-    margin: 20px auto;
-    text-align: center;
-}
-
-#movie-player iframe {
-    width: 100%;
-    height: 315px;
-    border: none;
-}
-.vk-embed {
-  margin: 20px auto;
-  text-align: center;
-}
-
-.vk-embed iframe {
-  width: 100%;
-  height: 360px;
-  border: none;
-}
-</style>
+    </style>
 </head>
 <body>
     <header> 
         <h1>فهرس</h1> 
-    <div class="container">
-    <div class="content">
-        <img id="poster" src="">
-        <h1 id="title"></h1>
-        <p id="genres"></p>
-        <p id="overview"></p>
-        <p id="release-date"></p>
-        <p id="rating"></p>
-        <div class="vk-embed">
-  <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=&hd=2" 
-          width="640" 
-          height="360" 
-          frameborder="0" 
-          allowfullscreen="true">
-  </iframe>
-</div>
-</div>
+    </header>
+    <img id="poster" src="">
+    <h1 id="title"></h1>
+    <p id="genres"></p>
+    <p id="overview"></p>
+    <p id="release-date"></p>
+    <p id="rating"></p>
+    <div class="vk-embed">
+        <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=&hd=2" frameborder="0" allowfullscreen="true"></iframe>
+    </div>
 </body>
 <script>
     const apiKey = "cf64a661774f647b7513facb9f1e55e5";
@@ -128,42 +100,41 @@
     const mediaType = "movie"; // أو "tv" إذا كان المسلسل
 
     // جلب بيانات الفيلم أو المسلسل
-    // جلب بيانات الفيلم أو المسلسل
-fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-    const title = data.name || data.title;
-    const overview = data.overview || "لا توجد معلومات";
-    const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "";
-    const genres = data.genres && data.genres.length > 0 ? data.genres.map(genre => genre.name).join(", ") : "غير محدد";
-    const releaseDate = data.release_date || data.first_air_date || "تاريخ الإصدار غير متوفر";
-    const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
+    fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const title = data.name || data.title;
+        const overview = data.overview || "لا توجد معلومات";
+        const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "";
+        const genres = data.genres && data.genres.length > 0 ? data.genres.map(genre => genre.name).join(", ") : "غير محدد";
+        const releaseDate = data.release_date || data.first_air_date || "تاريخ الإصدار غير متوفر";
+        const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
 
-    document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
-    document.getElementById("overview").innerHTML = `القصة: ${overview}`;
-    document.getElementById("poster").src = posterPath;
-    document.getElementById("genres").innerHTML = `النوع: ${genres}`;
-    document.getElementById("release-date").innerHTML = `تاريخ الإصدار: ${releaseDate}`;
-    document.getElementById("rating").innerHTML = `التقييم: ${rating}`;
+        document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
+        document.getElementById("overview").innerHTML = `القصة: ${overview}`;
+        document.getElementById("poster").src = posterPath;
+        document.getElementById("genres").innerHTML = `النوع: ${genres}`;
+        document.getElementById("release-date").innerHTML = `تاريخ الإصدار: ${releaseDate}`;
+        document.getElementById("rating").innerHTML = `التقييم: ${rating}`;
 
-    // جلب التريلر
-    return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-    const trailers = data.results.filter(video => video.type === 'Trailer');
-    if (trailers.length > 0) {
-        const trailer = trailers[0];
-        const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
-        document.getElementById("trailer").innerHTML = `
-            <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
-        `;
-    } else {
-        document.getElementById("trailer").innerHTML = "لا يوجد تريلر متوفر.";
-    }
-  })
-  .catch(error => console.error(error));
+        // جلب التريلر
+        return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const trailers = data.results.filter(video => video.type === 'Trailer');
+        if (trailers.length > 0) {
+            const trailer = trailers[0];
+            const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
+            document.getElementById("trailer").innerHTML = `
+                <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
+            `;
+        } else {
+            document.getElementById("trailer").innerHTML = "لا يوجد تريلر متوفر.";
+        }
+      })
+      .catch(error => console.error(error));
 </script>
 </html>
