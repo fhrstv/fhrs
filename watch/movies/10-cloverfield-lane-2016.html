@@ -87,7 +87,7 @@
             margin-bottom: 10px;
         }
         
-       .story-title {
+        .story-title {
             font-weight: bold;
             margin-right: 10px;
         }
@@ -148,7 +148,9 @@
         <div class="episode-box">
             <select id="episodes" onchange="changeEpisode(this.value)">
                 <option value="">اختر حلقة</option>
-                <option value="https://m.vk.com/video760598098_456251010?from=video">فيديو VK</option>
+                <option value="https://vk.com/video760598098_456251010?from=video">الحلقة 1</option>
+                <option value="https://vk.com/video760598098_456251011?from=video">الحلقة 2</option>
+                <option value="https://vk.com/video760598098_456251012?from=video">الحلقة 3</option>
                 <!-- المزيد من الخيارات -->
             </select>
         </div>
@@ -157,7 +159,8 @@
     <script>
         function changeEpisode(videoUrl) {
             var videoPlayer = document.getElementById("videoPlayer");
-            videoPlayer.src = videoUrl ? `https://vk.com/video${videoUrl}` : '';
+            // استخدم الرابط كـ src للـ iframe
+            videoPlayer.src = videoUrl ? videoUrl : '';
         }
     </script>
 </body>
