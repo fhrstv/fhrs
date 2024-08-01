@@ -6,35 +6,41 @@
     <title>تضمين فيديو VK</title>
     <style>
 
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden; /* لمنع التمرير الأفقي */
+    }
+
     .vk-embed {
         position: relative;
         width: 100%;
-        max-width: 500px; /* عرض المشغل الأقصى */
-        height: auto;
+        max-width: 500px; /* أقصى عرض للمشغل */
         margin: 0 auto; /* توسيط المشغل أفقياً */
+        height: auto;
     }
 
     .vk-embed iframe {
         width: 100%;
         height: 100%;
         border: none;
-        display: block;
-        object-fit: cover; /* ضمان تغطية كامل الفريم دون تشويه */
+        object-fit: cover; /* تغطية كامل الفريم */
     }
-
 
     @media (orientation: portrait) {
         .vk-embed {
-            max-width: 100%; /* تعديل العرض في الوضع العمودي */
             aspect-ratio: 4 / 3; /* نسبة العرض إلى الارتفاع في الوضع العمودي */
         }
     }
 
     @media (orientation: landscape) {
         .vk-embed {
-            aspect-ratio: 5 / 3; /* نسبة العرض إلى الارتفاع في الوضع الأفقي */
+            aspect-ratio: 16 / 9; /* نسبة العرض إلى الارتفاع في الوضع الأفقي */
         }
     }
+
 
 
 
