@@ -6,20 +6,25 @@
     <title>تضمين فيديو VK</title>
     <style>
 
-    body, html {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow-x: hidden; /* لمنع التمرير الأفقي */
+    .container {
+        max-width: 100%; /* عرض حاوية المشغل بناءً على عرض الصفحة */
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        font-size: 18px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-sizing: border-box; /* تضمين الحشوة وحدود العنصر في الأبعاد الكلية */
     }
 
     .vk-embed {
-        position: relative;
-        width: 100%;
+        width: 100%; /* عرض المشغل بالكامل بناءً على عرض الحاوية */
         max-width: 500px; /* أقصى عرض للمشغل */
-        margin: 0 auto; /* توسيط المشغل أفقياً */
         height: auto;
+        margin: 0 auto; /* توسيط المشغل أفقياً */
+        position: relative;
     }
 
     .vk-embed iframe {
@@ -27,18 +32,6 @@
         height: 100%;
         border: none;
         object-fit: cover; /* تغطية كامل الفريم */
-    }
-
-    @media (orientation: portrait) {
-        .vk-embed {
-            aspect-ratio: 4 / 3; /* نسبة العرض إلى الارتفاع في الوضع العمودي */
-        }
-    }
-
-    @media (orientation: landscape) {
-        .vk-embed {
-            aspect-ratio: 16 / 9; /* نسبة العرض إلى الارتفاع في الوضع الأفقي */
-        }
     }
 
 
