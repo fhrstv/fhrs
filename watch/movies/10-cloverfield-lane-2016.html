@@ -53,7 +53,6 @@
     aspect-ratio: 16 / 9;
     border: none;
 }
-```​⬤
 
         .container {
     display: flex;
@@ -111,15 +110,16 @@
 }
 
 a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
+    text-decoration: none;
+    color: #fff; /* تغيير لون النص إلى الأبيض ليتناسب مع الخلفية الحمراء */
+    display: inline-block; /* تغيير إلى inline-block لتحديد الحجم */
+    padding: 10px 20px; /* حجم padding متوازن */
+    border-radius: 5px;
+    background-color: red;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    font-size: 16px; /* حجم الخط وسط */
+}
 
         a:hover {
             background-color: gold;
