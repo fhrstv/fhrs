@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تضمين فيديو VK</title>
     <style>
-    
+
     .vk-embed {
-        position: relative;
         width: 100%;
         max-width: 414px; /* حجم العرض المطلوب */
+        height: 232.875px; /* ارتفاع الفريم المطلوب */
         margin: auto;
-        padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) */
+        position: relative;
     }
 
     .vk-embed iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        width: 256px; /* حجم عرض الفيديو */
+        height: 144px; /* حجم ارتفاع الفيديو */
         border: none;
+        display: block;
+        margin: auto; /* لضمان أن الفيديو في الوسط */
     }
+
 
 
                       
