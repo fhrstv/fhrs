@@ -3,38 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جلب معلومات الفيلم</title>
-    <style>
-        .movie-info {
-            text-align: center;
-        }
-        .movie-info img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+    <title>تحقق من رمز TMDB</title>
 </head>
 <body>
-    <div class="movie-info">
-        <h1 id="movie-title">تحميل معلومات الفيلم...</h1>
-        <img id="movie-poster" src="" alt="Poster">
-    </div>
+    <h1 id="result">جاري التحقق...</h1>
 
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // ضع هنا مفتاح API الخاص بك
         const movieId = 87701;
 
         fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`)
-            .then(response => response.json())
-            .then(data => {
-                const title = data.title;
-                const posterPath = data.poster_path;
-                const baseUrl = 'https://image.tmdb.org/t/p/w500';
-
-                document.getElementById('movie-title').textContent = title;
-                document.getElementById('movie-poster').src = baseUrl + posterPath;
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('الرمز غير صحيح أو غير موجود');
+                }
+                return response.json();
             })
-            .catch(error => console.error('Error:', error));
+            .then(data => {
+                document.getElementById('result').textContent = `العنوان: ${data.title}`;
+            })
+            .catch(error => {
+                document.getElementById('result').textContent = error.message;
+            });
     </script>
 </body>
 </html>
