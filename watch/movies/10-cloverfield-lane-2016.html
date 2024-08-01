@@ -109,11 +109,11 @@
         const rating = data.vote_average ? `${data.vote_average} / 10` : "غير متوفر";
 
         document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
-        document.getElementById("overview").innerHTML = `القصة: ${overview}`;
+        document.getElementById("overview").innerHTML = `القصة : ${overview}`;
         document.getElementById("poster").src = posterPath;
-        document.getElementById("genres").innerHTML = `النوع: ${genres}`;
+        document.getElementById("genres").innerHTML = `النوع : ${genres}`;
         document.getElementById("release-date").innerHTML = `تاريخ الإصدار: ${releaseDate}`;
-        document.getElementById("rating").innerHTML = `التقييم: ${rating}`;
+        document.getElementById("rating").innerHTML = `التقييم : ${rating}`;
       })
       .catch(error => console.error(error));
 </script>
