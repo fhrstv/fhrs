@@ -10,9 +10,9 @@
 
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // ضع هنا مفتاح API الخاص بك
-        const movieId = 533535;
+        const movieId = 84250; // استبدل برمز الفيلم العربي الذي تود التحقق منه
 
-        fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`)
+        fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=ar`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('الرمز غير صحيح أو غير موجود');
