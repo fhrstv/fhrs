@@ -26,7 +26,7 @@
     const mediaId = 84250;
     const mediaType = "movie"; // or "movie" if it's a movie
 
-    fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}`)
+    fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
       .then(response => response.json())
       .then(data => {
         console.log(data);
