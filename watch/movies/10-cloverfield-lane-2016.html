@@ -70,7 +70,8 @@
     /* إضافة تنسيق للمعلومات الأخرى */
     #genres,
     #overview,
-    #release-date {
+    #release-date,
+    #rating {
         color: black; /* لون النصوص الأخرى باللون الأسود */
     }
     
@@ -84,7 +85,9 @@
         <h1 id="title"></h1>
         <p id="genres"></p>
         <p id="overview"></p>
-        <p id="release-date"></p> <!-- إضافة الفقرة لتاريخ الإصدار -->
+        <p id="release-date">
+          <p id="rating"></p>
+        </p> <!-- إضافة الفقرة لتاريخ الإصدار -->
 
         <a href="../../Movies">رجوع</a>
     </div>
@@ -103,12 +106,14 @@
         const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "";
         const genres = data.genres && data.genres.length > 0 ? data.genres.map(genre => genre.name).join(", ") : "غير محدد";
         const releaseDate = data.release_date || data.first_air_date || "تاريخ الإصدار غير متوفر";
+        const rating = data.vote_average ? `${data.vote_average} / 10` : "غير متوفر";
 
         document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
         document.getElementById("overview").innerHTML = `القصة: ${overview}`;
         document.getElementById("poster").src = posterPath;
         document.getElementById("genres").innerHTML = `النوع: ${genres}`;
         document.getElementById("release-date").innerHTML = `تاريخ الإصدار: ${releaseDate}`;
+        document.getElementById("rating").innerHTML = `التقييم: ${rating}`;
       })
       .catch(error => console.error(error));
 </script>
