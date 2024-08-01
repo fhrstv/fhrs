@@ -18,33 +18,90 @@
 
   <script>
     const apiKey = "cf64a661774f647b7513facb9f1e55e5";
-const mediaId = 73791; // or any other ID
+const mediaId = 84250; // or any other ID
 
-fetch(`https://api.themoviedb.org/3/movie/${mediaId}?api_key=${apiKey}&language=ar`)
-  .then(response => response.json())
-  .then(data => {
+fetch(`https://api.themoviedb.org/3/${mediaId}?api_key=${apiKey}&language=ar`)
+ .then(response => response.json())
+ .then(data => {
     if (data.title) {
       // it's a movie
-      document.getElementById("title").innerHTML = data.title;
-      document.getElementById("poster").src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
-      document.getElementById("overview").innerHTML = data.overview;
+      displayMovie(data);
+    } else if (data.name) {
+      // it's a TV show
+      displayTVShow(data);
     } else {
-      fetch(`https://api.themoviedb.org/3/tv/${mediaId}?api_key=${apiKey}&language=ar`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.name) {
-            // it's a TV show
-            document.getElementById("title").innerHTML = data.name;
-            document.getElementById("poster").src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
-            document.getElementById("overview").innerHTML = data.overview;
-          } else {
-            console.log("Unknown media type");
-          }
-        })
-        .catch(error => console.error(error));
+      console.log("Unknown media type");
     }
   })
-  .catch(error => console.error(error));
+ .catch(error => console.error(error));
+
+function displayMovie(data) {
+  const title = data.title;
+  const release_date = data.release_date;
+  const poster_path = data.poster_path;
+  const overview = data.overview;
+
+  const card = document.createElement("div");
+  card.style = 'tyle="width: 18rem';
+  card.setAttribute("class", "col-lg-3 col-md-3 col-sm-3 m-1  card");
+
+  const img = document.createElement("img");
+  img.classList.add("card-img-top");
+  img.src = `https://image.tmdb.org/t/p/w500${poster_path}`;
+
+  const mtitle = document.createElement("h5");
+  mtitle.setAttribute("class", "card-title");
+  mtitle.textContent = title;
+
+  const mrd = document.createElement("h7");
+  mrd.setAttribute("class", "card-title");
+  mrd.textContent = "Date: " + release_date;
+
+  const overveiw = document.createElement("h7");
+  overveiw.setAttribute("class", "card-title");
+  overveiw.textContent = overview;
+
+  card.append(img);
+  card.append(mtitle);
+  card.append(mrd);
+  card.append(overveiw);
+
+  container1.append(card);
+}
+
+function displayTVShow(data) {
+  const name = data.name;
+  const first_air_date = data.first_air_date;
+  const poster_path = data.poster_path;
+  const overview = data.overview;
+
+  const card = document.createElement("div");
+  card.style = 'tyle="width: 18rem';
+  card.setAttribute("class", "col-lg-3 col-md-3 col-sm-3 m-1  card");
+
+  const img = document.createElement("img");
+  img.classList.add("card-img-top");
+  img.src = `https://image.tmdb.org/t/p/w500${poster_path}`;
+
+  const mtitle = document.createElement("h5");
+  mtitle.setAttribute("class", "card-title");
+  mtitle.textContent = name;
+
+  const mrd = document.createElement("h7");
+  mrd.setAttribute("class", "card-title");
+  mrd.textContent = "First Air Date: " + first_air_date;
+
+  const overveiw = document.createElement("h7");
+  overveiw.setAttribute("class", "card-title");
+  overveiw.textContent = overview;
+
+  card.append(img);
+  card.append(mtitle);
+  card.append(mrd);
+  card.append(overveiw);
+
+  container1.append(card);
+}
   </script>
 </body>
 </html>
