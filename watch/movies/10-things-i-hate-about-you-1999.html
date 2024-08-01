@@ -25,7 +25,7 @@
   <script>
     const apiKey = "YOUR_API_KEY_HERE";
     const mediaId = 84250;
-    const mediaType = "tv"; // or "movie" if it's a movie
+    const mediaType = "movie"; // or "movie" if it's a movie
 
     fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
       .then(response => response.json())
