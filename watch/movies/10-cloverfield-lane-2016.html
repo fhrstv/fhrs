@@ -1,113 +1,47 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TMDB API Example</title>
+  <title>معلومات الفيلم أو المسلسل</title>
   <style>
-   .card {
-      width: 18rem;
-      margin: 1rem;
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+    }
+    #poster {
+      width: 200px;
+      height: 300px;
+      margin: 20px;
     }
   </style>
 </head>
 <body>
-  <div id="container1"></div>
+  <h1 id="title"></h1>
+  <p id="overview"></p>
+  <img id="poster" src="" alt="بوستر">
+  <p id="genres"></p>
+
   <script>
     const apiKey = "cf64a661774f647b7513facb9f1e55e5";
-    const mediaId = 84250; // or any other ID
-    const container1 = document.getElementById("container1");
+    const mediaId = 84250;
+    const mediaType = "movie"; // or "movie" if it's a movie
 
-    fetch(`https://api.themoviedb.org/3/${mediaId}?api_key=${apiKey}&language=ar`)
-     .then(response => response.json())
-     .then(data => {
-        if (data.title) {
-          // it's a movie
-          displayMovie(data);
-        } else if (data.name) {
-          // it's a TV show
-          displayTVShow(data);
-        } else {
-          console.log("Unknown media type");
-        }
+    fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const title = data.name || data.title;
+        const overview = data.overview;
+        const posterPath = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+        const genres = data.genres.map(genre => genre.name).join(", ");
+
+        document.getElementById("title").innerHTML = title;
+        document.getElementById("overview").innerHTML = overview;
+        document.getElementById("poster").src = posterPath;
+        document.getElementById("genres").innerHTML = genres;
       })
-     .catch(error => console.error(error));
-
-    function displayMovie(data) {
-      const title = data.title;
-      const release_date = data.release_date;
-      const poster_path = data.poster_path;
-      const overview = data.overview;
-
-      const card = document.createElement("div");
-      card.className = "card";
-
-      const img = document.createElement("img");
-      img.className = "card-img-top";
-      img.src = `https://image.tmdb.org/t/p/w500${poster_path}`;
-
-      const cardBody = document.createElement("div");
-      cardBody.className = "card-body";
-
-      const mtitle = document.createElement("h5");
-      mtitle.className = "card-title";
-      mtitle.textContent = title;
-
-      const mrd = document.createElement("p");
-      mrd.className = "card-text";
-      mrd.textContent = "Date: " + release_date;
-
-      const overveiw = document.createElement("p");
-      overveiw.className = "card-text";
-      overveiw.textContent = overview;
-
-      cardBody.append(mtitle);
-      cardBody.append(mrd);
-      cardBody.append(overveiw);
-
-      card.append(img);
-      card.append(cardBody);
-
-      container1.append(card);
-    }
-
-    function displayTVShow(data) {
-      const name = data.name;
-      const first_air_date = data.first_air_date;
-      const poster_path = data.poster_path;
-      const overview = data.overview;
-
-      const card = document.createElement("div");
-      card.className = "card";
-
-      const img = document.createElement("img");
-      img.className = "card-img-top";
-      img.src = `https://image.tmdb.org/t/p/w500${poster_path}`;
-
-      const cardBody = document.createElement("div");
-      cardBody.className = "card-body";
-
-      const mtitle = document.createElement("h5");
-      mtitle.className = "card-title";
-      mtitle.textContent = name;
-
-      const mrd = document.createElement("p");
-      mrd.className = "card-text";
-      mrd.textContent = "First Air Date: " + first_air_date;
-
-      const overveiw = document.createElement("p");
-      overveiw.className = "card-text";
-      overveiw.textContent = overview;
-
-      cardBody.append(mtitle);
-      cardBody.append(mrd);
-      cardBody.append(overveiw);
-
-      card.append(img);
-      card.append(cardBody);
-
-      container1.append(card);
-    }
+      .catch(error => console.error(error));
   </script>
 </body>
 </html>
