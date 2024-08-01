@@ -8,7 +8,7 @@
 
     .vk-embed {
         width: 100%; /* عرض المشغل بالكامل بناءً على عرض الصفحة */
-        max-width: 414px; /* عرض المشغل عند الاستخدام الأفقي */
+        max-width: 500px; /* عرض المشغل في الوضع الأفقي */
         height: auto; /* الارتفاع تلقائي بناءً على العرض */
         margin: 0 auto; /* توسيط المشغل أفقياً */
         position: relative;
@@ -19,12 +19,13 @@
         height: 100%;
     }
 
-    @media (max-aspect-ratio: 414/232.875) {
+    @media (max-aspect-ratio: 500/300) {
         .vk-embed {
             max-width: 100%; /* تعديل العرض في الوضع العمودي */
             height: auto;
         }
     }
+
 
 
 
