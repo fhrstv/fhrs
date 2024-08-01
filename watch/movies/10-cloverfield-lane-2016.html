@@ -41,18 +41,19 @@
             margin-bottom: 10px;
         }
 
-         #trailer,
-        #movie-player {
-            margin: 20px 0;
-        }
+         #trailer {
+    margin: 20px auto;
+    width: 100%;
+    max-width: 560px;
+}
 
-        #trailer iframe,
-        #movie-player iframe {
-            width: 200%;
-            max-width: 560px;
-            height: 315px;
-            border: none;
-        }
+#trailer iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: none;
+}
+```​⬤
 
         .container {
     display: flex;
