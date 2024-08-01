@@ -21,19 +21,16 @@
         }
 
         .vk-embed {
-            width: 100%;
-            max-width: 500px; /* أقصى عرض للمشغل */
-            height: auto;
-            margin: 20px auto; /* توسيط المشغل أفقياً */
-            position: relative;
-        }
+    width: 100%; /* عرض المشغل بالكامل بناءً على عرض الصفحة */
+    max-width: 560px; /* أقصى عرض للمشغل مثل يوتيوب */
+    height: auto; /* الطول يعتمد على نسبة العرض إلى الارتفاع */
+    margin: 20px auto; /* توسيط المشغل أفقياً */
+}
 
-        .vk-embed iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            object-fit: cover; /* تغطية كامل الفريم */
-        }
+.vk-embed iframe {
+    width: 100%;
+    height: 315px; /* ارتفاع الفيديو بما يتناسب مع العرض */
+}
 
         .episode-box {
             width: 80%;
