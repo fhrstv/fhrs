@@ -22,14 +22,17 @@
 
         .vk-embed {
     width: 100%; /* عرض المشغل بالكامل بناءً على عرض الصفحة */
-    max-width: 480px; /* أقصى عرض للمشغل مثل يوتيوب */
+    max-width: 560px; /* أقصى عرض للمشغل */
     height: auto; /* الطول يعتمد على نسبة العرض إلى الارتفاع */
     margin: 20px auto; /* توسيط المشغل أفقياً */
+    position: relative;
 }
 
 .vk-embed iframe {
     width: 100%;
-    height: 270px; /* ارتفاع الفيديو بما يتناسب مع العرض */
+    height: 315px; /* ارتفاع الفيديو يتناسب مع العرض */
+    border: none;
+    object-fit: cover; /* ملء الإطار بشكل مناسب */
 }
 
         .episode-box {
