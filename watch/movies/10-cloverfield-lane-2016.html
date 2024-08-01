@@ -13,19 +13,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #fff; /* خلفية بيضاء */
+            background-color: #f5f5f5; /* خلفية بيضاء فاتحة */
         }
 
-        .vk-embed {
-            position: relative;
+        .video-container {
             width: 80%;
-            max-width: 800px; /* حجم العرض الأقصى للفيديو */
+            max-width: 900px; /* الحجم الأقصى للفيديو */
             padding-top: 45%; /* نسبة العرض إلى الارتفاع 16:9 */
-            background: #000; /* خلفية سوداء */
-            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* إضافة ظل لتحديد الفيديو */
+            position: relative;
+            background: #000; /* خلفية سوداء حول الفيديو */
         }
 
-        .vk-embed iframe {
+        .video-container iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -36,8 +35,8 @@
     </style>
 </head>
 <body>
-    <div class="vk-embed">
-        <iframe id="vk-video" src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=6e203967347bcf14" frameborder="0" allowfullscreen webkitallowfullscreen allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    <div class="video-container">
+        <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=6e203967347bcf14" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>
     </div>
 </body>
 </html>
