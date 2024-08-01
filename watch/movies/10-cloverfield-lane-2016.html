@@ -20,23 +20,28 @@
     const apiKey = "cf64a661774f647b7513facb9f1e55e5";
 const mediaId = 84250; // or any other ID
 
-fetch(`https://api.themoviedb.org/3/find/${mediaId}?api_key=${apiKey}&language=ar`)
+fetch(`https://api.themoviedb.org/3/movie/${mediaId}?api_key=${apiKey}&language=ar`)
   .then(response => response.json())
   .then(data => {
-    if (data.movie_results.length > 0) {
+    if (data.title) {
       // it's a movie
-      const movie = data.movie_results[0];
-      document.getElementById("title").innerHTML = movie.title;
-      document.getElementById("poster").src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-      document.getElementById("overview").innerHTML = movie.overview;
-    } else if (data.tv_results.length > 0) {
-      // it's a TV show
-      const tvShow = data.tv_results[0];
-      document.getElementById("title").innerHTML = tvShow.name;
-      document.getElementById("poster").src = `https://image.tmdb.org/t/p/w500${tvShow.poster_path}`;
-      document.getElementById("overview").innerHTML = tvShow.summary;
+      document.getElementById("title").innerHTML = data.title;
+      document.getElementById("poster").src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+      document.getElementById("overview").innerHTML = data.overview;
     } else {
-      console.log("Unknown media type");
+      fetch(`https://api.themoviedb.org/3/tv/${mediaId}?api_key=${apiKey}&language=ar`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.name) {
+            // it's a TV show
+            document.getElementById("title").innerHTML = data.name;
+            document.getElementById("poster").src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+            document.getElementById("overview").innerHTML = data.overview;
+          } else {
+            console.log("Unknown media type");
+          }
+        })
+        .catch(error => console.error(error));
     }
   })
   .catch(error => console.error(error));
