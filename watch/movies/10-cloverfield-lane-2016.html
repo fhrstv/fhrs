@@ -7,23 +7,130 @@
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
-        /* التنسيقات كما هي */
-        body { ... }
-        header { ... }
-        .container { ... }
-        iframe { ... }
-        a { ... }
-        p { ... }
-        .movie-details { ... }
-        .movie-poster { ... }
-        .movie-info { ... }
-        .movie-title { ... }
-        .story-title { ... }
-        .story { ... }
-        h2, h3, a { ... }
-        .episode-box { ... }
-        #episodes { ... }
-        video { ... }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 315px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        .movie-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .movie-poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .movie-info {
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .movie-info p {
+            margin-bottom: 10px;
+        }
+
+        .movie-title {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+       .story-title {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .story {
+            font-family: "Arial", sans-serif;
+            font-size: 17px;
+            line-height: 1.6;
+            text-align: right;
+            direction: rtl;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            text-align-last: right;
+            display: block;
+        }
+
+        h2, h3, a {
+            color: #000;
+        }
+
+        .episode-box {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #episodes {
+            width: 100%;
+            font-size: 18px;
+            padding: 10px;
+            height: 50px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            direction: rtl;
+            text-align: center;
+            flex-direction: row-reverse;
+        }
     </style>
 </head>
 <body>
@@ -34,16 +141,15 @@
         <div id="movieInfo"></div>
         <div id="trailerContainer"></div>
         <h2>شاهد الآن</h2>
-        <video id="videoPlayer" controls>
-            <source src="https://server.sanime.net/Video3/3888/1.mp4" type="video/mp4">
-        </video>
+        <div id="videoContainer">
+            <iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
         <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
         <div class="episode-box">
             <select id="episodes" onchange="changeEpisode(this.value)">
-                <option value="https://server.sanime.net/Video2/latest/11172/1.mp4">القسم الاول : الحلقة 1</option>
-                <option value="https://server.sanime.net/Video2/latest/11172/2.mp4">القسم الاول : الحلقة 2</option>
+                <option value="">اختر حلقة</option>
+                <option value="https://m.vk.com/video760598098_456251010?from=video">فيديو VK</option>
                 <!-- المزيد من الخيارات -->
-                <option value="https://m.vk.com/video760598098_456251010?from=video">فيديو VK</option> <!-- رابط VK الجديد -->
             </select>
         </div>
        <a href="../../Series">رجوع</a>
@@ -51,7 +157,7 @@
     <script>
         function changeEpisode(videoUrl) {
             var videoPlayer = document.getElementById("videoPlayer");
-            videoPlayer.src = videoUrl;
+            videoPlayer.src = videoUrl ? `https://vk.com/video${videoUrl}` : '';
         }
     </script>
 </body>
