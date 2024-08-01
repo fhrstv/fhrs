@@ -1,19 +1,18 @@
-<!DOCTYPE html> 
-<html> 
+<!DOCTYPE html>
+<html lang="ar">
 <head> 
     <title>فهرس</title> 
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-<script src=".htaccess" defer></script>
-<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
-    <style> 
+    <meta name="description" content="أكبر موقع فهرسة للأفلام والمسلسلات">
+    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
-            color: #000
+            color: #000;
         }
 
         header {
@@ -35,9 +34,50 @@
             overflow: hidden;
         }
 
-        iframe {
+        .vk-embed {
             width: 100%;
-            height: 400px;
+            max-width: 560px; /* أقصى عرض للمشغل */
+            height: auto;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .vk-embed::before {
+            content: "";
+            display: block;
+            padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) */
+        }
+
+        .vk-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .episode-box {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #episodes {
+            width: 100%;
+            font-size: 18px;
+            padding: 10px;
+            height: 50px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            direction: rtl;
+            flex-direction: row-reverse;
         }
 
         a {
@@ -64,7 +104,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #000
+            color: #000;
         }
 
         .movie-poster {
@@ -77,7 +117,7 @@
         .movie-info {
             text-align: center;
             padding: 0 20px;
-            color: #000
+            color: #000;
         }
 
         .movie-info p {
@@ -95,127 +135,97 @@
             margin-right: 10px; /* مسافة بين العنوان والنص */
         }
         
-.story {
-    font-family: "Arial", sans-serif; /* أو أي خط يدعم العربية */
-    font-size: 17px;
-    line-height: 1.6;
-    text-align: right; /* محاذاة النص لليمين */
-    direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
-    white-space: pre-wrap; /* الحفاظ على التباعد بين الأسطر */
-    overflow-wrap: break-word; /* كسر الكلمات الطويلة التي تتجاوز العرض */
-    color: #000
-}
+        .story {
+            font-family: "Arial", sans-serif; /* أو أي خط يدعم العربية */
+            font-size: 17px;
+            line-height: 1.6;
+            text-align: right; /* محاذاة النص لليمين */
+            direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
+            white-space: pre-wrap; /* الحفاظ على التباعد بين الأسطر */
+            overflow-wrap: break-word; /* كسر الكلمات الطويلة التي تتجاوز العرض */
+            color: #000;
+        }
 
         h2, h3, a {
-    color: #000; /* تغيير اللون إلى الأسود */
-}
+            color: #000; /* تغيير اللون إلى الأسود */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>فهرس</h1>
+    </header>
+    <div class="vk-embed">
+        <iframe src="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=somehashvalue" allowfullscreen></iframe>
+    </div>
+    <div class="episode-box">
+        <select id="episodes" onchange="changeEpisode(this.value)">
+            <option value="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=somehashvalue">الحلقة 1</option>
+            <option value="https://vk.com/video_ext.php?oid=760598098&id=456251011&hash=somehashvalue">الحلقة 2</option>
+            <option value="https://vk.com/video_ext.php?oid=760598098&id=456251012&hash=somehashvalue">الحلقة 3</option>
+            <!-- أضف المزيد من الحلقات هنا -->
+        </select>
+    </div>
+    <a href="../../Series">رجوع</a>
+    <div id="movieInfo"></div>
+    <div id="trailerContainer"></div>
+    <script>
+        const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
+        const mediaIds = ['87701']; // استخدم رمز TMDB هنا
 
-    </style> 
-</head> 
-<body> 
-    <header> 
-        <h1>فهرس</h1> 
-   
-<div class="container">
-    <div id="movieInfo" class="movie-info"></div>
-    <div id="trailerContainer" class="trailer-container"></div>
-    <h2>شاهد الآن</h2>
-    <iframe id="movieIframe" src="https://vidsrc.me/embed/movie?imdb=tt0147800" frameborder="0" allowfullscreen></iframe> 
-       <h3>اذا لم تظهر الترجمة العربية<br>[cc] اضغط على مربع  
-    <br>[ Arabic ] و اختار كلمة 
-    <br> و اختار الترجمة المناسبة ، قم بتغيير الترجمة اذا في تاخير او تسريع 
-    <br> اذا لم تجد الترجمة المناسبة وجميع الترجمات العربية متاخرة او مسرعة او السيرفر لا يعمل  أرجوك قم بنسخ الرابط وأرسله لنا بسرعة لتغييره  
-    <br>  من خلال الذهاب الى صفحة اتصل بنا
-    </h3>
+        mediaIds.forEach(mediaId => {
+            const apiUrl = `https://api.themoviedb.org/3/movie/${mediaId}?api_key=${tmdbApiKey}&language=ar`; // استعلام عن الفيلم
 
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Data from TMDB movie endpoint:', data); // عرض بيانات الفيلم
 
-     <a href="../../Movies">رجوع</a>
-</div>
-
-<script>
-    const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
-
-    // استخراج معرف الفيلم من iframe
-    function extractImdbIdFromIframe() {
-        const iframe = document.getElementById('movieIframe');
-        const src = iframe.src;
-        const match = src.match(/imdb=(tt\d+)/);
-        return match ? match[1] : null;
-    }
-
-    const imdbId = extractImdbIdFromIframe();
-    if (imdbId) {
-        const apiUrl = `https://api.themoviedb.org/3/find/${imdbId}?api_key=${tmdbApiKey}&language=en&external_source=imdb_id`;
-
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                if (data.movie_results.length > 0) { 
-                    const tmdbMovieId = data.movie_results[0].id;
-                    const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=ar`;
-                    displayMediaDetails(tmdbApiUrl, 'movie');
-                } else if (data.tv_results.length > 0) { 
-                    const tmdbTvId = data.tv_results[0].id;
-                    const tmdbApiUrl = `https://api.themoviedb.org/3/tv/${tmdbTvId}?api_key=${tmdbApiKey}&language=ar`;
-                    displayMediaDetails(tmdbApiUrl, 'tv');
-                } else {
-                    console.error('No data found for media with ID:', imdbId);
-                }
-            })
-            .catch(error => console.error('Error fetching media details:', error));
-    } else {
-        console.error('No IMDb ID found in the iframe src.');
-    }
-
-    function displayMediaDetails(apiUrl, type) {
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                const imdbRating = (Math.round(data.vote_average * 10) / 10).toFixed(1);
-                const trimmedOverview = data.overview ? data.overview.trim() : 'لا توجد تفاصيل.';
-                const releaseYear = data.release_date ? data.release_date.split('-')[0] : 'غير متوفر';
-                const mediaInfo = `
-                    <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
-                    <h2 class="movie-title">${data.title || data.name}</h2>
-                    <div class="movie-details">
-                        <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
-                        <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
-                        <p><strong>التقييم:</strong> ${imdbRating}/10</p>
-                        <div class="story-container">
-                            <div class="story-title">: القصة</div>
-                            <div class="story">${trimmedOverview}</div>
+                    const rating = (Math.round(data.vote_average * 10) / 10).toFixed(1);
+                    const trimmedOverview = data.overview.trim();
+                    const releaseYear = data.release_date ? data.release_date.split('-')[0] : 'غير متوفر';
+                    const mediaInfo = `
+                        <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
+                        <h2 class="movie-title">${data.title}</h2>
+                        <div class="movie-details">
+                            <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
+                            <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>التقييم:</strong> ${rating}/10</p>
+                            <div class="story-container">
+                                <div class="story-title">: القصة</div>
+                                <div class="story">${trimmedOverview}</div>
+                            </div>
                         </div>
-                    </div>
-                `;
-                document.getElementById('movieInfo').innerHTML = mediaInfo;
+                    `;
+                    document.getElementById('movieInfo').innerHTML = mediaInfo;
 
-                const videoType = type === 'movie' ? 'movie' : 'tv';
-                const videoUrl = `https://api.themoviedb.org/3/${videoType}/${data.id}?api_key=${tmdbApiKey}&append_to_response=videos`;
-                fetch(videoUrl)
-                    .then(response => response.json())
-                    .then(videoData => {
-                        if (videoData.videos.results.length > 0) {
-                            const videoKey = videoData.videos.results[0].key;
-                            const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
-                            const trailerContainer = document.getElementById('trailerContainer');
-                            trailerContainer.innerHTML = `
-                                <h3>التريلر</h3>
-                                <iframe src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
-                            `;
-                        } else {
-                            console.error('No video found for this media.');
-                            const trailerContainer = document.getElementById('trailerContainer');
-                            trailerContainer.innerHTML = '<p>لا يوجد إعلان متوفر لهذا الفيلم.</p>';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching media video:', error);
-                        const trailerContainer = document.getElementById('trailerContainer');
-                        trailerContainer.innerHTML = '<p>حدث خطأ في تحميل الإعلان.</p>';
-                    });
-            })
-            .catch(error => console.error('Error fetching media details:', error));
-    }
-</script>
+                    const videoUrl = `https://api.themoviedb.org/3/movie/${mediaId}/videos?api_key=${tmdbApiKey}&language=ar`;
+                    fetch(videoUrl)
+                        .then(response => response.json())
+                        .then(videoData => {
+                            console.log('Data from TMDB videos endpoint:', videoData); // عرض بيانات الفيديو
+
+                            if (videoData.results.length > 0) {
+                                const videoKey = videoData.results[0].key;
+                                const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
+                                const trailerContainer = document.getElementById('trailerContainer');
+                                trailerContainer.innerHTML = `
+                                    <h3>التريلر</h3>
+                                    <iframe width="560" height="315" src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
+                                `;
+                            } else {
+                                console.error('No video found for this media.');
+                            }
+                        })
+                        .catch(error => console.error('Error fetching media video:', error));
+                })
+                .catch(error => console.error('Error fetching media details:', error));
+        });
+
+        function changeEpisode(videoUrl) {
+            var videoFrame = document.querySelector(".vk-embed iframe");
+            videoFrame.src = videoUrl;
+        }
+    </script>
 </body>
 </html>
