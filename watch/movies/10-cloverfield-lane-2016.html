@@ -9,8 +9,8 @@
     .vk-embed {
         position: relative;
         width: 100%;
+        max-width: 500px; /* عرض المشغل الأقصى */
         height: auto;
-        max-width: 500px; /* أقصى عرض في الوضع الأفقي */
         margin: 0 auto; /* توسيط المشغل أفقياً */
     }
 
@@ -19,7 +19,9 @@
         height: 100%;
         border: none;
         display: block;
+        object-fit: cover; /* ضمان تغطية كامل الفريم دون تشويه */
     }
+
 
     @media (orientation: portrait) {
         .vk-embed {
