@@ -112,13 +112,15 @@ color: #000; /* تغيير اللون إلى الأسود */
 
 .movieIframe-container {
         position: relative;
-        width: 100%; /* عرض 100% من العنصر الأب */
+        width: 100%;
+        max-width: 1000px; /* اضبط العرض الأقصى حسب الحاجة */
+        margin: 0 auto; /* محاذاة العنصر في المركز */
         padding-top: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
         height: 0; /* ارتفاع صفر لأننا نستخدم padding-top لضبط الارتفاع */
         overflow: hidden;
-}
+    }
 
-.movieIframe {
+    .movieIframe {
         position: absolute;
         top: 0;
         left: 0;
@@ -126,7 +128,6 @@ color: #000; /* تغيير اللون إلى الأسود */
         height: 100%;
         border: none;
     }
-
 </style> 
 
 
