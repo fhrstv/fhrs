@@ -7,75 +7,76 @@
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-        color: #000;
-    }
-
-    header {
-        background-color: #333;
-        color: hsl(0, 94%, 46%);
-        text-align: center;
-        padding: 10px;
-    }
-
-    .container {
-        width: 90%;
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        font-size: 16px;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    iframe {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 16 / 9; /* maintains a 16:9 aspect ratio */
-    }
-
-    a {
-        text-decoration: none;
-        color: #fff;
-        display: block;
-        padding: 15px;
-        border-radius: 5px;
-        background-color: red;
-        transition: background-color 0.3s;
-        margin-top: 20px;
-    }
-
-    a:hover {
-        background-color: gold;
-        color: #333;
-    }
-
-    p {
-        text-align: justify;
-        margin-bottom: 10px;
-    }
-
-    @media (max-width: 600px) {
-        .container {
-            font-size: 14px;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #000;
         }
 
-        header h1 {
-            font-size: 1.5em;
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 16px;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         iframe {
-            height: 200px; /* Adjusted for smaller screens */
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9; /* maintains a 16:9 aspect ratio */
+            border: none; /* Optional: Remove iframe border */
         }
-    }
-</style>
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+            color: #333;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                font-size: 14px;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            iframe {
+                height: 200px; /* Adjusted for smaller screens */
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -84,7 +85,7 @@
 
     <div class="container">
         <h2>شاهد الآن</h2>
-        <iframe id="movieIframe" src="https://vidsrc.me/embed/movie?imdb=tt8579674" frameborder="0" allowfullscreen></iframe>
+        <iframe id="movieIframe" src="https://vidsrc.me/embed/movie?imdb=tt8579674" allowfullscreen></iframe>
         <h3>اذا لم تظهر الترجمة العربية<br>[cc] اضغط على مربع<br>[ Arabic ] و اختار كلمة<br> و اختار الترجمة المناسبة ، قم بتغيير الترجمة اذا في تاخير او تسريع<br> اذا لم تجد الترجمة المناسبة وجميع الترجمات العربية متاخرة او مسرعة او السيرفر لا يعمل أرجوك قم بنسخ الرابط وأرسله لنا بسرعة لتغييره<br> من خلال الذهاب الى صفحة اتصل بنا</h3>
         <a href="../../Movies">رجوع</a>
     </div>
@@ -106,11 +107,11 @@
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
-                    if (data.movie_results.length > 0) {
+                    if (data.movie_results.length > 0) { 
                         const tmdbMovieId = data.movie_results[0].id;
                         const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=ar`;
                         displayMediaDetails(tmdbApiUrl, 'movie');
-                    } else if (data.tv_results.length > 0) {
+                    } else if (data.tv_results.length > 0) { 
                         const tmdbTvId = data.tv_results[0].id;
                         const tmdbApiUrl = `https://api.themoviedb.org/3/tv/${tmdbTvId}?api_key=${tmdbApiKey}&language=ar`;
                         displayMediaDetails(tmdbApiUrl, 'tv');
