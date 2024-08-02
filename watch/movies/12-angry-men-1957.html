@@ -91,6 +91,7 @@
 }
 
 
+
 .iframe-container iframe {
     position: absolute;
     top: 0;
@@ -128,11 +129,28 @@ a {
         }
         
         
-        @media (max-width: 400px) {
+       @media (max-width: 400px) {
     .iframe-container {
         padding-bottom: 75%; /* نسبة عرض إلى ارتفاع 4:3 للشاشات الأصغر */
     }
 
+    .iframe-container iframe {
+        height: 100%; /* ضبط الارتفاع لضمان عدم التشويه */
+        width: 100%; /* التأكد من العرض الكامل */
+    }
+}
+
+/* الميديا كويري للأجهزة أقل من 375 بكسل */
+@media (max-width: 375px) {
+    .iframe-container {
+        padding-bottom: 75%; /* تعديل نسبة العرض إلى الارتفاع وفقًا للشاشات الصغيرة */
+    }
+
+    .iframe-container iframe {
+        height: 100%;
+        width: 100%;
+    }
+}
 
     </style>
 </head>
