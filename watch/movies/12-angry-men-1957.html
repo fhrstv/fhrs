@@ -176,10 +176,10 @@
         const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
 
         document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
-        document.getElementById("overview").innerHTML = `القصة : ${overview}`;
+
         <div class="story-container">
                             <div class="story-title">: القصة</div>
-                            <div class="story">${trimmedOverview}</div>
+                            <div class="story">${overview}</div>
                         </div>
         document.getElementById("poster").src = posterPath;
         document.getElementById("genres").innerHTML = `النوع : ${genres}`;
