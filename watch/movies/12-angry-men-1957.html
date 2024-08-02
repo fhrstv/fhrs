@@ -8,23 +8,28 @@
 <script src=".htaccess" defer></script>
 <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        background-color: #f5f5f5;
-    }
-
+    /* يحافظ على التصميم الحالي للـ header */
     header {
         background-color: #ffffff;
         color: hsl(0, 94%, 46%);
         text-align: center;
         padding: 10px;
         width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000; /* تأمين الـ header في الأعلى */
+    }
+
+    /* توسيط العناصر الرئيسية في الصفحة */
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh; /* تغطي الشاشة بالكامل */
+        padding: 20px;
+        text-align: center;
     }
 
     iframe {
@@ -58,9 +63,9 @@
         flex-direction: column;
         align-items: center;
         color: #000;
-        text-align: center;
         max-width: 700px; /* تحديد عرض أقصى للعنصر */
         width: 100%;
+        margin-top: 20px; /* توسيط العنصر مع وجود تباعد من الأعلى */
     }
 
     .movie-poster {
@@ -113,6 +118,7 @@
         border: none;
     }
 </style>
+
 
 </head> 
 <body> 
