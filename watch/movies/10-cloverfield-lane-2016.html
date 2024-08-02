@@ -231,6 +231,22 @@
         function changeEpisode(url) {
             document.getElementById('videoFrame').src = url;
         }
+        
+        
+        
+        document.addEventListener("DOMContentLoaded", function() {
+    // التحقق من حجم الشاشة
+    if (window.innerWidth <= 600) {
+        // تطبيق التعديلات اللازمة للأجهزة المحمولة
+        document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0');
+        
+        // أي تعديلات إضافية يمكن إضافتها هنا
+        // مثل تغيير حجم الصور أو النصوص ديناميكيًا
+    }
+});
+        
+        
+        
     </script>
 </body>
 </html>
