@@ -157,11 +157,11 @@
         const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
 
         document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
-        document.getElementById("overview").innerHTML = `<strong> : القصة</strong> ${overview}`;
+        document.getElementById("overview").innerHTML = ` : القصة ${overview}`;
         document.getElementById("poster").src = posterPath;
-        document.getElementById("genres").innerHTML = `<strong> : النوع</strong> ${genres}`;
-        document.getElementById("release-date").innerHTML = ` <strong> : تاريخ الإصدار</strong> ${releaseDate}`;
-        document.getElementById("rating").innerHTML = ` <strong> : التقييم</strong> ${rating}`;
+        document.getElementById("genres").innerHTML = ` : النوع ${genres}`;
+        document.getElementById("release-date").innerHTML = `  : تاريخ الإصدار ${releaseDate}`;
+        document.getElementById("rating").innerHTML = `  : التقييم ${rating}`;
 
         // جلب التريلر
         return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
