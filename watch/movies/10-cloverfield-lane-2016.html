@@ -157,10 +157,12 @@ a {
 </div>
 
 <div class="button-container">
-        <button onclick="changeEpisode('https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2')">الحلقة 1</button>
-        <button onclick="changeEpisode('https://vk.com/video_ext.php?oid=760447746&id=456239066&hash=&hd=2')">الحلقة 2</button>
-        <button onclick="changeEpisode('https://vk.com/video_ext.php?oid=760447746&id=456239067&hash=&hd=2')">الحلقة 3</button>
-    </div>
+    <select id="episodeSelector" onchange="changeEpisode(this.value)">
+        <option value="https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2">الحلقة 1</option>
+        <option value="https://vk.com/video_ext.php?oid=760447746&id=456239066&hash=&hd=2">الحلقة 2</option>
+        <option value="https://vk.com/video_ext.php?oid=760447746&id=456239067&hash=&hd=2">الحلقة 3</option>
+    </select>
+</div>
 
 
 
