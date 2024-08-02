@@ -70,9 +70,10 @@
 
 .vk-embed {
     position: relative;
-    width: 100%;
-    max-width: 560px; /* تعديل العرض الأقصى للمشغل */
-    margin: 0 auto; /* توسيط الحاوية */
+    width: 100%; /* يعرض الحاوية بنسبة 100% من العرض المتاح */
+    max-width: 414px; /* يحدد العرض الأقصى للفيديو */
+    aspect-ratio: 16 / 9; /* يحافظ على نسبة العرض إلى الارتفاع للفيديو */
+    margin: 0 auto; /* يوسّط الحاوية */
 }
 
 .iframe-container {
