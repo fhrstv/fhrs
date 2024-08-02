@@ -33,13 +33,15 @@
 /* Media queries to adjust the width for smaller screens */
 @media only screen and (max-width: 375px) {
   .iframe-container {
-    width: 375px;
+    width: 100%; /* take up full width on smaller screens */
+    min-width: 280px; /* maintain a minimum width to keep the player's settings button visible */
   }
 }
 
 @media only screen and (max-width: 320px) {
   .iframe-container {
-    width: 320px;
+    width: 100%; /* take up full width on smaller screens */
+    min-width: 240px; /* maintain a minimum width to keep the player's settings button visible */
   }
 }
 </style>
@@ -57,7 +59,6 @@
               allowfullscreen>
       </iframe>
     </div>
-
      <a href="../../Movies">رجوع</a>
 </div>
 
