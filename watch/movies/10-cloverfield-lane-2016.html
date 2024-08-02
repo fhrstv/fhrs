@@ -214,10 +214,9 @@ a {
     
 </script>
 <script>
-    function changeEpisode(url) {
-        const iframe = document.getElementById('videoFrame');
-        iframe.src = ''; // إعادة تعيين src مؤقتًا
-        iframe.src = url; // إعادة تعيين src إلى الرابط الجديد
-    }
+    function changeEpisode(videoUrl) {
+            var videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.src = videoUrl;
+        }
 </script>
 </html>
