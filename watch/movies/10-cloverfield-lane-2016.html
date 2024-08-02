@@ -157,7 +157,8 @@ a {
                 mozallowfullscreen 
                 msallowfullscreen>
         </iframe>
-
+</div>
+</div>
 <div class="button-container">
     <select id="episodeSelector" onchange="changeEpisode(this.value)">
         <option value="https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2">الحلقة 1</option>
@@ -215,9 +216,12 @@ a {
       })
       .catch(error => console.error(error));
     
-     function changeEpisode(url) {
+     
+    
+</script>
+<script>
+function changeEpisode(url) {
             document.getElementById('videoFrame').src = url;
         }
-    
 </script>
 </html>
