@@ -111,9 +111,10 @@
 }
 
 .movieIframe {
-    width: 700px;
-    height: 400px;
-}
+        width: 700px;
+        height: 400px;
+        border: none; /* إزالة الحدود إذا كانت غير مرغوب فيها */
+    }
     </style> 
 </head> 
 <body> 
@@ -124,7 +125,7 @@
     <div id="movieInfo" class="movie-info"></div>
     <div id="trailerContainer" class="trailer-container"></div>
     <h2>شاهد الآن</h2>
-    <iframe id="movieIframe" src="https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2" frameborder="0" allowfullscreen></iframe> 
+    <iframe class="movieIframe" src="https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2" frameborder="0" allowfullscreen></iframe> 
        <h3>اذا لم تظهر الترجمة العربية<br>[cc] اضغط على مربع  
     <br>[ Arabic ] و اختار كلمة 
     <br> و اختار الترجمة المناسبة ، قم بتغيير الترجمة اذا في تاخير او تسريع 
