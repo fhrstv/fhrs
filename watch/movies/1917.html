@@ -7,65 +7,29 @@
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #000;
-        }
-
-        header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
-            text-align: center;
-            padding: 10px;
-        }
-
         .container {
-    width: 360px; /* Set a fixed width for smaller screens */
+    width: 100%; /* Full width for larger screens */
+    max-width: 360px; /* Fixed max width */
     margin: 20px auto;
 }
 
 iframe {
-    width: 360px; /* Match iframe width with container */
-    height: 200px; /* Set a fixed height */
+    width: 100%; /* Full width of container */
+    height: 200px; /* Fixed height */
 }
 
-        a {
-            text-decoration: none;
-            color: #fff;
-            display: block;
-            padding: 15px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
+@media (max-width: 480px) {
+    .container {
+        width: 100%; /* Full width for screens narrower than 480px */
+        padding: 10px; /* Add padding for better spacing on small screens */
+    }
 
-        a:hover {
-            background-color: gold;
-            color: #333;
-        }
+    iframe {
+        height: 180px; /* Adjust height for smaller screens */
+    }
+}
 
-        p {
-            text-align: justify;
-            margin-bottom: 10px;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                font-size: 14px;
-            }
-
-            header h1 {
-                font-size: 1.5em;
-            }
-
-            iframe {
-                height: 200px; /* Adjusted for smaller screens */
-            }
-        }
+    
     </style>
 </head>
 <body>
