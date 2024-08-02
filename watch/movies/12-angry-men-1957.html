@@ -66,14 +66,7 @@
     overflow: visible; /* ضمان أن لا يتم قطع المحتوى */
 }
 
-@media (orientation: portrait) {
-    .container {
-        width: 100%;
-        max-width: 100vw; /* عرض كامل للشاشة في الوضع العمودي */
-        padding: 0; /* إزالة التباعد الداخلي إذا لزم الأمر */
-        box-sizing: border-box; /* يتضمن التباعد والحدود في حساب العرض والارتفاع */
-    }
-}
+
 
 .vk-embed {
     position: relative;
@@ -108,6 +101,12 @@
         padding-bottom: 75%; /* نسبة عرض إلى ارتفاع 4:3 للحفاظ على عنصر الإعدادات */
     }
 }
+.container {
+        width: 100%;
+        max-width: 100vw; /* عرض كامل للشاشة في الوضع العمودي */
+        padding: 0; /* إزالة التباعد الداخلي إذا لزم الأمر */
+        box-sizing: border-box; /* يتضمن التباعد والحدود في حساب العرض والارتفاع */
+    }
 
 a {
     text-decoration: none;
@@ -126,12 +125,6 @@ a {
             background-color: gold;
         }
         
-        
-        @media (max-width: 400px) {
-    .iframe-container {
-        padding-bottom: 75%; /* تعديل نسبة العرض إلى الارتفاع للمشغل في الشاشات الصغيرة */
-    }
-}
 
 
     </style>
