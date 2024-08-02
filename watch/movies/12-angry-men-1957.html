@@ -110,12 +110,13 @@ color: #000
 color: #000; /* تغيير اللون إلى الأسود */
 }
 
-.movieIframe {
-        width: 100%; /* عرض 100% من العرض المتاح */
-        height: auto; /* ارتفاع تلقائي للحفاظ على نسبة العرض إلى الارتفاع */
-        aspect-ratio: 16 / 9; /* نسبة العرض إلى الارتفاع */
-        border: none;
-    }
+.movieIframe-container {
+        position: relative;
+        width: 100%; /* عرض 100% من العنصر الأب */
+        padding-top: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
+        height: 0; /* ارتفاع صفر لأننا نستخدم padding-top لضبط الارتفاع */
+        overflow: hidden;
+}
 
 </style> 
 
