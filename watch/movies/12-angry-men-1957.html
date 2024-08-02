@@ -9,15 +9,14 @@
 <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style> 
       body {
-        width: auto;
-        height: auto;
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
     color: #000;
-    zoom: 40%; /* تصغير الصفحة إلى 80% */
+    zoom: 80%; /* تصغير الصفحة إلى 80% */
 }
+
 
 header {
     background-color: #333;
@@ -27,18 +26,12 @@ header {
 }
 
 .container {
-    width: 700px; /* عرض الحاوية يتماشى مع عرض الفيديو */
-    height: 700px; /* ارتفاع الحاوية يتماشى مع ارتفاع الفيديو */
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-size: 18px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-sizing: border-box; /* تأكد من أن الحشو والحدود لا يتجاوزان الحجم المحدد */
+    transform: scale(0.8); /* تصغير الحاوية إلى 80% */
+    transform-origin: top left; /* تحديد نقطة الأصل لتجنب التغيير في موقع الحاوية */
+    width: 125%; /* تعويض الحجم الأصلي للحاوية */
+    height: 125%; /* تعويض الحجم الأصلي للحاوية */
 }
+
 
 iframe {
     width: 100%;
