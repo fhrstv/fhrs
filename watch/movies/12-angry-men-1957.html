@@ -157,7 +157,7 @@
         const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
 
         document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
-        document.getElementById("overview").innerHTML = `<strong>القصة : </strong> ${overview}`;
+        document.getElementById("overview").innerHTML = `<strong> : القصة</strong> ${overview}`;
         document.getElementById("poster").src = posterPath;
         document.getElementById("genres").innerHTML = `النوع : ${genres}`;
         document.getElementById("release-date").innerHTML = ` تاريخ الإصدار : ${releaseDate}`;
