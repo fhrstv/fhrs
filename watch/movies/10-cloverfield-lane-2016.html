@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تضمين فيديو VK</title>
+    <title>معلومات الفيلم أو المسلسل</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,7 +14,6 @@
             text-align: center;
         }
         
-
         header {
             background-color: #333;
             color: hsl(0, 94%, 46%);
@@ -41,89 +40,54 @@
             margin-bottom: 10px;
         }
 
-         #trailer {
-    margin: 20px auto;
-    width: 100%;
-    max-width: 560px;
-}
+        #trailer {
+            margin: 20px auto;
+            width: 100%;
+            max-width: 560px;
+        }
 
-#trailer iframe {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    border: none;
-}
+        #trailer iframe {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            border: none;
+        }
 
         .container {
-    display: flex;
-    flex-direction: column; /* توسيط العناصر عموديًا */
-    align-items: center; /* توسيط العناصر أفقيًا */
-    width: 100%;
-    max-width: 100vw; /* عرض كامل للشاشة */
-    height: auto; /* ضمان أن الارتفاع يتكيف مع المحتوى */
-    padding: 0; /* إزالة التباعد الداخلي إذا لزم الأمر */
-    box-sizing: border-box; /* يتضمن التباعد والحدود في حساب العرض والارتفاع */
-    overflow: visible; /* ضمان أن لا يتم قطع المحتوى */
-}
+            display: flex;
+            flex-direction: column; /* توسيط العناصر عموديًا */
+            align-items: center; /* توسيط العناصر أفقيًا */
+            width: 100%;
+            max-width: 100vw; /* عرض كامل للشاشة */
+            height: auto; /* ضمان أن الارتفاع يتكيف مع المحتوى */
+            padding: 0; /* إزالة التباعد الداخلي إذا لزم الأمر */
+            box-sizing: border-box; /* يتضمن التباعد والحدود في حساب العرض والارتفاع */
+            overflow: visible; /* ضمان أن لا يتم قطع المحتوى */
+        }
 
-@media (orientation: portrait) {
-    .container {
-        width: 100%;
-        max-width: 100vw; /* عرض كامل للشاشة في الوضع العمودي */
-        padding: 0; /* إزالة التباعد الداخلي إذا لزم الأمر */
-        box-sizing: border-box; /* يتضمن التباعد والحدود في حساب العرض والارتفاع */
-    }
-}
+        @media (orientation: portrait) {
+            .container {
+                width: 100%;
+                max-width: 100vw; /* عرض كامل للشاشة في الوضع العمودي */
+                padding: 0; /* إزالة التباعد الداخلي إذا لزم الأمر */
+                box-sizing: border-box; /* يتضمن التباعد والحدود في حساب العرض والارتفاع */
+            }
+        }
 
-.vk-embed {
-    position: relative;
-    width: 100%;
-    max-width: 560px; /* تعديل العرض الأقصى للمشغل */
-    margin: 0 auto; /* توسيط الحاوية */
-}
+        .vk-embed {
+            position: relative;
+            width: 100%;
+            max-width: 560px; /* تعديل العرض الأقصى للمشغل */
+            margin: 0 auto; /* توسيط الحاوية */
+        }
 
-.iframe-container {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
-    overflow: hidden;
-}
-
-.iframe-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-@media (orientation: portrait) {
-    .vk-embed {
-        max-width: 100vw; /* عرض كامل للشاشة في الوضع العمودي */
-    }
-
-    .iframe-container {
-        padding-bottom: 75%; /* نسبة عرض إلى ارتفاع 4:3 للحفاظ على عنصر الإعدادات */
-    }
-}
-
-a {
-    text-decoration: none;
-    color: #333;
-    display: block;
-    padding: 20px 140px;
-    border-radius: 5px;
-    background-color: red;
-    transition: background-color 0.3s;
-    margin-top: 10px; /* تقليل المسافة من الأعلى */
-    margin-bottom: -10px; /* تحريك الزر للأعلى باستخدام margin-bottom سالبة */
-    font-size: 30px;
-}
-        
-        a:hover {
-            background-color: gold;
+        #iframeContainer {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
+            overflow: hidden;
+            background: #000; /* لون خلفية مشغل الفيديو */
         }
 
         #videoFrame {
@@ -135,42 +99,115 @@ a {
             border: none; /* إزالة الحدود حول الفريم */
         }
 
-        .button-container {
-            text-align: center;
-            margin-top: 10px;
+        @media (orientation: portrait) {
+            .vk-embed {
+                max-width: 100vw; /* عرض كامل للشاشة في الوضع العمودي */
+            }
+
+            #iframeContainer {
+                padding-bottom: 75%; /* نسبة عرض إلى ارتفاع 4:3 للحفاظ على عنصر الإعدادات */
+            }
         }
 
-        .button-container select {
-            padding: 5px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #fff;
-            cursor: pointer;
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px 140px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 10px; /* تقليل المسافة من الأعلى */
+            margin-bottom: -10px; /* تحريك الزر للأعلى باستخدام margin-bottom سالبة */
+            font-size: 30px;
+        }
+        
+        a:hover {
+            background-color: gold;
         }
     </style>
 </head>
 <body>
-    <div id="iframeContainer">
-        <iframe id="videoFrame" src="https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2" 
-                frameborder="0" 
-                allowfullscreen 
-                webkitallowfullscreen 
-                mozallowfullscreen 
-                msallowfullscreen>
-        </iframe>
+    <header> 
+        <h1>فهرس</h1> 
+    </header>
+    <div class="container">
+        <img id="poster" src="" alt="Poster">
+        <h1 id="title"></h1>
+        <p id="genres"></p>
+        <p id="overview"></p>
+        <p id="release-date"></p>
+        <p id="rating"></p>
+        <h2>التريلر</h2>
+        <div id="trailer" class="video-wrapper">
+            <!-- iframe سيتم إضافته عبر JavaScript -->
+        </div>
+        <h2>شاهد الان</h2>
+        <div class="vk-embed">
+            <div id="iframeContainer">
+                <iframe id="videoFrame" src="https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2" 
+                        frameborder="0" 
+                        allowfullscreen 
+                        webkitallowfullscreen 
+                        mozallowfullscreen 
+                        msallowfullscreen>
+                </iframe>
+            </div>
+            <div class="button-container">
+                <select id="episodeSelector" onchange="changeEpisode(this.value)">
+                    <option value="https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2">الحلقة 1</option>
+                    <option value="https://vk.com/video_ext.php?oid=760447746&id=456239066&hash=&hd=2">الحلقة 2</option>
+                    <option value="https://vk.com/video_ext.php?oid=760447746&id=456239067&hash=&hd=2">الحلقة 3</option>
+                </select>
+            </div>
+        </div>
+        <a href="../../Movies">رجوع</a>
     </div>
-    <div class="button-container">
-        <select id="episodeSelector" onchange="changeEpisode(this.value)">
-            <option value="https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2">الحلقة 1</option>
-            <option value="https://vk.com/video_ext.php?oid=760598098&id=456251010&hash=&hd=2">الحلقة 2</option>
-            <option value="https://vk.com/video_ext.php?oid=760447746&id=456239067&hash=&hd=2">الحلقة 3</option>
-        </select>
-    </div>
-
     <script>
+        const apiKey = "cf64a661774f647b7513facb9f1e55e5";
+        const mediaId = 84250;
+        const mediaType = "movie"; // أو "tv" إذا كان المسلسل
+
+        // جلب بيانات الفيلم أو المسلسل
+        fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            const title = data.name || data.title;
+            const overview = data.overview || "لا توجد معلومات";
+            const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "";
+            const genres = data.genres && data.genres.length > 0 ? data.genres.map(genre => genre.name).join(", ") : "غير محدد";
+            const releaseDate = data.release_date || data.first_air_date || "تاريخ الإصدار غير متوفر";
+            const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
+
+            document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
+            document.getElementById("overview").innerHTML = `القصة : ${overview}`;
+            document.getElementById("poster").src = posterPath;
+            document.getElementById("genres").innerHTML = `النوع : ${genres}`;
+            document.getElementById("release-date").innerHTML = `تاريخ الإصدار : ${releaseDate}`;
+            document.getElementById("rating").innerHTML = `التقييم : ${rating}`;
+
+            // جلب التريلر
+            return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            const trailers = data.results.filter(video => video.type === 'Trailer');
+            if (trailers.length > 0) {
+                const trailer = trailers[0];
+                const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
+                document.getElementById("trailer").innerHTML = `
+                    <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
+                `;
+            } else {
+                document.getElementById("trailer").innerHTML = "لا يوجد تريلر متوفر.";
+            }
+          })
+          .catch(error => console.error(error));
+
         function changeEpisode(url) {
-            document.getElementById('iframe-container').src = url;
+            document.getElementById('videoFrame').src = url;
         }
     </script>
 </body>
