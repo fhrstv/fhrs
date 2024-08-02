@@ -221,8 +221,9 @@ a {
 </script>
 <script>
     function changeEpisode(url) {
-        console.log("Changing episode to:", url); // إضافة رسالة تشخيصية
-        document.getElementById('videoFrame').src = url;
+        const iframe = document.getElementById('videoFrame');
+        iframe.src = ''; // إعادة تعيين src مؤقتًا
+        iframe.src = url; // إعادة تعيين src إلى الرابط الجديد
     }
 </script>
 </html>
