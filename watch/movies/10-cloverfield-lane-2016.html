@@ -6,32 +6,6 @@
     <title>معلومات الفيلم أو المسلسل</title>
     <style>
     
-    /* Your regular CSS code here */
-
-/* Media queries */
-@media all and (max-width: 600px) {
-    /* Styles for max-width: 600px */
-}
-
-@media all and (min-width: 768px) and (max-width: 991px) {
-    /* Styles for min-width: 768px and max-width: 991px */
-}
-
-@media all and (max-width: 767px) {
-    /* Styles for max-width: 767px */
-}
-    
-    @media (max-width: 600px) {
-    body {
-        font-size: 14px;
-        font-family: Arial, sans-serif;
-        background-color: #ffffff; /* خلفية الصفحة بيضاء */
-        margin: 0;
-        padding: 0;
-        color: #000;
-        text-align: center;
-    }
-
     header {
         background-color: #333;
         color: hsl(0, 94%, 46%);
@@ -154,6 +128,42 @@
         }
     }
 }
+
+@media screen and (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+
+    #title {
+        font-size: 24px;
+    }
+
+    #overview, #genres, #release-date, #rating {
+        font-size: 14px;
+    }
+
+    .vk-embed {
+        max-width: 100%;
+    }
+
+    .iframe-container {
+        padding-bottom: 75%; /* نسبة عرض إلى ارتفاع 4:3 للحفاظ على عنصر الإعدادات */
+    }
+
+    /* يمكنك إضافة أي عناصر أخرى تحتاج إلى التعديل هنا */
+}
+
+
+
     </style>
 </head>
 <body>
