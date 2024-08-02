@@ -220,8 +220,9 @@ a {
     
 </script>
 <script>
-function changeEpisode(url) {
-            document.getElementById('videoFrame').src = url;
-        }
+    function changeEpisode(url) {
+        console.log("Changing episode to:", url); // إضافة رسالة تشخيصية
+        document.getElementById('videoFrame').src = url;
+    }
 </script>
 </html>
