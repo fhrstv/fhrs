@@ -155,6 +155,16 @@ a {
         </iframe>
     </div>
 </div>
+
+<div class="button-container">
+        <button onclick="changeEpisode('https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2')">الحلقة 1</button>
+        <button onclick="changeEpisode('https://vk.com/video_ext.php?oid=760447746&id=456239066&hash=&hd=2')">الحلقة 2</button>
+        <button onclick="changeEpisode('https://vk.com/video_ext.php?oid=760447746&id=456239067&hash=&hd=2')">الحلقة 3</button>
+    </div>
+
+
+
+
         <a href="../../Movies">رجوع</a>
     </div>
 </body>
@@ -200,5 +210,10 @@ a {
         }
       })
       .catch(error => console.error(error));
+    
+     function changeEpisode(url) {
+            document.getElementById('videoFrame').src = url;
+        }
+    
 </script>
 </html>
