@@ -94,8 +94,11 @@
 
 @media all {
     .vk-embed {
-        max-width: 100vw; /* عرض كامل للشاشة في الوضع العمودي */
-    }
+    position: relative;
+    width: 100%;
+    max-width: 560px; /* تعديل العرض الأقصى للمشغل */
+    margin: 0 auto; /* توسيط الحاوية */
+}
 
     .iframe-container {
         padding-bottom: 75%; /* نسبة عرض إلى ارتفاع 4:3 للحفاظ على عنصر الإعدادات */
