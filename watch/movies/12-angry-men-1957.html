@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>معلومات الفيلم أو المسلسل</title>
     <style>
-       /* التعديلات العامة */
-       body {
+      body {
     font-family: Arial, sans-serif;
     background-color: #ffffff; /* خلفية الصفحة بيضاء */
     margin: 0;
     padding: 0;
     color: #000;
     text-align: center;
+    overflow-x: hidden; /* إخفاء التمرير الأفقي */
 }
 
 header {
@@ -20,6 +20,8 @@ header {
     color: hsl(0, 94%, 46%);
     text-align: center;
     padding: 10px;
+    width: 100%; /* ضمان أن الهيدر يعرض بكامل عرض الشاشة */
+    box-sizing: border-box; /* حساب الحدود والتباعد ضمن العرض */
 }
 
 #poster {
