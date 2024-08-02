@@ -110,16 +110,17 @@
 }
 
 a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px 140px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-            font-size: 30px;
-        }
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 20px 140px;
+    border-radius: 5px;
+    background-color: red;
+    transition: background-color 0.3s;
+    margin-top: 10px; /* تقليل المسافة من الأعلى */
+    margin-bottom: -10px; /* تحريك الزر للأعلى باستخدام margin-bottom سالبة */
+    font-size: 30px;
+}
         
         a:hover {
             background-color: gold;
