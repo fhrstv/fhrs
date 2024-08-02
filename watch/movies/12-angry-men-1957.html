@@ -12,7 +12,6 @@
     padding: 0;
     color: #000;
     text-align: center;
-    overflow-x: hidden; /* إخفاء التمرير الأفقي */
 }
 
 header {
@@ -20,8 +19,6 @@ header {
     color: hsl(0, 94%, 46%);
     text-align: center;
     padding: 10px;
-    width: 100%; /* ضمان أن الهيدر يعرض بكامل عرض الشاشة */
-    box-sizing: border-box; /* حساب الحدود والتباعد ضمن العرض */
 }
 
 #poster {
@@ -69,9 +66,9 @@ header {
 }
 
 .vk-embed {
-    position: fixed;
-    width: 1080px; /* العرض المطلوب للفيديو */
-    height: 1080pxdf; /* الطول المطلوب للفيديو */
+    position: relative;
+    width: 414px; /* العرض المطلوب للفيديو */
+    height: 232.875px; /* الطول المطلوب للفيديو */
     margin: 0 auto; /* توسيط الحاوية */
 }
 
@@ -90,6 +87,7 @@ header {
     height: 100%;
     border: none;
 }
+
 
     </style>
 </head>
