@@ -133,7 +133,16 @@
     <div id="trailerContainer" class="trailer-container"></div>
     <h2>شاهد الآن</h2>
     <iframe id="movieIframe" src="https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2s" frameborder="0" allowfullscreen></iframe> 
-       <h3>اذا لم تظهر الترجمة العربية<br>[cc] اضغط على مربع  
+</div>
+<select id="episodeSelector" onchange="changeEpisode(this.value)">
+    <option value="" disabled selected>اختر الحلقة</option>
+    <option value="https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2">الحلقة 1</option>
+    <option value="https://vk.com/video_ext.php?oid=760447746&id=456239066&hash=&hd=2">الحلقة 2</option>
+    <option value="https://vk.com/video_ext.php?oid=760447746&id=456239067&hash=&hd=2">الحلقة 3</option>
+</select> 
+    
+    
+    <h3>اذا لم تظهر الترجمة العربية<br>[cc] اضغط على مربع  
     <br>[ Arabic ] و اختار كلمة 
     <br> و اختار الترجمة المناسبة ، قم بتغيير الترجمة اذا في تاخير او تسريع 
     <br> اذا لم تجد الترجمة المناسبة وجميع الترجمات العربية متاخرة او مسرعة او السيرفر لا يعمل  أرجوك قم بنسخ الرابط وأرسله لنا بسرعة لتغييره  
@@ -186,6 +195,11 @@
         }
       })
       .catch(error => console.error(error));
+
+      function changeEpisode(url) {
+            document.getElementById('videoFrame').src = url;
+        }
+        
 </script>
 </body>
 </html>
