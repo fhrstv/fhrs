@@ -1,19 +1,20 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>معلومات الفيلم أو المسلسل</title>
-    <style>
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>فهرس</title> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <style> 
         body {
             font-family: Arial, sans-serif;
-            background-color: #ffffff; /* خلفية الصفحة بيضاء */
+            background-color: #f0f0f0;
             margin: 0;
             padding: 0;
-            color: #000;
-            text-align: center;
+            color: #000
         }
-        
 
         header {
             background-color: #333;
@@ -22,24 +23,70 @@
             padding: 10px;
         }
 
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
         #poster {
-            width: 200px;
-            height: 300px;
-            margin: 20px 0;
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
 
         #title {
             color: red; /* لون عنوان الفيلم أحمر */
             margin-bottom: 10px;
+            text-align: center;
         }
 
         #genres,
-        #overview,
-        #release-date,
-        #rating {
-            color: black; /* لون النصوص الأسود */
-            margin-bottom: 10px;
-        }
+#overview,
+#release-date,
+#rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000; /* لون النصوص الأسود */
+    font-size: 20px; /* حجم الخط */
+    margin-bottom: 10px; /* المسافة بين العناصر */
+    text-align: center; /* تمركز النص في الوسط */
+    font-weight: bold;
+    direction: rtl; /* اتجاه النصوص من اليمين لليسار */
+}
 
          #trailer {
     margin: 20px auto;
@@ -54,117 +101,49 @@
     border: none;
 }
 
-        .container {
-    display: flex;
-    flex-direction: column; /* توسيط العناصر عموديًا */
-    align-items: center; /* توسيط العناصر أفقيًا */
-    width: 100%;
-    max-width: 100vw; /* عرض كامل للشاشة */
-    height: auto; /* ضمان أن الارتفاع يتكيف مع المحتوى */
-    padding: 0; /* إزالة التباعد الداخلي إذا لزم الأمر */
-    box-sizing: border-box; /* يتضمن التباعد والحدود في حساب العرض والارتفاع */
-    overflow: visible; /* ضمان أن لا يتم قطع المحتوى */
-}
+  
+ 
 
-@media (orientation: portrait) {
-    .container {
-        width: 100%;
-        max-width: 100vw; /* عرض كامل للشاشة في الوضع العمودي */
-        padding: 0; /* إزالة التباعد الداخلي إذا لزم الأمر */
-        box-sizing: border-box; /* يتضمن التباعد والحدود في حساب العرض والارتفاع */
+        h2, h3, a {
+    color: #000; /* تغيير اللون إلى الأسود */
+}
+@media screen and (max-width: 425px), screen and (max-width: 375px), screen and (max-width: 320px) {
+    body {
+        zoom: 0.8; /* قم بتعديل القيمة حسب احتياجك */
     }
 }
 
-.vk-embed {
-    position: relative;
-    width: 100%;
-    max-width: 560px; /* تعديل العرض الأقصى للمشغل */
-    margin: 0 auto; /* توسيط الحاوية */
-}
-
-.iframe-container {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
-    overflow: hidden;
-}
-
-.iframe-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-@media (orientation: portrait) {
-    .vk-embed {
-        max-width: 100vw; /* عرض كامل للشاشة في الوضع العمودي */
-    }
-
-    .iframe-container {
-        padding-bottom: 75%; /* نسبة عرض إلى ارتفاع 4:3 للحفاظ على عنصر الإعدادات */
-    }
-}
-
-a {
-    text-decoration: none;
-    color: #333;
-    display: block;
-    padding: 20px 140px;
-    border-radius: 5px;
-    background-color: red;
-    transition: background-color 0.3s;
-    margin-top: 10px; /* تقليل المسافة من الأعلى */
-    margin-bottom: -10px; /* تحريك الزر للأعلى باستخدام margin-bottom سالبة */
-    font-size: 30px;
-}
-        
-        a:hover {
-            background-color: gold;
-        }
-        
-        
-        @media (max-width: 400px) {
-    .iframe-container {
-        padding-bottom: 75%; /* تعديل نسبة العرض إلى الارتفاع للمشغل في الشاشات الصغيرة */
-    }
-}
-
-    </style>
-</head>
-<body>
+    </style> 
+</head> 
+<body> 
     <header> 
         <h1>فهرس</h1> 
-    </header>
-    <div class="container">
-        <img id="poster" src="">
+   
+<div class="container">
+    <img id="poster" src="">
         <h1 id="title"></h1>
-        <p id="genres"></p>
-        <p id="overview"></p>
         <p id="release-date"></p>
+        <p id="genres"></p>
         <p id="rating"></p>
+        <p id="overview"></p>
         <h2>التريلر</h2>
-        <div id="trailer" class="video-wrapper"> <!-- استخدام الاسم الجديد هنا -->
-    <!-- iframe سيتم إضافته عبر JavaScript -->
+        <div id="trailer" class="video-wrapper">
 </div>
-         <h2>شاهد الان</h2>
-        <div class="vk-embed">
-    <div class="iframe-container">
-        <iframe src="https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2" 
-                frameborder="0" 
-                allowfullscreen 
-                webkitallowfullscreen 
-                mozallowfullscreen 
-                msallowfullscreen>
-        </iframe>
-    </div>
+    <div id="movieInfo" class="movie-info"></div>
+    <div id="trailerContainer" class="trailer-container"></div>
+    <h2>شاهد الآن</h2>
+    <iframe id="movieIframe" src="https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2s" frameborder="0" allowfullscreen></iframe> 
+       <h3>اذا لم تظهر الترجمة العربية<br>[cc] اضغط على مربع  
+    <br>[ Arabic ] و اختار كلمة 
+    <br> و اختار الترجمة المناسبة ، قم بتغيير الترجمة اذا في تاخير او تسريع 
+    <br> اذا لم تجد الترجمة المناسبة وجميع الترجمات العربية متاخرة او مسرعة او السيرفر لا يعمل  أرجوك قم بنسخ الرابط وأرسله لنا بسرعة لتغييره  
+    <br>  من خلال الذهاب الى صفحة اتصل بنا
+    </h3>
+
+
+     <a href="../../Movies">رجوع</a>
 </div>
-        <a href="../../Movies">رجوع</a>
-    </div>
-</body>
+
 <script>
     const apiKey = "cf64a661774f647b7513facb9f1e55e5";
     const mediaId = 84250;
@@ -208,35 +187,5 @@ a {
       })
       .catch(error => console.error(error));
 </script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-.container {
-    transform: scale(0.8); /* تصغير الحاوية إلى 80% */
-    transform-origin: top left; /* تحديد نقطة الأصل لتجنب التغيير في موقع الحاوية */
-    width: 125%; /* تعويض الحجم الأصلي للحاوية */
-    height: 125%; /* تعويض الحجم الأصلي للحاوية */
-}
-
-
-
-
-<div class="container"></div>
-
-
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    color: #000;
-    zoom: 80%; /* تصغير الصفحة إلى 80% */
-}
