@@ -81,7 +81,6 @@
             flex-direction: column;
             align-items: center;
             color: #000
-            
         }
 
          #trailer {
@@ -97,24 +96,6 @@
     border: none;
 }
 
-
-
-
-.story {
-    font-family: "Arial", sans-serif; /* أو أي خط يدعم العربية */
-    font-size: 17px;
-    line-height: 1.6;
-    text-align: right; /* محاذاة النص لليمين */
-    direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
-    white-space: pre-wrap; /* الحفاظ على التباعد بين الأسطر */
-    overflow-wrap: break-word; /* كسر الكلمات الطويلة التي تتجاوز العرض */
-    color: #000
-}
-
-.story-title {
-            font-weight: bold;
-            margin-right: 10px; /* مسافة بين العنوان والنص */
-        }
   
  
 
@@ -176,11 +157,7 @@
         const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
 
         document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
-
-        <div class="story-container">
-                            <div class="story-title">: القصة</div>
-                            <div class="story">${overview}</div>
-                        </div>
+        document.getElementById("overview").innerHTML = `القصة : ${overview}`;
         document.getElementById("poster").src = posterPath;
         document.getElementById("genres").innerHTML = `النوع : ${genres}`;
         document.getElementById("release-date").innerHTML = ` تاريخ الإصدار : ${releaseDate}`;
