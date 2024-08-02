@@ -110,24 +110,12 @@ color: #000
 color: #000; /* تغيير اللون إلى الأسود */
 }
 
-.movieIframe-container {
-        position: relative;
-        width: 100%; /* عرض 100% من العنصر الأب */
-        max-width: 1200px; /* أقصى عرض للعنصر، يمكنك تغييره حسب الحاجة */
-        margin: 0 auto; /* محاذاة العنصر في المركز */
-        padding-top: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
-        height: 0; /* ارتفاع صفر لأننا نستخدم padding-top لضبط الارتفاع */
-        overflow: hidden; /* قص العناصر التي تتجاوز الحاوية */
-    }
+.movieiframe{
+    width: 1920px;
+    height: 1080;
+}
 
-    .movieIframe {
-        position: absolute;
-        top: 0;
-        left: -10%; /* تحريك الفيديو قليلاً لليسار */
-        width: 120%; /* زيادة العرض من الجوانب */
-        height: 100%;
-        border: none;
-    }
+
 </style>
 
 </style> 
@@ -142,9 +130,7 @@ color: #000; /* تغيير اللون إلى الأسود */
     <div id="movieInfo" class="movie-info"></div>
     <div id="trailerContainer" class="trailer-container"></div>
     <h2>شاهد الآن</h2>
-    <div class="movieIframe-container"></div>
     <iframe class="movieIframe" src="https://vk.com/video_ext.php?oid=760447746&id=456239065&hash=&hd=2" frameborder="0" allowfullscreen></iframe> 
-    </div>
        <h3>اذا لم تظهر الترجمة العربية<br>[cc] اضغط على مربع  
     <br>[ Arabic ] و اختار كلمة 
     <br> و اختار الترجمة المناسبة ، قم بتغيير الترجمة اذا في تاخير او تسريع 
