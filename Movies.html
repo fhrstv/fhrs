@@ -1163,12 +1163,29 @@ input[type="submit"] {
      <script>
         const searchInput = document.getElementById('search-input');
         const movieList = document.querySelector(".movie-list");
-        const links = Array.from(movieList.querySelectorAll("li"));
+        const items = Array.from(movieList.querySelectorAll("li"));
 
-        // Helper function to extract the part number from the movie title
-        function extractPartNumber(title) {
-            const match = title.match(/الجزء\s*(\d+)/);
-            return match ? parseInt(match[1], 10) : 0;
+        // Helper function to convert Arabic part words to numbers
+        function partWordToNumber(part) {
+            const parts = {
+                'الاول': 1,
+                'الثاني': 2,
+                'الثالث': 3,
+                'الرابع': 4,
+                'الخامس': 5,
+                'السادس': 6,
+                'السابع': 7,
+                'الثامن': 8,
+                'التاسع': 9,
+                'العاشر': 10
+            };
+            return parts[part] || 0;
+        }
+
+        // Helper function to extract the part word from the movie title
+        function extractPartWord(title) {
+            const match = title.match(/الجزء\s*(.+)$/);
+            return match ? match[1] : '';
         }
 
         // Sort the movie list in alphabetical order and by part number
@@ -1180,31 +1197,34 @@ input[type="submit"] {
                 const compareTitle = titleA.localeCompare(titleB, 'ar');
                 if (compareTitle !== 0) return compareTitle;
 
-                const partA = extractPartNumber(titleA);
-                const partB = extractPartNumber(titleB);
+                const partWordA = extractPartWord(titleA);
+                const partWordB = extractPartWord(titleB);
 
-                return partA - partB;
+                const partNumberA = partWordToNumber(partWordA);
+                const partNumberB = partWordToNumber(partWordB);
+
+                return partNumberA - partNumberB;
             });
         }
 
-        function updateMovieList(filteredLinks) {
+        function updateMovieList(filteredItems) {
             movieList.innerHTML = ''; // Clear the movie list
-            sortMovies(filteredLinks).forEach(function(link) {
-                movieList.appendChild(link);
+            sortMovies(filteredItems).forEach(function(item) {
+                movieList.appendChild(item);
             });
         }
 
         // Initial sort on page load
-        updateMovieList(links);
+        updateMovieList(items);
 
         searchInput.addEventListener('input', function() {
             const searchTerm = searchInput.value.trim().toLowerCase();
-            const filteredLinks = links.filter(function(link) {
-                const movieTitle = link.textContent.trim().toLowerCase();
+            const filteredItems = items.filter(function(item) {
+                const movieTitle = item.textContent.trim().toLowerCase();
                 return movieTitle.includes(searchTerm);
             });
 
-            updateMovieList(filteredLinks);
+            updateMovieList(filteredItems);
         });
 
         searchInput.addEventListener('keypress', function(event) {
