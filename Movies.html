@@ -1160,21 +1160,24 @@ links.forEach(function(link) {
   movieList.appendChild(link.parentElement);
 });
 
+searchInput.addEventListener('input', function() {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  links.forEach(function(link) {
+    const movieTitle = link.textContent.trim().toLowerCase();
+    if (movieTitle.includes(searchTerm)) {
+      link.parentElement.style.display = 'block';
+    } else {
+      link.parentElement.style.display = 'none';
+    }
+  });
+});
+
 searchInput.addEventListener('keypress', function(event) {
   if (event.keyCode === 13) {
     event.preventDefault(); // prevent form submission
-    const searchTerm = searchInput.value.trim().toLowerCase();
-    links.forEach(function(link) {
-      const movieTitle = link.textContent.trim().toLowerCase();
-      if (movieTitle.includes(searchTerm)) {
-        link.parentElement.style.display = 'block';
-      } else {
-        link.parentElement.style.display = 'none';
-      }
-    });
+    searchInput.blur(); // hide the keyboard
   }
-});
-    
+});    
 </script>
 </body>
 </html>
