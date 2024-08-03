@@ -1150,6 +1150,16 @@ input[type="submit"] {
 const movieList = document.querySelector(".movie-list");
 const links = Array.from(movieList.querySelectorAll("a"));
 
+// Sort the movie list in alphabetical order
+links.sort(function(a, b) {
+  return a.textContent.localeCompare(b.textContent);
+});
+
+// Reorder the links in the movie list
+links.forEach(function(link) {
+  movieList.appendChild(link.parentElement);
+});
+
 searchInput.addEventListener('keypress', function(event) {
   if (event.keyCode === 13) {
     event.preventDefault(); // prevent form submission
