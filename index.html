@@ -184,23 +184,20 @@
 }
         
         
-        .telegram-link {
-    direction: rtl;
-    text-align: right;
-    font-size: 14px; /* حجم الخط الأصغر */
-    display: block; /* يجعل النص والصورة على سطر واحد */
-    align-items: center; /* يحاذي الصورة والنص عمودياً */
-    color: blue;
-    text-decoration: none;
-    background: none;
-    padding: 0;
-}
+            .telegram-link {
+direction: rtl;
+text-align: right;
+font-size: 14px; /* حجم الخط الأصغر */
+display: block; /* يجعل النص والصورة على سطر واحد */
+align-items: center; /* يحاذي الصورة والنص عمودياً */
+color: blue;
+text-decoration: none;
+background: none;
+padding: 0;
 
-.telegram-link img {
-    width: 16px; /* حجم الصورة أصغر */
-    height: 16px;
-    margin-left: 5px; /* مسافة بين الصورة والنص */
-    vertical-align: middle; /* محاذاة الصورة بشكل صحيح مع النص */
+.telegram-link {
+  text-align: center;
+  margin: 20px auto;
 }
         
     </style>
@@ -215,12 +212,13 @@
         <h2>اكبر موقع فهرسه بالوطن العربي</h2>
         
 <h3>جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين<br>نحن لا نخزن و لا نرفع و لا ننشر <br>فقط نعرض اسهل طريقة للمشاهدة </h3>
-<h3>
-    انضموا إلى قناتنا على 
-    <a href="https://t.me/your_channel" target="_blank" style="color: blue; text-decoration: none;">
-        تليجرام
-    </a>
-</h3>
+
+<h4 class="telegram-link">
+  <a href="https://t.me/your_channel" target="_blank">
+    <img src="https://telegram.org/img/t_logo.png" alt="تليجرام">
+    انضمو للتليقرام
+  </a>
+</h4>
         <!-- نتائج البحث -->
         <div class="search-results" id="searchResults">
             <!-- هنا سيتم عرض نتائج البحث -->
