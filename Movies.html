@@ -1172,34 +1172,42 @@ input[type="submit"] {
         }
 
         // Sort the movie list in alphabetical order and by part number
-        links.sort(function(a, b) {
-            const titleA = a.textContent.trim();
-            const titleB = b.textContent.trim();
+        function sortMovies() {
+            links.sort(function(a, b) {
+                const titleA = a.textContent.trim();
+                const titleB = b.textContent.trim();
 
-            const compareTitle = titleA.localeCompare(titleB, 'ar');
-            if (compareTitle !== 0) return compareTitle;
+                const compareTitle = titleA.localeCompare(titleB, 'ar');
+                if (compareTitle !== 0) return compareTitle;
 
-            const partA = extractPartNumber(titleA);
-            const partB = extractPartNumber(titleB);
+                const partA = extractPartNumber(titleA);
+                const partB = extractPartNumber(titleB);
 
-            return partA - partB;
-        });
+                return partA - partB;
+            });
 
-        // Reorder the links in the movie list
-        links.forEach(function(link) {
-            movieList.appendChild(link.parentElement);
-        });
+            // Reorder the links in the movie list
+            links.forEach(function(link) {
+                movieList.appendChild(link.parentElement);
+            });
+        }
+
+        sortMovies();
 
         searchInput.addEventListener('input', function() {
             const searchTerm = searchInput.value.trim().toLowerCase();
-            links.forEach(function(link) {
+            const filteredLinks = links.filter(function(link) {
                 const movieTitle = link.textContent.trim().toLowerCase();
-                if (movieTitle.includes(searchTerm)) {
-                    link.parentElement.style.display = 'block';
-                } else {
-                    link.parentElement.style.display = 'none';
-                }
+                return movieTitle.includes(searchTerm);
             });
+
+            movieList.innerHTML = ''; // Clear the movie list
+
+            filteredLinks.forEach(function(link) {
+                movieList.appendChild(link.parentElement);
+            });
+
+            sortMovies(); // Sort the filtered results
         });
 
         searchInput.addEventListener('keypress', function(event) {
