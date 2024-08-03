@@ -1165,27 +1165,26 @@ input[type="submit"] {
     const movieList = document.querySelector(".movie-list");
     const items = Array.from(movieList.querySelectorAll("li"));
 
-    // Helper function to convert Arabic part words to numbers
-    function partWordToNumber(part) {
+    // Helper function to convert part strings to numbers
+    function partStringToNumber(part) {
         const parts = {
-            'الاول': 1,
-            'الثاني': 2,
-            'الثالث': 3,
-            'الرابع': 4,
-            'الخامس': 5,
-            'السادس': 6,
-            'السابع': 7,
-            'الثامن': 8,
-            'التاسع': 9,
-            'العاشر': 10
+            '1': 1,
+            '2': 2,
+            '3': 3,
+            '4': 4,
+            '5': 5,
+            '6': 6,
+            '7': 7,
+            '8': 8,
+            '9': 9,
+            '10': 10
         };
         return parts[part] || parseInt(part, 10) || 0;
     }
 
     // Helper function to extract the part number from the movie title
     function extractPartNumber(title) {
-        // Regex to match 'الجزء الأول', 'الجزء الثاني', etc., or '1', '2', '3', etc.
-        const match = title.match(/الجزء\s*(\d+|الاول|الثاني|الثالث|الرابع|الخامس|السادس|السابع|الثامن|التاسع|العاشر)$/);
+        const match = title.match(/الجزء\s*(\d+)$/); // Matches 'الجزء 1', 'الجزء 2', etc.
         return match ? match[1].trim() : '';
     }
 
@@ -1200,8 +1199,8 @@ input[type="submit"] {
             if (compareTitle !== 0) return compareTitle;
 
             // Extract and compare part numbers
-            const partNumberA = partWordToNumber(extractPartNumber(titleA));
-            const partNumberB = partWordToNumber(extractPartNumber(titleB));
+            const partNumberA = partStringToNumber(extractPartNumber(titleA));
+            const partNumberB = partStringToNumber(extractPartNumber(titleB));
 
             return partNumberA - partNumberB;
         });
