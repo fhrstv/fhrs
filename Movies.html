@@ -1161,78 +1161,81 @@ input[type="submit"] {
 <script src="scripit.js"></script>
 <script src="random.js"></script>
      <script>
-        const searchInput = document.getElementById('search-input');
-        const movieList = document.querySelector(".movie-list");
-        const items = Array.from(movieList.querySelectorAll("li"));
+    const searchInput = document.getElementById('search-input');
+    const movieList = document.querySelector(".movie-list");
+    const items = Array.from(movieList.querySelectorAll("li"));
 
-        // Helper function to convert Arabic part words to numbers
-        function partWordToNumber(part) {
-            const parts = {
-                'الاول': 1,
-                'الثاني': 2,
-                'الثالث': 3,
-                'الرابع': 4,
-                'الخامس': 5,
-                'السادس': 6,
-                'السابع': 7,
-                'الثامن': 8,
-                'التاسع': 9,
-                'العاشر': 10
-            };
-            return parts[part] || 0;
-        }
+    // Helper function to convert Arabic part words to numbers
+    function partWordToNumber(part) {
+        const parts = {
+            'الاول': 1,
+            'الثاني': 2,
+            'الثالث': 3,
+            'الرابع': 4,
+            'الخامس': 5,
+            'السادس': 6,
+            'السابع': 7,
+            'الثامن': 8,
+            'التاسع': 9,
+            'العاشر': 10
+        };
+        return parts[part] || 0;
+    }
 
-        // Helper function to extract the part word from the movie title
-        function extractPartWord(title) {
-            const match = title.match(/الجزء\s*(.+)$/);
-            return match ? match[1] : '';
-        }
+    // Helper function to extract the part word from the movie title
+    function extractPartWord(title) {
+        // Regex to match 'الجزء الأول', 'الجزء الثاني', etc.
+        const match = title.match(/الجزء\s*(.+)$/);
+        return match ? match[1].trim() : '';
+    }
 
-        // Sort the movie list in alphabetical order and by part number
-        function sortMovies(movies) {
-            return movies.sort(function(a, b) {
-                const titleA = a.textContent.trim();
-                const titleB = b.textContent.trim();
+    // Sort the movie list in alphabetical order and by part number
+    function sortMovies(movies) {
+        return movies.sort(function(a, b) {
+            const titleA = a.textContent.trim();
+            const titleB = b.textContent.trim();
 
-                const compareTitle = titleA.localeCompare(titleB, 'ar');
-                if (compareTitle !== 0) return compareTitle;
+            // First sort by title alphabetically
+            const compareTitle = titleA.localeCompare(titleB, 'ar');
+            if (compareTitle !== 0) return compareTitle;
 
-                const partWordA = extractPartWord(titleA);
-                const partWordB = extractPartWord(titleB);
+            // Extract part words and convert them to numbers
+            const partWordA = extractPartWord(titleA);
+            const partWordB = extractPartWord(titleB);
 
-                const partNumberA = partWordToNumber(partWordA);
-                const partNumberB = partWordToNumber(partWordB);
+            const partNumberA = partWordToNumber(partWordA);
+            const partNumberB = partWordToNumber(partWordB);
 
-                return partNumberA - partNumberB;
-            });
-        }
+            return partNumberA - partNumberB;
+        });
+    }
 
-        function updateMovieList(filteredItems) {
-            movieList.innerHTML = ''; // Clear the movie list
-            sortMovies(filteredItems).forEach(function(item) {
-                movieList.appendChild(item);
-            });
-        }
+    function updateMovieList(filteredItems) {
+        movieList.innerHTML = ''; // Clear the movie list
+        sortMovies(filteredItems).forEach(function(item) {
+            movieList.appendChild(item);
+        });
+    }
 
-        // Initial sort on page load
-        updateMovieList(items);
+    // Initial sort on page load
+    updateMovieList(items);
 
-        searchInput.addEventListener('input', function() {
-            const searchTerm = searchInput.value.trim().toLowerCase();
-            const filteredItems = items.filter(function(item) {
-                const movieTitle = item.textContent.trim().toLowerCase();
-                return movieTitle.includes(searchTerm);
-            });
-
-            updateMovieList(filteredItems);
+    searchInput.addEventListener('input', function() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        const filteredItems = items.filter(function(item) {
+            const movieTitle = item.textContent.trim().toLowerCase();
+            return movieTitle.includes(searchTerm);
         });
 
-        searchInput.addEventListener('keypress', function(event) {
-            if (event.keyCode === 13) {
-                event.preventDefault(); // prevent form submission
-                searchInput.blur(); // hide the keyboard
-            }
-        });
-    </script>
+        updateMovieList(filteredItems);
+    });
+
+    searchInput.addEventListener('keypress', function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault(); // Prevent form submission
+            searchInput.blur(); // Hide the keyboard
+        }
+    });
+</script>
 </body>
 </html>
