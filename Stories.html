@@ -153,21 +153,39 @@
     </div>
 <script src="scripit.js"></script>
 <script>
-    // احصل على العناصر داخل القائمة
-    var movieList = document.querySelector(".movie-list");
 
-    // احصل على الروابط داخل القائمة وقم بتحويلها إلى مصفوفة
-    var links = Array.from(movieList.querySelectorAll("a"));
+    const searchInput = document.getElementById('search-input');
+const movieList = document.querySelector(".movie-list");
+const links = Array.from(movieList.querySelectorAll("a"));
 
-    // قم بفرز المصفوفة بالترتيب الأبجدي
-    links.sort(function(a, b) {
-        return a.textContent.localeCompare(b.textContent);
-    });
+// Sort the movie list in alphabetical order
+links.sort(function(a, b) {
+  return a.textContent.localeCompare(b.textContent);
+});
 
-    // قم بإعادة ترتيب الروابط داخل القائمة
-    links.forEach(function(link) {
-        movieList.appendChild(link.parentElement);
-    });
+// Reorder the links in the movie list
+links.forEach(function(link) {
+  movieList.appendChild(link.parentElement);
+});
+
+searchInput.addEventListener('input', function() {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  links.forEach(function(link) {
+    const movieTitle = link.textContent.trim().toLowerCase();
+    if (movieTitle.includes(searchTerm)) {
+      link.parentElement.style.display = 'block';
+    } else {
+      link.parentElement.style.display = 'none';
+    }
+  });
+});
+
+searchInput.addEventListener('keypress', function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault(); // prevent form submission
+    searchInput.blur(); // hide the keyboard
+  }
+});
 </script>
 </body>
 </html>
