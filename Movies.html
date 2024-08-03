@@ -110,6 +110,10 @@ input[type="submit"] {
                 margin-top: 10px;
             }
         }
+        
+        #search-input {
+  pointer-events: none;
+}
     </style>
     <!-- تضمين الخط العربي Tajawal -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap">
@@ -1172,12 +1176,15 @@ searchInput.addEventListener('input', function() {
   });
 });
 
-searchInput.addEventListener('keypress', function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault(); // prevent form submission
-    searchInput.blur(); // hide the keyboard
-  }
-});    
+searchInput.addEventListener('focus', function() {
+  searchInput.removeAttribute('style');
+});
+
+searchInput.addEventListener('blur', function() {
+  searchInput.style.pointerEvents = 'none';
+});
+
+searchInput.blur();
 </script>
 </body>
 </html>
