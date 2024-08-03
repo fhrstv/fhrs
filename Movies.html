@@ -1168,7 +1168,7 @@ const links = Array.from(movieList.querySelectorAll("a"));
 
 // Sort the movie list in alphabetical order
 links.sort(function(a, b) {
-  return a.textContent.localeCompare(b.textContent);
+  return a.textContent.localeCompare(b.textContent, 'ar', { sensitivity: 'base' });
 });
 
 // Reorder the links in the movie list
