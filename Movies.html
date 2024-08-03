@@ -1152,38 +1152,35 @@ input[type="submit"] {
 <script>
 
     const searchInput = document.getElementById('search-input');
-const movieList = document.getElementById('movie-list');
+const movieList = document.querySelector(".movie-list");
+const links = Array.from(movieList.querySelectorAll("a"));
 
 // Sort the movie list in alphabetical order
-const movies = Array.from(movieList.children);
-movies.sort((a, b) => {
-  const titleA = a.textContent.trim().toLowerCase();
-  const titleB = b.textContent.trim().toLowerCase();
-  if (titleA < titleB) return -1;
-  if (titleA > titleB) return 1;
-  return 0;
+links.sort(function(a, b) {
+  return a.textContent.localeCompare(b.textContent);
 });
-movieList.innerHTML = '';
-movies.forEach(movie => movieList.appendChild(movie));
+
+// Reorder the links in the movie list
+links.forEach(function(link) {
+  movieList.appendChild(link.parentElement);
+});
 
 searchInput.addEventListener('input', function() {
   const searchTerm = searchInput.value.trim().toLowerCase();
-  const movies = movieList.children;
-
-  for (let i = 0; i < movies.length; i++) {
-    const movieTitle = movies[i].textContent.trim().toLowerCase();
+  links.forEach(function(link) {
+    const movieTitle = link.textContent.trim().toLowerCase();
     if (movieTitle.includes(searchTerm)) {
-      movies[i].style.display = 'block';
+      link.parentElement.style.display = 'block';
     } else {
-      movies[i].style.display = 'none';
+      link.parentElement.style.display = 'none';
     }
-  }
+  });
 });
 
-searchInput.addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    searchInput.blur(); // Hide the keyboard
+searchInput.addEventListener('keypress', function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault(); // prevent form submission
+    searchInput.blur(); // hide the keyboard
   }
 });
 </script>
