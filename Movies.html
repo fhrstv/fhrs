@@ -1161,14 +1161,28 @@ input[type="submit"] {
 <script src="scripit.js"></script>
 <script src="random.js"></script>
 <script>
-
-     const searchInput = document.getElementById('search-input');
+const searchInput = document.getElementById('search-input');
 const movieList = document.querySelector(".movie-list");
 const links = Array.from(movieList.querySelectorAll("a"));
 
-// Sort the movie list in alphabetical order
+// Helper function to extract the part number from the movie title
+function extractPartNumber(title) {
+  const match = title.match(/الجزء\s*(\d+)/);
+  return match ? parseInt(match[1], 10) : 0;
+}
+
+// Sort the movie list in alphabetical order and by part number
 links.sort(function(a, b) {
-  return a.textContent.localeCompare(b.textContent);
+  const titleA = a.textContent.trim();
+  const titleB = b.textContent.trim();
+
+  const compareTitle = titleA.localeCompare(titleB, 'ar');
+  if (compareTitle !== 0) return compareTitle;
+
+  const partA = extractPartNumber(titleA);
+  const partB = extractPartNumber(titleB);
+
+  return partA - partB;
 });
 
 // Reorder the links in the movie list
