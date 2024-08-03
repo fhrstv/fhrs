@@ -1153,40 +1153,32 @@ input[type="submit"] {
 <script>
 
     const searchInput = document.getElementById('search-input');
-const movieList = document.querySelector(".movie-list");
-const links = Array.from(movieList.querySelectorAll("a"));
-
-// Sort the movie list in alphabetical order
-links.sort(function(a, b) {
-  return a.textContent.localeCompare(b.textContent);
-});
-
-// Reorder the links in the movie list
-links.forEach(function(link) {
-  movieList.appendChild(link.parentElement);
-});
+const movieList = document.getElementById('movie-list');
 
 searchInput.addEventListener('input', function() {
   const searchTerm = searchInput.value.trim().toLowerCase();
-  links.forEach(function(link) {
-    const movieTitle = link.textContent.trim().toLowerCase();
+  const movies = movieList.children;
+
+  for (let i = 0; i < movies.length; i++) {
+    const movieTitle = movies[i].textContent.trim().toLowerCase();
     if (movieTitle.includes(searchTerm)) {
-      link.parentElement.style.display = 'block';
+      movies[i].style.display = 'block';
     } else {
-      link.parentElement.style.display = 'none';
+      movies[i].style.display = 'none';
     }
-  });
+  }
 });
 
-searchInput.addEventListener('focus', function() {
-  searchInput.removeAttribute('style');
+searchInput.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    searchInput.blur(); // Dismiss the keyboard
+  }
 });
 
 searchInput.addEventListener('blur', function() {
-  searchInput.style.pointerEvents = 'none';
+  searchInput.value = ''; // Clear the search input
 });
-
-searchInput.blur();
 </script>
 </body>
 </html>
