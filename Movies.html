@@ -1166,19 +1166,23 @@ input[type="submit"] {
 const movieList = document.querySelector(".movie-list");
 const links = Array.from(movieList.querySelectorAll("a"));
 
-// Sort the movie list in alphabetical order
-links.sort(function(a, b) {
-  return a.textContent.localeCompare(b.textContent, 'ar', { sensitivity: 'base' });
+// إنشاء دالة ترتيب مخصصة للغة العربية
+const arabicCollator = new Intl.Collator('ar', {
+  sensitivity: 'base',
+  ignorePunctuation: true,
 });
 
+// Sort the movie list in alphabetical order
+links.sort((a, b) => arabicCollator.compare(a.textContent, b.textContent));
+
 // Reorder the links in the movie list
-links.forEach(function(link) {
+links.forEach((link) => {
   movieList.appendChild(link.parentElement);
 });
 
-searchInput.addEventListener('input', function() {
+searchInput.addEventListener('input', () => {
   const searchTerm = searchInput.value.trim().toLowerCase();
-  links.forEach(function(link) {
+  links.forEach((link) => {
     const movieTitle = link.textContent.trim().toLowerCase();
     if (movieTitle.includes(searchTerm)) {
       link.parentElement.style.display = 'block';
@@ -1186,9 +1190,16 @@ searchInput.addEventListener('input', function() {
       link.parentElement.style.display = 'none';
     }
   });
+
+  // إعادة ترتيب الأفلام بعد البحث
+  const visibleLinks = links.filter((link) => link.parentElement.style.display !== 'none');
+  visibleLinks.sort((a, b) => arabicCollator.compare(a.textContent, b.textContent));
+  visibleLinks.forEach((link) => {
+    movieList.appendChild(link.parentElement);
+  });
 });
 
-searchInput.addEventListener('keypress', function(event) {
+searchInput.addEventListener('keypress', (event) => {
   if (event.keyCode === 13) {
     event.preventDefault(); // prevent form submission
     searchInput.blur(); // hide the keyboard
@@ -1197,7 +1208,3 @@ searchInput.addEventListener('keypress', function(event) {
 </script>
 </body>
 </html>
-</body>
-</head>
-                </html>
-
