@@ -89,7 +89,7 @@ input[type="text"] {
   border: 1px solid #ccc;
   width: 100%; /* يمتلئ عرض الشاشة بالكامل */
   max-width: 300px; /* حد أقصى لعرض المربع */
-  onkeypress="return event.keyCode != 13;" /* منع الاستجابة لزر Enter */
+  onkeypress="return searchKeyPress(event, this)"
 }
 
 input[type="submit"] {
@@ -1162,6 +1162,23 @@ input[type="submit"] {
     links.forEach(function(link) {
         movieList.appendChild(link.parentElement);
     });
+    
+    
+    
+    
+    
+    var searchTriggered = false;
+
+function searchKeyPress(event, input) {
+  if (event.keyCode == 13 && !searchTriggered) {
+    // Trigger the search
+    searchTriggered = true;
+    // Your search logic here
+    console.log("Search triggered!");
+  }
+  return false;
+}
+    
 </script>
 </body>
 </html>
