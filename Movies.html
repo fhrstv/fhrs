@@ -124,11 +124,8 @@ input[type="submit"] {
             
         <!-- مربع البحث -->
         <div class="search-box">
-  <form onsubmit="return false;">
-    <input type="text" id="search-input" />
-    <input type="submit" value="Search" />
-  </form>
-</div>
+2  <input type="text" id="search-input" placeholder="Search for a movie...">
+3</div>
         <!-- نتائج البحث -->
         <div class="search-results" id="searchResults">
             <!-- هنا سيتم عرض نتائج البحث -->
@@ -1148,36 +1145,23 @@ input[type="submit"] {
 <script src="scripit.js"></script>
 <script src="random.js"></script>
 <script>
-    // احصل على العناصر داخل القائمة
-    var movieList = document.querySelector(".movie-list");
 
-    // احصل على الروابط داخل القائمة وقم بتحويلها إلى مصفوفة
-    var links = Array.from(movieList.querySelectorAll("a"));
-
-    // قم بفرز المصفوفة بالترتيب الأبجدي
-    links.sort(function(a, b) {
-        return a.textContent.localeCompare(b.textContent);
-    });
-
-    // قم بإعادة ترتيب الروابط داخل القائمة
-    links.forEach(function(link) {
-        movieList.appendChild(link.parentElement);
-    });
-    
-    
-    
-    
-    
     const searchInput = document.getElementById('search-input');
+const movieList = document.querySelector(".movie-list");
+const links = Array.from(movieList.querySelectorAll("a"));
 
 searchInput.addEventListener('keypress', function(event) {
   if (event.keyCode === 13) {
-    // Trigger the search logic only once
-    if (!searchInput.dataset.searchTriggered) {
-      // Your search logic here
-      console.log("Search triggered!");
-      searchInput.dataset.searchTriggered = true;
-    }
+    event.preventDefault(); // prevent form submission
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    links.forEach(function(link) {
+      const movieTitle = link.textContent.trim().toLowerCase();
+      if (movieTitle.includes(searchTerm)) {
+        link.parentElement.style.display = 'block';
+      } else {
+        link.parentElement.style.display = 'none';
+      }
+    });
   }
 });
     
