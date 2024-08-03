@@ -1162,55 +1162,55 @@ input[type="submit"] {
 <script src="random.js"></script>
 <script>
 
-    const searchInput = document.getElementById('search-input');
-const movieList = document.querySelector(".movie-list");
-const links = Array.from(movieList.querySelectorAll("a"));
-
-// إنشاء دالة ترتيب مخصصة للغة العربية
-const arabicCollator = new Intl.Collator('ar', {
-  sensitivity: 'base',
-  ignorePunctuation: true,
-});
-
-// Sort the movie list in alphabetical order
-links.sort((a, b) => arabicCollator.compare(a.textContent, b.textContent));
-
-// Reorder the links in the movie list
-links.forEach((link) => {
-  movieList.appendChild(link.parentElement);
-});
-
-searchInput.addEventListener('input', () => {
-  const searchTerm = searchInput.value.trim().toLowerCase();
-  links.forEach((link) => {
-    const movieTitle = link.textContent.trim().toLowerCase();
-    if (movieTitle.includes(searchTerm)) {
-      link.parentElement.style.display = 'block';
-    } else {
-      link.parentElement.style.display = 'none';
-    }
-  });
-
-  // إعادة ترتيب النتائج بعد البحث
-  const visibleLinks = links.filter((link) => link.parentElement.style.display !== 'none');
-  visibleLinks.sort((a, b) => {
-    const aText = a.textContent;
-    const bText = b.textContent;
-    const aPart = parseInt(aText.match(/الجزء (\d+)/)[1]);
-    const bPart = parseInt(bText.match(/الجزء (\d+)/)[1]);
-    return aPart - bPart;
-  });
-  visibleLinks.forEach((link) => {
-    movieList.appendChild(link.parentElement);
-  });
-});
-
-searchInput.addEventListener('keypress', (event) => {
-  if (event.keyCode === 13) {
-    event.preventDefault(); // prevent form submission
-    searchInput.blur(); // hide the keyboard
-  }
-});
+     const searchInput = document.getElementById('search-input');
+14  const movieList = document.querySelector(".movie-list");
+15  const links = Array.from(movieList.querySelectorAll("a"));
+16
+17  // إنشاء دالة ترتيب مخصصة للغة العربية
+18  const arabicCollator = new Intl.Collator('ar', {
+19    sensitivity: 'base',
+20    ignorePunctuation: true,
+21  });
+22
+23  // Sort the movie list in alphabetical order
+24  links.sort((a, b) => arabicCollator.compare(a.textContent, b.textContent));
+25
+26  // Reorder the links in the movie list
+27  links.forEach((link) => {
+28    movieList.appendChild(link.parentElement);
+29  });
+30
+31  searchInput.addEventListener('input', () => {
+32    const searchTerm = searchInput.value.trim().toLowerCase();
+33    links.forEach((link) => {
+34      const movieTitle = link.textContent.trim().toLowerCase();
+35      if (movieTitle.includes(searchTerm)) {
+36        link.parentElement.style.display = 'block';
+37      } else {
+38        link.parentElement.style.display = 'none';
+39      }
+40    });
+41
+42    // إعادة ترتيب النتائج بعد البحث
+43    const visibleLinks = links.filter((link) => link.parentElement.style.display !== 'none');
+44    visibleLinks.sort((a, b) => {
+45      const aText = a.textContent;
+46      const bText = b.textContent;
+47      const aPart = parseInt(aText.match(/الجزء (\d+)/)[1]);
+48      const bPart = parseInt(bText.match(/الجزء (\d+)/)[1]);
+49      return aPart - bPart;
+50    });
+51    visibleLinks.forEach((link) => {
+52      movieList.appendChild(link.parentElement);
+53    });
+54  });
+55
+56  searchInput.addEventListener('keypress', (event) => {
+57    if (event.keyCode === 13) {
+58      event.preventDefault(); // prevent form submission
+59      searchInput.blur(); // hide the keyboard
+60    }
+61  });
 </script>
 </body>
 </html>
