@@ -124,10 +124,11 @@ input[type="submit"] {
             
         <!-- مربع البحث -->
         <div class="search-box">
-            <form action="#" method="get" id="searchForm">
-                <input type="text" name="search" id="searchInput" placeholder="                             ابحث عن فلمك هنا">
-            </form>
-        </div>
+  <form onsubmit="return false;">
+    <input type="text" id="search-input" />
+    <input type="submit" value="Search" />
+  </form>
+</div>
         <!-- نتائج البحث -->
         <div class="search-results" id="searchResults">
             <!-- هنا سيتم عرض نتائج البحث -->
@@ -1167,17 +1168,18 @@ input[type="submit"] {
     
     
     
-    var searchTriggered = false;
+    const searchInput = document.getElementById('search-input');
 
-function searchKeyPress(event, input) {
-  if (event.keyCode == 13 && !searchTriggered) {
-    // Trigger the search
-    searchTriggered = true;
-    // Your search logic here
-    console.log("Search triggered!");
+searchInput.addEventListener('keypress', function(event) {
+  if (event.keyCode === 13) {
+    // Trigger the search logic only once
+    if (!searchInput.dataset.searchTriggered) {
+      // Your search logic here
+      console.log("Search triggered!");
+      searchInput.dataset.searchTriggered = true;
+    }
   }
-  return false;
-}
+});
     
 </script>
 </body>
