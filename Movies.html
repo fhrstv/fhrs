@@ -1179,13 +1179,13 @@ input[type="submit"] {
             'التاسع': 9,
             'العاشر': 10
         };
-        return parts[part] || 0;
+        return parts[part] || parseInt(part, 10) || 0;
     }
 
-    // Helper function to extract the part word from the movie title
-    function extractPartWord(title) {
-        // Regex to match 'الجزء الأول', 'الجزء الثاني', etc.
-        const match = title.match(/الجزء\s*(.+)$/);
+    // Helper function to extract the part number from the movie title
+    function extractPartNumber(title) {
+        // Regex to match 'الجزء الأول', 'الجزء الثاني', etc., or '1', '2', '3', etc.
+        const match = title.match(/الجزء\s*(\d+|الاول|الثاني|الثالث|الرابع|الخامس|السادس|السابع|الثامن|التاسع|العاشر)$/);
         return match ? match[1].trim() : '';
     }
 
@@ -1199,12 +1199,9 @@ input[type="submit"] {
             const compareTitle = titleA.localeCompare(titleB, 'ar');
             if (compareTitle !== 0) return compareTitle;
 
-            // Extract part words and convert them to numbers
-            const partWordA = extractPartWord(titleA);
-            const partWordB = extractPartWord(titleB);
-
-            const partNumberA = partWordToNumber(partWordA);
-            const partNumberB = partWordToNumber(partWordB);
+            // Extract and compare part numbers
+            const partNumberA = partWordToNumber(extractPartNumber(titleA));
+            const partNumberB = partWordToNumber(extractPartNumber(titleB));
 
             return partNumberA - partNumberB;
         });
