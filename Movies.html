@@ -1164,62 +1164,31 @@ input[type="submit"] {
 
      const searchInput = document.getElementById('search-input');
 const movieList = document.querySelector(".movie-list");
-const movieItems = movieList.children;
+const links = Array.from(movieList.querySelectorAll("a"));
 
-searchInput.addEventListener('input', () => {
+// Sort the movie list in alphabetical order
+links.sort(function(a, b) {
+  return a.textContent.localeCompare(b.textContent);
+});
+
+// Reorder the links in the movie list
+links.forEach(function(link) {
+  movieList.appendChild(link.parentElement);
+});
+
+searchInput.addEventListener('input', function() {
   const searchTerm = searchInput.value.trim().toLowerCase();
-  Array.from(movieItems).forEach((movieItem) => {
-    const movieTitle = movieItem.textContent.trim();
-    const isArabic = /[\u0600-\u06FF]/.test(movieTitle); // check if title is Arabic
-    let sortedTitle;
-    if (isArabic) {
-      // sort Arabic titles by part (e.g., الجزء الأول, الجزء الثاني, etc.)
-      const partMatch = movieTitle.match(/الجزء (\d+)/);
-      if (partMatch) {
-        sortedTitle = partMatch[1] + ' + movieTitle;
-      } else {
-        sortedTitle = movieTitle;
-      }
+  links.forEach(function(link) {
+    const movieTitle = link.textContent.trim().toLowerCase();
+    if (movieTitle.includes(searchTerm)) {
+      link.parentElement.style.display = 'block';
     } else {
-      // sort English titles in alphabetical order
-      sortedTitle = movieTitle.toLowerCase();
+      link.parentElement.style.display = 'none';
     }
-    if (sortedTitle.includes(searchTerm)) {
-      movieItem.style.display = 'block';
-    } else {
-      movieItem.style.display = 'none';
-    }
-  });
-
-  // sort the movie items in alphabetical order
-  Array.from(movieItems).sort((a, b) => {
-    const aTitle = a.textContent.trim();
-    const bTitle = b.textContent.trim();
-    const isArabicA = /[\u0600-\u06FF]/.test(aTitle);
-    const isArabicB = /[\u0600-\u06FF]/.test(bTitle);
-    if (isArabicA && isArabicB) {
-      // sort Arabic titles by part
-      const aPart = aTitle.match(/الجزء (\d+)/)[1];
-      const bPart = bTitle.match(/الجزء (\d+)/)[1];
-      return aPart - bPart;
-    } else if (isArabicA) {
-      // Arabic title comes before English title
-      return -1;
-    } else if (isArabicB) {
-      // English title comes before Arabic title
-      return 1;
-    } else {
-      // sort English titles in alphabetical order
-      return aTitle.localeCompare(bTitle);
-    }
-  });
-  movieList.innerHTML = '';
-  Array.from(movieItems).forEach((item) => {
-    movieList.appendChild(item);
   });
 });
 
-searchInput.addEventListener('keypress', (event) => {
+searchInput.addEventListener('keypress', function(event) {
   if (event.keyCode === 13) {
     event.preventDefault(); // prevent form submission
     searchInput.blur(); // hide the keyboard
