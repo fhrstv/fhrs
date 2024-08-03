@@ -1169,25 +1169,52 @@ const movieItems = movieList.children;
 searchInput.addEventListener('input', () => {
   const searchTerm = searchInput.value.trim().toLowerCase();
   Array.from(movieItems).forEach((movieItem) => {
-    const movieTitle = movieItem.textContent.trim().toLowerCase();
-    if (movieTitle.includes(searchTerm)) {
+    const movieTitle = movieItem.textContent.trim();
+    const isArabic = /[\u0600-\u06FF]/.test(movieTitle); // check if title is Arabic
+    let sortedTitle;
+    if (isArabic) {
+      // sort Arabic titles by part (e.g., الجزء الأول, الجزء الثاني, etc.)
+      const partMatch = movieTitle.match(/الجزء (\d+)/);
+      if (partMatch) {
+        sortedTitle = partMatch[1] + ' + movieTitle;
+      } else {
+        sortedTitle = movieTitle;
+      }
+    } else {
+      // sort English titles in alphabetical order
+      sortedTitle = movieTitle.toLowerCase();
+    }
+    if (sortedTitle.includes(searchTerm)) {
       movieItem.style.display = 'block';
     } else {
       movieItem.style.display = 'none';
     }
   });
 
-  // إعادة ترتيب النتائج بعد البحث
-  const visibleItems = Array.from(movieItems).filter((item) => item.style.display!== 'none');
-  visibleItems.sort((a, b) => {
-    const aText = a.textContent;
-    const bText = b.textContent;
-    const aPart = parseInt(aText.match(/الجزء (\d+)/)[1]);
-    const bPart = parseInt(bText.match(/الجزء (\d+)/)[1]);
-    return aPart - bPart;
+  // sort the movie items in alphabetical order
+  Array.from(movieItems).sort((a, b) => {
+    const aTitle = a.textContent.trim();
+    const bTitle = b.textContent.trim();
+    const isArabicA = /[\u0600-\u06FF]/.test(aTitle);
+    const isArabicB = /[\u0600-\u06FF]/.test(bTitle);
+    if (isArabicA && isArabicB) {
+      // sort Arabic titles by part
+      const aPart = aTitle.match(/الجزء (\d+)/)[1];
+      const bPart = bTitle.match(/الجزء (\d+)/)[1];
+      return aPart - bPart;
+    } else if (isArabicA) {
+      // Arabic title comes before English title
+      return -1;
+    } else if (isArabicB) {
+      // English title comes before Arabic title
+      return 1;
+    } else {
+      // sort English titles in alphabetical order
+      return aTitle.localeCompare(bTitle);
+    }
   });
   movieList.innerHTML = '';
-  visibleItems.forEach((item) => {
+  Array.from(movieItems).forEach((item) => {
     movieList.appendChild(item);
   });
 });
