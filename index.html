@@ -184,20 +184,31 @@
 }
         
         
-            .telegram-link {
-direction: rtl;
-text-align: right;
-font-size: 14px; /* حجم الخط الأصغر */
-display: block; /* يجعل النص والصورة على سطر واحد */
-align-items: center; /* يحاذي الصورة والنص عمودياً */
-color: blue;
-text-decoration: none;
-background: none;
-padding: 0;
+            h4.telegram-link {
+  background: none;
+  padding: 0;
+  border: none;
+  display: inline-block;
+  font-size: 18px;
+  color: blue;
+}
 
-.telegram-link {
-  text-align: center;
-  margin: 20px auto;
+h4.telegram-link a {
+  text-decoration: none;
+  color: blue;
+}
+
+h4.telegram-link img {
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+h4.telegram-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
         
     </style>
