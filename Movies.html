@@ -1191,9 +1191,15 @@ searchInput.addEventListener('input', () => {
     }
   });
 
-  // إعادة ترتيب الأفلام بعد البحث
+  // إعادة ترتيب النتائج بعد البحث
   const visibleLinks = links.filter((link) => link.parentElement.style.display !== 'none');
-  visibleLinks.sort((a, b) => arabicCollator.compare(a.textContent, b.textContent));
+  visibleLinks.sort((a, b) => {
+    const aText = a.textContent;
+    const bText = b.textContent;
+    const aPart = parseInt(aText.match(/الجزء (\d+)/)[1]);
+    const bPart = parseInt(bText.match(/الجزء (\d+)/)[1]);
+    return aPart - bPart;
+  });
   visibleLinks.forEach((link) => {
     movieList.appendChild(link.parentElement);
   });
