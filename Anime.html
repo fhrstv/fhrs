@@ -164,31 +164,26 @@
     
     
     
-    import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
+   function detectMobileView() {
+  if (navigator.userAgent.match(/Android/i)
+    || navigator.userAgent.match(/webOS/i)
+    || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i)
+    || navigator.userAgent.match(/iPod/i)
+    || navigator.userAgent.match(/BlackBerry/i)
+    || navigator.userAgent.match(/Windows Phone/i)) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
-public class WebViewApp extends Application {
-
-    @Override
-    public void start(Stage primaryStage) {
-        BorderPane root = new BorderPane();
-        WebView webView = new WebView();
-        WebEngine engine = webView.getEngine();
-        engine.load("Anime"); // Replace with your HTML file
-
-        root.setCenter(webView);
-        Scene scene = new Scene(root, 800, 600);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
+if (detectMobileView()) {
+  // This is a mobile device, so let's force the mobile view
+  document.body.classList.add('mobile-view');
+} else {
+  // This is a desktop device, so let's force the desktop view
+  document.body.classList.add('desktop-view');
 }
 </script>
 </body>
