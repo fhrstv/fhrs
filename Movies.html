@@ -1160,10 +1160,10 @@ input[type="submit"] {
     </div>
 <script src="scripit.js"></script>
 <script src="random.js"></script>
-    <script>
+     <script>
         const searchInput = document.getElementById('search-input');
         const movieList = document.querySelector(".movie-list");
-        const links = Array.from(movieList.querySelectorAll("a"));
+        const links = Array.from(movieList.querySelectorAll("li"));
 
         // Helper function to extract the part number from the movie title
         function extractPartNumber(title) {
@@ -1172,8 +1172,8 @@ input[type="submit"] {
         }
 
         // Sort the movie list in alphabetical order and by part number
-        function sortMovies() {
-            links.sort(function(a, b) {
+        function sortMovies(movies) {
+            return movies.sort(function(a, b) {
                 const titleA = a.textContent.trim();
                 const titleB = b.textContent.trim();
 
@@ -1185,14 +1185,17 @@ input[type="submit"] {
 
                 return partA - partB;
             });
+        }
 
-            // Reorder the links in the movie list
-            links.forEach(function(link) {
-                movieList.appendChild(link.parentElement);
+        function updateMovieList(filteredLinks) {
+            movieList.innerHTML = ''; // Clear the movie list
+            sortMovies(filteredLinks).forEach(function(link) {
+                movieList.appendChild(link);
             });
         }
 
-        sortMovies();
+        // Initial sort on page load
+        updateMovieList(links);
 
         searchInput.addEventListener('input', function() {
             const searchTerm = searchInput.value.trim().toLowerCase();
@@ -1201,13 +1204,7 @@ input[type="submit"] {
                 return movieTitle.includes(searchTerm);
             });
 
-            movieList.innerHTML = ''; // Clear the movie list
-
-            filteredLinks.forEach(function(link) {
-                movieList.appendChild(link.parentElement);
-            });
-
-            sortMovies(); // Sort the filtered results
+            updateMovieList(filteredLinks);
         });
 
         searchInput.addEventListener('keypress', function(event) {
