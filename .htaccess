@@ -4,19 +4,5 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# إزالة الشرطات من العنوان
-RewriteRule ^(.*)-(.*)$ $1$2 [N]
-
-# إعادة كتابة العنوان لإزالة .html إذا كان موجودًا
-RewriteRule ^(.*)\.html$ $1 [NC,L]
-
-# التعامل مع الروابط بدون شرطات وبدون .html
-RewriteRule ^([^/]+)/?$ $1.html [NC,L]
-
-
-
-
-RewriteEngine On
-RewriteRule ^watch/movies/(.*)-([0-9]{4})$ watch/movies/${subst:%1}-%2 [L,R=301]
-
-RewriteMap subst "prg:/usr/bin/sed 's/-/ /g'"
+# إعادة كتابة العنوان لإضافة .html إذا لم يكن موجودًا
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
