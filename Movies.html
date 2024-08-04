@@ -1240,28 +1240,6 @@ input[type="submit"] {
     });
     
     
-    
-    
-    // احصل على جميع العناصر في قائمة movie-list
-var movieItems = document.querySelectorAll('.movie-item');
-
-// قم بالمرور على كل عنصر
-movieItems.forEach(function(item) {
-  // احصل على عنوان العنصر
-  var href = item.querySelector('a').href;
-
-  // تحقق من أن العنصر يحتوي على كلمة "watch"
-  if (href.includes('watch')) {
-    // احصل على النص الموجود في العنصر
-    var text = item.textContent;
-
-    // استبدل الشرطات بفراغات
-    text = text.replace(/-/g, ' ');
-
-    // قم بتحديث النص في العنصر
-    item.textContent = text;
-  }
-});
 </script>
 </body>
 </html>
