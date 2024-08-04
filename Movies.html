@@ -1242,13 +1242,13 @@ input[type="submit"] {
     
     
     
-            document.addEventListener("DOMContentLoaded", function() {
+                    document.addEventListener("DOMContentLoaded", function() {
             const links = document.querySelectorAll('.movie-list a');
             
             links.forEach(link => {
-                let href = link.getAttribute('href');
-                let newHref = href.replace(/-/g, ' ');
-                link.setAttribute('href', newHref);
+                let text = link.textContent;
+                let newText = text.replace(/-/g, ' ');
+                link.textContent = newText;
             });
         });
 </script>
