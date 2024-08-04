@@ -1231,81 +1231,37 @@ input[type="submit"] {
 <script src="random.js"></script>
      <script>
     const searchInput = document.getElementById('search-input');
-    const movieList = document.querySelector(".movie-list");
-    const items = Array.from(movieList.querySelectorAll("li"));
+const movieList = document.querySelector(".movie-list");
+const links = Array.from(movieList.querySelectorAll("a"));
 
-    // Helper function to convert part strings to numbers
-    function partStringToNumber(part) {
-        const parts = {
-            '1': 1,
-            '2': 2,
-            '3': 3,
-            '4': 4,
-            '5': 5,
-            '6': 6,
-            '7': 7,
-            '8': 8,
-            '9': 9,
-            '10': 10
-        };
-        return parts[part] || parseInt(part, 10) || 0;
+// Sort the movie list in alphabetical order
+links.sort(function(a, b) {
+  return a.textContent.localeCompare(b.textContent);
+});
+
+// Reorder the links in the movie list
+links.forEach(function(link) {
+  movieList.appendChild(link.parentElement);
+});
+
+searchInput.addEventListener('input', function() {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  links.forEach(function(link) {
+    const movieTitle = link.textContent.trim().toLowerCase();
+    if (movieTitle.includes(searchTerm)) {
+      link.parentElement.style.display = 'block';
+    } else {
+      link.parentElement.style.display = 'none';
     }
+  });
+});
 
-    // Helper function to extract the part number from the movie title
-    function extractPartNumber(title) {
-        const match = title.match(/الجزء\s*(\d+)$/); // Matches 'الجزء 1', 'الجزء 2', etc.
-        return match ? match[1].trim() : '';
-    }
-
-    // Sort the movie list in alphabetical order and by part number
-    function sortMovies(movies) {
-        return movies.sort(function(a, b) {
-            const titleA = a.textContent.trim();
-            const titleB = b.textContent.trim();
-
-            // First sort by title alphabetically
-            const compareTitle = titleA.localeCompare(titleB, 'ar');
-            if (compareTitle !== 0) return compareTitle;
-
-            // Extract and compare part numbers
-            const partNumberA = partStringToNumber(extractPartNumber(titleA));
-            const partNumberB = partStringToNumber(extractPartNumber(titleB));
-
-            return partNumberA - partNumberB;
-        });
-    }
-
-    function updateMovieList(filteredItems) {
-        movieList.inne = ''; // Clear the movie list
-        sortMovies(filteredItems).forEach(function(item) {
-            movieList.appendChild(item);
-        });
-    }
-
-    // Initial sort on page load
-    updateMovieList(items);
-
-    searchInput.addEventListener('input', function() {
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        const filteredItems = items.filter(function(item) {
-            const movieTitle = item.textContent.trim().toLowerCase();
-            return movieTitle.includes(searchTerm);
-        });
-
-        updateMovieList(filteredItems);
-    });
-
-    searchInput.addEventListener('keypress', function(event) {
-        if (event.keyCode === 13) {
-            event.preventDefault(); // Prevent form submission
-            searchInput.blur(); // Hide the keyboard
-        }
-    });
-    
-    
-    
-    
-                    
+searchInput.addEventListener('keypress', function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault(); // prevent form submission
+    searchInput.blur(); // hide the keyboard
+  }
+});
 </script>
 </body>
 </html>
