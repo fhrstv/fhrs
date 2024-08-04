@@ -1,0 +1,217 @@
+<!-- movie arabic -->
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>فهرس</title> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style> 
+       body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #000
+        }
+
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        #poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        #title {
+            color: red; /* لون عنوان الفيلم أحمر */
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        #genres,
+#overview,
+#release-date,
+#rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000; /* لون النصوص الأسود */
+    font-size: 20px; /* حجم الخط */
+    margin-bottom: 10px; /* المسافة بين العناصر */
+    text-align: center; /* تمركز النص في الوسط */
+    font-weight: bold;
+    direction: rtl; /* اتجاه النصوص من اليمين لليسار */
+}
+
+         #trailer {
+    margin: 20px auto;
+    width: 100%;
+    max-width: 560px;
+}
+
+#trailer iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: none;
+}
+
+  
+ 
+
+        h2, h3, a {
+    color: #000; /* تغيير اللون إلى الأسود */
+    direction: rtl;
+}
+@media screen and (max-width: 425px), screen and (max-width: 375px), screen and (max-width: 320px) {
+    body {
+        zoom: 0.8; /* قم بتعديل القيمة حسب احتياجك */
+    }
+}
+
+.fa-solid.fa-gear {
+    color: black; /* لون الرمز */
+    font-size: 1em; /* حجم الرمز */
+    margin-right: 10px; /* المسافة بين الرمز والنص */
+}
+
+.icon-container {
+    display: inline-flex;
+    align-items: center;
+}
+
+.expand-icon {
+    margin-right: 10px; /* إزالة المسافة الزائدة بعد الرمز الأخير */
+}
+    </style> 
+</head> 
+<body> 
+    <header> 
+        <h1>فهرس</h1> 
+   
+<div class="container">
+    <img id="poster" src="">
+        <h1 id="title"></h1>
+        <p id="release-date"></p>
+        <p id="genres"></p>
+        <p id="rating"></p>
+        <p id="overview"></p>
+        <h2>التريلر</h2>
+        <div id="trailer" class="video-wrapper">
+</div>
+    <div id="movieInfo" class="movie-info"></div>
+    <div id="trailerContainer" class="trailer-container"></div>
+    <h2>شاهد الآن</h2>
+    <iframe id="movieIframe" src="https://vk.com/video_ext.php?oid=760447746&id=456239371&hash=&hd=2s" frameborder="0" allowfullscreen></iframe> 
+    <h2>
+        إذا لم يظهر مفتاح الإعدادات او مفتاح تكبير الشاشة
+            <i class="fa-solid fa-gear settings-icon"></i>
+            <i class="fa-solid fa-up-right-and-down-left-from-center expand-icon"></i> 
+        <br>
+        جرب أحد هذه الحلول وسيعمل معك
+        <br>
+        ( قم بتغيير عرض متصفحك من وضع سطح المكتب إلى وضع الهاتف المحمول )
+        <br> أو ( قم بتدوير هاتفك الى الوضع الأفقي وليس العامودي )
+        <br>أو ( قم بعمل الخطوتين معا )
+        <br> وستجد مفتاح الإعدادات و تكبير الشاشة و منها تستطيع أن تقوم بتغيير الجودة
+        <br> إذا لم تعمل الحلقة او الفيلم ، الرجاء نسخ الرابط
+        <br> و إرساله لنا من خلال صفحة اتصل بنا
+    </h2>
+    
+
+
+     <a href="../../Movies">رجوع</a>
+</div>
+
+<script>
+    const apiKey = "cf64a661774f647b7513facb9f1e55e5";
+    const mediaId = 1253996;
+    const mediaType = "movie"; // أو "tv" إذا كان المسلسل
+
+    // جلب بيانات الفيلم أو المسلسل
+    fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const title = data.name || data.title;
+        const overview = data.overview || "لا توجد معلومات";
+        const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "";
+        const genres = data.genres && data.genres.length > 0 ? data.genres.map(genre => genre.name).join(", ") : "غير محدد";
+        const releaseDate = data.release_date || data.first_air_date || "تاريخ الإصدار غير متوفر";
+        const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
+
+        document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
+        document.getElementById("overview").innerHTML = `القصة : ${overview}`;
+        document.getElementById("poster").src = posterPath;
+        document.getElementById("genres").innerHTML = `النوع : ${genres}`;
+        document.getElementById("release-date").innerHTML = ` تاريخ الإصدار : ${releaseDate}`;
+        document.getElementById("rating").innerHTML = `التقييم : ${rating}`;
+
+        // جلب التريلر
+        return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const trailers = data.results.filter(video => video.type === 'Trailer');
+        if (trailers.length > 0) {
+            const trailer = trailers[0];
+            const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
+            document.getElementById("trailer").innerHTML = `
+                <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
+            `;
+        } else {
+            document.getElementById("trailer").innerHTML = "لا يوجد تريلر متوفر.";
+        }
+      })
+      .catch(error => console.error(error));
+</script>
+</body>
+</html>
