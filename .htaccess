@@ -4,17 +4,8 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# إعادة كتابة العنوان لإضافة .html إذا لم يكن موجودًا
-RewriteRule ^([^\.]+)$ $1.html [NC,L]
+# إزالة الشرطات من العنوان
+RewriteRule ^(.*)-(.*)$ $1$2 [N]
 
-
-
-
-RewriteEngine On
-
-# Rewrite URLs to remove hyphens
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([^/]+)$ $1 [N]
-
-RewriteRule ^([^-]+)-([^-]+)(.*)$ $1$2$3 [N]
+# إعادة كتابة العنوان لإزالة .html إذا كان موجودًا
+RewriteRule ^(.*)\.html$ $1 [NC,L]
