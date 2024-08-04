@@ -6,3 +6,15 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 # إعادة كتابة العنوان لإضافة .html إذا لم يكن موجودًا
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+
+
+
+RewriteEngine On
+
+# Rewrite URLs to remove hyphens
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)$ $1 [N]
+
+RewriteRule ^([^-]+)-([^-]+)(.*)$ $1$2$3 [N]
