@@ -12,3 +12,9 @@ RewriteRule ^(.*)\.html$ $1 [NC,L]
 
 # التعامل مع الروابط بدون شرطات وبدون .html
 RewriteRule ^([^/]+)/?$ $1.html [NC,L]
+
+
+
+
+RewriteEngine On
+RewriteRule ^watch/movies/([^-]+)-([^-]+)-([^-]+)-([^-]+)$ watch/movies/$1 $2 $3 $4 [L,R=301]
