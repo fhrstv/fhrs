@@ -187,12 +187,14 @@ function changeEpisode(value, quality) {
         videoPlayer.load();
     }
     
+    // تعيين الاختيار إلى "اختر الحلقة" بناءً على الجودة
+    var highQualitySelect = document.getElementById('highQualityEpisodes');
+    var lowQualitySelect = document.getElementById('lowQualityEpisodes');
+    
     if (quality === 'high') {
-        var lowQualitySelect = document.getElementById('lowQualityEpisodes');
-        lowQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة"
+        lowQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة" في الجودة المنخفضة
     } else if (quality === 'low') {
-        var highQualitySelect = document.getElementById('highQualityEpisodes');
-        highQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة"
+        highQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة" في الجودة العالية
     }
 }
 
