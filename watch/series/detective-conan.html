@@ -1,0 +1,1384 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>فهرس</title> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon"> 
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        color: #000;
+    }
+
+    header {
+        background-color: #333;
+        color: hsl(0, 94%, 46%);
+        text-align: center;
+        padding: 10px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        font-size: 18px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    iframe {
+        width: 100%;
+        height: 200px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #333;
+        display: block;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: red;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+    }
+
+    a:hover {
+        background-color: gold;
+    }
+
+    p {
+        text-align: justify;
+        margin-bottom: 10px;
+    }
+
+    .movie-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .movie-poster {
+        width: 100%;
+        max-width: 300px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .movie-info {
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .movie-info p {
+        margin-bottom: 10px;
+    }
+
+    .movie-title {
+        color: #ff0000;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    
+   .story-title {
+        font-weight: bold;
+        margin-right: 10px; /* مسافة بين العنوان والنص */
+    }
+
+.story {
+font-family: "Arial", sans-serif;
+font-size: 17px;
+line-height: 1.6;
+text-align: right;
+direction: rtl;
+white-space: pre-wrap;
+overflow-wrap: break-word;
+text-align-last: right; /* لضمان محاذاة النص في النهاية لليمين */
+display: block; /* لجعل النص يظهر ككتلة مستقلة */
+}
+    h2, h3, a {
+        color: #000; /* تغيير اللون إلى الأسود */
+    }
+
+    .episode-box {
+width: 80%;
+margin: 20px auto;
+background-color: #f9f9f9;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+#episodes {
+width: 100%;
+font-size: 18px;
+padding: 10px;
+height: 50px;
+box-sizing: border-box;
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+direction: rtl;
+text-align: center;
+flex-direction: row-reverse;
+}
+
+
+    
+    /* تعديل iframe لجعل الفيديو من اليوتيوب أصغر */
+
+/* تعديل حجم مشغل الفيديو */
+video {
+width: 100%;
+max-height: 400px; /* ضبط الارتفاع الأقصى */
+background-color: black;
+}
+
+</style>
+</head> 
+<body> 
+    <header> 
+        <h1>فهرس</h1> 
+    </header> 
+    <div class="container">
+        <div id="movieInfo"></div>
+        <div id="trailerContainer"></div>
+        <h2>شاهد الآن</h2>
+        <video id="videoPlayer" controls>
+            <source src="https://server.sanime.net/Video/653/1.mp4" type="video/mp4">
+        </video>
+        <h2></h2> 
+        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
+
+        <div class="episode-box">
+            <select id="episodes" onchange="changeEpisode(this.value)">
+                <option value="https://server.sanime.net/Video/653/1.mp4">الحلقة 1</option>
+                <option value="https://server.sanime.net/Video/653/2.mp4">الحلقة 2</option>
+                <option value="https://server.sanime.net/Video/653/3.mp4">الحلقة 3</option>
+                <option value="https://server.sanime.net/Video/653/4.mp4">الحلقة 4</option>
+                <option value="https://server.sanime.net/Video/653/5.mp4">الحلقة 5</option>
+                <option value="https://server.sanime.net/Video/653/6.mp4">الحلقة 6</option>
+                <option value="https://server.sanime.net/Video/653/7.mp4">الحلقة 7</option>
+                <option value="https://server.sanime.net/Video/653/8.mp4">الحلقة 8</option>
+                <option value="https://server.sanime.net/Video/653/9.mp4">الحلقة 9</option>
+                <option value="https://server.sanime.net/Video/653/10.mp4">الحلقة 10</option>
+                <option value="https://server.sanime.net/Video/653/11.mp4">الحلقة 11</option>
+                <option value="https://server.sanime.net/Video/653/12.mp4">الحلقة 12</option>
+                <option value="https://server.sanime.net/Video/653/13.mp4">الحلقة 13</option>
+                <option value="https://server.sanime.net/Video/653/14.mp4">الحلقة 14</option>
+                <option value="https://server.sanime.net/Video/653/15.mp4">الحلقة 15</option>
+                <option value="https://server.sanime.net/Video/653/16.mp4">الحلقة 16</option>
+                <option value="https://server.sanime.net/Video/653/17.mp4">الحلقة 17</option>
+                <option value="https://server.sanime.net/Video/653/18.mp4">الحلقة 18</option>
+                <option value="https://server.sanime.net/Video/653/19.mp4">الحلقة 19</option>
+                <option value="https://server.sanime.net/Video/653/20.mp4">الحلقة 20</option>
+                <option value="https://server.sanime.net/Video/653/21.mp4">الحلقة 21</option>
+                <option value="https://server.sanime.net/Video/653/22.mp4">الحلقة 22</option>
+                <option value="https://server.sanime.net/Video/653/23.mp4">الحلقة 23</option>
+                <option value="https://server.sanime.net/Video/653/24.mp4">الحلقة 24</option>
+                <option value="https://server.sanime.net/Video/653/25.mp4">الحلقة 25</option>
+                <option value="https://server.sanime.net/Video/653/26.mp4">الحلقة 26</option>
+                <option value="https://server.sanime.net/Video/653/27.mp4">الحلقة 27</option>
+                <option value="https://server.sanime.net/Video/653/28.mp4">الحلقة 28</option>
+                <option value="https://server.sanime.net/Video/653/29.mp4">الحلقة 29</option>
+                <option value="https://server.sanime.net/Video/653/30.mp4">الحلقة 30</option>
+                <option value="https://server.sanime.net/Video/653/31.mp4">الحلقة 31</option>
+                <option value="https://server.sanime.net/Video/653/32.mp4">الحلقة 32</option>
+                <option value="https://server.sanime.net/Video/653/33.mp4">الحلقة 33</option>
+                <option value="https://server.sanime.net/Video/653/34.mp4">الحلقة 34</option>
+                <option value="https://server.sanime.net/Video/653/35.mp4">الحلقة 35</option>
+                <option value="https://server.sanime.net/Video/653/36.mp4">الحلقة 36</option>
+                <option value="https://server.sanime.net/Video/653/37.mp4">الحلقة 37</option>
+                <option value="https://server.sanime.net/Video/653/38.mp4">الحلقة 38</option>
+                <option value="https://server.sanime.net/Video/653/39.mp4">الحلقة 39</option>
+                <option value="https://server.sanime.net/Video/653/40.mp4">الحلقة 40</option>
+                <option value="https://server.sanime.net/Video/653/41.mp4">الحلقة 41</option>
+                <option value="https://server.sanime.net/Video/653/42.mp4">الحلقة 42</option>
+                <option value="https://server.sanime.net/Video/653/43.mp4">الحلقة 43</option>
+                <option value="https://server.sanime.net/Video/653/44.mp4">الحلقة 44</option>
+                <option value="https://server.sanime.net/Video/653/45.mp4">الحلقة 45</option>
+                <option value="https://server.sanime.net/Video/653/46.mp4">الحلقة 46</option>
+                <option value="https://server.sanime.net/Video/653/47.mp4">الحلقة 47</option>
+                <option value="https://server.sanime.net/Video/653/48.mp4">الحلقة 48</option>
+                <option value="https://server.sanime.net/Video/653/49.mp4">الحلقة 49</option>
+                <option value="https://server.sanime.net/Video/653/50.mp4">الحلقة 50</option>
+                <option value="https://server.sanime.net/Video/653/51.mp4">الحلقة 51</option>
+                <option value="https://server.sanime.net/Video/653/52.mp4">الحلقة 52</option>
+                <option value="https://server.sanime.net/Video/653/53.mp4">الحلقة 53</option>
+                <option value="https://server.sanime.net/Video/653/54.mp4">الحلقة 54</option>
+                <option value="https://server.sanime.net/Video/653/55.mp4">الحلقة 55</option>
+                <option value="https://server.sanime.net/Video/653/56.mp4">الحلقة 56</option>
+                <option value="https://server.sanime.net/Video/653/57.mp4">الحلقة 57</option>
+                <option value="https://server.sanime.net/Video/653/58.mp4">الحلقة 58</option>
+                <option value="https://server.sanime.net/Video/653/59.mp4">الحلقة 59</option>
+                <option value="https://server.sanime.net/Video/653/60.mp4">الحلقة 60</option>
+                <option value="https://server.sanime.net/Video/653/61.mp4">الحلقة 61</option>
+                <option value="https://server.sanime.net/Video/653/62.mp4">الحلقة 62</option>
+                <option value="https://server.sanime.net/Video/653/63.mp4">الحلقة 63</option>
+                <option value="https://server.sanime.net/Video/653/64.mp4">الحلقة 64</option>
+                <option value="https://server.sanime.net/Video/653/65.mp4">الحلقة 65</option>
+                <option value="https://server.sanime.net/Video/653/66.mp4">الحلقة 66</option>
+                <option value="https://server.sanime.net/Video/653/67.mp4">الحلقة 67</option>
+                <option value="https://server.sanime.net/Video/653/68.mp4">الحلقة 68</option>
+                <option value="https://server.sanime.net/Video/653/69.mp4">الحلقة 69</option>
+                <option value="https://server.sanime.net/Video/653/70.mp4">الحلقة 70</option>
+                <option value="https://server.sanime.net/Video/653/71.mp4">الحلقة 71</option>
+                <option value="https://server.sanime.net/Video/653/72.mp4">الحلقة 72</option>
+                <option value="https://server.sanime.net/Video/653/73.mp4">الحلقة 73</option>
+                <option value="https://server.sanime.net/Video/653/74.mp4">الحلقة 74</option>
+                <option value="https://server.sanime.net/Video/653/75.mp4">الحلقة 75</option>
+                <option value="https://server.sanime.net/Video/653/76.mp4">الحلقة 76</option>
+                <option value="https://server.sanime.net/Video/653/77.mp4">الحلقة 77</option>
+                <option value="https://server.sanime.net/Video/653/78.mp4">الحلقة 78</option>
+                <option value="https://server.sanime.net/Video/653/79.mp4">الحلقة 79</option>
+                <option value="https://server.sanime.net/Video/653/80.mp4">الحلقة 80</option>
+                <option value="https://server.sanime.net/Video/653/81.mp4">الحلقة 81</option>
+                <option value="https://server.sanime.net/Video/653/82.mp4">الحلقة 82</option>
+                <option value="https://server.sanime.net/Video/653/83.mp4">الحلقة 83</option>
+                <option value="https://server.sanime.net/Video/653/84.mp4">الحلقة 84</option>
+                <option value="https://server.sanime.net/Video/653/85.mp4">الحلقة 85</option>
+                <option value="https://server.sanime.net/Video/653/86.mp4">الحلقة 86</option>
+                <option value="https://server.sanime.net/Video/653/87.mp4">الحلقة 87</option>
+                <option value="https://server.sanime.net/Video/653/88.mp4">الحلقة 88</option>
+                <option value="https://server.sanime.net/Video/653/89.mp4">الحلقة 89</option>
+                <option value="https://server.sanime.net/Video/653/90.mp4">الحلقة 90</option>
+                <option value="https://server.sanime.net/Video/653/91.mp4">الحلقة 91</option>
+                <option value="https://server.sanime.net/Video/653/92.mp4">الحلقة 92</option>
+                <option value="https://server.sanime.net/Video/653/93.mp4">الحلقة 93</option>
+                <option value="https://server.sanime.net/Video/653/94.mp4">الحلقة 94</option>
+                <option value="https://server.sanime.net/Video/653/95.mp4">الحلقة 95</option>
+                <option value="https://server.sanime.net/Video/653/96.mp4">الحلقة 96</option>
+                <option value="https://server.sanime.net/Video/653/97.mp4">الحلقة 97</option>
+                <option value="https://server.sanime.net/Video/653/98.mp4">الحلقة 98</option>
+                <option value="https://server.sanime.net/Video/653/99.mp4">الحلقة 99</option>
+                <option value="https://server.sanime.net/Video/653/100.mp4">الحلقة 100</option>
+                <option value="https://server.sanime.net/Video/653/101.mp4">الحلقة 101</option>
+                <option value="https://server.sanime.net/Video/653/102.mp4">الحلقة 102</option>
+                <option value="https://server.sanime.net/Video/653/103.mp4">الحلقة 103</option>
+                <option value="https://server.sanime.net/Video/653/104.mp4">الحلقة 104</option>
+                <option value="https://server.sanime.net/Video/653/105.mp4">الحلقة 105</option>
+                <option value="https://server.sanime.net/Video/653/106.mp4">الحلقة 106</option>
+                <option value="https://server.sanime.net/Video/653/107.mp4">الحلقة 107</option>
+                <option value="https://server.sanime.net/Video/653/108.mp4">الحلقة 108</option>
+                <option value="https://server.sanime.net/Video/653/109.mp4">الحلقة 109</option>
+                <option value="https://server.sanime.net/Video/653/110.mp4">الحلقة 110</option>
+                <option value="https://server.sanime.net/Video/653/111.mp4">الحلقة 111</option>
+                <option value="https://server.sanime.net/Video/653/112.mp4">الحلقة 112</option>
+                <option value="https://server.sanime.net/Video/653/113.mp4">الحلقة 113</option>
+                <option value="https://server.sanime.net/Video/653/114.mp4">الحلقة 114</option>
+                <option value="https://server.sanime.net/Video/653/115.mp4">الحلقة 115</option>
+                <option value="https://server.sanime.net/Video/653/116.mp4">الحلقة 116</option>
+                <option value="https://server.sanime.net/Video/653/117.mp4">الحلقة 117</option>
+                <option value="https://server.sanime.net/Video/653/118.mp4">الحلقة 118</option>
+                <option value="https://server.sanime.net/Video/653/119.mp4">الحلقة 119</option>
+                <option value="https://server.sanime.net/Video/653/120.mp4">الحلقة 120</option>
+                <option value="https://server.sanime.net/Video/653/121.mp4">الحلقة 121</option>
+                <option value="https://server.sanime.net/Video/653/122.mp4">الحلقة 122</option>
+                <option value="https://server.sanime.net/Video/653/123.mp4">الحلقة 123</option>
+                <option value="https://server.sanime.net/Video/653/124.mp4">الحلقة 124</option>
+                <option value="https://server.sanime.net/Video/653/125.mp4">الحلقة 125</option>
+                <option value="https://server.sanime.net/Video/653/126.mp4">الحلقة 126</option>
+                <option value="https://server.sanime.net/Video/653/127.mp4">الحلقة 127</option>
+                <option value="https://server.sanime.net/Video/653/128.mp4">الحلقة 128</option>
+                <option value="https://server.sanime.net/Video/653/129.mp4">الحلقة 129</option>
+                <option value="https://server.sanime.net/Video/653/130.mp4">الحلقة 130</option>
+                <option value="https://server.sanime.net/Video/653/131.mp4">الحلقة 131</option>
+                <option value="https://server.sanime.net/Video/653/132.mp4">الحلقة 132</option>
+                <option value="https://server.sanime.net/Video/653/133.mp4">الحلقة 133</option>
+                <option value="https://server.sanime.net/Video/653/134.mp4">الحلقة 134</option>
+                <option value="https://server.sanime.net/Video/653/135.mp4">الحلقة 135</option>
+                <option value="https://server.sanime.net/Video/653/136.mp4">الحلقة 136</option>
+                <option value="https://server.sanime.net/Video/653/137.mp4">الحلقة 137</option>
+                <option value="https://server.sanime.net/Video/653/138.mp4">الحلقة 138</option>
+                <option value="https://server.sanime.net/Video/653/139.mp4">الحلقة 139</option>
+                <option value="https://server.sanime.net/Video/653/140.mp4">الحلقة 140</option>
+                <option value="https://server.sanime.net/Video/653/141.mp4">الحلقة 141</option>
+                <option value="https://server.sanime.net/Video/653/142.mp4">الحلقة 142</option>
+                <option value="https://server.sanime.net/Video/653/143.mp4">الحلقة 143</option>
+                <option value="https://server.sanime.net/Video/653/144.mp4">الحلقة 144</option>
+                <option value="https://server.sanime.net/Video/653/145.mp4">الحلقة 145</option>
+                <option value="https://server.sanime.net/Video/653/146.mp4">الحلقة 146</option>
+                <option value="https://server.sanime.net/Video/653/147.mp4">الحلقة 147</option>
+                <option value="https://server.sanime.net/Video/653/148.mp4">الحلقة 148</option>
+                <option value="https://server.sanime.net/Video/653/149.mp4">الحلقة 149</option>
+                <option value="https://server.sanime.net/Video/653/150.mp4">الحلقة 150</option>
+                <option value="https://server.sanime.net/Video/653/151.mp4">الحلقة 151</option>
+                <option value="https://server.sanime.net/Video/653/152.mp4">الحلقة 152</option>
+                <option value="https://server.sanime.net/Video/653/153.mp4">الحلقة 153</option>
+                <option value="https://server.sanime.net/Video/653/154.mp4">الحلقة 154</option>
+                <option value="https://server.sanime.net/Video/653/155.mp4">الحلقة 155</option>
+                <option value="https://server.sanime.net/Video/653/156.mp4">الحلقة 156</option>
+                <option value="https://server.sanime.net/Video/653/157.mp4">الحلقة 157</option>
+                <option value="https://server.sanime.net/Video/653/158.mp4">الحلقة 158</option>
+                <option value="https://server.sanime.net/Video/653/159.mp4">الحلقة 159</option>
+                <option value="https://server.sanime.net/Video/653/160.mp4">الحلقة 160</option>
+                <option value="https://server.sanime.net/Video/653/161.mp4">الحلقة 161</option>
+                <option value="https://server.sanime.net/Video/653/162.mp4">الحلقة 162</option>
+                <option value="https://server.sanime.net/Video/653/163.mp4">الحلقة 163</option>
+                <option value="https://server.sanime.net/Video/653/164.mp4">الحلقة 164</option>
+                <option value="https://server.sanime.net/Video/653/165.mp4">الحلقة 165</option>
+                <option value="https://server.sanime.net/Video/653/166.mp4">الحلقة 166</option>
+                <option value="https://server.sanime.net/Video/653/167.mp4">الحلقة 167</option>
+                <option value="https://server.sanime.net/Video/653/168.mp4">الحلقة 168</option>
+                <option value="https://server.sanime.net/Video/653/169.mp4">الحلقة 169</option>
+                <option value="https://server.sanime.net/Video/653/170.mp4">الحلقة 170</option>
+                <option value="https://server.sanime.net/Video/653/171.mp4">الحلقة 171</option>
+                <option value="https://server.sanime.net/Video/653/172.mp4">الحلقة 172</option>
+                <option value="https://server.sanime.net/Video/653/173.mp4">الحلقة 173</option>
+                <option value="https://server.sanime.net/Video/653/174.mp4">الحلقة 174</option>
+                <option value="https://server.sanime.net/Video/653/175.mp4">الحلقة 175</option>
+                <option value="https://server.sanime.net/Video/653/176.mp4">الحلقة 176</option>
+                <option value="https://server.sanime.net/Video/653/177.mp4">الحلقة 177</option>
+                <option value="https://server.sanime.net/Video/653/178.mp4">الحلقة 178</option>
+                <option value="https://server.sanime.net/Video/653/179.mp4">الحلقة 179</option>
+                <option value="https://server.sanime.net/Video/653/180.mp4">الحلقة 180</option>
+                <option value="https://server.sanime.net/Video/653/181.mp4">الحلقة 181</option>
+                <option value="https://server.sanime.net/Video/653/182.mp4">الحلقة 182</option>
+                <option value="https://server.sanime.net/Video/653/183.mp4">الحلقة 183</option>
+                <option value="https://server.sanime.net/Video/653/184.mp4">الحلقة 184</option>
+                <option value="https://server.sanime.net/Video/653/185.mp4">الحلقة 185</option>
+                <option value="https://server.sanime.net/Video/653/186.mp4">الحلقة 186</option>
+                <option value="https://server.sanime.net/Video/653/187.mp4">الحلقة 187</option>
+                <option value="https://server.sanime.net/Video/653/188.mp4">الحلقة 188</option>
+                <option value="https://server.sanime.net/Video/653/189.mp4">الحلقة 189</option>
+                <option value="https://server.sanime.net/Video/653/190.mp4">الحلقة 190</option>
+                <option value="https://server.sanime.net/Video/653/191.mp4">الحلقة 191</option>
+                <option value="https://server.sanime.net/Video/653/192.mp4">الحلقة 192</option>
+                <option value="https://server.sanime.net/Video/653/193.mp4">الحلقة 193</option>
+                <option value="https://server.sanime.net/Video/653/194.mp4">الحلقة 194</option>
+                <option value="https://server.sanime.net/Video/653/195.mp4">الحلقة 195</option>
+                <option value="https://server.sanime.net/Video/653/196.mp4">الحلقة 196</option>
+                <option value="https://server.sanime.net/Video/653/197.mp4">الحلقة 197</option>
+                <option value="https://server.sanime.net/Video/653/198.mp4">الحلقة 198</option>
+                <option value="https://server.sanime.net/Video/653/199.mp4">الحلقة 199</option>
+                <option value="https://server.sanime.net/Video/653/200.mp4">الحلقة 200</option>
+                <option value="https://server.sanime.net/Video/653/201.mp4">الحلقة 201</option>
+                <option value="https://server.sanime.net/Video/653/202.mp4">الحلقة 202</option>
+                <option value="https://server.sanime.net/Video/653/203.mp4">الحلقة 203</option>
+                <option value="https://server.sanime.net/Video/653/204.mp4">الحلقة 204</option>
+                <option value="https://server.sanime.net/Video/653/205.mp4">الحلقة 205</option>
+                <option value="https://server.sanime.net/Video/653/206.mp4">الحلقة 206</option>
+                <option value="https://server.sanime.net/Video/653/207.mp4">الحلقة 207</option>
+                <option value="https://server.sanime.net/Video/653/208.mp4">الحلقة 208</option>
+                <option value="https://server.sanime.net/Video/653/209.mp4">الحلقة 209</option>
+                <option value="https://server.sanime.net/Video/653/210.mp4">الحلقة 210</option>
+                <option value="https://server.sanime.net/Video/653/211.mp4">الحلقة 211</option>
+                <option value="https://server.sanime.net/Video/653/212.mp4">الحلقة 212</option>
+                <option value="https://server.sanime.net/Video/653/213.mp4">الحلقة 213</option>
+                <option value="https://server.sanime.net/Video/653/214.mp4">الحلقة 214</option>
+                <option value="https://server.sanime.net/Video/653/215.mp4">الحلقة 215</option>
+                <option value="https://server.sanime.net/Video/653/216.mp4">الحلقة 216</option>
+                <option value="https://server.sanime.net/Video/653/217.mp4">الحلقة 217</option>
+                <option value="https://server.sanime.net/Video/653/218.mp4">الحلقة 218</option>
+                <option value="https://server.sanime.net/Video/653/219.mp4">الحلقة 219</option>
+                <option value="https://server.sanime.net/Video/653/220.mp4">الحلقة 220</option>
+                <option value="https://server.sanime.net/Video/653/221.mp4">الحلقة 221</option>
+                <option value="https://server.sanime.net/Video/653/222.mp4">الحلقة 222</option>
+                <option value="https://server.sanime.net/Video/653/223.mp4">الحلقة 223</option>
+                <option value="https://server.sanime.net/Video/653/224.mp4">الحلقة 224</option>
+                <option value="https://server.sanime.net/Video/653/225.mp4">الحلقة 225</option>
+                <option value="https://server.sanime.net/Video/653/226.mp4">الحلقة 226</option>
+                <option value="https://server.sanime.net/Video/653/227.mp4">الحلقة 227</option>
+                <option value="https://server.sanime.net/Video/653/228.mp4">الحلقة 228</option>
+                <option value="https://server.sanime.net/Video/653/229.mp4">الحلقة 229</option>
+                <option value="https://server.sanime.net/Video/653/230.mp4">الحلقة 230</option>
+                <option value="https://server.sanime.net/Video/653/231.mp4">الحلقة 231</option>
+                <option value="https://server.sanime.net/Video/653/232.mp4">الحلقة 232</option>
+                <option value="https://server.sanime.net/Video/653/233.mp4">الحلقة 233</option>
+                <option value="https://server.sanime.net/Video/653/234.mp4">الحلقة 234</option>
+                <option value="https://server.sanime.net/Video/653/235.mp4">الحلقة 235</option>
+                <option value="https://server.sanime.net/Video/653/236.mp4">الحلقة 236</option>
+                <option value="https://server.sanime.net/Video/653/237.mp4">الحلقة 237</option>
+                <option value="https://server.sanime.net/Video/653/238.mp4">الحلقة 238</option>
+                <option value="https://server.sanime.net/Video/653/239.mp4">الحلقة 239</option>
+                <option value="https://server.sanime.net/Video/653/240.mp4">الحلقة 240</option>
+                <option value="https://server.sanime.net/Video/653/241.mp4">الحلقة 241</option>
+                <option value="https://server.sanime.net/Video/653/242.mp4">الحلقة 242</option>
+                <option value="https://server.sanime.net/Video/653/243.mp4">الحلقة 243</option>
+                <option value="https://server.sanime.net/Video/653/244.mp4">الحلقة 244</option>
+                <option value="https://server.sanime.net/Video/653/245.mp4">الحلقة 245</option>
+                <option value="https://server.sanime.net/Video/653/246.mp4">الحلقة 246</option>
+                <option value="https://server.sanime.net/Video/653/247.mp4">الحلقة 247</option>
+                <option value="https://server.sanime.net/Video/653/248.mp4">الحلقة 248</option>
+                <option value="https://server.sanime.net/Video/653/249.mp4">الحلقة 249</option>
+                <option value="https://server.sanime.net/Video/653/250.mp4">الحلقة 250</option>
+                <option value="https://server.sanime.net/Video/653/251.mp4">الحلقة 251</option>
+                <option value="https://server.sanime.net/Video/653/252.mp4">الحلقة 252</option>
+                <option value="https://server.sanime.net/Video/653/253.mp4">الحلقة 253</option>
+                <option value="https://server.sanime.net/Video/653/254.mp4">الحلقة 254</option>
+                <option value="https://server.sanime.net/Video/653/255.mp4">الحلقة 255</option>
+                <option value="https://server.sanime.net/Video/653/256.mp4">الحلقة 256</option>
+                <option value="https://server.sanime.net/Video/653/257.mp4">الحلقة 257</option>
+                <option value="https://server.sanime.net/Video/653/258.mp4">الحلقة 258</option>
+                <option value="https://server.sanime.net/Video/653/259.mp4">الحلقة 259</option>
+                <option value="https://server.sanime.net/Video/653/260.mp4">الحلقة 260</option>
+                <option value="https://server.sanime.net/Video/653/261.mp4">الحلقة 261</option>
+                <option value="https://server.sanime.net/Video/653/262.mp4">الحلقة 262</option>
+                <option value="https://server.sanime.net/Video/653/263.mp4">الحلقة 263</option>
+                <option value="https://server.sanime.net/Video/653/264.mp4">الحلقة 264</option>
+                <option value="https://server.sanime.net/Video/653/265.mp4">الحلقة 265</option>
+                <option value="https://server.sanime.net/Video/653/266.mp4">الحلقة 266</option>
+                <option value="https://server.sanime.net/Video/653/267.mp4">الحلقة 267</option>
+                <option value="https://server.sanime.net/Video/653/268.mp4">الحلقة 268</option>
+                <option value="https://server.sanime.net/Video/653/269.mp4">الحلقة 269</option>
+                <option value="https://server.sanime.net/Video/653/270.mp4">الحلقة 270</option>
+                <option value="https://server.sanime.net/Video/653/271.mp4">الحلقة 271</option>
+                <option value="https://server.sanime.net/Video/653/272.mp4">الحلقة 272</option>
+                <option value="https://server.sanime.net/Video/653/273.mp4">الحلقة 273</option>
+                <option value="https://server.sanime.net/Video/653/274.mp4">الحلقة 274</option>
+                <option value="https://server.sanime.net/Video/653/275.mp4">الحلقة 275</option>
+                <option value="https://server.sanime.net/Video/653/276.mp4">الحلقة 276</option>
+                <option value="https://server.sanime.net/Video/653/277.mp4">الحلقة 277</option>
+                <option value="https://server.sanime.net/Video/653/278.mp4">الحلقة 278</option>
+                <option value="https://server.sanime.net/Video/653/279.mp4">الحلقة 279</option>
+                <option value="https://server.sanime.net/Video/653/280.mp4">الحلقة 280</option>
+                <option value="https://server.sanime.net/Video/653/281.mp4">الحلقة 281</option>
+                <option value="https://server.sanime.net/Video/653/282.mp4">الحلقة 282</option>
+                <option value="https://server.sanime.net/Video/653/283.mp4">الحلقة 283</option>
+                <option value="https://server.sanime.net/Video/653/284.mp4">الحلقة 284</option>
+                <option value="https://server.sanime.net/Video/653/285.mp4">الحلقة 285</option>
+                <option value="https://server.sanime.net/Video/653/286.mp4">الحلقة 286</option>
+                <option value="https://server.sanime.net/Video/653/287.mp4">الحلقة 287</option>
+                <option value="https://server.sanime.net/Video/653/288.mp4">الحلقة 288</option>
+                <option value="https://server.sanime.net/Video/653/289.mp4">الحلقة 289</option>
+                <option value="https://server.sanime.net/Video/653/290.mp4">الحلقة 290</option>
+                <option value="https://server.sanime.net/Video/653/291.mp4">الحلقة 291</option>
+                <option value="https://server.sanime.net/Video/653/292.mp4">الحلقة 292</option>
+                <option value="https://server.sanime.net/Video/653/293.mp4">الحلقة 293</option>
+                <option value="https://server.sanime.net/Video/653/294.mp4">الحلقة 294</option>
+                <option value="https://server.sanime.net/Video/653/295.mp4">الحلقة 295</option>
+                <option value="https://server.sanime.net/Video/653/296.mp4">الحلقة 296</option>
+                <option value="https://server.sanime.net/Video/653/297.mp4">الحلقة 297</option>
+                <option value="https://server.sanime.net/Video/653/298.mp4">الحلقة 298</option>
+                <option value="https://server.sanime.net/Video/653/299.mp4">الحلقة 299</option>
+                <option value="https://server.sanime.net/Video/653/300.mp4">الحلقة 300</option>
+                <option value="https://server.sanime.net/Video/653/301.mp4">الحلقة 301</option>
+                <option value="https://server.sanime.net/Video/653/302.mp4">الحلقة 302</option>
+                <option value="https://server.sanime.net/Video/653/303.mp4">الحلقة 303</option>
+                <option value="https://server.sanime.net/Video/653/304.mp4">الحلقة 304</option>
+                <option value="https://server.sanime.net/Video/653/305.mp4">الحلقة 305</option>
+                <option value="https://server.sanime.net/Video/653/306.mp4">الحلقة 306</option>
+                <option value="https://server.sanime.net/Video/653/307.mp4">الحلقة 307</option>
+                <option value="https://server.sanime.net/Video/653/308.mp4">الحلقة 308</option>
+                <option value="https://server.sanime.net/Video/653/309.mp4">الحلقة 309</option>
+                <option value="https://server.sanime.net/Video/653/310.mp4">الحلقة 310</option>
+                <option value="https://server.sanime.net/Video/653/311.mp4">الحلقة 311</option>
+                <option value="https://server.sanime.net/Video/653/312.mp4">الحلقة 312</option>
+                <option value="https://server.sanime.net/Video/653/313.mp4">الحلقة 313</option>
+                <option value="https://server.sanime.net/Video/653/314.mp4">الحلقة 314</option>
+                <option value="https://server.sanime.net/Video/653/315.mp4">الحلقة 315</option>
+                <option value="https://server.sanime.net/Video/653/316.mp4">الحلقة 316</option>
+                <option value="https://server.sanime.net/Video/653/317.mp4">الحلقة 317</option>
+                <option value="https://server.sanime.net/Video/653/318.mp4">الحلقة 318</option>
+                <option value="https://server.sanime.net/Video/653/319.mp4">الحلقة 319</option>
+                <option value="https://server.sanime.net/Video/653/320.mp4">الحلقة 320</option>
+                <option value="https://server.sanime.net/Video/653/321.mp4">الحلقة 321</option>
+                <option value="https://server.sanime.net/Video/653/322.mp4">الحلقة 322</option>
+                <option value="https://server.sanime.net/Video/653/323.mp4">الحلقة 323</option>
+                <option value="https://server.sanime.net/Video/653/324.mp4">الحلقة 324</option>
+                <option value="https://server.sanime.net/Video/653/325.mp4">الحلقة 325</option>
+                <option value="https://server.sanime.net/Video/653/326.mp4">الحلقة 326</option>
+                <option value="https://server.sanime.net/Video/653/327.mp4">الحلقة 327</option>
+                <option value="https://server.sanime.net/Video/653/328.mp4">الحلقة 328</option>
+                <option value="https://server.sanime.net/Video/653/329.mp4">الحلقة 329</option>
+                <option value="https://server.sanime.net/Video/653/330.mp4">الحلقة 330</option>
+                <option value="https://server.sanime.net/Video/653/331.mp4">الحلقة 331</option>
+                <option value="https://server.sanime.net/Video/653/332.mp4">الحلقة 332</option>
+                <option value="https://server.sanime.net/Video/653/333.mp4">الحلقة 333</option>
+                <option value="https://server.sanime.net/Video/653/334.mp4">الحلقة 334</option>
+                <option value="https://server.sanime.net/Video/653/335.mp4">الحلقة 335</option>
+                <option value="https://server.sanime.net/Video/653/336.mp4">الحلقة 336</option>
+                <option value="https://server.sanime.net/Video/653/337.mp4">الحلقة 337</option>
+                <option value="https://server.sanime.net/Video/653/338.mp4">الحلقة 338</option>
+                <option value="https://server.sanime.net/Video/653/339.mp4">الحلقة 339</option>
+                <option value="https://server.sanime.net/Video/653/340.mp4">الحلقة 340</option>
+                <option value="https://server.sanime.net/Video/653/341.mp4">الحلقة 341</option>
+                <option value="https://server.sanime.net/Video/653/342.mp4">الحلقة 342</option>
+                <option value="https://server.sanime.net/Video/653/343.mp4">الحلقة 343</option>
+                <option value="https://server.sanime.net/Video/653/344.mp4">الحلقة 344</option>
+                <option value="https://server.sanime.net/Video/653/345.mp4">الحلقة 345</option>
+                <option value="https://server.sanime.net/Video/653/346.mp4">الحلقة 346</option>
+                <option value="https://server.sanime.net/Video/653/347.mp4">الحلقة 347</option>
+                <option value="https://server.sanime.net/Video/653/349.mp4">الحلقة 348</option>
+                <option value="https://server.sanime.net/Video/653/349.mp4">الحلقة 349</option>
+                <option value="https://server.sanime.net/Video/653/350.mp4">الحلقة 350</option>
+                <option value="https://server.sanime.net/Video/653/351.mp4">الحلقة 351</option>
+                <option value="https://server.sanime.net/Video/653/352.mp4">الحلقة 352</option>
+                <option value="https://server.sanime.net/Video/653/353.mp4">الحلقة 353</option>
+                <option value="https://server.sanime.net/Video/653/354.mp4">الحلقة 354</option>
+                <option value="https://server.sanime.net/Video/653/355.mp4">الحلقة 355</option>
+                <option value="https://server.sanime.net/Video/653/356.mp4">الحلقة 356</option>
+                <option value="https://server.sanime.net/Video/653/357.mp4">الحلقة 357</option>
+                <option value="https://server.sanime.net/Video/653/358.mp4">الحلقة 358</option>
+                <option value="https://server.sanime.net/Video/653/359.mp4">الحلقة 359</option>
+                <option value="https://server.sanime.net/Video/653/360.mp4">الحلقة 360</option>
+                <option value="https://server.sanime.net/Video/653/361.mp4">الحلقة 361</option>
+                <option value="https://server.sanime.net/Video/653/362.mp4">الحلقة 362</option>
+                <option value="https://server.sanime.net/Video/653/363.mp4">الحلقة 363</option>
+                <option value="https://server.sanime.net/Video/653/364.mp4">الحلقة 364</option>
+                <option value="https://server.sanime.net/Video/653/365.mp4">الحلقة 365</option>
+                <option value="https://server.sanime.net/Video/653/366.mp4">الحلقة 366</option>
+                <option value="https://server.sanime.net/Video/653/367.mp4">الحلقة 367</option>
+                <option value="https://server.sanime.net/Video/653/368.mp4">الحلقة 368</option>
+                <option value="https://server.sanime.net/Video/653/369.mp4">الحلقة 369</option>
+                <option value="https://server.sanime.net/Video/653/370.mp4">الحلقة 370</option>
+                <option value="https://server.sanime.net/Video/653/371.mp4">الحلقة 371</option>
+                <option value="https://server.sanime.net/Video/653/372.mp4">الحلقة 372</option>
+                <option value="https://server.sanime.net/Video/653/373.mp4">الحلقة 373</option>
+                <option value="https://server.sanime.net/Video/653/374.mp4">الحلقة 374</option>
+                <option value="https://server.sanime.net/Video/653/375.mp4">الحلقة 375</option>
+                <option value="https://server.sanime.net/Video/653/376.mp4">الحلقة 376</option>
+                <option value="https://server.sanime.net/Video/653/377.mp4">الحلقة 377</option>
+                <option value="https://server.sanime.net/Video/653/378.mp4">الحلقة 378</option>
+                <option value="https://server.sanime.net/Video/653/379.mp4">الحلقة 379</option>
+                <option value="https://server.sanime.net/Video/653/380.mp4">الحلقة 380</option>
+                <option value="https://server.sanime.net/Video/653/381.mp4">الحلقة 381</option>
+                <option value="https://server.sanime.net/Video/653/382.mp4">الحلقة 382</option>
+                <option value="https://server.sanime.net/Video/653/383.mp4">الحلقة 383</option>
+                <option value="https://server.sanime.net/Video/653/384.mp4">الحلقة 384</option>
+                <option value="https://server.sanime.net/Video/653/385.mp4">الحلقة 385</option>
+                <option value="https://server.sanime.net/Video/653/386.mp4">الحلقة 386</option>
+                <option value="https://server.sanime.net/Video/653/387.mp4">الحلقة 387</option>
+                <option value="https://server.sanime.net/Video/653/388.mp4">الحلقة 388</option>
+                <option value="https://server.sanime.net/Video/653/389.mp4">الحلقة 389</option>
+                <option value="https://server.sanime.net/Video/653/390.mp4">الحلقة 390</option>
+                <option value="https://server.sanime.net/Video/653/391.mp4">الحلقة 391</option>
+                <option value="https://server.sanime.net/Video/653/392.mp4">الحلقة 392</option>
+                <option value="https://server.sanime.net/Video/653/393.mp4">الحلقة 393</option>
+                <option value="https://server.sanime.net/Video/653/394.mp4">الحلقة 394</option>
+                <option value="https://server.sanime.net/Video/653/395.mp4">الحلقة 395</option>
+                <option value="https://server.sanime.net/Video/653/396.mp4">الحلقة 396</option>
+                <option value="https://server.sanime.net/Video/653/397.mp4">الحلقة 397</option>
+                <option value="https://server.sanime.net/Video/653/398.mp4">الحلقة 398</option>
+                <option value="https://server.sanime.net/Video/653/399.mp4">الحلقة 399</option>
+                <option value="https://server.sanime.net/Video/653/400.mp4">الحلقة 400</option>
+                <option value="https://server.sanime.net/Video/653/401.mp4">الحلقة 401</option>
+                <option value="https://server.sanime.net/Video/653/402.mp4">الحلقة 402</option>
+                <option value="https://server.sanime.net/Video/653/403.mp4">الحلقة 403</option>
+                <option value="https://server.sanime.net/Video/653/404.mp4">الحلقة 404</option>
+                <option value="https://server.sanime.net/Video/653/405.mp4">الحلقة 405</option>
+                <option value="https://server.sanime.net/Video/653/406.mp4">الحلقة 406</option>
+                <option value="https://server.sanime.net/Video/653/407.mp4">الحلقة 407</option>
+                <option value="https://server.sanime.net/Video/653/408.mp4">الحلقة 408</option>
+                <option value="https://server.sanime.net/Video/653/409.mp4">الحلقة 409</option>
+                <option value="https://server.sanime.net/Video/653/410.mp4">الحلقة 410</option>
+                <option value="https://server.sanime.net/Video/653/411.mp4">الحلقة 411</option>
+                <option value="https://server.sanime.net/Video/653/412.mp4">الحلقة 412</option>
+                <option value="https://server.sanime.net/Video/653/413.mp4">الحلقة 413</option>
+                <option value="https://server.sanime.net/Video/653/414.mp4">الحلقة 414</option>
+                <option value="https://server.sanime.net/Video/653/415.mp4">الحلقة 415</option>
+                <option value="https://server.sanime.net/Video/653/416.mp4">الحلقة 416</option>
+                <option value="https://server.sanime.net/Video/653/417.mp4">الحلقة 417</option>
+                <option value="https://server.sanime.net/Video/653/418.mp4">الحلقة 418</option>
+                <option value="https://server.sanime.net/Video/653/419.mp4">الحلقة 419</option>
+                <option value="https://server.sanime.net/Video/653/420.mp4">الحلقة 420</option>
+                <option value="https://server.sanime.net/Video/653/421.mp4">الحلقة 421</option>
+                <option value="https://server.sanime.net/Video/653/422.mp4">الحلقة 422</option>
+                <option value="https://server.sanime.net/Video/653/423.mp4">الحلقة 423</option>
+                <option value="https://server.sanime.net/Video/653/424.mp4">الحلقة 424</option>
+                <option value="https://server.sanime.net/Video/653/425.mp4">الحلقة 425</option>
+                <option value="https://server.sanime.net/Video/653/426.mp4">الحلقة 426</option>
+                <option value="https://server.sanime.net/Video/653/427.mp4">الحلقة 427</option>
+                <option value="https://server.sanime.net/Video/653/428.mp4">الحلقة 428</option>
+                <option value="https://server.sanime.net/Video/653/429.mp4">الحلقة 429</option>
+                <option value="https://server.sanime.net/Video/653/430.mp4">الحلقة 430</option>
+                <option value="https://server.sanime.net/Video/653/431.mp4">الحلقة 431</option>
+                <option value="https://server.sanime.net/Video/653/432.mp4">الحلقة 432</option>
+                <option value="https://server.sanime.net/Video/653/433.mp4">الحلقة 433</option>
+                <option value="https://server.sanime.net/Video/653/434.mp4">الحلقة 434</option>
+                <option value="https://server.sanime.net/Video/653/435.mp4">الحلقة 435</option>
+                <option value="https://server.sanime.net/Video/653/436.mp4">الحلقة 436</option>
+                <option value="https://server.sanime.net/Video/653/437.mp4">الحلقة 437</option>
+                <option value="https://server.sanime.net/Video/653/438.mp4">الحلقة 438</option>
+                <option value="https://server.sanime.net/Video/653/439.mp4">الحلقة 439</option>
+                <option value="https://server.sanime.net/Video/653/440.mp4">الحلقة 440</option>
+                <option value="https://server.sanime.net/Video/653/441.mp4">الحلقة 441</option>
+                <option value="https://server.sanime.net/Video/653/442.mp4">الحلقة 442</option>
+                <option value="https://server.sanime.net/Video/653/443.mp4">الحلقة 443</option>
+                <option value="https://server.sanime.net/Video/653/444.mp4">الحلقة 444</option>
+                <option value="https://server.sanime.net/Video/653/445.mp4">الحلقة 445</option>
+                <option value="https://server.sanime.net/Video/653/446.mp4">الحلقة 446</option>
+                <option value="https://server.sanime.net/Video/653/447.mp4">الحلقة 447</option>
+                <option value="https://server.sanime.net/Video/653/448.mp4">الحلقة 448</option>
+                <option value="https://server.sanime.net/Video/653/449.mp4">الحلقة 449</option>
+                <option value="https://server.sanime.net/Video/653/450.mp4">الحلقة 450</option>
+                <option value="https://server.sanime.net/Video/653/451.mp4">الحلقة 451</option>
+                <option value="https://server.sanime.net/Video/653/452.mp4">الحلقة 452</option>
+                <option value="https://server.sanime.net/Video/653/453.mp4">الحلقة 453</option>
+                <option value="https://server.sanime.net/Video/653/454.mp4">الحلقة 454</option>
+                <option value="https://server.sanime.net/Video/653/455.mp4">الحلقة 455</option>
+                <option value="https://server.sanime.net/Video/653/456.mp4">الحلقة 456</option>
+                <option value="https://server.sanime.net/Video/653/457.mp4">الحلقة 457</option>
+                <option value="https://server.sanime.net/Video/653/458.mp4">الحلقة 458</option>
+                <option value="https://server.sanime.net/Video/653/459.mp4">الحلقة 459</option>
+                <option value="https://server.sanime.net/Video/653/460.mp4">الحلقة 460</option>
+                <option value="https://server.sanime.net/Video/653/461.mp4">الحلقة 461</option>
+                <option value="https://server.sanime.net/Video/653/462.mp4">الحلقة 462</option>
+                <option value="https://server.sanime.net/Video/653/463.mp4">الحلقة 463</option>
+                <option value="https://server.sanime.net/Video/653/464.mp4">الحلقة 464</option>
+                <option value="https://server.sanime.net/Video/653/465.mp4">الحلقة 465</option>
+                <option value="https://server.sanime.net/Video/653/466.mp4">الحلقة 466</option>
+                <option value="https://server.sanime.net/Video/653/467.mp4">الحلقة 467</option>
+                <option value="https://server.sanime.net/Video/653/468.mp4">الحلقة 468</option>
+                <option value="https://server.sanime.net/Video/653/469.mp4">الحلقة 469</option>
+                <option value="https://server.sanime.net/Video/653/470.mp4">الحلقة 470</option>
+                <option value="https://server.sanime.net/Video/653/471.mp4">الحلقة 471</option>
+                <option value="https://server.sanime.net/Video/653/472.mp4">الحلقة 472</option>
+                <option value="https://server.sanime.net/Video/653/473.mp4">الحلقة 473</option>
+                <option value="https://server.sanime.net/Video/653/474.mp4">الحلقة 474</option>
+                <option value="https://server.sanime.net/Video/653/475.mp4">الحلقة 475</option>
+                <option value="https://server.sanime.net/Video/653/476.mp4">الحلقة 476</option>
+                <option value="https://server.sanime.net/Video/653/477.mp4">الحلقة 477</option>
+                <option value="https://server.sanime.net/Video/653/478.mp4">الحلقة 478</option>
+                <option value="https://server.sanime.net/Video/653/479.mp4">الحلقة 479</option>
+                <option value="https://server.sanime.net/Video/653/480.mp4">الحلقة 480</option>
+                <option value="https://server.sanime.net/Video/653/481.mp4">الحلقة 481</option>
+                <option value="https://server.sanime.net/Video/653/482.mp4">الحلقة 482</option>
+                <option value="https://server.sanime.net/Video/653/483.mp4">الحلقة 483</option>
+                <option value="https://server.sanime.net/Video/653/484.mp4">الحلقة 484</option>
+                <option value="https://server.sanime.net/Video/653/485.mp4">الحلقة 485</option>
+                <option value="https://server.sanime.net/Video/653/486.mp4">الحلقة 486</option>
+                <option value="https://server.sanime.net/Video/653/487.mp4">الحلقة 487</option>
+                <option value="https://server.sanime.net/Video/653/488.mp4">الحلقة 488</option>
+                <option value="https://server.sanime.net/Video/653/489.mp4">الحلقة 489</option>
+                <option value="https://server.sanime.net/Video/653/490.mp4">الحلقة 490</option>
+                <option value="https://server.sanime.net/Video/653/491.mp4">الحلقة 491</option>
+                <option value="https://server.sanime.net/Video/653/492.mp4">الحلقة 492</option>
+                <option value="https://server.sanime.net/Video/653/493.mp4">الحلقة 493</option>
+                <option value="https://server.sanime.net/Video/653/494.mp4">الحلقة 494</option>
+                <option value="https://server.sanime.net/Video/653/495.mp4">الحلقة 495</option>
+                <option value="https://server.sanime.net/Video/653/496.mp4">الحلقة 496</option>
+                <option value="https://server.sanime.net/Video/653/497.mp4">الحلقة 497</option>
+                <option value="https://server.sanime.net/Video/653/498.mp4">الحلقة 498</option>
+                <option value="https://server.sanime.net/Video/653/499.mp4">الحلقة 499</option>
+                <option value="https://server.sanime.net/Video/653/500.mp4">الحلقة 500</option>
+                <option value="https://server.sanime.net/Video/653/501.mp4">الحلقة 501</option>
+                <option value="https://server.sanime.net/Video/653/502.mp4">الحلقة 502</option>
+                <option value="https://server.sanime.net/Video/653/503.mp4">الحلقة 503</option>
+                <option value="https://server.sanime.net/Video/653/504.mp4">الحلقة 504</option>
+                <option value="https://server.sanime.net/Video/653/505.mp4">الحلقة 505</option>
+                <option value="https://server.sanime.net/Video/653/506.mp4">الحلقة 506</option>
+                <option value="https://server.sanime.net/Video/653/507.mp4">الحلقة 507</option>
+                <option value="https://server.sanime.net/Video/653/508.mp4">الحلقة 508</option>
+                <option value="https://server.sanime.net/Video/653/509.mp4">الحلقة 509</option>
+                <option value="https://server.sanime.net/Video/653/510.mp4">الحلقة 510</option>
+                <option value="https://server.sanime.net/Video/653/511.mp4">الحلقة 511</option>
+                <option value="https://server.sanime.net/Video/653/512.mp4">الحلقة 512</option>
+                <option value="https://server.sanime.net/Video/653/513.mp4">الحلقة 513</option>
+                <option value="https://server.sanime.net/Video/653/514.mp4">الحلقة 514</option>
+                <option value="https://server.sanime.net/Video/653/515.mp4">الحلقة 515</option>
+                <option value="https://server.sanime.net/Video/653/516.mp4">الحلقة 516</option>
+                <option value="https://server.sanime.net/Video/653/517.mp4">الحلقة 517</option>
+                <option value="https://server.sanime.net/Video/653/518.mp4">الحلقة 518</option>
+                <option value="https://server.sanime.net/Video/653/519.mp4">الحلقة 519</option>
+                <option value="https://server.sanime.net/Video/653/520.mp4">الحلقة 520</option>
+                <option value="https://server.sanime.net/Video/653/521.mp4">الحلقة 521</option>
+                <option value="https://server.sanime.net/Video/653/522.mp4">الحلقة 522</option>
+                <option value="https://server.sanime.net/Video/653/523.mp4">الحلقة 523</option>
+                <option value="https://server.sanime.net/Video/653/524.mp4">الحلقة 524</option>
+                <option value="https://server.sanime.net/Video/653/525.mp4">الحلقة 525</option>
+                <option value="https://server.sanime.net/Video/653/526.mp4">الحلقة 526</option>
+                <option value="https://server.sanime.net/Video/653/527.mp4">الحلقة 527</option>
+                <option value="https://server.sanime.net/Video/653/528.mp4">الحلقة 528</option>
+                <option value="https://server.sanime.net/Video/653/529.mp4">الحلقة 529</option>
+                <option value="https://server.sanime.net/Video/653/530.mp4">الحلقة 530</option>
+                <option value="https://server.sanime.net/Video/653/531.mp4">الحلقة 531</option>
+                <option value="https://server.sanime.net/Video/653/653.mp4">الحلقة 653</option>
+                <option value="https://server.sanime.net/Video/653/533.mp4">الحلقة 533</option>
+                <option value="https://server.sanime.net/Video/653/534.mp4">الحلقة 534</option>
+                <option value="https://server.sanime.net/Video/653/535.mp4">الحلقة 535</option>
+                <option value="https://server.sanime.net/Video/653/536.mp4">الحلقة 536</option>
+                <option value="https://server.sanime.net/Video/653/537.mp4">الحلقة 537</option>
+                <option value="https://server.sanime.net/Video/653/538.mp4">الحلقة 538</option>
+                <option value="https://server.sanime.net/Video/653/539.mp4">الحلقة 539</option>
+                <option value="https://server.sanime.net/Video/653/540.mp4">الحلقة 540</option>
+                <option value="https://server.sanime.net/Video/653/541.mp4">الحلقة 541</option>
+                <option value="https://server.sanime.net/Video/653/542.mp4">الحلقة 542</option>
+                <option value="https://server.sanime.net/Video/653/543.mp4">الحلقة 543</option>
+                <option value="https://server.sanime.net/Video/653/544.mp4">الحلقة 544</option>
+                <option value="https://server.sanime.net/Video/653/545.mp4">الحلقة 545</option>
+                <option value="https://server.sanime.net/Video/653/546.mp4">الحلقة 546</option>
+                <option value="https://server.sanime.net/Video/653/547.mp4">الحلقة 547</option>
+                <option value="https://server.sanime.net/Video/653/548.mp4">الحلقة 548</option>
+                <option value="https://server.sanime.net/Video/653/549.mp4">الحلقة 549</option>
+                <option value="https://server.sanime.net/Video/653/550.mp4">الحلقة 550</option>
+                <option value="https://server.sanime.net/Video/653/551.mp4">الحلقة 551</option>
+                <option value="https://server.sanime.net/Video/653/552.mp4">الحلقة 552</option>
+                <option value="https://server.sanime.net/Video/653/553.mp4">الحلقة 553</option>
+                <option value="https://server.sanime.net/Video/653/554.mp4">الحلقة 554</option>
+                <option value="https://server.sanime.net/Video/653/555.mp4">الحلقة 555</option>
+                <option value="https://server.sanime.net/Video/653/556.mp4">الحلقة 556</option>
+                <option value="https://server.sanime.net/Video/653/557.mp4">الحلقة 557</option>
+                <option value="https://server.sanime.net/Video/653/558.mp4">الحلقة 558</option>
+                <option value="https://server.sanime.net/Video/653/559.mp4">الحلقة 559</option>
+                <option value="https://server.sanime.net/Video/653/560.mp4">الحلقة 560</option>
+                <option value="https://server.sanime.net/Video/653/561.mp4">الحلقة 561</option>
+                <option value="https://server.sanime.net/Video/653/562.mp4">الحلقة 562</option>
+                <option value="https://server.sanime.net/Video/653/563.mp4">الحلقة 563</option>
+                <option value="https://server.sanime.net/Video/653/564.mp4">الحلقة 564</option>
+                <option value="https://server.sanime.net/Video/653/565.mp4">الحلقة 565</option>
+                <option value="https://server.sanime.net/Video/653/566.mp4">الحلقة 566</option>
+                <option value="https://server.sanime.net/Video/653/567.mp4">الحلقة 567</option>
+                <option value="https://server.sanime.net/Video/653/568.mp4">الحلقة 568</option>
+                <option value="https://server.sanime.net/Video/653/569.mp4">الحلقة 569</option>
+                <option value="https://server.sanime.net/Video/653/570.mp4">الحلقة 570</option>
+                <option value="https://server.sanime.net/Video/653/571.mp4">الحلقة 571</option>
+                <option value="https://server.sanime.net/Video/653/572.mp4">الحلقة 572</option>
+                <option value="https://server.sanime.net/Video/653/573.mp4">الحلقة 573</option>
+                <option value="https://server.sanime.net/Video/653/574.mp4">الحلقة 574</option>
+                <option value="https://server.sanime.net/Video/653/575.mp4">الحلقة 575</option>
+                <option value="https://server.sanime.net/Video/653/576.mp4">الحلقة 576</option>
+                <option value="https://server.sanime.net/Video/653/577.mp4">الحلقة 577</option>
+                <option value="https://server.sanime.net/Video/653/578.mp4">الحلقة 578</option>
+                <option value="https://server.sanime.net/Video/653/579.mp4">الحلقة 579</option>
+                <option value="https://server.sanime.net/Video/653/580.mp4">الحلقة 580</option>
+                <option value="https://server.sanime.net/Video/653/581.mp4">الحلقة 581</option>
+                <option value="https://server.sanime.net/Video/653/582.mp4">الحلقة 582</option>
+                <option value="https://server.sanime.net/Video/653/583.mp4">الحلقة 583</option>
+                <option value="https://server.sanime.net/Video/653/584.mp4">الحلقة 584</option>
+                <option value="https://server.sanime.net/Video/653/585.mp4">الحلقة 585</option>
+                <option value="https://server.sanime.net/Video/653/586.mp4">الحلقة 586</option>
+                <option value="https://server.sanime.net/Video/653/587.mp4">الحلقة 587</option>
+                <option value="https://server.sanime.net/Video/653/588.mp4">الحلقة 588</option>
+                <option value="https://server.sanime.net/Video/653/589.mp4">الحلقة 589</option>
+                <option value="https://server.sanime.net/Video/653/590.mp4">الحلقة 590</option>
+                <option value="https://server.sanime.net/Video/653/591.mp4">الحلقة 591</option>
+                <option value="https://server.sanime.net/Video/653/592.mp4">الحلقة 592</option>
+                <option value="https://server.sanime.net/Video/653/593.mp4">الحلقة 593</option>
+                <option value="https://server.sanime.net/Video/653/594.mp4">الحلقة 594</option>
+                <option value="https://server.sanime.net/Video/653/595.mp4">الحلقة 595</option>
+                <option value="https://server.sanime.net/Video/653/596.mp4">الحلقة 596</option>
+                <option value="https://server.sanime.net/Video/653/597.mp4">الحلقة 597</option>
+                <option value="https://server.sanime.net/Video/653/598.mp4">الحلقة 598</option>
+                <option value="https://server.sanime.net/Video/653/599.mp4">الحلقة 599</option>
+                <option value="https://server.sanime.net/Video/653/600.mp4">الحلقة 600</option>
+                <option value="https://server.sanime.net/Video/653/601.mp4">الحلقة 601</option>
+                <option value="https://server.sanime.net/Video/653/602.mp4">الحلقة 602</option>
+                <option value="https://server.sanime.net/Video/653/603.mp4">الحلقة 603</option>
+                <option value="https://server.sanime.net/Video/653/604.mp4">الحلقة 604</option>
+                <option value="https://server.sanime.net/Video/653/605.mp4">الحلقة 605</option>
+                <option value="https://server.sanime.net/Video/653/606.mp4">الحلقة 606</option>
+                <option value="https://server.sanime.net/Video/653/607.mp4">الحلقة 607</option>
+                <option value="https://server.sanime.net/Video/653/608.mp4">الحلقة 608</option>
+                <option value="https://server.sanime.net/Video/653/609.mp4">الحلقة 609</option>
+                <option value="https://server.sanime.net/Video/653/610.mp4">الحلقة 610</option>
+                <option value="https://server.sanime.net/Video/653/611.mp4">الحلقة 611</option>
+                <option value="https://server.sanime.net/Video/653/612.mp4">الحلقة 612</option>
+                <option value="https://server.sanime.net/Video/653/613.mp4">الحلقة 613</option>
+                <option value="https://server.sanime.net/Video/653/614.mp4">الحلقة 614</option>
+                <option value="https://server.sanime.net/Video/653/615.mp4">الحلقة 615</option>
+                <option value="https://server.sanime.net/Video/653/616.mp4">الحلقة 616</option>
+                <option value="https://server.sanime.net/Video/653/617.mp4">الحلقة 617</option>
+                <option value="https://server.sanime.net/Video/653/618.mp4">الحلقة 618</option>
+                <option value="https://server.sanime.net/Video/653/619.mp4">الحلقة 619</option>
+                <option value="https://server.sanime.net/Video/653/620.mp4">الحلقة 620</option>
+                <option value="https://server.sanime.net/Video/653/621.mp4">الحلقة 621</option>
+                <option value="https://server.sanime.net/Video/653/622.mp4">الحلقة 622</option>
+                <option value="https://server.sanime.net/Video/653/623.mp4">الحلقة 623</option>
+                <option value="https://server.sanime.net/Video/653/624.mp4">الحلقة 624</option>
+                <option value="https://server.sanime.net/Video/653/625.mp4">الحلقة 625</option>
+                <option value="https://server.sanime.net/Video/653/626.mp4">الحلقة 626</option>
+                <option value="https://server.sanime.net/Video/653/627.mp4">الحلقة 627</option>
+                <option value="https://server.sanime.net/Video/653/628.mp4">الحلقة 628</option>
+                <option value="https://server.sanime.net/Video/653/629.mp4">الحلقة 629</option>
+                <option value="https://server.sanime.net/Video/653/630.mp4">الحلقة 630</option>
+                <option value="https://server.sanime.net/Video/653/631.mp4">الحلقة 631</option>
+                <option value="https://server.sanime.net/Video/653/632.mp4">الحلقة 632</option>
+                <option value="https://server.sanime.net/Video/653/633.mp4">الحلقة 633</option>
+                <option value="https://server.sanime.net/Video/653/634.mp4">الحلقة 634</option>
+                <option value="https://server.sanime.net/Video/653/635.mp4">الحلقة 635</option>
+                <option value="https://server.sanime.net/Video/653/636.mp4">الحلقة 636</option>
+                <option value="https://server.sanime.net/Video/653/637.mp4">الحلقة 637</option>
+                <option value="https://server.sanime.net/Video/653/638.mp4">الحلقة 638</option>
+                <option value="https://server.sanime.net/Video/653/639.mp4">الحلقة 639</option>
+                <option value="https://server.sanime.net/Video/653/640.mp4">الحلقة 640</option>
+                <option value="https://server.sanime.net/Video/653/641.mp4">الحلقة 641</option>
+                <option value="https://server.sanime.net/Video/653/642.mp4">الحلقة 642</option>
+                <option value="https://server.sanime.net/Video/653/643.mp4">الحلقة 643</option>
+                <option value="https://server.sanime.net/Video/653/644.mp4">الحلقة 644</option>
+                <option value="https://server.sanime.net/Video/653/645.mp4">الحلقة 645</option>
+                <option value="https://server.sanime.net/Video/653/646.mp4">الحلقة 646</option>
+                <option value="https://server.sanime.net/Video/653/647.mp4">الحلقة 647</option>
+                <option value="https://server.sanime.net/Video/653/648.mp4">الحلقة 648</option>
+                <option value="https://server.sanime.net/Video/653/649.mp4">الحلقة 649</option>
+                <option value="https://server.sanime.net/Video/653/650.mp4">الحلقة 650</option>
+                <option value="https://server.sanime.net/Video/653/651.mp4">الحلقة 651</option>
+                <option value="https://server.sanime.net/Video/653/652.mp4">الحلقة 652</option>
+                <option value="https://server.sanime.net/Video/653/653.mp4">الحلقة 653</option>
+                <option value="https://server.sanime.net/Video/653/654.mp4">الحلقة 654</option>
+                <option value="https://server.sanime.net/Video/653/655.mp4">الحلقة 655</option>
+                <option value="https://server.sanime.net/Video/653/656.mp4">الحلقة 656</option>
+                <option value="https://server.sanime.net/Video/653/657.mp4">الحلقة 657</option>
+                <option value="https://server.sanime.net/Video/653/658.mp4">الحلقة 658</option>
+                <option value="https://server.sanime.net/Video/653/659.mp4">الحلقة 659</option>
+                <option value="https://server.sanime.net/Video/653/660.mp4">الحلقة 660</option>
+                <option value="https://server.sanime.net/Video/653/661.mp4">الحلقة 661</option>
+                <option value="https://server.sanime.net/Video/653/662.mp4">الحلقة 662</option>
+                <option value="https://server.sanime.net/Video/653/663.mp4">الحلقة 663</option>
+                <option value="https://server.sanime.net/Video/653/664.mp4">الحلقة 664</option>
+                <option value="https://server.sanime.net/Video/653/665.mp4">الحلقة 665</option>
+                <option value="https://server.sanime.net/Video/653/666.mp4">الحلقة 666</option>
+                <option value="https://server.sanime.net/Video/653/667.mp4">الحلقة 667</option>
+                <option value="https://server.sanime.net/Video/653/668.mp4">الحلقة 668</option>
+                <option value="https://server.sanime.net/Video/653/669.mp4">الحلقة 669</option>
+                <option value="https://server.sanime.net/Video/653/670.mp4">الحلقة 670</option>
+                <option value="https://server.sanime.net/Video/653/671.mp4">الحلقة 671</option>
+                <option value="https://server.sanime.net/Video/653/672.mp4">الحلقة 672</option>
+                <option value="https://server.sanime.net/Video/653/673.mp4">الحلقة 673</option>
+                <option value="https://server.sanime.net/Video/653/674.mp4">الحلقة 674</option>
+                <option value="https://server.sanime.net/Video/653/675.mp4">الحلقة 675</option>
+                <option value="https://server.sanime.net/Video/653/676.mp4">الحلقة 676</option>
+                <option value="https://server.sanime.net/Video/653/677.mp4">الحلقة 677</option>
+                <option value="https://server.sanime.net/Video/653/678.mp4">الحلقة 678</option>
+                <option value="https://server.sanime.net/Video/653/679.mp4">الحلقة 679</option>
+                <option value="https://server.sanime.net/Video/653/680.mp4">الحلقة 680</option>
+                <option value="https://server.sanime.net/Video/653/681.mp4">الحلقة 681</option>
+                <option value="https://server.sanime.net/Video/653/682.mp4">الحلقة 682</option>
+                <option value="https://server.sanime.net/Video/653/683.mp4">الحلقة 683</option>
+                <option value="https://server.sanime.net/Video/653/684.mp4">الحلقة 684</option>
+                <option value="https://server.sanime.net/Video/653/685.mp4">الحلقة 685</option>
+                <option value="https://server.sanime.net/Video/653/686.mp4">الحلقة 686</option>
+                <option value="https://server.sanime.net/Video/653/687.mp4">الحلقة 687</option>
+                <option value="https://server.sanime.net/Video/653/688.mp4">الحلقة 688</option>
+                <option value="https://server.sanime.net/Video/653/689.mp4">الحلقة 689</option>
+                <option value="https://server.sanime.net/Video/653/690.mp4">الحلقة 690</option>
+                <option value="https://server.sanime.net/Video/653/691.mp4">الحلقة 691</option>
+                <option value="https://server.sanime.net/Video/653/692.mp4">الحلقة 692</option>
+                <option value="https://server.sanime.net/Video/653/693.mp4">الحلقة 693</option>
+                <option value="https://server.sanime.net/Video/653/694.mp4">الحلقة 694</option>
+                <option value="https://server.sanime.net/Video/653/695.mp4">الحلقة 695</option>
+                <option value="https://server.sanime.net/Video/653/696.mp4">الحلقة 696</option>
+                <option value="https://server.sanime.net/Video/653/697.mp4">الحلقة 697</option>
+                <option value="https://server.sanime.net/Video/653/698.mp4">الحلقة 698</option>
+                <option value="https://server.sanime.net/Video/653/699.mp4">الحلقة 699</option>
+                <option value="https://server.sanime.net/Video/653/700.mp4">الحلقة 700</option>
+                <option value="https://server.sanime.net/Video/653/701.mp4">الحلقة 701</option>
+                <option value="https://server.sanime.net/Video/653/702.mp4">الحلقة 702</option>
+                <option value="https://server.sanime.net/Video/653/703.mp4">الحلقة 703</option>
+                <option value="https://server.sanime.net/Video/653/704.mp4">الحلقة 704</option>
+                <option value="https://server.sanime.net/Video/653/705.mp4">الحلقة 705</option>
+                <option value="https://server.sanime.net/Video/653/706.mp4">الحلقة 706</option>
+                <option value="https://server.sanime.net/Video/653/707.mp4">الحلقة 707</option>
+                <option value="https://server.sanime.net/Video/653/708.mp4">الحلقة 708</option>
+                <option value="https://server.sanime.net/Video/653/709.mp4">الحلقة 709</option>
+                <option value="https://server.sanime.net/Video/653/710.mp4">الحلقة 710</option>
+                <option value="https://server.sanime.net/Video/653/711.mp4">الحلقة 711</option>
+                <option value="https://server.sanime.net/Video/653/712.mp4">الحلقة 712</option>
+                <option value="https://server.sanime.net/Video/653/713.mp4">الحلقة 713</option>
+                <option value="https://server.sanime.net/Video/653/714.mp4">الحلقة 714</option>
+                <option value="https://server.sanime.net/Video/653/715.mp4">الحلقة 715</option>
+                <option value="https://server.sanime.net/Video/653/716.mp4">الحلقة 716</option>
+                <option value="https://server.sanime.net/Video/653/717.mp4">الحلقة 717</option>
+                <option value="https://server.sanime.net/Video/653/718.mp4">الحلقة 718</option>
+                <option value="https://server.sanime.net/Video/653/719.mp4">الحلقة 719</option>
+                <option value="https://server.sanime.net/Video/653/720.mp4">الحلقة 720</option>
+                <option value="https://server.sanime.net/Video/653/721.mp4">الحلقة 721</option>
+                <option value="https://server.sanime.net/Video/653/722.mp4">الحلقة 722</option>
+                <option value="https://server.sanime.net/Video/653/723.mp4">الحلقة 723</option>
+                <option value="https://server.sanime.net/Video/653/724.mp4">الحلقة 724</option>
+                <option value="https://server.sanime.net/Video/653/725.mp4">الحلقة 725</option>
+                <option value="https://server.sanime.net/Video/653/726.mp4">الحلقة 726</option>
+                <option value="https://server.sanime.net/Video/653/727.mp4">الحلقة 727</option>
+                <option value="https://server.sanime.net/Video/653/728.mp4">الحلقة 728</option>
+                <option value="https://server.sanime.net/Video/653/729.mp4">الحلقة 729</option>
+                <option value="https://server.sanime.net/Video/653/730.mp4">الحلقة 730</option>
+                <option value="https://server.sanime.net/Video/653/731.mp4">الحلقة 731</option>
+                <option value="https://server.sanime.net/Video/653/732.mp4">الحلقة 732</option>
+                <option value="https://server.sanime.net/Video/653/733.mp4">الحلقة 733</option>
+                <option value="https://server.sanime.net/Video/653/734.mp4">الحلقة 734</option>
+                <option value="https://server.sanime.net/Video/653/735.mp4">الحلقة 735</option>
+                <option value="https://server.sanime.net/Video/653/736.mp4">الحلقة 736</option>
+                <option value="https://server.sanime.net/Video/653/737.mp4">الحلقة 737</option>
+                <option value="https://server.sanime.net/Video/653/738.mp4">الحلقة 738</option>
+                <option value="https://server.sanime.net/Video/653/739.mp4">الحلقة 739</option>
+                <option value="https://server.sanime.net/Video/653/740.mp4">الحلقة 740</option>
+                <option value="https://server.sanime.net/Video/653/741.mp4">الحلقة 741</option>
+                <option value="https://server.sanime.net/Video/653/742.mp4">الحلقة 742</option>
+                <option value="https://server.sanime.net/Video/653/743.mp4">الحلقة 743</option>
+                <option value="https://server.sanime.net/Video/653/744.mp4">الحلقة 744</option>
+                <option value="https://server.sanime.net/Video/653/745.mp4">الحلقة 745</option>
+                <option value="https://server.sanime.net/Video/653/746.mp4">الحلقة 746</option>
+                <option value="https://server.sanime.net/Video/653/747.mp4">الحلقة 747</option>
+                <option value="https://server.sanime.net/Video/653/748.mp4">الحلقة 748</option>
+                <option value="https://server.sanime.net/Video/653/749.mp4">الحلقة 749</option>
+                <option value="https://server.sanime.net/Video/653/750.mp4">الحلقة 750</option>
+                <option value="https://server.sanime.net/Video/653/751.mp4">الحلقة 751</option>
+                <option value="https://server.sanime.net/Video/653/752.mp4">الحلقة 752</option>
+                <option value="https://server.sanime.net/Video/653/753.mp4">الحلقة 753</option>
+                <option value="https://server.sanime.net/Video/653/754.mp4">الحلقة 754</option>
+                <option value="https://server.sanime.net/Video/653/755.mp4">الحلقة 755</option>
+                <option value="https://server.sanime.net/Video/653/756.mp4">الحلقة 756</option>
+                <option value="https://server.sanime.net/Video/653/757.mp4">الحلقة 757</option>
+                <option value="https://server.sanime.net/Video/653/758.mp4">الحلقة 758</option>
+                <option value="https://server.sanime.net/Video/653/759.mp4">الحلقة 759</option>
+                <option value="https://server.sanime.net/Video/653/760.mp4">الحلقة 760</option>
+                <option value="https://server.sanime.net/Video/653/761.mp4">الحلقة 761</option>
+                <option value="https://server.sanime.net/Video/653/762.mp4">الحلقة 762</option>
+                <option value="https://server.sanime.net/Video/653/763.mp4">الحلقة 763</option>
+                <option value="https://server.sanime.net/Video/653/764.mp4">الحلقة 764</option>
+                <option value="https://server.sanime.net/Video/653/765.mp4">الحلقة 765</option>
+                <option value="https://server.sanime.net/Video/653/766.mp4">الحلقة 766</option>
+                <option value="https://server.sanime.net/Video/653/767.mp4">الحلقة 767</option>
+                <option value="https://server.sanime.net/Video/653/768.mp4">الحلقة 768</option>
+                <option value="https://server.sanime.net/Video/653/769.mp4">الحلقة 769</option>
+                <option value="https://server.sanime.net/Video/653/770.mp4">الحلقة 770</option>
+                <option value="https://server.sanime.net/Video/653/771.mp4">الحلقة 771</option>
+                <option value="https://server.sanime.net/Video/653/772.mp4">الحلقة 772</option>
+                <option value="https://server.sanime.net/Video/653/773.mp4">الحلقة 773</option>
+                <option value="https://server.sanime.net/Video/653/774.mp4">الحلقة 774</option>
+                <option value="https://server.sanime.net/Video/653/775.mp4">الحلقة 775</option>
+                <option value="https://server.sanime.net/Video/653/776.mp4">الحلقة 776</option>
+                <option value="https://server.sanime.net/Video/653/777.mp4">الحلقة 777</option>
+                <option value="https://server.sanime.net/Video/653/778.mp4">الحلقة 778</option>
+                <option value="https://server.sanime.net/Video/653/779.mp4">الحلقة 779</option>
+                <option value="https://server.sanime.net/Video/653/780.mp4">الحلقة 780</option>
+                <option value="https://server.sanime.net/Video/653/781.mp4">الحلقة 781</option>
+                <option value="https://server.sanime.net/Video/653/782.mp4">الحلقة 782</option>
+                <option value="https://server.sanime.net/Video/653/783.mp4">الحلقة 783</option>
+                <option value="https://server.sanime.net/Video/653/784.mp4">الحلقة 784</option>
+                <option value="https://server.sanime.net/Video/653/785.mp4">الحلقة 785</option>
+                <option value="https://server.sanime.net/Video/653/786.mp4">الحلقة 786</option>
+                <option value="https://server.sanime.net/Video/653/787.mp4">الحلقة 787</option>
+                <option value="https://server.sanime.net/Video/653/788.mp4">الحلقة 788</option>
+                <option value="https://server.sanime.net/Video/653/789.mp4">الحلقة 789</option>
+                <option value="https://server.sanime.net/Video/653/790.mp4">الحلقة 790</option>
+                <option value="https://server.sanime.net/Video/653/791.mp4">الحلقة 791</option>
+                <option value="https://server.sanime.net/Video/653/792.mp4">الحلقة 792</option>
+                <option value="https://server.sanime.net/Video/653/793.mp4">الحلقة 793</option>
+                <option value="https://server.sanime.net/Video/653/794.mp4">الحلقة 794</option>
+                <option value="https://server.sanime.net/Video/653/795.mp4">الحلقة 795</option>
+                <option value="https://server.sanime.net/Video/653/796.mp4">الحلقة 796</option>
+                <option value="https://server.sanime.net/Video/653/797.mp4">الحلقة 797</option>
+                <option value="https://server.sanime.net/Video/653/798.mp4">الحلقة 798</option>
+                <option value="https://server.sanime.net/Video/653/799.mp4">الحلقة 799</option>
+                <option value="https://server.sanime.net/Video/653/800.mp4">الحلقة 800</option>
+                <option value="https://server.sanime.net/Video/653/801.mp4">الحلقة 801</option>
+                <option value="https://server.sanime.net/Video/653/802.mp4">الحلقة 802</option>
+                <option value="https://server.sanime.net/Video/653/803.mp4">الحلقة 803</option>
+                <option value="https://server.sanime.net/Video/653/804.mp4">الحلقة 804</option>
+                <option value="https://server.sanime.net/Video/653/805.mp4">الحلقة 805</option>
+                <option value="https://server.sanime.net/Video/653/806.mp4">الحلقة 806</option>
+                <option value="https://server.sanime.net/Video/653/807.mp4">الحلقة 807</option>
+                <option value="https://server.sanime.net/Video/653/808.mp4">الحلقة 808</option>
+                <option value="https://server.sanime.net/Video/653/809.mp4">الحلقة 809</option>
+                <option value="https://server.sanime.net/Video/653/810.mp4">الحلقة 810</option>
+                <option value="https://server.sanime.net/Video/653/811.mp4">الحلقة 811</option>
+                <option value="https://server.sanime.net/Video/653/812.mp4">الحلقة 812</option>
+                <option value="https://server.sanime.net/Video/653/813.mp4">الحلقة 813</option>
+                <option value="https://server.sanime.net/Video/653/814.mp4">الحلقة 814</option>
+                <option value="https://server.sanime.net/Video/653/815.mp4">الحلقة 815</option>
+                <option value="https://server.sanime.net/Video/653/816.mp4">الحلقة 816</option>
+                <option value="https://server.sanime.net/Video/653/817.mp4">الحلقة 817</option>
+                <option value="https://server.sanime.net/Video/653/818.mp4">الحلقة 818</option>
+                <option value="https://server.sanime.net/Video/653/819.mp4">الحلقة 819</option>
+                <option value="https://server.sanime.net/Video/653/820.mp4">الحلقة 820</option>
+                <option value="https://server.sanime.net/Video/653/821.mp4">الحلقة 821</option>
+                <option value="https://server.sanime.net/Video/653/822.mp4">الحلقة 822</option>
+                <option value="https://server.sanime.net/Video/653/823.mp4">الحلقة 823</option>
+                <option value="https://server.sanime.net/Video/653/824.mp4">الحلقة 824</option>
+                <option value="https://server.sanime.net/Video/653/825.mp4">الحلقة 825</option>
+                <option value="https://server.sanime.net/Video/653/826.mp4">الحلقة 826</option>
+                <option value="https://server.sanime.net/Video/653/827.mp4">الحلقة 827</option>
+                <option value="https://server.sanime.net/Video/653/828.mp4">الحلقة 828</option>
+                <option value="https://server.sanime.net/Video/653/829.mp4">الحلقة 829</option>
+                <option value="https://server.sanime.net/Video/653/830.mp4">الحلقة 830</option>
+                <option value="https://server.sanime.net/Video/653/831.mp4">الحلقة 831</option>
+                <option value="https://server.sanime.net/Video/653/832.mp4">الحلقة 832</option>
+                <option value="https://server.sanime.net/Video/653/833.mp4">الحلقة 833</option>
+                <option value="https://server.sanime.net/Video/653/834.mp4">الحلقة 834</option>
+                <option value="https://server.sanime.net/Video/653/835.mp4">الحلقة 835</option>
+                <option value="https://server.sanime.net/Video/653/836.mp4">الحلقة 836</option>
+                <option value="https://server.sanime.net/Video/653/837.mp4">الحلقة 837</option>
+                <option value="https://server.sanime.net/Video/653/838.mp4">الحلقة 838</option>
+                <option value="https://server.sanime.net/Video/653/838.mp4">الحلقة 838</option>
+                <option value="https://server.sanime.net/Video/653/839.mp4">الحلقة 839</option>
+                <option value="https://server.sanime.net/Video/653/840.mp4">الحلقة 840</option>
+                <option value="https://server.sanime.net/Video/653/841.mp4">الحلقة 841</option>
+                <option value="https://server.sanime.net/Video/653/842.mp4">الحلقة 842</option>
+                <option value="https://server.sanime.net/Video/653/843.mp4">الحلقة 843</option>
+                <option value="https://server.sanime.net/Video/653/844.mp4">الحلقة 844</option>
+                <option value="https://server.sanime.net/Video/653/845.mp4">الحلقة 845</option>
+                <option value="https://server.sanime.net/Video/653/846.mp4">الحلقة 846</option>
+                <option value="https://server.sanime.net/Video/653/847.mp4">الحلقة 847</option>
+                <option value="https://server.sanime.net/Video/653/848.mp4">الحلقة 848</option>
+                <option value="https://server.sanime.net/Video/653/849.mp4">الحلقة 849</option>
+                <option value="https://server.sanime.net/Video/653/850.mp4">الحلقة 850</option>
+                <option value="https://server.sanime.net/Video/653/851.mp4">الحلقة 851</option>
+                <option value="https://server.sanime.net/Video/653/852.mp4">الحلقة 852</option>
+                <option value="https://server.sanime.net/Video/653/853.mp4">الحلقة 853</option>
+                <option value="https://server.sanime.net/Video/653/854.mp4">الحلقة 854</option>
+                <option value="https://server.sanime.net/Video/653/855.mp4">الحلقة 855</option>
+                <option value="https://server.sanime.net/Video/653/856.mp4">الحلقة 856</option>
+                <option value="https://server.sanime.net/Video/653/857.mp4">الحلقة 857</option>
+                <option value="https://server.sanime.net/Video/653/858.mp4">الحلقة 858</option>
+                <option value="https://server.sanime.net/Video/653/859.mp4">الحلقة 859</option>
+                <option value="https://server.sanime.net/Video/653/860.mp4">الحلقة 860</option>
+                <option value="https://server.sanime.net/Video/653/861.mp4">الحلقة 861</option>
+                <option value="https://server.sanime.net/Video/653/862.mp4">الحلقة 862</option>
+                <option value="https://server.sanime.net/Video/653/863.mp4">الحلقة 863</option>
+                <option value="https://server.sanime.net/Video/653/864.mp4">الحلقة 864</option>
+                <option value="https://server.sanime.net/Video/653/865.mp4">الحلقة 865</option>
+                <option value="https://server.sanime.net/Video/653/866.mp4">الحلقة 866</option>
+                <option value="https://server.sanime.net/Video/653/867.mp4">الحلقة 867</option>
+                <option value="https://server.sanime.net/Video/653/868.mp4">الحلقة 868</option>
+                <option value="https://server.sanime.net/Video/653/869.mp4">الحلقة 869</option>
+                <option value="https://server.sanime.net/Video/653/870.mp4">الحلقة 870</option>
+                <option value="https://server.sanime.net/Video/653/871.mp4">الحلقة 871</option>
+                <option value="https://server.sanime.net/Video/653/872.mp4">الحلقة 872</option>
+                <option value="https://server.sanime.net/Video/653/873.mp4">الحلقة 873</option>
+                <option value="https://server.sanime.net/Video/653/874.mp4">الحلقة 874</option>
+                <option value="https://server.sanime.net/Video/653/875.mp4">الحلقة 875</option>
+                <option value="https://server.sanime.net/Video/653/876.mp4">الحلقة 876</option>
+                <option value="https://server.sanime.net/Video/653/877.mp4">الحلقة 877</option>
+                <option value="https://server.sanime.net/Video/653/878.mp4">الحلقة 878</option>
+                <option value="https://server.sanime.net/Video/653/879.mp4">الحلقة 879</option>
+                <option value="https://server.sanime.net/Video/653/880.mp4">الحلقة 880</option>
+                <option value="https://server.sanime.net/Video/653/881.mp4">الحلقة 881</option>
+                <option value="https://server.sanime.net/Video/653/882.mp4">الحلقة 882</option>
+                <option value="https://server.sanime.net/Video/653/883.mp4">الحلقة 883</option>
+                <option value="https://server.sanime.net/Video/653/884.mp4">الحلقة 884</option>
+                <option value="https://server.sanime.net/Video/653/885.mp4">الحلقة 885</option>
+                <option value="https://server.sanime.net/Video/653/886.mp4">الحلقة 886</option>
+                <option value="https://server.sanime.net/Video/653/887.mp4">الحلقة 887</option>
+                <option value="https://server.sanime.net/Video/653/888.mp4">الحلقة 888</option>
+                <option value="https://server.sanime.net/Video/653/889.mp4">الحلقة 889</option>
+                <option value="https://server.sanime.net/Video/653/890.mp4">الحلقة 890</option>
+                <option value="https://server.sanime.net/Video/653/891.mp4">الحلقة 891</option>
+                <option value="https://server.sanime.net/Video/653/892.mp4">الحلقة 892</option>
+                <option value="https://server.sanime.net/Video/653/893.mp4">الحلقة 893</option>
+                <option value="https://server.sanime.net/Video/653/894.mp4">الحلقة 894</option>
+                <option value="https://server.sanime.net/Video/653/895.mp4">الحلقة 895</option>
+                <option value="https://server.sanime.net/Video/653/896.mp4">الحلقة 896</option>
+                <option value="https://server.sanime.net/Video/653/897.mp4">الحلقة 897</option>
+                <option value="https://server.sanime.net/Video/653/898.mp4">الحلقة 898</option>
+                <option value="https://server.sanime.net/Video/653/899.mp4">الحلقة 899</option>
+                <option value="https://server.sanime.net/Video/653/900.mp4">الحلقة 900</option>
+                <option value="https://server.sanime.net/Video/653/901.mp4">الحلقة 901</option>
+                <option value="https://server.sanime.net/Video/653/902.mp4">الحلقة 902</option>
+                <option value="https://server.sanime.net/Video/653/903.mp4">الحلقة 903</option>
+                <option value="https://server.sanime.net/Video/653/904.mp4">الحلقة 904</option>
+                <option value="https://server.sanime.net/Video/653/905.mp4">الحلقة 905</option>
+                <option value="https://server.sanime.net/Video/653/906.mp4">الحلقة 906</option>
+                <option value="https://server.sanime.net/Video/653/907.mp4">الحلقة 907</option>
+                <option value="https://server.sanime.net/Video/653/908.mp4">الحلقة 908</option>
+                <option value="https://server.sanime.net/Video/653/909.mp4">الحلقة 909</option>
+                <option value="https://server.sanime.net/Video/653/910.mp4">الحلقة 910</option>
+                <option value="https://server.sanime.net/Video/653/911.mp4">الحلقة 911</option>
+                <option value="https://server.sanime.net/Video/653/912.mp4">الحلقة 912</option>
+                <option value="https://server.sanime.net/Video/653/913.mp4">الحلقة 913</option>
+                <option value="https://server.sanime.net/Video/653/914.mp4">الحلقة 914</option>
+                <option value="https://server.sanime.net/Video/653/915.mp4">الحلقة 915</option>
+                <option value="https://server.sanime.net/Video/653/916.mp4">الحلقة 916</option>
+                <option value="https://server.sanime.net/Video/653/917.mp4">الحلقة 917</option>
+                <option value="https://server.sanime.net/Video/653/918.mp4">الحلقة 918</option>
+                <option value="https://server.sanime.net/Video/653/919.mp4">الحلقة 919</option>
+                <option value="https://server.sanime.net/Video/653/920.mp4">الحلقة 920</option>
+                <option value="https://server.sanime.net/Video/653/921.mp4">الحلقة 921</option>
+                <option value="https://server.sanime.net/Video/653/922.mp4">الحلقة 922</option>
+                <option value="https://server.sanime.net/Video/653/923.mp4">الحلقة 923</option>
+                <option value="https://server.sanime.net/Video/653/924.mp4">الحلقة 924</option>
+                <option value="https://server.sanime.net/Video/653/925.mp4">الحلقة 925</option>
+                <option value="https://server.sanime.net/Video/653/926.mp4">الحلقة 926</option>
+                <option value="https://server.sanime.net/Video/653/927.mp4">الحلقة 927</option>
+                <option value="https://server.sanime.net/Video/653/928.mp4">الحلقة 928</option>
+                <option value="https://server.sanime.net/Video/653/929.mp4">الحلقة 929</option>
+                <option value="https://server.sanime.net/Video/653/930.mp4">الحلقة 930</option>
+                <option value="https://server.sanime.net/Video/653/931.mp4">الحلقة 931</option>
+                <option value="https://server.sanime.net/Video/653/932.mp4">الحلقة 932</option>
+                <option value="https://server.sanime.net/Video/653/933.mp4">الحلقة 933</option>
+                <option value="https://server.sanime.net/Video/653/934.mp4">الحلقة 934</option>
+                <option value="https://server.sanime.net/Video/653/935.mp4">الحلقة 935</option>
+                <option value="https://server.sanime.net/Video/653/936.mp4">الحلقة 936</option>
+                <option value="https://server.sanime.net/Video/653/937.mp4">الحلقة 937</option>
+                <option value="https://server.sanime.net/Video/653/938.mp4">الحلقة 938</option>
+                <option value="https://server.sanime.net/Video/653/939.mp4">الحلقة 939</option>
+                <option value="https://server.sanime.net/Video/653/940.mp4">الحلقة 940</option>
+                <option value="https://server.sanime.net/Video/653/941.mp4">الحلقة 941</option>
+                <option value="https://server.sanime.net/Video/653/942.mp4">الحلقة 942</option>
+                <option value="https://server.sanime.net/Video/653/943.mp4">الحلقة 943</option>
+                <option value="https://server.sanime.net/Video/653/944.mp4">الحلقة 944</option>
+                <option value="https://server.sanime.net/Video/653/945.mp4">الحلقة 945</option>
+                <option value="https://server.sanime.net/Video/653/946.mp4">الحلقة 946</option>
+                <option value="https://server.sanime.net/Video/653/947.mp4">الحلقة 947</option>
+                <option value="https://server.sanime.net/Video/653/948.mp4">الحلقة 948</option>
+                <option value="https://server.sanime.net/Video/653/949.mp4">الحلقة 949</option>
+                <option value="https://server.sanime.net/Video/653/950.mp4">الحلقة 950</option>
+                <option value="https://server.sanime.net/Video/653/951.mp4">الحلقة 951</option>
+                <option value="https://server.sanime.net/Video/653/952.mp4">الحلقة 952</option>
+                <option value="https://server.sanime.net/Video/653/953.mp4">الحلقة 953</option>
+                <option value="https://server.sanime.net/Video/653/954.mp4">الحلقة 954</option>
+                <option value="https://server.sanime.net/Video/653/955.mp4">الحلقة 955</option>
+                <option value="https://server.sanime.net/Video/653/956.mp4">الحلقة 956</option>
+                <option value="https://server.sanime.net/Video/653/957.mp4">الحلقة 957</option>
+                <option value="https://server.sanime.net/Video/653/958.mp4">الحلقة 958</option>
+                <option value="https://server.sanime.net/Video/653/959.mp4">الحلقة 959</option>
+                <option value="https://server.sanime.net/Video/653/960.mp4">الحلقة 960</option>
+                <option value="https://server.sanime.net/Video/653/961.mp4">الحلقة 961</option>
+                <option value="https://server.sanime.net/Video/653/962.mp4">الحلقة 962</option>
+                <option value="https://server.sanime.net/Video/653/963.mp4">الحلقة 963</option>
+                <option value="https://server.sanime.net/Video/653/964.mp4">الحلقة 964</option>
+                <option value="https://server.sanime.net/Video/653/965.mp4">الحلقة 965</option>
+                <option value="https://server.sanime.net/Video/653/966.mp4">الحلقة 966</option>
+                <option value="https://server.sanime.net/Video/653/967.mp4">الحلقة 967</option>
+                <option value="https://server.sanime.net/Video/653/969.mp4">الحلقة 968</option>
+                <option value="https://server.sanime.net/Video/653/969.mp4">الحلقة 969</option>
+                <option value="https://server.sanime.net/Video/653/970.mp4">الحلقة 970</option>
+                <option value="https://server.sanime.net/Video/653/971.mp4">الحلقة 971</option>
+                <option value="https://server.sanime.net/Video/653/972.mp4">الحلقة 972</option>
+                <option value="https://server.sanime.net/Video/653/973.mp4">الحلقة 973</option>
+                <option value="https://server.sanime.net/Video/653/974.mp4">الحلقة 974</option>
+                <option value="https://server.sanime.net/Video/653/975.mp4">الحلقة 975</option>
+                <option value="https://server.sanime.net/Video/653/976.mp4">الحلقة 976</option>
+                <option value="https://server.sanime.net/Video/653/977.mp4">الحلقة 977</option>
+                <option value="https://server.sanime.net/Video/653/978.mp4">الحلقة 978</option>
+                <option value="https://server.sanime.net/Video/653/979.mp4">الحلقة 979</option>
+                <option value="https://server.sanime.net/Video/653/980.mp4">الحلقة 980</option>
+                <option value="https://server.sanime.net/Video/653/981.mp4">الحلقة 981</option>
+                <option value="https://server.sanime.net/Video/653/982.mp4">الحلقة 982</option>
+                <option value="https://server.sanime.net/Video/653/983.mp4">الحلقة 983</option>
+                <option value="https://server.sanime.net/Video/653/984.mp4">الحلقة 984</option>
+                <option value="https://server.sanime.net/Video/653/985.mp4">الحلقة 985</option>
+                <option value="https://server.sanime.net/Video/653/986.mp4">الحلقة 986</option>
+                <option value="https://server.sanime.net/Video/653/987.mp4">الحلقة 987</option>
+                <option value="https://server.sanime.net/Video/653/988.mp4">الحلقة 988</option>
+                <option value="https://server.sanime.net/Video/653/989.mp4">الحلقة 989</option>
+                <option value="https://server.sanime.net/Video/653/990.mp4">الحلقة 990</option>
+                <option value="https://server.sanime.net/Video/653/991.mp4">الحلقة 991</option>
+                <option value="https://server.sanime.net/Video/653/992.mp4">الحلقة 992</option>
+                <option value="https://server.sanime.net/Video/653/993.mp4">الحلقة 993</option>
+                <option value="https://server.sanime.net/Video/653/994.mp4">الحلقة 994</option>
+                <option value="https://server.sanime.net/Video/653/995.mp4">الحلقة 995</option>
+                <option value="https://server.sanime.net/Video/653/996.mp4">الحلقة 996</option>
+                <option value="https://server.sanime.net/Video/653/997.mp4">الحلقة 997</option>
+                <option value="https://server.sanime.net/Video/653/998.mp4">الحلقة 998</option>
+                <option value="https://server.sanime.net/Video/653/999.mp4">الحلقة 999</option>
+                <option value="https://server.sanime.net/Video/653/1000.mp4">الحلقة 1000</option>
+                <option value="https://server.sanime.net/Video/653/1001.mp4">الحلقة 1001</option>
+                <option value="https://server.sanime.net/Video/653/1002.mp4">الحلقة 1002</option>
+                <option value="https://server.sanime.net/Video/653/1003.mp4">الحلقة 1003</option>
+                <option value="https://server.sanime.net/Video/653/1004.mp4">الحلقة 1004</option>
+                <option value="https://server.sanime.net/Video/653/1005.mp4">الحلقة 1005</option>
+                <option value="https://server.sanime.net/Video/653/1006.mp4">الحلقة 1006</option>
+                <option value="https://server.sanime.net/Video/653/1007.mp4">الحلقة 1007</option>
+                <option value="https://server.sanime.net/Video/653/1008.mp4">الحلقة 1008</option>
+                <option value="https://server.sanime.net/Video/653/1009.mp4">الحلقة 1009</option>
+                <option value="https://server.sanime.net/Video/653/1010.mp4">الحلقة 1010</option>
+                <option value="https://server.sanime.net/Video/653/1011.mp4">الحلقة 1011</option>
+                <option value="https://server.sanime.net/Video/653/1012.mp4">الحلقة 1012</option>
+                <option value="https://server.sanime.net/Video/653/1013.mp4">الحلقة 1013</option>
+                <option value="https://server.sanime.net/Video/653/1014.mp4">الحلقة 1014</option>
+                <option value="https://server.sanime.net/Video/653/1015.mp4">الحلقة 1015</option>
+                <option value="https://server.sanime.net/Video/653/1016.mp4">الحلقة 1016</option>
+                <option value="https://server.sanime.net/Video/653/1017.mp4">الحلقة 1017</option>
+                <option value="https://server.sanime.net/Video/653/1018.mp4">الحلقة 1018</option>
+                <option value="https://server.sanime.net/Video/653/1019.mp4">الحلقة 1019</option>
+                <option value="https://server.sanime.net/Video/653/1020.mp4">الحلقة 1020</option>
+                <option value="https://server.sanime.net/Video/653/1021.mp4">الحلقة 1021</option>
+                <option value="https://server.sanime.net/Video/653/1022.mp4">الحلقة 1022</option>
+                <option value="https://server.sanime.net/Video/653/1023.mp4">الحلقة 1023</option>
+                <option value="https://server.sanime.net/Video/653/1024.mp4">الحلقة 1024</option>
+                <option value="https://server.sanime.net/Video/653/1025.mp4">الحلقة 1025</option>
+                <option value="https://server.sanime.net/Video/653/1026.mp4">الحلقة 1026</option>
+                <option value="https://server.sanime.net/Video/653/1027.mp4">الحلقة 1027</option>
+                <option value="https://server.sanime.net/Video/653/1028.mp4">الحلقة 1028</option>
+                <option value="https://server.sanime.net/Video/653/1029.mp4">الحلقة 1029</option>
+                <option value="https://server.sanime.net/Video/653/1030.mp4">الحلقة 1030</option>
+                <option value="https://server.sanime.net/Video/653/1031.mp4">الحلقة 1031</option>
+                <option value="https://server.sanime.net/Video/653/1032.mp4">الحلقة 1032</option>
+                <option value="https://server.sanime.net/Video/653/1033.mp4">الحلقة 1033</option>
+                <option value="https://server.sanime.net/Video/653/1034.mp4">الحلقة 1034</option>
+                <option value="https://server.sanime.net/Video/653/1035.mp4">الحلقة 1035</option>
+                <option value="https://server.sanime.net/Video/653/1036.mp4">الحلقة 1036</option>
+                <option value="https://server.sanime.net/Video/653/1037.mp4">الحلقة 1037</option>
+                <option value="https://server.sanime.net/Video/653/1038.mp4">الحلقة 1038</option>
+                <option value="https://server.sanime.net/Video/653/1039.mp4">الحلقة 1039</option>
+                <option value="https://server.sanime.net/Video/653/1040.mp4">الحلقة 1040</option>
+                <option value="https://server.sanime.net/Video/653/1041.mp4">الحلقة 1041</option>
+                <option value="https://server.sanime.net/Video/653/1042.mp4">الحلقة 1042</option>
+                <option value="https://server.sanime.net/Video/653/1043.mp4">الحلقة 1043</option>
+                <option value="https://server.sanime.net/Video/653/1044.mp4">الحلقة 1044</option>
+                <option value="https://server.sanime.net/Video/653/1045.mp4">الحلقة 1045</option>
+                <option value="https://server.sanime.net/Video/653/1046.mp4">الحلقة 1046</option>
+                <option value="https://server.sanime.net/Video/653/1047.mp4">الحلقة 1047</option>
+                <option value="https://server.sanime.net/Video/653/1048.mp4">الحلقة 1048</option>
+                <option value="https://server.sanime.net/Video/653/1049.mp4">الحلقة 1049</option>
+                <option value="https://server.sanime.net/Video/653/1050.mp4">الحلقة 1050</option>
+                <option value="https://server.sanime.net/Video/653/1051.mp4">الحلقة 1051</option>
+                <option value="https://server.sanime.net/Video/653/1052.mp4">الحلقة 1052</option>
+                <option value="https://server.sanime.net/Video/653/1053.mp4">الحلقة 1053</option>
+                <option value="https://server.sanime.net/Video/653/1054.mp4">الحلقة 1054</option>
+                <option value="https://server.sanime.net/Video/653/1055.mp4">الحلقة 1055</option>
+                <option value="https://server.sanime.net/Video/653/1056.mp4">الحلقة 1056</option>
+                <option value="https://server.sanime.net/Video/653/1057.mp4">الحلقة 1057</option>
+                <option value="https://server.sanime.net/Video/653/1058.mp4">الحلقة 1058</option>
+                <option value="https://server.sanime.net/Video/653/1059.mp4">الحلقة 1059</option>
+                <option value="https://server.sanime.net/Video/653/1060.mp4">الحلقة 1060</option>
+                <option value="https://server.sanime.net/Video/653/1061.mp4">الحلقة 1061</option>
+                <option value="https://server.sanime.net/Video/653/1062.mp4">الحلقة 1062</option>
+                <option value="https://server.sanime.net/Video/653/1063.mp4">الحلقة 1063</option>
+                <option value="https://server.sanime.net/Video/653/1064.mp4">الحلقة 1064</option>
+                <option value="https://server.sanime.net/Video/653/1065.mp4">الحلقة 1065</option>
+                <option value="https://server.sanime.net/Video/653/1066.mp4">الحلقة 1066</option>
+                <option value="https://server.sanime.net/Video/653/1067.mp4">الحلقة 1067</option>
+                <option value="https://server.sanime.net/Video/653/1068.mp4">الحلقة 1068</option>
+                <option value="https://server.sanime.net/Video/653/1069.mp4">الحلقة 1069</option>
+                <option value="https://server.sanime.net/Video/653/1070.mp4">الحلقة 1070</option>
+                <option value="https://server.sanime.net/Video/653/1071.mp4">الحلقة 1071</option>
+                <option value="https://server.sanime.net/Video/653/1072.mp4">الحلقة 1072</option>
+                <option value="https://server.sanime.net/Video/653/1073.mp4">الحلقة 1073</option>
+                <option value="https://server.sanime.net/Video/653/1074.mp4">الحلقة 1074</option>
+                <option value="https://server.sanime.net/Video/653/1075.mp4">الحلقة 1075</option>
+                <option value="https://server.sanime.net/Video/653/1076.mp4">الحلقة 1076</option>
+                <option value="https://server.sanime.net/Video/653/1077.mp4">الحلقة 1077</option>
+                <option value="https://server.sanime.net/Video/653/1078.mp4">الحلقة 1078</option>
+                <option value="https://server.sanime.net/Video/653/1079.mp4">الحلقة 1079</option>
+                <option value="https://server.sanime.net/Video/653/1080.mp4">الحلقة 1080</option>
+                <option value="https://server.sanime.net/Video/653/1081.mp4">الحلقة 1081</option>
+                <option value="https://server.sanime.net/Video/653/1082.mp4">الحلقة 1082</option>
+                <option value="https://server.sanime.net/Video/653/1083.mp4">الحلقة 1083</option>
+                <option value="https://server.sanime.net/Video/653/1084.mp4">الحلقة 1084</option>
+                <option value="https://server.sanime.net/Video/653/1085.mp4">الحلقة 1085</option>
+                <option value="https://server.sanime.net/Video/653/1086.mp4">الحلقة 1086</option>
+                <option value="https://server.sanime.net/Video/653/1087.mp4">الحلقة 1087</option>
+                <option value="https://server.sanime.net/Video/653/1088.mp4">الحلقة 1088</option>
+                <option value="https://server.sanime.net/Video/653/1089.mp4">الحلقة 1089</option>
+                <option value="https://server.sanime.net/Video/653/1090.mp4">الحلقة 1090</option>
+                <option value="https://server.sanime.net/Video/653/1091.mp4">الحلقة 1091</option>
+                <option value="https://server.sanime.net/Video/653/1092.mp4">الحلقة 1092</option>
+                <option value="https://server.sanime.net/Video/653/1093.mp4">الحلقة 1093</option>
+                <option value="https://server.sanime.net/Video/653/1094.mp4">الحلقة 1094</option>
+                <option value="https://server.sanime.net/Video/653/1095.mp4">الحلقة 1095</option>
+                <option value="https://server.sanime.net/Video/653/1096.mp4">الحلقة 1096</option>
+                <option value="https://server.sanime.net/Video/653/1097.mp4">الحلقة 1097</option>
+                <option value="https://server.sanime.net/Video/653/1098.mp4">الحلقة 1098</option>
+                <option value="https://server.sanime.net/Video/653/1099.mp4">الحلقة 1099</option>
+                <option value="https://server.sanime.net/Video/653/1100.mp4">الحلقة 1100</option>
+                <option value="https://server.sanime.net/Video/653/1101.mp4">الحلقة 1101</option>
+                <option value="https://server.sanime.net/Video/653/1102.mp4">الحلقة 1102</option>
+                <option value="https://server.sanime.net/Video/653/1103.mp4">الحلقة 1103</option>
+                <option value="https://server.sanime.net/Video/653/1104.mp4">الحلقة 1104</option>
+                <option value="https://server.sanime.net/Video/653/1105.mp4">الحلقة 1105</option>
+                <option value="https://server.sanime.net/Video/653/1106.mp4">الحلقة 1106</option>
+                <option value="https://server.sanime.net/Video/653/1107.mp4">الحلقة 1107</option>
+                <option value="https://server.sanime.net/Video/653/1108.mp4">الحلقة 1108</option>
+                <option value="https://server.sanime.net/Video/653/1109.mp4">الحلقة 1109</option>
+                <option value="https://server.sanime.net/Video/653/1110.mp4">الحلقة 1110</option>
+                <option value="https://server.sanime.net/Video/653/1111.mp4">الحلقة 1111</option>
+                <option value="https://server.sanime.net/Video/653/1112.mp4">الحلقة 1112</option>
+                <option value="https://server.sanime.net/Video/653/1113.mp4">الحلقة 1113</option>
+                <option value="https://server.sanime.net/Video/653/1114.mp4">الحلقة 1114</option>
+                <option value="https://server.sanime.net/Video/653/1115.mp4">الحلقة 1115</option>
+                <option value="https://server.sanime.net/Video/653/1116.mp4">الحلقة 1116</option>
+                <option value="https://server.sanime.net/Video/653/1117.mp4">الحلقة 1117</option>
+                <option value="https://server.sanime.net/Video/653/1118.mp4">الحلقة 1118</option>
+                <option value="https://server.sanime.net/Video/653/1119.mp4">الحلقة 1119</option>
+                <option value="https://server.sanime.net/Video/653/1120.mp4">الحلقة 1120</option>
+                <option value="https://server.sanime.net/Video/653/1121.mp4">الحلقة 1121</option>
+                <option value="https://server.sanime.net/Video/653/1122.mp4">الحلقة 1122</option>
+                <option value="https://server.sanime.net/Video/653/1123.mp4">الحلقة 1123</option>
+                <option value="https://server.sanime.net/Video/653/1124.mp4">الحلقة 1124</option>
+                <option value="https://server.sanime.net/Video/653/1125.mp4">الحلقة 1125</option>
+                <option value="https://server.sanime.net/Video/653/1126.mp4">الحلقة 1126</option>
+                <option value="https://server.sanime.net/Video/653/1127.mp4">الحلقة 1127</option>
+                <option value="https://server.sanime.net/Video/653/1128.mp4">الحلقة 1128</option>
+                <option value="https://server.sanime.net/Video/653/1129.mp4">الحلقة 1129</option>
+                <option value="https://server.sanime.net/Video/653/1130.mp4">الحلقة 1130</option>
+                <option value="https://server.sanime.net/Video/653/1131.mp4">الحلقة 1131</option>
+                <option value="https://server.sanime.net/Video/653/1132.mp4">الحلقة 1132</option>
+                <option value="https://server.sanime.net/Video/653/1133.mp4">الحلقة 1133</option>
+                <option value="https://server.sanime.net/Video/653/1134.mp4">الحلقة 1134</option>
+                <option value="https://server.sanime.net/Video/653/1135.mp4">الحلقة 1135</option>
+                <option value="https://server.sanime.net/Video/653/1136.mp4">الحلقة 1136</option>
+
+                <!-- Add more options for each episode with their respective URLs -->
+            </select>
+        </div>
+
+       <a href="../../Series">رجوع</a> 
+    </div> 
+
+    <script>
+        const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
+        const mediaIds = ['tt0131179'];
+
+        mediaIds.forEach(mediaId => {
+            const apiUrl = `https://api.themoviedb.org/3/find/${mediaId}?api_key=${tmdbApiKey}&language=ar&external_source=imdb_id`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.movie_results.length > 0) {
+                        const tmdbMovieId = data.movie_results[0].id;
+                        const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=ar`;
+                        displayMediaDetails(tmdbApiUrl, 'movie');
+                    } else if (data.tv_results.length > 0) {
+                        const tmdbTvId = data.tv_results[0].id;
+                        const tmdbApiUrl = `https://api.themoviedb.org/3/tv/${tmdbTvId}?api_key=${tmdbApiKey}&language=ar`;
+                        displayMediaDetails(tmdbApiUrl, 'tv');
+                    } else {
+                        console.error('No data found for media with ID:', mediaId);
+                    }
+                })
+                .catch(error => console.error('Error fetching media details:', error));
+        });
+
+        function displayMediaDetails(apiUrl, type) {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const imdbRating = (Math.round(data.vote_average * 10) / 10).toFixed(1);
+                    const trimmedOverview = data.overview.trim();
+                    const releaseYear = data.release_date ? data.release_date.split('-')[0] : 'غير متوفر';
+                    const mediaInfo = `
+                        <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
+                        <h2 class="movie-title">${data.title || data.name}</h2>
+                        <div class="movie-details">
+                            <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
+                            <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>التقييم:</strong> ${imdbRating}/10</p>
+                            <div class="story-container">
+                            <div class="story-title">: القصة</div>
+                            <div class="story">${trimmedOverview}</div>
+                        </div>
+                        </div>
+                    `;
+                    document.getElementById('movieInfo').innerHTML = mediaInfo;
+
+                    const videoType = type === 'movie' ? 'movie' : 'tv';
+                    const videoUrl = `https://api.themoviedb.org/3/${videoType}/${data.id}?api_key=${tmdbApiKey}&append_to_response=videos`;
+                    fetch(videoUrl)
+                        .then(response => response.json())
+                        .then(videoData => {
+                            if (videoData.videos.results.length > 0) {
+                                const videoKey = videoData.videos.results[0].key;
+                                const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
+                                const trailerContainer = document.getElementById('trailerContainer');
+                                trailerContainer.innerHTML = `
+                                    <h3>التريلر</h3>
+                                    <iframe width="560" height="315" src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
+                                `;
+                            } else {
+                                console.error('No video found for this media.');
+                            }
+                        })
+                        .catch(error => console.error('Error fetching media video:', error));
+                })
+                .catch(error => console.error('Error fetching media details:', error));
+        }
+
+        function changeEpisode(videoUrl) {
+            var videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.src = videoUrl;
+        }
+    </script>
+</body> 
+</html>
