@@ -1,0 +1,311 @@
+<!-- anime series -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>فهرس</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 200px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        .movie-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .movie-poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .movie-info {
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .movie-info p {
+            margin-bottom: 10px;
+        }
+
+        .movie-title {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+       .story-title {
+            font-weight: bold;
+            margin-right: 10px; /* مسافة بين العنوان والنص */
+        }
+
+.story {
+    font-family: "Arial", sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: right;
+    direction: rtl;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    text-align-last: right; /* لضمان محاذاة النص في النهاية لليمين */
+    display: block; /* لجعل النص يظهر ككتلة مستقلة */
+}
+        h2, h3, a {
+            color: #000; /* تغيير اللون إلى الأسود */
+        }
+
+        .episode-box {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+#episodes {
+    width: 100%;
+    font-size: 18px;
+    padding: 10px;
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    direction: rtl;
+    text-align: center;
+    flex-direction: row-reverse;
+}
+
+
+        
+        /* تعديل iframe لجعل الفيديو من اليوتيوب أصغر */
+
+/* تعديل حجم مشغل الفيديو */
+video {
+    width: 100%;
+    max-height: 400px; /* ضبط الارتفاع الأقصى */
+    background-color: black;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>فهرس</h1>
+    </header>
+    <div class="container">
+        <div id="movieInfo"></div>
+        <div id="trailerContainer"></div>
+        <h2>شاهد الآن</h2>
+        <video id="videoPlayer" controls>
+            <source src="https://server.sanime.net/Video/668/1.mp4" type="video/mp4">
+        </video>
+        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
+        <div class="episode-box">
+            <select id="episodes" onchange="changeEpisode(this.value)">
+                <option value="https://server.sanime.net/Video/668/1.mp4">لحلقة 1</option>
+                <option value="https://server.sanime.net/Video/668/2.mp4">لحلقة 2</option>
+                 <option value="https://server.sanime.net/Video/668/3.mp4">لحلقة 3</option>
+                <option value="https://server.sanime.net/Video/668/4.mp4">لحلقة 4</option>
+                 <option value="https://server.sanime.net/Video/668/5.mp4">لحلقة 5</option>
+                <option value="https://server.sanime.net/Video/668/7.mp4">لحلقة 6</option>
+                 <option value="https://server.sanime.net/Video/668/7.mp4">لحلقة 7</option>
+                <option value="https://server.sanime.net/Video/668/8.mp4">لحلقة 8</option>
+                 <option value="https://server.sanime.net/Video/668/9.mp4">لحلقة 9</option>
+                <option value="https://server.sanime.net/Video/668/10.mp4">لحلقة 10</option>
+                 <option value="https://server.sanime.net/Video/668/11.mp4">لحلقة 11</option>
+                <option value="https://server.sanime.net/Video/668/12.mp4">لحلقة 12 </option>
+                <option value="https://server.sanime.net/Video/668/13.mp4">لحلقة 13</option>
+                <option value="https://server.sanime.net/Video/668/14.mp4">لحلقة 14</option>
+                 <option value="https://server.sanime.net/Video/668/15.mp4">لحلقة 15</option>
+                <option value="https://server.sanime.net/Video/668/16.mp4">لحلقة 16</option>
+                 <option value="https://server.sanime.net/Video/668/17.mp4">لحلقة 17</option>
+                <option value="https://server.sanime.net/Video/668/18.mp4">لحلقة 18</option>
+                 <option value="https://server.sanime.net/Video/668/19.mp4">لحلقة 19</option>
+                <option value="https://server.sanime.net/Video/668/20.mp4">لحلقة 20</option>
+                 <option value="https://server.sanime.net/Video/668/21.mp4">لحلقة 21</option>
+                <option value="https://server.sanime.net/Video/668/22.mp4">لحلقة 22</option>
+                 <option value="https://server.sanime.net/Video/668/23.mp4">لحلقة 23</option>
+                 <option value="https://server.sanime.net/Video/668/24.mp4">لحلقة 24</option>
+                <option value="https://server.sanime.net/Video/668/25.mp4">لحلقة 25</option>
+                <option value="https://server.sanime.net/Video/668/26.mp4">الحلقة 26</option>
+                <option value="https://server.sanime.net/Video/668/27.mp4">الحلقة 27</option>
+                 <option value="https://server.sanime.net/Video/668/28.mp4">الحلقة 28</option>
+                <option value="https://server.sanime.net/Video/668/29.mp4">الحلقة 29</option>
+                 <option value="https://server.sanime.net/Video/668/30.mp4">الحلقة 30</option>
+                <option value="https://server.sanime.net/Video/668/31.mp4">الحلقة 31</option>
+                 <option value="https://server.sanime.net/Video/668/32.mp4">الحلقة 32</option>
+                <option value="https://server.sanime.net/Video/668/33.mp4">الحلقة 33</option>
+                 <option value="https://server.sanime.net/Video/668/34.mp4">الحلقة 34</option>
+                <option value="https://server.sanime.net/Video/668/35.mp4">الحلقة 35</option>
+                 <option value="https://server.sanime.net/Video/668/36.mp4">الحلقة 36</option>
+                <option value="https://server.sanime.net/Video/668/37.mp4">الحلقة 37 </option>
+                <option value="https://server.sanime.net/Video/668/38.mp4">الحلقة 38</option>
+                <option value="https://server.sanime.net/Video/668/39.mp4">الحلقة 39</option>
+                 <option value="https://server.sanime.net/Video/668/40.mp4">الحلقة 40</option>
+                <option value="https://server.sanime.net/Video/668/41.mp4">الحلقة 41</option>
+                 <option value="https://server.sanime.net/Video/668/42.mp4">الحلقة 42</option>
+                <option value="https://server.sanime.net/Video/668/43.mp4">الحلقة 43</option>
+                 <option value="https://server.sanime.net/Video/668/44.mp4">الحلقة 44</option>
+                <option value="https://server.sanime.net/Video/668/45.mp4">الحلقة 45</option>
+                 <option value="https://server.sanime.net/Video/668/46.mp4">الحلقة 46</option>
+                <option value="https://server.sanime.net/Video/668/47.mp4">الحلقة 47</option>
+                 <option value="https://server.sanime.net/Video/668/48.mp4">الحلقة 48</option>
+                 <option value="https://server.sanime.net/Video/668/49.mp4">الحلقة 49</option>
+                <option value="https://server.sanime.net/Video/668/50.mp4">الحلقة 50</option>
+                <option value="https://server.sanime.net/Video/668/51.mp4">الحلقة 51</option>
+                <option value="https://server.sanime.net/Video/668/52.mp4">الحلقة 52</option>
+                 <option value="https://server.sanime.net/Video/668/53.mp4">الحلقة 53</option>
+                <option value="https://server.sanime.net/Video/668/54.mp4">الحلقة 54</option>
+                 <option value="https://server.sanime.net/Video/668/55.mp4">الحلقة 55</option>
+                <option value="https://server.sanime.net/Video/668/56.mp4">الحلقة 56</option>
+                 <option value="https://server.sanime.net/Video/668/57.mp4">الحلقة 57</option>
+                <option value="https://server.sanime.net/Video/668/58.mp4">الحلقة 58</option>
+                 <option value="https://server.sanime.net/Video/668/59.mp4">الحلقة 59</option>
+                <option value="https://server.sanime.net/Video/668/60.mp4">الحلقة 60</option>
+                <option value="https://server.sanime.net/Video/668/61.mp4">الحلقة 61</option>
+                <option value="https://server.sanime.net/Video/668/62.mp4">الحلقة 62 والاخيرة</option>
+                
+                
+                
+                
+                
+                
+                
+                
+            </select>
+        </div>
+       <a href="../../Series">رجوع</a>
+    </div>
+    <script>
+        const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
+        const mediaIds = ['tt2098220'];
+
+        mediaIds.forEach(mediaId => {
+            const apiUrl = `https://api.themoviedb.org/3/find/${mediaId}?api_key=${tmdbApiKey}&language=ar&external_source=imdb_id`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.movie_results.length > 0) {
+                        const tmdbMovieId = data.movie_results[0].id;
+                        const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=ar`;
+                        displayMediaDetails(tmdbApiUrl, 'movie');
+                    } else if (data.tv_results.length > 0) {
+                        const tmdbTvId = data.tv_results[0].id;
+                        const tmdbApiUrl = `https://api.themoviedb.org/3/tv/${tmdbTvId}?api_key=${tmdbApiKey}&language=ar`;
+                        displayMediaDetails(tmdbApiUrl, 'tv');
+                    } else {
+                        console.error('No data found for media with ID:', mediaId);
+                    }
+                })
+                .catch(error => console.error('Error fetching media details:', error));
+        });
+
+        function displayMediaDetails(apiUrl, type) {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const imdbRating = (Math.round(data.vote_average * 10) / 10).toFixed(1);
+                    const trimmedOverview = data.overview.trim();
+                    const releaseYear = data.release_date ? data.release_date.split('-')[0] : 'غير متوفر';
+                    const mediaInfo = `
+                        <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
+                        <h2 class="movie-title">${data.title || data.name}</h2>
+                        <div class="movie-details">
+                            <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
+                            <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>التقييم:</strong> ${imdbRating}/10</p>
+                            <div class="story-container">
+                            <div class="story-title">: القصة</div>
+                            <div class="story">${trimmedOverview}</div>
+                        </div>
+                        </div>
+                    `;
+                    document.getElementById('movieInfo').innerHTML = mediaInfo;
+
+                    const videoType = type === 'movie' ? 'movie' : 'tv';
+                    const videoUrl = `https://api.themoviedb.org/3/${videoType}/${data.id}?api_key=${tmdbApiKey}&append_to_response=videos`;
+                    fetch(videoUrl)
+                        .then(response => response.json())
+                        .then(videoData => {
+                            if (videoData.videos.results.length > 0) {
+                                const videoKey = videoData.videos.results[0].key;
+                                const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
+                                const trailerContainer = document.getElementById('trailerContainer');
+                                trailerContainer.innerHTML = `
+                                    <h3>التريلر</h3>
+                                    <iframe width="560" height="315" src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
+                                `;
+                            } else {
+                                console.error('No video found for this media.');
+                            }
+                        })
+                        .catch(error => console.error('Error fetching media video:', error));
+                })
+                .catch(error => console.error('Error fetching media details:', error));
+        }
+
+        function changeEpisode(videoUrl) {
+            var videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.src = videoUrl;
+        }
+    </script>
+</body>
+</html>
