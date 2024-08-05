@@ -24,12 +24,6 @@
             </select>
         </div>
         <br>
-        <div class="manual-episode-box">
-            <h3>إضافة حلقة يدويًا:</h3>
-            <input type="text" id="manualEpisodeURL" placeholder="أدخل رابط الحلقة الجودة العالية">
-            <button onclick="addManualEpisode()">إضافة</button>
-        </div>
-        <br>
         <label for="numEpisodes">عدد الحلقات المسموح توليدها:</label>
         <input type="number" id="numEpisodes" value="2">
         <br>
@@ -113,24 +107,11 @@
             var episodeURL = baseURL + episodeNumber + '.mp4';
             var option = document.createElement('option');
             option.value = episodeURL;
-            option.text = 'الموسم الاول : الحلقة ' + episodeNumber;
+            option.text = 'الحلقة ' + episodeNumber;
             highQualitySelect.appendChild(option);
         }
 
         populateLowQualityEpisodes(); // تحديث قائمة الجودة المنخفضة بعد توليد الجودة العالية
-    }
-
-    function addManualEpisode() {
-        var manualURL = document.getElementById('manualEpisodeURL').value;
-        if (manualURL) {
-            var highQualitySelect = document.getElementById('highQualityEpisodes');
-            var option = document.createElement('option');
-            option.value = manualURL;
-            option.text = manualURL;
-            highQualitySelect.appendChild(option);
-            document.getElementById('manualEpisodeURL').value = ''; // مسح الحقل بعد الإضافة
-            populateLowQualityEpisodes(); // تحديث قائمة الجودة المنخفضة بعد الإضافة اليدوية
-        }
     }
 
     window.onload = function() {
