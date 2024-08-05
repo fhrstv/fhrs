@@ -31,7 +31,14 @@
         </div>
         <br>
         <label for="numEpisodes">عدد الحلقات المسموح توليدها:</label>
-        <input type="number" id="numEpisodes" value="10">
+        <input type="number" id="numEpisodes" value="2">
+        <br>
+        <label for="word">الكلمة:</label>
+        <input type="text" id="word" value="Video3">
+        <br>
+        <label for="number">الرقم:</label>
+        <input type="number" id="number" value="2114">
+        <br>
         <button onclick="generateEpisodes()">توليد الحلقات</button>
         <a href="../../Series">رجوع</a>
     </div>
@@ -87,9 +94,9 @@
     function generateEpisodes() {
         var highQualitySelect = document.getElementById('highQualityEpisodes');
         var numEpisodes = document.getElementById('numEpisodes').value;
-        var baseURL = 'https://server.sanime.net/word/number/';
-        var wordReplacement = 'Video3'; // استبدل بكلمةك الخاصة
-        var numberStart = 2114; // رقم الحلقة الابتدائي
+        var word = document.getElementById('word').value;
+        var number = document.getElementById('number').value;
+        var baseURL = `https://server.sanime.net/${word}/${number}/`;
 
         highQualitySelect.innerHTML = ''; // مسح أي خيارات موجودة
 
@@ -101,9 +108,9 @@
         placeholderOption.text = "اختر الحلقة";
         highQualitySelect.appendChild(placeholderOption);
 
-        for (var i = numberStart; i < numberStart + parseInt(numEpisodes); i++) {
+        for (var i = 1; i <= parseInt(numEpisodes); i++) {
             var episodeNumber = i;
-            var episodeURL = baseURL.replace('word', wordReplacement).replace('number', episodeNumber) + '.mp4';
+            var episodeURL = baseURL + episodeNumber + '.mp4';
             var option = document.createElement('option');
             option.value = episodeURL;
             option.text = 'الموسم الاول : الحلقة ' + episodeNumber;
