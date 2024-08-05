@@ -168,8 +168,6 @@ video {
         <select id="lowQualityEpisodes" onchange="changeEpisode(this.value)">
             <!-- سيتم تعبئة هذه القائمة تلقائيًا -->
         </select>
-        <br>
-        <button onclick="populateLowQualityEpisodes()">توليد روابط الجودة المنخفضة</button>
     </div>
     <a href="../../Series">رجوع</a>
 </div>
@@ -198,6 +196,7 @@ function populateLowQualityEpisodes() {
 }
 
 window.onload = function() {
+    populateLowQualityEpisodes();
     // تشغيل الفيديو الأول عند تحميل الصفحة
     var highQualitySelect = document.getElementById('highQualityEpisodes');
     changeEpisode(highQualitySelect.value);
