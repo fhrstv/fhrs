@@ -174,10 +174,11 @@ video {
 
 <script>
 function changeEpisode(value) {
+    var videoPlayer = document.getElementById('videoPlayer');
     var videoSource = document.getElementById('videoSource');
     videoSource.src = value;
-    var videoPlayer = document.getElementById('videoPlayer');
     videoPlayer.load();
+    videoPlayer.play(); // لتشغيل الفيديو مباشرة بعد تحميله
 }
 
 function populateLowQualityEpisodes() {
