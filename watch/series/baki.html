@@ -159,6 +159,7 @@ video {
     <div class="episode-box">
         <label for="highQualityEpisodes">حلقات الجودة العالية:</label>
         <select id="highQualityEpisodes" onchange="changeEpisode(this.value, 'high')">
+            <option value="" disabled selected>اختر الحلقة</option>
             <option value="https://server.sanime.net/Video3/3888/1.mp4">الموسم الاول : الحلقة 1</option>
             <option value="https://server.sanime.net/Video3/3888/2.mp4">الموسم الاول : الحلقة 2</option>
             <!-- يمكنك إضافة المزيد من الحلقات هنا -->
@@ -166,6 +167,7 @@ video {
         <br>
         <label for="lowQualityEpisodes">حلقات الجودة المنخفضة:</label>
         <select id="lowQualityEpisodes" onchange="changeEpisode(this.value, 'low')">
+            <option value="" disabled selected>اختر الحلقة</option>
             <!-- سيتم تعبئة هذه القائمة تلقائيًا -->
         </select>
     </div>
@@ -186,9 +188,11 @@ function changeEpisode(value, quality) {
     }
     
     if (quality === 'high') {
-        document.getElementById('lowQualityEpisodes').selectedIndex = -1;
+        var lowQualitySelect = document.getElementById('lowQualityEpisodes');
+        lowQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة"
     } else if (quality === 'low') {
-        document.getElementById('highQualityEpisodes').selectedIndex = -1;
+        var highQualitySelect = document.getElementById('highQualityEpisodes');
+        highQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة"
     }
 }
 
@@ -199,11 +203,13 @@ function populateLowQualityEpisodes() {
 
     for (var i = 0; i < highQualitySelect.options.length; i++) {
         var highQualityOption = highQualitySelect.options[i];
-        var lowQualityValue = highQualityOption.value.replace(/\.mp4$/, 'SD.mp4');
-        var lowQualityOption = document.createElement('option');
-        lowQualityOption.value = lowQualityValue;
-        lowQualityOption.text = highQualityOption.text;
-        lowQualitySelect.appendChild(lowQualityOption);
+        if (highQualityOption.value) {
+            var lowQualityValue = highQualityOption.value.replace(/\.mp4$/, 'SD.mp4');
+            var lowQualityOption = document.createElement('option');
+            lowQualityOption.value = lowQualityValue;
+            lowQualityOption.text = highQualityOption.text;
+            lowQualitySelect.appendChild(lowQualityOption);
+        }
     }
 }
 
