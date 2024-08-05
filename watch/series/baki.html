@@ -158,14 +158,14 @@ video {
     <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
     <div class="episode-box">
         <label for="highQualityEpisodes">حلقات الجودة العالية:</label>
-        <select id="highQualityEpisodes" onchange="changeEpisode(this.value)">
+        <select id="highQualityEpisodes" onchange="changeEpisode(this.value, 'high')">
             <option value="https://server.sanime.net/Video3/3888/1.mp4">الموسم الاول : الحلقة 1</option>
             <option value="https://server.sanime.net/Video3/3888/2.mp4">الموسم الاول : الحلقة 2</option>
             <!-- يمكنك إضافة المزيد من الحلقات هنا -->
         </select>
         <br>
         <label for="lowQualityEpisodes">حلقات الجودة المنخفضة:</label>
-        <select id="lowQualityEpisodes" onchange="changeEpisode(this.value)">
+        <select id="lowQualityEpisodes" onchange="changeEpisode(this.value, 'low')">
             <!-- سيتم تعبئة هذه القائمة تلقائيًا -->
         </select>
     </div>
@@ -173,12 +173,23 @@ video {
 </div>
 
 <script>
-function changeEpisode(value) {
-    var videoPlayer = document.getElementById('videoPlayer');
+function changeEpisode(value, quality) {
     var videoSource = document.getElementById('videoSource');
-    videoSource.src = value;
-    videoPlayer.load();
-    videoPlayer.play(); // لتشغيل الفيديو مباشرة بعد تحميله
+    var videoPlayer = document.getElementById('videoPlayer');
+    
+    if (videoSource.src !== value) {
+        videoSource.src = value;
+        videoPlayer.load();
+    } else {
+        videoPlayer.currentTime = 0;
+        videoPlayer.load();
+    }
+    
+    if (quality === 'high') {
+        document.getElementById('lowQualityEpisodes').selectedIndex = -1;
+    } else if (quality === 'low') {
+        document.getElementById('highQualityEpisodes').selectedIndex = -1;
+    }
 }
 
 function populateLowQualityEpisodes() {
@@ -200,7 +211,7 @@ window.onload = function() {
     populateLowQualityEpisodes();
     // تشغيل الفيديو الأول عند تحميل الصفحة
     var highQualitySelect = document.getElementById('highQualityEpisodes');
-    changeEpisode(highQualitySelect.value);
+    changeEpisode(highQualitySelect.value, 'high');
 };
 </script>
 </body>
