@@ -1,0 +1,81 @@
+<div class="container">
+    <div id="movieInfo"></div>
+    <div id="trailerContainer"></div>
+    <h2>شاهد الآن</h2>
+    <video id="videoPlayer" controls>
+        <source id="videoSource" src="" type="video/mp4">
+    </video>
+    <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
+    <div class="episode-box">
+        <label for="highQualityEpisodes">حلقات الجودة العالية:</label>
+        <select id="highQualityEpisodes" onchange="changeEpisode(this.value, 'high')">
+            <option value="" disabled selected>اختر الحلقة</option>
+            <option value="https://server.sanime.net/Video3/3888/1.mp4">الموسم الاول : الحلقة 1</option>
+            <option value="https://server.sanime.net/Video3/3888/2.mp4">الموسم الاول : الحلقة 2</option>
+            <!-- يمكنك إضافة المزيد من الحلقات هنا -->
+        </select>
+        <br>
+        <label for="lowQualityEpisodes">حلقات الجودة المنخفضة:</label>
+        <select id="lowQualityEpisodes" onchange="changeEpisode(this.value, 'low')">
+            <option value="" disabled selected>اختر الحلقة</option>
+            <!-- سيتم تعبئة هذه القائمة تلقائيًا -->
+        </select>
+    </div>
+    <a href="../../Series">رجوع</a>
+</div>
+
+<script>
+function changeEpisode(value, quality) {
+    var videoSource = document.getElementById('videoSource');
+    var videoPlayer = document.getElementById('videoPlayer');
+    
+    if (videoSource.src !== value) {
+        videoSource.src = value;
+        videoPlayer.load();
+    } else {
+        videoPlayer.currentTime = 0;
+        videoPlayer.load();
+    }
+    
+    // تعيين الاختيار إلى "اختر الحلقة" بناءً على الجودة
+    var highQualitySelect = document.getElementById('highQualityEpisodes');
+    var lowQualitySelect = document.getElementById('lowQualityEpisodes');
+    
+    if (quality === 'high') {
+        lowQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة" في الجودة المنخفضة
+    } else if (quality === 'low') {
+        highQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة" في الجودة العالية
+    }
+}
+
+function populateLowQualityEpisodes() {
+    var highQualitySelect = document.getElementById('highQualityEpisodes');
+    var lowQualitySelect = document.getElementById('lowQualityEpisodes');
+    lowQualitySelect.innerHTML = ''; // مسح أي خيارات موجودة
+
+    // إضافة الخيار "اختر الحلقة" في بداية القائمة
+    var placeholderOption = document.createElement('option');
+    placeholderOption.value = "";
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    placeholderOption.text = "اختر الحلقة";
+    lowQualitySelect.appendChild(placeholderOption);
+
+    // إضافة الخيارات الخاصة بالجودة المنخفضة
+    for (var i = 1; i < highQualitySelect.options.length; i++) {
+        var highQualityOption = highQualitySelect.options[i];
+        var lowQualityValue = highQualityOption.value.replace(/\.mp4$/, 'SD.mp4');
+        var lowQualityOption = document.createElement('option');
+        lowQualityOption.value = lowQualityValue;
+        lowQualityOption.text = highQualityOption.text;
+        lowQualitySelect.appendChild(lowQualityOption);
+    }
+}
+
+window.onload = function() {
+    populateLowQualityEpisodes();
+    // تشغيل الفيديو الأول عند تحميل الصفحة
+    var highQualitySelect = document.getElementById('highQualityEpisodes');
+    changeEpisode(highQualitySelect.value, 'high');
+};
+</script>
