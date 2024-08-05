@@ -203,15 +203,22 @@ function populateLowQualityEpisodes() {
     var lowQualitySelect = document.getElementById('lowQualityEpisodes');
     lowQualitySelect.innerHTML = ''; // مسح أي خيارات موجودة
 
-    for (var i = 0; i < highQualitySelect.options.length; i++) {
+    // إضافة الخيار "اختر الحلقة" في بداية القائمة
+    var placeholderOption = document.createElement('option');
+    placeholderOption.value = "";
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    placeholderOption.text = "اختر الحلقة";
+    lowQualitySelect.appendChild(placeholderOption);
+
+    // إضافة الخيارات الخاصة بالجودة المنخفضة
+    for (var i = 1; i < highQualitySelect.options.length; i++) {
         var highQualityOption = highQualitySelect.options[i];
-        if (highQualityOption.value) {
-            var lowQualityValue = highQualityOption.value.replace(/\.mp4$/, 'SD.mp4');
-            var lowQualityOption = document.createElement('option');
-            lowQualityOption.value = lowQualityValue;
-            lowQualityOption.text = highQualityOption.text;
-            lowQualitySelect.appendChild(lowQualityOption);
-        }
+        var lowQualityValue = highQualityOption.value.replace(/\.mp4$/, 'SD.mp4');
+        var lowQualityOption = document.createElement('option');
+        lowQualityOption.value = lowQualityValue;
+        lowQualityOption.text = highQualityOption.text;
+        lowQualitySelect.appendChild(lowQualityOption);
     }
 }
 
