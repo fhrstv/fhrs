@@ -10,23 +10,39 @@
 
     <script>
         document.getElementById('downloadButton').addEventListener('click', function() {
-            // رابط الفيلم
-            const videoUrl = 'https://vidsrc.me/embed/movie?imdb=tt1179933';
+            // افتراضياً، سنحتاج إلى استخراج URL الفيديو من مصدر HTML
+            // قم بتعديل هذا الجزء بناءً على بنية الصفحة المحددة
+            fetch('https://vidsrc.me/embed/movie?imdb=tt1179933')
+                .then(response => response.text())
+                .then(html => {
+                    // تحليل HTML لاستخراج URL الفيديو
+                    // هنا تحتاج إلى استخدام تقنيات تحليل HTML بناءً على بنية الصفحة
+                    // مثال: استخدام RegEx أو DOMParser لاستخراج URL الفيديو
+                    const videoUrl = extractVideoUrl(html); // هذه دالة تحتاج إلى تنفيذها
 
-            // إنشاء عنصر رابط مؤقت
-            const link = document.createElement('a');
-            link.href = videoUrl;
-            link.download = 'movie.mp4'; // يمكنك تغيير اسم الملف حسب الرغبة
+                    // إنشاء رابط التنزيل
+                    const link = document.createElement('a');
+                    link.href = videoUrl;
+                    link.download = 'movie.mp4'; // يمكنك تغيير اسم الملف حسب الرغبة
 
-            // إضافة الرابط إلى المستند
-            document.body.appendChild(link);
+                    // إضافة الرابط إلى المستند
+                    document.body.appendChild(link);
 
-            // محاكاة نقرة على الرابط لبدء التحميل
-            link.click();
+                    // محاكاة نقرة على الرابط لبدء التحميل
+                    link.click();
 
-            // إزالة الرابط المؤقت
-            document.body.removeChild(link);
+                    // إزالة الرابط المؤقت
+                    document.body.removeChild(link);
+                });
         });
+
+        // دالة لاستخراج URL الفيديو من HTML
+        function extractVideoUrl(html) {
+            // تطبيق المنطق المناسب لاستخراج URL الفيديو
+            // هذه مجرد مثال وتحتاج إلى التعديل حسب HTML الصفحة
+            const match = html.match(/src="([^"]+\.mp4)"/);
+            return match ? match[1] : null;
+        }
     </script>
 </body>
 </html>
