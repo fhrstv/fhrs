@@ -157,39 +157,51 @@ video {
     </video>
     <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
     <div class="episode-box">
-        <select id="episodes" onchange="changeEpisode(this.value)">
+        <label for="highQualityEpisodes">حلقات الجودة العالية:</label>
+        <select id="highQualityEpisodes" onchange="changeEpisode(this.value)">
             <option value="https://server.sanime.net/Video3/3888/1.mp4">الموسم الاول : الحلقة 1</option>
             <option value="https://server.sanime.net/Video3/3888/2.mp4">الموسم الاول : الحلقة 2</option>
+            <!-- يمكنك إضافة المزيد من الحلقات هنا -->
         </select>
-        <button onclick="toggleQuality()">تحويل للجودة المنخفضة</button>
+        <br>
+        <label for="lowQualityEpisodes">حلقات الجودة المنخفضة:</label>
+        <select id="lowQualityEpisodes" onchange="changeEpisode(this.value)">
+            <!-- سيتم تعبئة هذه القائمة تلقائيًا -->
+        </select>
+        <br>
+        <button onclick="populateLowQualityEpisodes()">توليد روابط الجودة المنخفضة</button>
     </div>
     <a href="../../Series">رجوع</a>
 </div>
 
 <script>
-var lowQuality = false;
-
 function changeEpisode(value) {
     var videoSource = document.getElementById('videoSource');
-    if (lowQuality) {
-        value = value.replace(/\.mp4$/, 'SD.mp4');
-    }
     videoSource.src = value;
     var videoPlayer = document.getElementById('videoPlayer');
     videoPlayer.load();
 }
 
-function toggleQuality() {
-    lowQuality = !lowQuality;
-    var episodeSelect = document.getElementById('episodes');
-    changeEpisode(episodeSelect.value);
+function populateLowQualityEpisodes() {
+    var highQualitySelect = document.getElementById('highQualityEpisodes');
+    var lowQualitySelect = document.getElementById('lowQualityEpisodes');
+    lowQualitySelect.innerHTML = ''; // مسح أي خيارات موجودة
+
+    for (var i = 0; i < highQualitySelect.options.length; i++) {
+        var highQualityOption = highQualitySelect.options[i];
+        var lowQualityValue = highQualityOption.value.replace(/\.mp4$/, 'SD.mp4');
+        var lowQualityOption = document.createElement('option');
+        lowQualityOption.value = lowQualityValue;
+        lowQualityOption.text = highQualityOption.text;
+        lowQualitySelect.appendChild(lowQualityOption);
+    }
 }
 
-
-function changeEpisode(videoUrl) {
-            var videoPlayer = document.getElementById("videoPlayer");
-            videoPlayer.src = videoUrl;
-        }
+window.onload = function() {
+    // تشغيل الفيديو الأول عند تحميل الصفحة
+    var highQualitySelect = document.getElementById('highQualityEpisodes');
+    changeEpisode(highQualitySelect.value);
+};
 </script>
 </body>
 </html>
