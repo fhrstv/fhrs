@@ -184,6 +184,12 @@ function toggleQuality() {
     var episodeSelect = document.getElementById('episodes');
     changeEpisode(episodeSelect.value);
 }
+
+
+function changeEpisode(videoUrl) {
+            var videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.src = videoUrl;
+        }
 </script>
 </body>
 </html>
