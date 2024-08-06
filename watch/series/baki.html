@@ -39,7 +39,6 @@
         function generateEpisodes(word, number, numEpisodes) {
             var highQualitySelect = document.getElementById('highQualityEpisodes');
             var baseURL = `https://server.sanime.net/${word}/${number}/`;
-
             var fragment = document.createDocumentFragment(); // استخدام DocumentFragment لتجميع العناصر
 
             // إنشاء عنصر الخيار "اختر الحلقة"
@@ -74,7 +73,6 @@
         }
 
         function populateLowQualityEpisodes(word, number, numEpisodes) {
-            var highQualitySelect = document.getElementById('highQualityEpisodes');
             var lowQualitySelect = document.getElementById('lowQualityEpisodes');
             var fragment = document.createDocumentFragment(); // استخدام DocumentFragment لتجميع العناصر
 
