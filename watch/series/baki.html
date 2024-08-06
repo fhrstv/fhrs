@@ -76,37 +76,69 @@
     }
 
     function generateEpisodes() {
-        var highQualitySelect = document.getElementById('highQualityEpisodes');
-        var numEpisodes = 2; // عدد الحلقات المسموح توليدها
-        var word = 'Video3'; // الكلمة
-        var number = 2114; // الرقم
-        var baseURL = `https://server.sanime.net/${word}/${number}/`;
+    var highQualitySelect = document.getElementById('highQualityEpisodes');
+    var numEpisodes = 2; // عدد الحلقات المسموح توليدها
+    var word = 'Video3'; // الكلمة
+    var number = 2114; // الرقم
+    var baseURL = `https://server.sanime.net/${word}/${number}/`;
 
-        highQualitySelect.innerHTML = ''; // مسح أي خيارات موجودة
+    var fragment = document.createDocumentFragment(); // استخدام DocumentFragment لتجميع العناصر
 
-        // إضافة الخيار "اختر الحلقة" في بداية القائمة
-        var placeholderOption = document.createElement('option');
-        placeholderOption.value = "";
-        placeholderOption.disabled = true;
-        placeholderOption.selected = true;
-        placeholderOption.text = "اختر الحلقة";
-        highQualitySelect.appendChild(placeholderOption);
+    // إنشاء عنصر الخيار "اختر الحلقة"
+    var placeholderOption = document.createElement('option');
+    placeholderOption.value = "";
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    placeholderOption.text = "اختر الحلقة";
+    fragment.appendChild(placeholderOption);
 
-        // تحسين الأداء بتقليل عدد التعديلات على DOM
-        var optionsHTML = '';
-        for (var i = 1; i <= numEpisodes; i++) {
-            var episodeNumber = i;
-            var episodeURL = baseURL + episodeNumber + '.mp4';
-            optionsHTML += `<option value="${episodeURL}">الحلقة ${episodeNumber}</option>`;
-        }
-
-        highQualitySelect.innerHTML += optionsHTML;
-        populateLowQualityEpisodes(); // تحديث قائمة الجودة المنخفضة بعد توليد الجودة العالية
+    // إنشاء خيارات الحلقات
+    for (var i = 1; i <= numEpisodes; i++) {
+        var episodeNumber = i;
+        var episodeURL = baseURL + episodeNumber + '.mp4';
+        var option = document.createElement('option');
+        option.value = episodeURL;
+        option.text = 'الحلقة ' + episodeNumber;
+        fragment.appendChild(option);
     }
 
-    window.onload = function() {
-        generateEpisodes(); // توليد الحلقات عند تحميل الصفحة
-    };
+    highQualitySelect.innerHTML = ''; // مسح القائمة الحالية
+    highQualitySelect.appendChild(fragment); // إضافة جميع العناصر دفعة واحدة
+
+    populateLowQualityEpisodes(); // تحديث قائمة الجودة المنخفضة بعد توليد الجودة العالية
+}
+
+function populateLowQualityEpisodes() {
+    var highQualitySelect = document.getElementById('highQualityEpisodes');
+    var lowQualitySelect = document.getElementById('lowQualityEpisodes');
+    var fragment = document.createDocumentFragment(); // استخدام DocumentFragment لتجميع العناصر
+
+    lowQualitySelect.innerHTML = ''; // مسح القائمة الحالية
+
+    // إنشاء عنصر الخيار "اختر الحلقة"
+    var placeholderOption = document.createElement('option');
+    placeholderOption.value = "";
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    placeholderOption.text = "اختر الحلقة";
+    fragment.appendChild(placeholderOption);
+
+    // إضافة الخيارات الخاصة بالجودة المنخفضة
+    for (var i = 1; i < highQualitySelect.options.length; i++) {
+        var highQualityOption = highQualitySelect.options[i];
+        var lowQualityValue = highQualityOption.value.replace(/\.mp4$/, 'SD.mp4');
+        var lowQualityOption = document.createElement('option');
+        lowQualityOption.value = lowQualityValue;
+        lowQualityOption.text = highQualityOption.text;
+        fragment.appendChild(lowQualityOption);
+    }
+
+    lowQualitySelect.appendChild(fragment); // إضافة جميع العناصر دفعة واحدة
+}
+
+window.onload = function() {
+    generateEpisodes(); // توليد الحلقات عند تحميل الصفحة
+};
     </script>
 </body>
 </html>
