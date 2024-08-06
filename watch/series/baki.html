@@ -49,26 +49,16 @@
             fragment.appendChild(placeholderOption);
 
             // إعداد قائمة الأرقام اليدوية
-            var manualEpisodesNumbers = manualEpisodes.map(ep => parseInt(ep.number));
+            var manualEpisodesMap = new Map(manualEpisodes.map(ep => [ep.number, ep.url]));
 
             for (var i = 1; i <= numEpisodes; i++) {
-                if (!manualEpisodesNumbers.includes(i)) {
-                    var episodeNumber = i;
-                    var episodeURL = baseURL + episodeNumber + '.mp4';
-                    var option = document.createElement('option');
-                    option.value = episodeURL;
-                    option.text = 'الحلقة ' + episodeNumber;
-                    fragment.appendChild(option);
-                }
-            }
-
-            // إضافة الحلقات اليدوية في المواقع المحددة
-            manualEpisodes.forEach(function(episode) {
+                var episodeNumber = i;
+                var episodeURL = manualEpisodesMap.has(i) ? manualEpisodesMap.get(i) : baseURL + episodeNumber + '.mp4';
                 var option = document.createElement('option');
-                option.value = episode.url;
-                option.text = 'الحلقة ' + episode.number + ' يدوياً';
+                option.value = episodeURL;
+                option.text = 'الحلقة ' + episodeNumber;
                 fragment.appendChild(option);
-            });
+            }
 
             highQualitySelect.innerHTML = '';
             highQualitySelect.appendChild(fragment);
@@ -93,26 +83,17 @@
             placeholderOption.text = "اختر الحلقة";
             fragment.appendChild(placeholderOption);
 
-            var manualEpisodesNumbers = manualEpisodes.map(ep => parseInt(ep.number));
+            var manualEpisodesMap = new Map(manualEpisodes.map(ep => [ep.number, ep.url.replace(/\.mp4$/, 'SD.mp4')]));
 
             for (var i = 1; i <= numEpisodes; i++) {
-                if (!manualEpisodesNumbers.includes(i)) {
-                    var highQualityURL = `https://server.sanime.net/${word}/${number}/${i}.mp4`;
-                    var lowQualityURL = highQualityURL.replace(/\.mp4$/, 'SD.mp4');
-                    var option = document.createElement('option');
-                    option.value = lowQualityURL;
-                    option.text = 'الحلقة ' + i;
-                    fragment.appendChild(option);
-                }
-            }
-
-            manualEpisodes.forEach(function(episode) {
-                var lowQualityURL = episode.url.replace(/\.mp4$/, 'SD.mp4');
+                var episodeNumber = i;
+                var highQualityURL = manualEpisodesMap.has(i) ? manualEpisodesMap.get(i) : `https://server.sanime.net/${word}/${number}/${episodeNumber}.mp4`;
+                var lowQualityURL = highQualityURL.replace(/\.mp4$/, 'SD.mp4');
                 var option = document.createElement('option');
                 option.value = lowQualityURL;
-                option.text = 'الحلقة ' + episode.number;
+                option.text = 'الحلقة ' + episodeNumber;
                 fragment.appendChild(option);
-            });
+            }
 
             lowQualitySelect.innerHTML = '';
             lowQualitySelect.appendChild(fragment);
