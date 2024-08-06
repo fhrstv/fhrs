@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>فهرس</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 200px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        .movie-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .movie-poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .movie-info {
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .movie-info p {
+            margin-bottom: 10px;
+        }
+
+        .movie-title {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+       .story-title {
+            font-weight: bold;
+            margin-right: 10px; /* مسافة بين العنوان والنص */
+        }
+
+.story {
+    font-family: "Arial", sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: right;
+    direction: rtl;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    text-align-last: right; /* لضمان محاذاة النص في النهاية لليمين */
+    display: block; /* لجعل النص يظهر ككتلة مستقلة */
+}
+        h2, h3, a {
+            color: #000; /* تغيير اللون إلى الأسود */
+        }
+
+        .episode-box {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+#episodes {
+    width: 100%;
+    font-size: 18px;
+    padding: 10px;
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    direction: rtl;
+    text-align: center;
+    flex-direction: row-reverse;
+}
+
+
+        
+        /* تعديل iframe لجعل الفيديو من اليوتيوب أصغر */
+
+/* تعديل حجم مشغل الفيديو */
+video {
+    width: 100%;
+    max-height: 400px; /* ضبط الارتفاع الأقصى */
+    background-color: black;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>فهرس</h1>
+    </header>
+    <div class="container">
+        <div id="movieInfo"></div>
+        <div id="trailerContainer"></div>
+        <h2>شاهد الآن</h2>
+        <video id="videoPlayer" controls>
+            <source src="https://server.sanime.net/Video2/00071/1.mp4" type="video/mp4">
+        </video>
+        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
+        <div class="episode-box">
+            <select id="episodes" onchange="changeEpisode(this.value)">
+                <option value="https://server.sanime.net/Video2/00071/1.mp4">جودة الفيلم عالية</option>
+                <option value="https://server.sanime.net/Video2/00071/1SD.mp4">جودة الفيلم منخفضة</option>
+            </select>
+        </div>
+        <a href="../../Movies">رجوع</a>
+    </div>
+    <script>
+        const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
+        const mediaIds = [''];
+
+        mediaIds.forEach(mediaId => {
+            const apiUrl = `https://api.themoviedb.org/3/find/${mediaId}?api_key=${tmdbApiKey}&language=ar&external_source=imdb_id`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.movie_results.length > 0) {
+                        const tmdbMovieId = data.movie_results[0].id;
+                        const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=ar`;
+                        displayMediaDetails(tmdbApiUrl, 'movie');
+                    } else if (data.tv_results.length > 0) {
+                        const tmdbTvId = data.tv_results[0].id;
+                        const tmdbApiUrl = `https://api.themoviedb.org/3/tv/${tmdbTvId}?api_key=${tmdbApiKey}&language=ar`;
+                        displayMediaDetails(tmdbApiUrl, 'tv');
+                    } else {
+                        console.error('No data found for media with ID:', mediaId);
+                    }
+                })
+                .catch(error => console.error('Error fetching media details:', error));
+        });
+
+        function displayMediaDetails(apiUrl, type) {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const imdbRating = (Math.round(data.vote_average * 10) / 10).toFixed(1);
+                    const trimmedOverview = data.overview.trim();
+                    const releaseYear = data.release_date ? data.release_date.split('-')[0] : 'غير متوفر';
+                    const mediaInfo = `
+                        <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
+                        <h2 class="movie-title">${data.title || data.name}</h2>
+                        <div class="movie-details">
+                            <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
+                            <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>التقييم:</strong> ${imdbRating}/10</p>
+                            <div class="story-container">
+                            <div class="story-title">: القصة</div>
+                            <div class="story">${trimmedOverview}</div>
+                        </div>
+                        </div>
+                    `;
+                    document.getElementById('movieInfo').innerHTML = mediaInfo;
+
+                    const videoType = type === 'movie' ? 'movie' : 'tv';
+                    const videoUrl = `https://api.themoviedb.org/3/${videoType}/${data.id}?api_key=${tmdbApiKey}&append_to_response=videos`;
+                    fetch(videoUrl)
+                        .then(response => response.json())
+                        .then(videoData => {
+                            if (videoData.videos.results.length > 0) {
+                                const videoKey = videoData.videos.results[0].key;
+                                const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
+                                const trailerContainer = document.getElementById('trailerContainer');
+                                trailerContainer.innerHTML = `
+                                    <h3>التريلر</h3>
+                                    <iframe width="560" height="315" src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
+                                `;
+                            } else {
+                                console.error('No video found for this media.');
+                            }
+                        })
+                        .catch(error => console.error('Error fetching media video:', error));
+                })
+                .catch(error => console.error('Error fetching media details:', error));
+        }
+
+        function changeEpisode(videoUrl) {
+            var videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.src = videoUrl;
+        }
+    </script>
+</body>
+</html>
