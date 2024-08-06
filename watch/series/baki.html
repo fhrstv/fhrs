@@ -92,7 +92,11 @@
     var number = document.getElementById('number').value;
     var baseURL = `https://server.sanime.net/${word}/${number}/`;
 
-    highQualitySelect.innerHTML = ''; // مسح أي خيارات موجودة
+    // مسح أي خيارات موجودة
+    highQualitySelect.innerHTML = '';
+
+    // إنشاء عنصر DocumentFragment
+    var fragment = document.createDocumentFragment();
 
     // إضافة الخيار "اختر الحلقة" في بداية القائمة
     var placeholderOption = document.createElement('option');
@@ -100,22 +104,24 @@
     placeholderOption.disabled = true;
     placeholderOption.selected = true;
     placeholderOption.text = "اختر الحلقة";
-    highQualitySelect.appendChild(placeholderOption);
+    fragment.appendChild(placeholderOption);
 
-    // تحسين الأداء بتقليل عدد التعديلات على DOM
-    var optionsHTML = '';
+    // إنشاء خيارات الحلقات
     for (var i = 1; i <= numEpisodes; i++) {
         var episodeNumber = i;
         var episodeURL = baseURL + episodeNumber + '.mp4';
-        optionsHTML += `<option value="${episodeURL}">الحلقة ${episodeNumber}</option>`;
+        var option = document.createElement('option');
+        option.value = episodeURL;
+        option.text = 'الحلقة ' + episodeNumber;
+        fragment.appendChild(option);
     }
 
-    highQualitySelect.innerHTML += optionsHTML;
-    populateLowQualityEpisodes(); // تحديث قائمة الجودة المنخفضة بعد توليد الجودة العالية
+    // إضافة العناصر إلى القائمة دفعة واحدة
+    highQualitySelect.appendChild(fragment);
+
+    // تحديث قائمة الجودة المنخفضة
+    populateLowQualityEpisodes();
 }
-    window.onload = function() {
-        generateEpisodes(); // توليد الحلقات عند تحميل الصفحة
-    };
     </script>
 </body>
 </html>
