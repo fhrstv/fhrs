@@ -1,160 +1,21 @@
 <!DOCTYPE html>
 <html lang="ar">
-<html>
 <head>
-    <title>فهرس</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>توليد حلقات</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #000;
-        }
-
-        header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
-            text-align: center;
-            padding: 10px;
-        }
-
         .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            font-size: 18px;
-            border-radius: 10px;
-            overflow: hidden;
+            margin: 20px;
         }
-
-        iframe {
-            width: 100%;
-            height: 200px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
-
-        a:hover {
-            background-color: gold;
-        }
-
-        p {
-            text-align: justify;
-            margin-bottom: 10px;
-        }
-
-        .movie-details {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .movie-poster {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .movie-info {
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        .movie-info p {
-            margin-bottom: 10px;
-        }
-
-        .movie-title {
-            color: #ff0000;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        
-       .story-title {
-            font-weight: bold;
-            margin-right: 10px; /* مسافة بين العنوان والنص */
-        }
-
-.story {
-    font-family: "Arial", sans-serif;
-    font-size: 17px;
-    line-height: 1.6;
-    text-align: right;
-    direction: rtl;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    text-align-last: right; /* لضمان محاذاة النص في النهاية لليمين */
-    display: block; /* لجعل النص يظهر ككتلة مستقلة */
-}
-        h2, h3, a {
-            color: #000; /* تغيير اللون إلى الأسود */
-        }
-
-        .episode-box {
-    width: 80%;
-    margin: 20px auto;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-}
-
-#episodes {
-    width: 100%;
-    font-size: 18px;
-    padding: 10px;
-    height: 50px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    direction: rtl;
-    text-align: center;
-    flex-direction: row-reverse;
-}
-
-
-        
-        /* تعديل iframe لجعل الفيديو من اليوتيوب أصغر */
-
-/* تعديل حجم مشغل الفيديو */
-video {
-    width: 100%;
-    max-height: 400px; /* ضبط الارتفاع الأقصى */
-    background-color: black;
-}
-
     </style>
 </head>
-
 <body>
-        <header>
-        <h1>فهرس</h1>
-    </header>
     <div class="container">
         <h2>اختر الموسم</h2>
         <select id="seasonSelect" onchange="updateSeason()">
-            <option value="1|Video3|2361|15">الموسم 1</option>
-            <option value="2|Video2|1789|10">الموسم 2</option>
+            <option value="1|Video1|100|15">الموسم 1</option>
+            <option value="2|Video2|200|10">الموسم 2</option>
             <option value="3|Video3|2114|5">الموسم 3</option>
         </select>
 
@@ -173,16 +34,13 @@ video {
             Your browser does not support the video tag.
         </video>
     </div>
-</div>
-       <a href="../../Series">رجوع</a>
-    </div>
+
     <script>
-        function generateEpisodes(word, number, numEpisodes) {
+        function generateEpisodes(word, number, numEpisodes, manualEpisodes = []) {
             var highQualitySelect = document.getElementById('highQualityEpisodes');
             var baseURL = `https://server.sanime.net/${word}/${number}/`;
-            var fragment = document.createDocumentFragment(); // استخدام DocumentFragment لتجميع العناصر
+            var fragment = document.createDocumentFragment();
 
-            // إنشاء عنصر الخيار "اختر الحلقة"
             var placeholderOption = document.createElement('option');
             placeholderOption.value = "";
             placeholderOption.disabled = true;
@@ -190,7 +48,6 @@ video {
             placeholderOption.text = "اختر الحلقة";
             fragment.appendChild(placeholderOption);
 
-            // إنشاء خيارات الحلقات
             for (var i = 1; i <= numEpisodes; i++) {
                 var episodeNumber = i;
                 var episodeURL = baseURL + episodeNumber + '.mp4';
@@ -200,12 +57,19 @@ video {
                 fragment.appendChild(option);
             }
 
-            highQualitySelect.innerHTML = ''; // مسح القائمة الحالية
-            highQualitySelect.appendChild(fragment); // إضافة جميع العناصر دفعة واحدة
+            // إضافة الحلقات اليدوية
+            manualEpisodes.forEach(function(episode) {
+                var option = document.createElement('option');
+                option.value = episode.url;
+                option.text = episode.label;
+                fragment.appendChild(option);
+            });
 
-            populateLowQualityEpisodes(word, number, numEpisodes); // تحديث قائمة الجودة المنخفضة بعد توليد الجودة العالية
+            highQualitySelect.innerHTML = '';
+            highQualitySelect.appendChild(fragment);
 
-            // تعيين الحلقة 1 كمصدر للفيديو عند تحميل الصفحة
+            populateLowQualityEpisodes(word, number, numEpisodes, manualEpisodes);
+
             var firstEpisodeURL = baseURL + '1.mp4';
             var videoSource = document.getElementById('videoSource');
             var videoPlayer = document.getElementById('videoPlayer');
@@ -213,13 +77,10 @@ video {
             videoPlayer.load();
         }
 
-        function populateLowQualityEpisodes(word, number, numEpisodes) {
+        function populateLowQualityEpisodes(word, number, numEpisodes, manualEpisodes = []) {
             var lowQualitySelect = document.getElementById('lowQualityEpisodes');
-            var fragment = document.createDocumentFragment(); // استخدام DocumentFragment لتجميع العناصر
+            var fragment = document.createDocumentFragment();
 
-            lowQualitySelect.innerHTML = ''; // مسح القائمة الحالية
-
-            // إنشاء عنصر الخيار "اختر الحلقة"
             var placeholderOption = document.createElement('option');
             placeholderOption.value = "";
             placeholderOption.disabled = true;
@@ -227,17 +88,26 @@ video {
             placeholderOption.text = "اختر الحلقة";
             fragment.appendChild(placeholderOption);
 
-            // إضافة الخيارات الخاصة بالجودة المنخفضة
             for (var i = 1; i <= numEpisodes; i++) {
                 var highQualityURL = `https://server.sanime.net/${word}/${number}/${i}.mp4`;
                 var lowQualityURL = highQualityURL.replace(/\.mp4$/, 'SD.mp4');
-                var lowQualityOption = document.createElement('option');
-                lowQualityOption.value = lowQualityURL;
-                lowQualityOption.text = 'الحلقة ' + i;
-                fragment.appendChild(lowQualityOption);
+                var option = document.createElement('option');
+                option.value = lowQualityURL;
+                option.text = 'الحلقة ' + i;
+                fragment.appendChild(option);
             }
 
-            lowQualitySelect.appendChild(fragment); // إضافة جميع العناصر دفعة واحدة
+            // إضافة الحلقات اليدوية
+            manualEpisodes.forEach(function(episode) {
+                var lowQualityURL = episode.url.replace(/\.mp4$/, 'SD.mp4');
+                var option = document.createElement('option');
+                option.value = lowQualityURL;
+                option.text = episode.label;
+                fragment.appendChild(option);
+            });
+
+            lowQualitySelect.innerHTML = '';
+            lowQualitySelect.appendChild(fragment);
         }
 
         function updateSeason() {
@@ -246,9 +116,17 @@ video {
             var seasonNumber = selectedValue[0];
             var word = selectedValue[1];
             var number = selectedValue[2];
-            var numEpisodes = selectedValue[3]; // عدد الحلقات المسموح توليدها بناءً على الموسم المختار
+            var numEpisodes = parseInt(selectedValue[3]);
 
-            generateEpisodes(word, number, numEpisodes);
+            // قائمة الحلقات اليدوية للمواسم
+            var manualEpisodes = [];
+            if (seasonNumber === '3') {
+                manualEpisodes = [
+                    {url: 'https://server.sanime.net/Video2/1789/1.mp4', label: 'الحلقة 3 يدوياً'}
+                ];
+            }
+
+            generateEpisodes(word, number, numEpisodes, manualEpisodes);
         }
 
         function changeEpisode(value, quality) {
@@ -263,19 +141,18 @@ video {
                 videoPlayer.load();
             }
 
-            // تعيين الاختيار إلى "اختر الحلقة" بناءً على الجودة
             var highQualitySelect = document.getElementById('highQualityEpisodes');
             var lowQualitySelect = document.getElementById('lowQualityEpisodes');
 
             if (quality === 'high') {
-                lowQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة" في الجودة المنخفضة
+                lowQualitySelect.selectedIndex = 0;
             } else if (quality === 'low') {
-                highQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة" في الجودة العالية
+                highQualitySelect.selectedIndex = 0;
             }
         }
 
         window.onload = function() {
-            updateSeason(); // توليد الحلقات عند تحميل الصفحة بناءً على الموسم الافتراضي
+            updateSeason();
         };
     </script>
 </body>
