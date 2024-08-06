@@ -106,6 +106,13 @@
     highQualitySelect.appendChild(fragment); // إضافة جميع العناصر دفعة واحدة
 
     populateLowQualityEpisodes(); // تحديث قائمة الجودة المنخفضة بعد توليد الجودة العالية
+
+    // تعيين الحلقة 1 كمصدر للفيديو عند تحميل الصفحة
+    var firstEpisodeURL = baseURL + '1.mp4';
+    var videoSource = document.getElementById('videoSource');
+    var videoPlayer = document.getElementById('videoPlayer');
+    videoSource.src = firstEpisodeURL;
+    videoPlayer.load();
 }
 
 function populateLowQualityEpisodes() {
@@ -134,6 +141,29 @@ function populateLowQualityEpisodes() {
     }
 
     lowQualitySelect.appendChild(fragment); // إضافة جميع العناصر دفعة واحدة
+}
+
+function changeEpisode(value, quality) {
+    var videoSource = document.getElementById('videoSource');
+    var videoPlayer = document.getElementById('videoPlayer');
+
+    if (videoSource.src !== value) {
+        videoSource.src = value;
+        videoPlayer.load();
+    } else {
+        videoPlayer.currentTime = 0;
+        videoPlayer.load();
+    }
+
+    // تعيين الاختيار إلى "اختر الحلقة" بناءً على الجودة
+    var highQualitySelect = document.getElementById('highQualityEpisodes');
+    var lowQualitySelect = document.getElementById('lowQualityEpisodes');
+
+    if (quality === 'high') {
+        lowQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة" في الجودة المنخفضة
+    } else if (quality === 'low') {
+        highQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة" في الجودة العالية
+    }
 }
 
 window.onload = function() {
