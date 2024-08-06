@@ -48,20 +48,25 @@
             placeholderOption.text = "اختر الحلقة";
             fragment.appendChild(placeholderOption);
 
+            // إعداد قائمة الأرقام اليدوية
+            var manualEpisodesNumbers = manualEpisodes.map(ep => parseInt(ep.number));
+
             for (var i = 1; i <= numEpisodes; i++) {
-                var episodeNumber = i;
-                var episodeURL = baseURL + episodeNumber + '.mp4';
-                var option = document.createElement('option');
-                option.value = episodeURL;
-                option.text = 'الحلقة ' + episodeNumber;
-                fragment.appendChild(option);
+                if (!manualEpisodesNumbers.includes(i)) {
+                    var episodeNumber = i;
+                    var episodeURL = baseURL + episodeNumber + '.mp4';
+                    var option = document.createElement('option');
+                    option.value = episodeURL;
+                    option.text = 'الحلقة ' + episodeNumber;
+                    fragment.appendChild(option);
+                }
             }
 
-            // إضافة الحلقات اليدوية
+            // إضافة الحلقات اليدوية في المواقع المحددة
             manualEpisodes.forEach(function(episode) {
                 var option = document.createElement('option');
                 option.value = episode.url;
-                option.text = episode.label;
+                option.text = 'الحلقة ' + episode.number + ' يدوياً';
                 fragment.appendChild(option);
             });
 
@@ -88,21 +93,24 @@
             placeholderOption.text = "اختر الحلقة";
             fragment.appendChild(placeholderOption);
 
+            var manualEpisodesNumbers = manualEpisodes.map(ep => parseInt(ep.number));
+
             for (var i = 1; i <= numEpisodes; i++) {
-                var highQualityURL = `https://server.sanime.net/${word}/${number}/${i}.mp4`;
-                var lowQualityURL = highQualityURL.replace(/\.mp4$/, 'SD.mp4');
-                var option = document.createElement('option');
-                option.value = lowQualityURL;
-                option.text = 'الحلقة ' + i;
-                fragment.appendChild(option);
+                if (!manualEpisodesNumbers.includes(i)) {
+                    var highQualityURL = `https://server.sanime.net/${word}/${number}/${i}.mp4`;
+                    var lowQualityURL = highQualityURL.replace(/\.mp4$/, 'SD.mp4');
+                    var option = document.createElement('option');
+                    option.value = lowQualityURL;
+                    option.text = 'الحلقة ' + i;
+                    fragment.appendChild(option);
+                }
             }
 
-            // إضافة الحلقات اليدوية
             manualEpisodes.forEach(function(episode) {
                 var lowQualityURL = episode.url.replace(/\.mp4$/, 'SD.mp4');
                 var option = document.createElement('option');
                 option.value = lowQualityURL;
-                option.text = episode.label;
+                option.text = 'الحلقة ' + episode.number + ' يدوياً';
                 fragment.appendChild(option);
             });
 
@@ -118,11 +126,10 @@
             var number = selectedValue[2];
             var numEpisodes = parseInt(selectedValue[3]);
 
-            // قائمة الحلقات اليدوية للمواسم
             var manualEpisodes = [];
             if (seasonNumber === '3') {
                 manualEpisodes = [
-                    {url: 'https://server.sanime.net/Video2/1789/1.mp4', label: 'الحلقة 3 يدوياً'}
+                    {url: 'https://server.sanime.net/Video2/1789/1.mp4', number: 3}
                 ];
             }
 
