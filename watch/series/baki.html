@@ -14,9 +14,9 @@
     <div class="container">
         <h2>اختر الموسم</h2>
         <select id="seasonSelect" onchange="updateSeason()">
-            <option value="1|Video|1116">الموسم 1</option>
-            <option value="2|Video3|2361">الموسم 2</option>
-            <option value="3|Video3|2114">الموسم 3</option>
+            <option value="1|Video1|100|15">الموسم 1</option>
+            <option value="2|Video2|200|10">الموسم 2</option>
+            <option value="3|Video3|2114|5">الموسم 3</option>
         </select>
 
         <h2>الحلقات بالجودة العالية</h2>
@@ -105,7 +105,7 @@
             var seasonNumber = selectedValue[0];
             var word = selectedValue[1];
             var number = selectedValue[2];
-            var numEpisodes = 2; // عدد الحلقات المسموح توليدها، يمكنك ضبطه كما تراه مناسباً
+            var numEpisodes = selectedValue[3]; // عدد الحلقات المسموح توليدها بناءً على الموسم المختار
 
             generateEpisodes(word, number, numEpisodes);
         }
