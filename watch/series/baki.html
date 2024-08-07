@@ -262,6 +262,19 @@ function displayEpisodes() {
     downloadOption.textContent = episode.title;
     episodeDownload.appendChild(downloadOption);
   });
+
+  // إضافة حدث التغيير لمشغل الفيديو
+  episodeSelector.addEventListener("change", function(event) {
+    const videoUrl = event.target.value;
+    if (videoUrl) {
+      window.open(videoUrl, '_blank');
+    }
+  });
+
+  // إضافة حدث التغيير لتنزيل الحلقة
+  episodeDownload.addEventListener("change", function(event) {
+    downloadEpisode(event.target.value);
+  });
 }
 
 // استدعاء دالة العرض عند تحميل الصفحة
