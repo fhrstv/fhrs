@@ -251,25 +251,27 @@
         }
 
         // عرض الحلقات والأزرار
-        function displayEpisodes() {
-            const episodes = fetchEpisodes();
-            const episodeSelector = document.getElementById("episodeSelector");
-            const episodeDownload = document.getElementById("episodeDownload");
+        // عرض الحلقات والأزرار
+function displayEpisodes() {
+    const episodes = fetchEpisodes();
+    const episodeSelector = document.getElementById("episodeSelector");
+    const episodeDownload = document.getElementById("episodeDownload");
 
-            episodes.forEach(episode => {
-                const option = document.createElement("option");
-                option.value = episode.id;
-                option.textContent = episode.title;
-                episodeSelector.appendChild(option);
+    episodes.forEach(episode => {
+        const option = document.createElement("option");
+        option.value = episode.id;
+        option.textContent = episode.title;
+        episodeSelector.appendChild(option);
 
-                const downloadButton = document.createElement("a");
-                downloadButton.href = `https://savefrom.net/?url=https://vk.com/video_ext.php?oid=${episode.id}&id=456240756&hash=somehashvalue`;
-                downloadButton.textContent = `تحميل ${episode.title}`;
-                episodeDownload.appendChild(downloadButton);
-            });
-        }
+        const downloadButton = document.createElement("a");
+        const oid = "784675179"; // قم بتعديل oid إذا لزم الأمر
+        downloadButton.href = `sfrom.net/https://m.vk.com/video${oid}_${episode.id}`;
+        downloadButton.textContent = `تحميل ${episode.title}`;
+        episodeDownload.appendChild(downloadButton);
+    });
+}
 
-        displayEpisodes();
+displayEpisodes();
     </script>
 </body> 
 </html>
