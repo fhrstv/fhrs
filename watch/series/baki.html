@@ -183,86 +183,91 @@
             <option value="" disabled selected>اختر الحلقة للتحميل</option>
             <!-- سيتم توليد الحلقات هنا بواسطة JavaScript -->
         </select>
-        <iframe id="movieIframe" src="" frameborder="0" allowfullscreen></iframe>
+        <iframe id="movieIframe" src="" width="100%" height="400px"></iframe>
     </div>
 
     <script>
         const apiKey = "cf64a661774f647b7513facb9f1e55e5";
-        const mediaId = 202040;
-        const mediaType = "movie"; // أو "tv" إذا كان المسلسل
+const mediaId = 202040;
+const mediaType = "movie"; // أو "tv" إذا كان المسلسل
 
-        // جلب بيانات الفيلم أو المسلسل
-        fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-            const title = data.name || data.title;
-            const overview = data.overview || "لا توجد معلومات";
-            const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "";
-            const genres = data.genres && data.genres.length > 0 ? data.genres.map(genre => genre.name).join(", ") : "غير محدد";
-            const releaseDate = data.release_date || data.first_air_date || "تاريخ الإصدار غير متوفر";
-            const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
+// جلب بيانات الفيلم أو المسلسل
+fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    const title = data.name || data.title;
+    const overview = data.overview || "لا توجد معلومات";
+    const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "";
+    const genres = data.genres && data.genres.length > 0 ? data.genres.map(genre => genre.name).join(", ") : "غير محدد";
+    const releaseDate = data.release_date || data.first_air_date || "تاريخ الإصدار غير متوفر";
+    const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
 
-            document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
-            document.getElementById("overview").innerHTML = `القصة : ${overview}`;
-            document.getElementById("poster").src = posterPath;
-            document.getElementById("genres").innerHTML = `النوع : ${genres}`;
-            document.getElementById("release-date").innerHTML = ` تاريخ الإصدار : ${releaseDate}`;
-            document.getElementById("rating").innerHTML = `التقييم : ${rating}`;
+    document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
+    document.getElementById("overview").innerHTML = `القصة : ${overview}`;
+    document.getElementById("poster").src = posterPath;
+    document.getElementById("genres").innerHTML = `النوع : ${genres}`;
+    document.getElementById("release-date").innerHTML = `تاريخ الإصدار : ${releaseDate}`;
+    document.getElementById("rating").innerHTML = `التقييم : ${rating}`;
 
-            // جلب التريلر
-            return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-            const trailers = data.results.filter(video => video.type === 'Trailer');
-            if (trailers.length > 0) {
-                const trailer = trailers[0];
-                const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
-                document.getElementById("trailer").innerHTML = `
-                    <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
-                `;
-            }
-          })
-          .catch(error => console.error('Error:', error));
-
-        // جلب بيانات الحلقات
-        function fetchEpisodes() {
-            // مثال على الحلقات
-            return [
-                {id: '456240756', title: 'الموسم 1 : الحلقة 1', oid: '784675179'},
-                {id: '456240757', title: 'الموسم 1 : الحلقة 2', oid: '784675179'},
-                {id: '456240753', title: 'الموسم 1 : الحلقة 3', oid: '784675179'},
-                // أضف باقي الحلقات هنا
-            ];
-        }
-
-        function downloadEpisode(episodeValue) {
-    if (episodeValue) {
-        const [oid, id] = episodeValue.split('_');
-        const downloadUrl = `https://sfrom.net/https://m.vk.com/video${oid}_${id}`;
-        window.open(downloadUrl, '_blank');
+    // جلب التريلر
+    return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    const trailers = data.results.filter(video => video.type === 'Trailer');
+    if (trailers.length > 0) {
+      const trailer = trailers[0];
+      const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
+      document.getElementById("trailer").innerHTML = `
+        <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
+      `;
     }
+  })
+  .catch(error => console.error('Error:', error));
+
+// جلب بيانات الحلقات
+function fetchEpisodes() {
+  // مثال على الحلقات
+  return [
+    { id: '456240756', title: 'الموسم 1 : الحلقة 1', oid: '784675179' },
+    { id: '456240757', title: 'الموسم 1 : الحلقة 2', oid: '784675179' },
+    { id: '456240753', title: 'الموسم 1 : الحلقة 3', oid: '784675179' },
+    // أضف باقي الحلقات هنا
+  ];
+}
+
+function downloadEpisode(episodeValue) {
+  if (episodeValue) {
+    const [oid, id] = episodeValue.split('_');
+    const downloadUrl = `https://sfrom.net/https://vk.com/video${oid}_${id}`;
+    window.open(downloadUrl, '_blank');
+  }
 }
 
 function displayEpisodes() {
-    const episodes = fetchEpisodes();
-    const episodeSelector = document.getElementById("episodeSelector");
-    const episodeDownload = document.getElementById("episodeDownload");
+  const episodes = fetchEpisodes();
+  const episodeSelector = document.getElementById("episodeSelector");
+  const episodeDownload = document.getElementById("episodeDownload");
 
-    episodes.forEach(episode => {
-        const viewOption = document.createElement("option");
-        viewOption.value = `https://vk.com/video_ext.php?oid=${episode.oid}&id=${episode.id}&hash=&hd=2`;
-        viewOption.textContent = episode.title;
-        episodeSelector.appendChild(viewOption);
+  episodes.forEach(episode => {
+    const viewOption = document.createElement("option");
+    viewOption.value = `https://vk.com/video_ext.php?oid=${episode.oid}&id=${episode.id}&hash=&hd=2`;
+    viewOption.textContent = episode.title;
+    episodeSelector.appendChild(viewOption);
 
-        const downloadOption = document.createElement("option");
-        downloadOption.value = `${episode.oid}_${episode.id}`;
-        downloadOption.textContent = episode.title;
-        episodeDownload.appendChild(downloadOption);
-    });
+    const downloadOption = document.createElement("option");
+    downloadOption.value = `${episode.oid}_${episode.id}`;
+    downloadOption.textContent = episode.title;
+    episodeDownload.appendChild(downloadOption);
+  });
 }
+
+// استدعاء دالة العرض عند تحميل الصفحة
+document.addEventListener("DOMContentLoaded", function() {
+  displayEpisodes();
+});
     </script>
 </body>
 </html>
