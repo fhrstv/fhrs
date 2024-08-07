@@ -198,6 +198,7 @@
      <option value="https://vk.com/video_ext.php?oid=760598098&id=456248178&hash=&hd=2">الموسم 2 : الحلقة 7</option>
     <option value="https://vk.com/video_ext.php?oid=760598098&id=456248179&hash=&hd=2">الموسم 2 : الحلقة 8</option>
 </select> 
+<div id="downloadButtonContainer"></div> <!-- حاوية زر التحميل -->
     
     
     <h2>
@@ -263,27 +264,21 @@
       .catch(error => console.error(error));
 
       function changeEpisode(url) {
-            document.getElementById('movieIframe').src = url;
-        }
-        
-        
-        
-          function changeEpisode(url) {
-            const iframe = document.getElementById('movieIframe');
-            iframe.src = url;
+    const iframe = document.getElementById('movieIframe');
+    iframe.src = url;
 
-            const oid = new URL(url).searchParams.get('oid');
-            const id = new URL(url).searchParams.get('id');
-            if (oid && id) {
-                const downloadUrl = `https://sfrom.net/https://m.vk.com/video${oid}_${id}`;
-                const downloadButton = document.createElement('a');
-                downloadButton.href = downloadUrl;
-                downloadButton.className = 'btn';
-                downloadButton.innerText = 'تحميل';
-                document.getElementById('trailerContainer').innerHTML = '';
-                document.getElementById('trailerContainer').appendChild(downloadButton);
-            }
-        }
+    const oid = new URL(url).searchParams.get('oid');
+    const id = new URL(url).searchParams.get('id');
+    if (oid && id) {
+        const downloadUrl = `https://sfrom.net/https://m.vk.com/video${oid}_${id}`;
+        const downloadButton = document.createElement('a');
+        downloadButton.href = downloadUrl;
+        downloadButton.className = 'btn';
+        downloadButton.innerText = 'تحميل';
+        document.getElementById('downloadButtonContainer').innerHTML = ''; // تنظيف الحاوية القديمة
+        document.getElementById('downloadButtonContainer').appendChild(downloadButton);
+    }
+}
 
 </script>
 </body>
