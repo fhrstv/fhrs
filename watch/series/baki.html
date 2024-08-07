@@ -145,6 +145,22 @@
         .expand-icon {
             margin-right: 10px; /* إزالة المسافة الزائدة بعد الرمز الأخير */
         }
+        
+        select {
+    width: 100%;
+    font-size: 18px;
+    padding: 10px;
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    direction: rtl;
+    text-align: center;
+    flex-direction: row-reverse;
+    margin-bottom: 10px; /* لتوفير مساحة بين القائمة وعناصر الصفحة الأخرى */
+}
     </style> 
 </head> 
 <body> 
@@ -164,10 +180,9 @@
         <div id="trailerContainer" class="trailer-container"></div>
         <h2>شاهد الآن</h2>
         <iframe id="movieIframe" src="https://vk.com/video_ext.php?oid=784675179&id=456240756&hash=&hd=2s" frameborder="0" allowfullscreen></iframe> 
-        <select id="episodeSelector" onchange="changeEpisode(this.value)">
-            <option value="" disabled selected>اختر الحلقة</option>
-            <!-- الحلقات يتم توليدها هنا -->
-        </select>
+        <select id="episodeDownload" onchange="downloadEpisode(this.value)">
+    <option value="" disabled selected>اختر الحلقة للتحميل</option>
+</select>
         <div id="episodeDownload">
             <!-- أزرار تحميل الحلقات يتم توليدها هنا -->
         </div>
@@ -258,16 +273,19 @@ function displayEpisodes() {
 
     episodes.forEach(episode => {
         const option = document.createElement("option");
-        option.value = episode.id;
-        option.textContent = episode.title;
-        episodeSelector.appendChild(option);
+        option.value = `https://sfrom.net/https://m.vk.com/video784675179_${episode.id}`;
+        option.textContent = `تحميل ${episode.title}`;
+        episodeDownload.appendChild(option);
 
-        const downloadButton = document.createElement("a");
-        const oid = "784675179"; // قم بتعديل oid إذا لزم الأمر
-        downloadButton.href = `https://sfrom.net/https://m.vk.com/video${oid}_${episode.id}`;
-        downloadButton.textContent = `تحميل ${episode.title}`;
-        episodeDownload.appendChild(downloadButton);
+        const viewOption = document.createElement("option");
+        viewOption.value = episode.url;
+        viewOption.textContent = episode.title;
+        episodeSelector.appendChild(viewOption);
     });
+}
+
+function downloadEpisode(url) {
+    window.open(url, '_blank');
 }
 
 displayEpisodes();
