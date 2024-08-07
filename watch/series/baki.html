@@ -52,8 +52,8 @@
         document.getElementById('downloadButton').addEventListener('click', () => {
             const { oid, id } = getOidAndIdFromIframe();
             const downloadUrl = convertUrl(oid, id);
-            if (downloadUrl.startsWith('https://sfrom.net')) {
-                window.location.href = downloadUrl;
+            if (downloadUrl.startsWith('sfrom.net')) {
+                window.location.href = `https://${downloadUrl}`;
             } else {
                 alert(downloadUrl); // يعرض رسالة إذا كانت القيم غير صحيحة
             }
