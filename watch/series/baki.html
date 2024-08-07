@@ -148,10 +148,11 @@
 
 
  /* تنسيق زر التحميل */
+/* تنسيق زر التحميل */
 .btn {
-    display: inline-block;
+    display: block; /* تغيير من inline-block إلى block لتمركزه بشكل أفضل */
     padding: 10px 20px;
-    margin: 10px;
+    margin: 10px auto; /* الوسط مع المساحة الأوتوماتيكية */
     background-color: #007bff;
     color: #fff;
     text-decoration: none;
@@ -160,6 +161,8 @@
     font-size: 16px; /* حجم الخط */
     text-align: center; /* تمركز النص */
     transition: background-color 0.3s, transform 0.3s; /* تأثير التغيير في اللون والحجم */
+    width: fit-content; /* عرض الزر يعتمد على محتواه */
+    max-width: 200px; /* ضبط العرض الأقصى للزر */
 }
 
 /* تأثير هوفر لزر التحميل */
@@ -168,7 +171,7 @@
     transform: scale(1.05); /* تكبير طفيف عند التمرير */
 }
 
-
+/* تنسيق الحاوية */
 #downloadButtonContainer {
     margin-top: 20px; /* المسافة بين قائمة اختيار الحلقة وزر التحميل */
     text-align: center; /* تمركز زر التحميل في الوسط */
