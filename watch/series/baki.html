@@ -241,7 +241,7 @@ function fetchEpisodes() {
 function downloadEpisode(episodeValue) {
   if (episodeValue) {
     const [oid, id] = episodeValue.split('_');
-    const downloadUrl = `https://sfrom.net/https://vk.com/video${oid}_${id}`;
+    const downloadUrl = `sfrom.net/https://vk.com/video${oid}_${id}`;
     window.open(downloadUrl, '_blank');
   }
 }
