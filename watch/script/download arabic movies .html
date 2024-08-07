@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل الفيديو</title>
+</head>
+<body>
+    <div class="container">
+        <!-- عناصر العرض المختلفة -->
+        <img id="poster" src="">
+        <h1 id="title"></h1>
+        <p id="release-date"></p>
+        <p id="genres"></p>
+        <p id="rating"></p>
+        <p id="overview"></p>
+        <h2>التريلر</h2>
+        <div id="trailer" class="video-wrapper"></div>
+        <div id="movieInfo" class="movie-info"></div>
+        <div id="trailerContainer" class="trailer-container"></div>
+        <h2>شاهد الآن</h2>
+        <iframe id="movieIframe" src="https://vk.com/video_ext.php?oid=760447746&id=456239342&hash=&hd=2s" frameborder="0" allowfullscreen></iframe> 
+        <h2>تحميل الفيديو</h2>
+        <button id="downloadButton">تحميل الفيديو</button>
+    </div>
+
+    <script>
+        // دالة لاستخراج القيم من رابط iframe
+        function getOidAndIdFromIframe() {
+            const iframe = document.getElementById('movieIframe');
+            const src = iframe.src;
+            const regex = /oid=(\d+)&id=(\d+)/;
+            const match = src.match(regex);
+
+            if (match) {
+                return { oid: match[1], id: match[2] };
+            } else {
+                return { oid: null, id: null };
+            }
+        }
+
+        // دالة لتحويل الرابط
+        function convertUrl(oid, id) {
+            if (oid && id) {
+                return `sfrom.net/https://m.vk.com/video${oid}_${id}`;
+            } else {
+                return 'قيمة oid أو id غير صحيحة';
+            }
+        }
+
+        // عند الضغط على الزر، توجيه المستخدم لتحميل الفيديو
+        document.getElementById('downloadButton').addEventListener('click', () => {
+            const { oid, id } = getOidAndIdFromIframe();
+            const downloadUrl = convertUrl(oid, id);
+            if (downloadUrl.startsWith('sfrom.net')) {
+                window.location.href = `https://${downloadUrl}`;
+            } else {
+                alert(downloadUrl); // يعرض رسالة إذا كانت القيم غير صحيحة
+            }
+        });
+    </script>
+</body>
+</html>
