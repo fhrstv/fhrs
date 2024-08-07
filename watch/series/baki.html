@@ -250,8 +250,7 @@
             ];
         }
 
-        // عرض الحلقات والأزرار
-        // عرض الحلقات والأزرار
+        
 function displayEpisodes() {
     const episodes = fetchEpisodes();
     const episodeSelector = document.getElementById("episodeSelector");
@@ -265,7 +264,7 @@ function displayEpisodes() {
 
         const downloadButton = document.createElement("a");
         const oid = "784675179"; // قم بتعديل oid إذا لزم الأمر
-        downloadButton.href = `sfrom.net/https://m.vk.com/video${oid}_${episode.id}`;
+        downloadButton.href = `https://sfrom.net/https://m.vk.com/video${oid}_${episode.id}`;
         downloadButton.textContent = `تحميل ${episode.title}`;
         episodeDownload.appendChild(downloadButton);
     });
