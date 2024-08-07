@@ -280,6 +280,7 @@
         downloadButton.href = downloadUrl;
         downloadButton.className = 'btn';
         downloadButton.innerText = 'تحميل';
+        downloadButton.target = '_blank';
         document.getElementById('downloadButtonContainer').innerHTML = ''; // تنظيف الحاوية القديمة
         document.getElementById('downloadButtonContainer').appendChild(downloadButton);
     }
