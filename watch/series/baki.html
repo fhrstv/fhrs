@@ -238,38 +238,31 @@
             ];
         }
 
-        function displayEpisodes() {
-            const episodes = fetchEpisodes();
-            const episodeSelector = document.getElementById("episodeSelector");
-            const episodeDownload = document.getElementById("episodeDownload");
-            episodeSelector.innerHTML = "<option value='' disabled selected>اختر الحلقة للمشاهدة</option>";
-            episodeDownload.innerHTML = "<option value='' disabled selected>اختر الحلقة للتحميل</option>";
-            
-            episodes.forEach(episode => {
-                const option = document.createElement("option");
-                option.value = episode.id;
-                option.textContent = episode.title;
-                episodeSelector.appendChild(option);
+        function downloadEpisode(episodeValue) {
+    if (episodeValue) {
+        const [oid, id] = episodeValue.split('_');
+        const downloadUrl = `https://sfrom.net/https://m.vk.com/video${oid}_${id}`;
+        window.open(downloadUrl, '_blank');
+    }
+}
 
-                const optionDownload = document.createElement("option");
-                optionDownload.value = `https://vk.com/video_ext.php?oid=${episode.oid}&id=${episode.id}`;
-                optionDownload.textContent = episode.title;
-                episodeDownload.appendChild(optionDownload);
-            });
-        }
+function displayEpisodes() {
+    const episodes = fetchEpisodes();
+    const episodeSelector = document.getElementById("episodeSelector");
+    const episodeDownload = document.getElementById("episodeDownload");
 
-        displayEpisodes();
+    episodes.forEach(episode => {
+        const viewOption = document.createElement("option");
+        viewOption.value = `https://vk.com/video_ext.php?oid=${episode.oid}&id=${episode.id}&hash=&hd=2`;
+        viewOption.textContent = episode.title;
+        episodeSelector.appendChild(viewOption);
 
-        function changeEpisode(episodeId) {
-            const iframe = document.getElementById("movieIframe");
-            iframe.src = `https://vk.com/video_ext.php?oid=784675179&id=${episodeId}&hash=somehashvalue`;
-        }
-
-        function downloadEpisode(episodeUrl) {
-            if (episodeUrl) {
-                window.open(episodeUrl, '_blank');
-            }
-        }
+        const downloadOption = document.createElement("option");
+        downloadOption.value = `${episode.oid}_${episode.id}`;
+        downloadOption.textContent = episode.title;
+        episodeDownload.appendChild(downloadOption);
+    });
+}
     </script>
 </body>
 </html>
