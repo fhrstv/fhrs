@@ -159,7 +159,7 @@
     direction: rtl;
     text-align: center;
     flex-direction: row-reverse;
-    margin-bottom: 10px; /* لتوفير مساحة بين القائمة وعناصر الصفحة الأخرى */
+    margin-bottom: 10px; /* لتوفير مساحة بين القوائم المنسدلة وعناصر الصفحة الأخرى */
 }
     </style> 
 </head> 
@@ -168,40 +168,17 @@
         <h1>فهرس</h1> 
     </header>
     <div class="container">
-        <img id="poster" src="">
-        <h1 id="title"></h1>
-        <p id="release-date"></p>
-        <p id="genres"></p>
-        <p id="rating"></p>
-        <p id="overview"></p>
-        <h2>التريلر</h2>
-        <div id="trailer" class="video-wrapper"></div>
-        <div id="movieInfo" class="movie-info"></div>
-        <div id="trailerContainer" class="trailer-container"></div>
-        <h2>شاهد الآن</h2>
-        <iframe id="movieIframe" src="https://vk.com/video_ext.php?oid=784675179&id=456240756&hash=&hd=2s" frameborder="0" allowfullscreen></iframe> 
-        <select id="episodeDownload" onchange="downloadEpisode(this.value)">
-    <option value="" disabled selected>اختر الحلقة للتحميل</option>
-</select>
-        <div id="episodeDownload">
-            <!-- أزرار تحميل الحلقات يتم توليدها هنا -->
-        </div>
-        <h2>
-            إذا لم يظهر مفتاح الإعدادات او مفتاح تكبير الشاشة
-            <i class="fa-solid fa-gear settings-icon"></i>
-            <i class="fa-solid fa-up-right-and-down-left-from-center expand-icon"></i> 
-            <br>
-            جرب أحد هذه الحلول وسيعمل معك
-            <br>
-            ( قم بتغيير عرض متصفحك من وضع سطح المكتب إلى وضع الهاتف المحمول )
-            <br> أو ( قم بتدوير هاتفك الى الوضع الأفقي وليس العامودي )
-            <br>أو ( قم بعمل الخطوتين معا )
-            <br> وستجد مفتاح الإعدادات و تكبير الشاشة و منها تستطيع أن تقوم بتغيير الجودة
-            <br> إذا لم تعمل الحلقة او الفيلم ، الرجاء نسخ الرابط
-            <br> و إرساله لنا من خلال صفحة اتصل بنا
-        </h2>
-        <a href="../../Movies">رجوع</a>
-    </div>
+    <!-- باقي عناصر الصفحة -->
+    <select id="episodeSelector" onchange="changeEpisode(this.value)">
+        <option value="" disabled selected>اختر الحلقة للمشاهدة</option>
+        <!-- سيتم توليد الحلقات هنا بواسطة JavaScript -->
+    </select>
+    <select id="episodeDownload" onchange="downloadEpisode(this.value)">
+        <option value="" disabled selected>اختر الحلقة للتحميل</option>
+        <!-- سيتم توليد الحلقات هنا بواسطة JavaScript -->
+    </select>
+    <!-- باقي عناصر الصفحة -->
+</div>
 
     <script>
         const apiKey = "cf64a661774f647b7513facb9f1e55e5";
@@ -257,31 +234,35 @@
 
         // جلب بيانات الحلقات
         function fetchEpisodes() {
-            // استبدل هذا بالبيانات الحقيقية من الخادم أو API الخاص بك
-            return [
-                { id: "456240756", title: "حلقة 1" },
-                { id: "456240757", title: "حلقة 2" }
-                // أضف المزيد من الحلقات هنا
-            ];
-        }
+    // مثال على الحلقات
+    return [
+        {id: '456240756', title: 'الموسم 1 : الحلقة 1', oid: '784675179'},
+        {id: '456240757', title: 'الموسم 1 : الحلقة 2', oid: '784675179'},
+        {id: '456240753', title: 'الموسم 1 : الحلقة 3', oid: '784675179'},
+        // أضف باقي الحلقات هنا
+    ];
+}
 
-        
 function displayEpisodes() {
     const episodes = fetchEpisodes();
     const episodeSelector = document.getElementById("episodeSelector");
     const episodeDownload = document.getElementById("episodeDownload");
 
     episodes.forEach(episode => {
-        const option = document.createElement("option");
-        option.value = `https://sfrom.net/https://m.vk.com/video784675179_${episode.id}`;
-        option.textContent = `تحميل ${episode.title}`;
-        episodeDownload.appendChild(option);
-
         const viewOption = document.createElement("option");
-        viewOption.value = episode.url;
+        viewOption.value = `https://vk.com/video_ext.php?oid=${episode.oid}&id=${episode.id}&hash=&hd=2`;
         viewOption.textContent = episode.title;
         episodeSelector.appendChild(viewOption);
+
+        const downloadOption = document.createElement("option");
+        downloadOption.value = `https://sfrom.net/https://m.vk.com/video${episode.oid}_${episode.id}`;
+        downloadOption.textContent = episode.title;
+        episodeDownload.appendChild(downloadOption);
     });
+}
+
+function changeEpisode(url) {
+    document.getElementById('movieIframe').src = url;
 }
 
 function downloadEpisode(url) {
