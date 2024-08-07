@@ -239,14 +239,14 @@
     }
 
     function downloadEpisode(episodeValue) {
-        if (episodeValue) {
-            const [oid, id] = episodeValue.split('_');
-            const videoUrl = `https://vk.com/video${oid}_${id}`;
-            const downloadUrl = `https://sfrom.net/${encodeURIComponent(videoUrl)}`;
-            console.log("Redirecting to:", downloadUrl); // أضف هذا السطر للتحقق من الرابط في وحدة التحكم
-            window.open(downloadUrl, '_blank');
-        }
+    if (episodeValue) {
+        const [oid, id] = episodeValue.split('_');
+        const videoUrl = `https://vk.com/video${oid}_${id}`;
+        const downloadUrl = `https://sfrom.net/${encodeURIComponent(videoUrl)}`;
+        console.log("Redirecting to:", downloadUrl); // تحقق من الرابط في وحدة التحكم
+        window.open(downloadUrl, '_blank');
     }
+}
 
     function changeEpisode(videoUrl) {
         if (videoUrl) {
