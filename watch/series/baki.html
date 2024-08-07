@@ -1,281 +1,48 @@
-<!DOCTYPE html> 
-<html> 
-<head> 
-    <title>فهرس</title> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style> 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #000
-        }
-
-        header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
-            text-align: center;
-            padding: 10px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            font-size: 18px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        iframe {
-            width: 100%;
-            height: 400px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
-
-        a:hover {
-            background-color: gold;
-        }
-
-        p {
-            text-align: justify;
-            margin-bottom: 10px;
-        }
-
-        #poster {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        #title {
-            color: red; /* لون عنوان الفيلم أحمر */
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        #genres,
-        #overview,
-        #release-date,
-        #rating {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #000; /* لون النصوص الأسود */
-            font-size: 20px; /* حجم الخط */
-            margin-bottom: 10px; /* المسافة بين العناصر */
-            text-align: center; /* تمركز النص في الوسط */
-            font-weight: bold;
-            direction: rtl; /* اتجاه النصوص من اليمين لليسار */
-        }
-
-        #trailer {
-            margin: 20px auto;
-            width: 100%;
-            max-width: 560px;
-        }
-
-        #trailer iframe {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 16 / 9;
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زر تحميل</title>
+    <style>
+        .button {
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007bff;
             border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- الروابط -->
+    <a href="https://m.vk.com/video123_456" id="video-link" style="display:none;"></a>
+
+    <!-- أزرار العرض والتحميل -->
+    <button class="button" onclick="watchVideo()">مشاهدة الفيديو</button>
+    <button class="button" onclick="downloadVideo()">تحميل الفيديو</button>
+
+    <script>
+        function watchVideo() {
+            const linkElement = document.getElementById('video-link');
+            window.location.href = linkElement.href;
         }
 
-        #episodeSelector, #episodeDownload {
-            width: 100%;
-            font-size: 18px;
-            padding: 10px;
-            height: 50px;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            direction: rtl;
-            text-align: center;
-            flex-direction: row-reverse;
-        }
+        function downloadVideo() {
+            const linkElement = document.getElementById('video-link').href;
+            const regex = /video(\d+)_(\d+)/;
+            const match = linkElement.match(regex);
 
-        #episodeDownload {
-            margin-top: 20px;
-        }
-  
-        h2, h3, a {
-            color: #000; /* تغيير اللون إلى الأسود */
-            direction: rtl;
-        }
-
-        @media screen and (max-width: 425px), screen and (max-width: 375px), screen and (max-width: 320px) {
-            body {
-                zoom: 0.8; /* قم بتعديل القيمة حسب احتياجك */
+            if (match) {
+                const oid = match[1];
+                const id = match[2];
+                const downloadLink = `https://sfrom.net/https://m.vk.com/video${oid}_${id}`;
+                window.location.href = downloadLink;
+            } else {
+                alert('خطأ في استخراج معرّف الفيديو.');
             }
         }
-
-        .fa-solid.fa-gear {
-            color: black; /* لون الرمز */
-            font-size: 1em; /* حجم الرمز */
-            margin-right: 10px; /* المسافة بين الرمز والنص */
-        }
-
-        .icon-container {
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .expand-icon {
-            margin-right: 10px; /* إزالة المسافة الزائدة بعد الرمز الأخير */
-        }
-        
-        select {
-            width: 100%;
-            font-size: 18px;
-            padding: 10px;
-            height: 50px;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            direction: rtl;
-            text-align: center;
-            flex-direction: row-reverse;
-            margin-bottom: 10px; /* لتوفير مساحة بين القوائم المنسدلة وعناصر الصفحة الأخرى */
-        }
-    </style> 
-</head> 
-<body> 
-    <header> 
-        <h1>فهرس</h1> 
-    </header>
-    <div class="container">
-    <img id="poster" src="" alt="بوستر الفيلم">
-    <h2 id="title"></h2>
-    <div id="genres"></div>
-    <div id="overview"></div>
-    <div id="release-date"></div>
-    <div id="rating"></div>
-    <div id="trailer"></div>
-    <select id="episodeSelector" onchange="changeEpisode(this.value)">
-        <option value="" disabled selected>اختر الحلقة للمشاهدة</option>
-        <!-- سيتم توليد الحلقات هنا بواسطة JavaScript -->
-    </select>
-    <select id="episodeDownload" onchange="downloadEpisode(this.value)">
-        <option value="" disabled selected>اختر الحلقة للتحميل</option>
-        <!-- سيتم توليد الحلقات هنا بواسطة JavaScript -->
-    </select>
-    <iframe id="movieIframe" src="" width="100%" height="400px"></iframe>
-</div>
-
-<script>
-    const apiKey = "cf64a661774f647b7513facb9f1e55e5";
-    const mediaId = 202040;
-    const mediaType = "movie"; // أو "tv" إذا كان المسلسل
-
-    // جلب بيانات الفيلم أو المسلسل
-    fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            const title = data.name || data.title;
-            const overview = data.overview || "لا توجد معلومات";
-            const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "";
-            const genres = data.genres && data.genres.length > 0 ? data.genres.map(genre => genre.name).join(", ") : "غير محدد";
-            const releaseDate = data.release_date || data.first_air_date || "تاريخ الإصدار غير متوفر";
-            const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
-
-            document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
-            document.getElementById("overview").innerHTML = `القصة : ${overview}`;
-            document.getElementById("poster").src = posterPath;
-            document.getElementById("genres").innerHTML = `النوع : ${genres}`;
-            document.getElementById("release-date").innerHTML = `تاريخ الإصدار : ${releaseDate}`;
-            document.getElementById("rating").innerHTML = `التقييم : ${rating}`;
-
-            // جلب التريلر
-            return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            const trailers = data.results.filter(video => video.type === 'Trailer');
-            if (trailers.length > 0) {
-                const trailer = trailers[0];
-                const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
-                document.getElementById("trailer").innerHTML = `
-                    <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
-                `;
-            }
-        })
-        .catch(error => console.error('Error:', error));
-
-    // جلب بيانات الحلقات
-    function fetchEpisodes() {
-        // مثال على الحلقات
-        return [
-            { id: '456240756', title: 'الموسم 1 : الحلقة 1', oid: '784675179' },
-            { id: '456240757', title: 'الموسم 1 : الحلقة 2', oid: '784675179' },
-            { id: '456240753', title: 'الموسم 1 : الحلقة 3', oid: '784675179' },
-            // أضف باقي الحلقات هنا
-        ];
-    }
-
-    function downloadEpisode(episodeValue) {
-    if (episodeValue) {
-        const [oid, id] = episodeValue.split('_');
-        const videoUrl = `https://vk.com/video${oid}_${id}`;
-        const downloadUrl = `https://sfrom.net/${encodeURIComponent(videoUrl)}`;
-        console.log("Redirecting to:", downloadUrl); // تحقق من الرابط في وحدة التحكم
-        window.open(downloadUrl, '_blank');
-    }
-}
-
-    function changeEpisode(videoUrl) {
-        if (videoUrl) {
-            document.getElementById("movieIframe").src = videoUrl;
-        }
-    }
-
-    function displayEpisodes() {
-        const episodes = fetchEpisodes();
-        const episodeSelector = document.getElementById("episodeSelector");
-        const episodeDownload = document.getElementById("episodeDownload");
-
-        episodes.forEach(episode => {
-            const viewOption = document.createElement("option");
-            viewOption.value = `https://vk.com/video_ext.php?oid=${episode.oid}&id=${episode.id}&hash=&hd=2`;
-            viewOption.textContent = episode.title;
-            episodeSelector.appendChild(viewOption);
-
-            const downloadOption = document.createElement("option");
-            downloadOption.value = `${episode.oid}_${episode.id}`;
-            downloadOption.textContent = episode.title;
-            episodeDownload.appendChild(downloadOption);
-        });
-    }
-
-    // استدعاء دالة العرض عند تحميل الصفحة
-    document.addEventListener("DOMContentLoaded", function() {
-        displayEpisodes();
-    });
-</script>
+    </script>
 </body>
 </html>
