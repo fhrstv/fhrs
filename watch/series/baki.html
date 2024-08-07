@@ -1,13 +1,157 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحميل الفيديو</title>
-</head>
-<body>
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>فهرس</title> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style> 
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #000
+        }
+
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        #poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        #title {
+            color: red; /* لون عنوان الفيلم أحمر */
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        #genres,
+#overview,
+#release-date,
+#rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000; /* لون النصوص الأسود */
+    font-size: 20px; /* حجم الخط */
+    margin-bottom: 10px; /* المسافة بين العناصر */
+    text-align: center; /* تمركز النص في الوسط */
+    font-weight: bold;
+    direction: rtl; /* اتجاه النصوص من اليمين لليسار */
+}
+
+        #trailer {
+            margin: 20px auto;
+            width: 100%;
+            max-width: 560px;
+        }
+
+        #trailer iframe {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            border: none;
+        }
+
+        #episodeSelector, #episodeDownload {
+            width: 100%;
+            font-size: 18px;
+            padding: 10px;
+            height: 50px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            direction: rtl;
+            text-align: center;
+            flex-direction: row-reverse;
+        }
+
+        #episodeDownload {
+            margin-top: 20px;
+        }
+  
+        h2, h3, a {
+            color: #000; /* تغيير اللون إلى الأسود */
+            direction: rtl;
+        }
+
+        @media screen and (max-width: 425px), screen and (max-width: 375px), screen and (max-width: 320px) {
+            body {
+                zoom: 0.8; /* قم بتعديل القيمة حسب احتياجك */
+            }
+        }
+
+        .fa-solid.fa-gear {
+            color: black; /* لون الرمز */
+            font-size: 1em; /* حجم الرمز */
+            margin-right: 10px; /* المسافة بين الرمز والنص */
+        }
+
+        .icon-container {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .expand-icon {
+            margin-right: 10px; /* إزالة المسافة الزائدة بعد الرمز الأخير */
+        }
+    </style> 
+</head> 
+<body> 
+    <header> 
+        <h1>فهرس</h1> 
+    </header>
     <div class="container">
-        <!-- عناصر العرض المختلفة -->
         <img id="poster" src="">
         <h1 id="title"></h1>
         <p id="release-date"></p>
@@ -19,45 +163,113 @@
         <div id="movieInfo" class="movie-info"></div>
         <div id="trailerContainer" class="trailer-container"></div>
         <h2>شاهد الآن</h2>
-        <iframe id="movieIframe" src="https://vk.com/video_ext.php?oid=760447746&id=456239342&hash=&hd=2s" frameborder="0" allowfullscreen></iframe> 
-        <h2>تحميل الفيديو</h2>
-        <button id="downloadButton">تحميل الفيديو</button>
+        <iframe id="movieIframe" src="https://vk.com/video_ext.php?oid=784675179&id=456240756&hash=&hd=2s" frameborder="0" allowfullscreen></iframe> 
+        <select id="episodeSelector" onchange="changeEpisode(this.value)">
+            <option value="" disabled selected>اختر الحلقة</option>
+            <!-- الحلقات يتم توليدها هنا -->
+        </select>
+        <div id="episodeDownload">
+            <!-- أزرار تحميل الحلقات يتم توليدها هنا -->
+        </div>
+        <h2>
+            إذا لم يظهر مفتاح الإعدادات او مفتاح تكبير الشاشة
+            <i class="fa-solid fa-gear settings-icon"></i>
+            <i class="fa-solid fa-up-right-and-down-left-from-center expand-icon"></i> 
+            <br>
+            جرب أحد هذه الحلول وسيعمل معك
+            <br>
+            ( قم بتغيير عرض متصفحك من وضع سطح المكتب إلى وضع الهاتف المحمول )
+            <br> أو ( قم بتدوير هاتفك الى الوضع الأفقي وليس العامودي )
+            <br>أو ( قم بعمل الخطوتين معا )
+            <br> وستجد مفتاح الإعدادات و تكبير الشاشة و منها تستطيع أن تقوم بتغيير الجودة
+            <br> إذا لم تعمل الحلقة او الفيلم ، الرجاء نسخ الرابط
+            <br> و إرساله لنا من خلال صفحة اتصل بنا
+        </h2>
+        <a href="../../Movies">رجوع</a>
     </div>
 
     <script>
-        // دالة لاستخراج القيم من رابط iframe
-        function getOidAndIdFromIframe() {
-            const iframe = document.getElementById('movieIframe');
-            const src = iframe.src;
-            const regex = /oid=(\d+)&id=(\d+)/;
-            const match = src.match(regex);
+        const apiKey = "cf64a661774f647b7513facb9f1e55e5";
+        const mediaId = 202040;
+        const mediaType = "movie"; // أو "tv" إذا كان المسلسل
 
-            if (match) {
-                return { oid: match[1], id: match[2] };
-            } else {
-                return { oid: null, id: null };
+        // جلب بيانات الفيلم أو المسلسل
+        fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            const title = data.name || data.title;
+            const overview = data.overview || "لا توجد معلومات";
+            const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "";
+            const genres = data.genres && data.genres.length > 0 ? data.genres.map(genre => genre.name).join(", ") : "غير محدد";
+            const releaseDate = data.release_date || data.first_air_date || "تاريخ الإصدار غير متوفر";
+            const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
+
+            document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
+            document.getElementById("overview").innerHTML = `القصة : ${overview}`;
+            document.getElementById("poster").src = posterPath;
+            document.getElementById("genres").innerHTML = `النوع : ${genres}`;
+            document.getElementById("release-date").innerHTML = ` تاريخ الإصدار : ${releaseDate}`;
+            document.getElementById("rating").innerHTML = `التقييم : ${rating}`;
+
+            // جلب التريلر
+            return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            const trailers = data.results.filter(video => video.type === 'Trailer');
+            if (trailers.length > 0) {
+                const trailer = trailers[0];
+                const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
+                document.getElementById("trailer").innerHTML = `
+                    <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
+                `;
+            }
+          })
+          .catch(error => console.error('Error:', error));
+
+        // تغيير الحلقة
+        function changeEpisode(episodeId) {
+            const iframe = document.getElementById("movieIframe");
+            const baseURL = "https://vk.com/video_ext.php?oid=";
+            const hash = "somehashvalue"; // قم بإضافة الحش الذي تحتاجه
+
+            if (episodeId) {
+                iframe.src = `${baseURL}${episodeId}&id=456240756&hash=${hash}&hd=2s`;
             }
         }
 
-        // دالة لتحويل الرابط
-        function convertUrl(oid, id) {
-            if (oid && id) {
-                return `sfrom.net/https://m.vk.com/video${oid}_${id}`;
-            } else {
-                return 'قيمة oid أو id غير صحيحة';
-            }
+        // جلب بيانات الحلقات
+        function fetchEpisodes() {
+            // استبدل هذا بالبيانات الحقيقية من الخادم أو API الخاص بك
+            return [
+                { id: "456240756", title: "حلقة 1" },
+                { id: "456240757", title: "حلقة 2" }
+                // أضف المزيد من الحلقات هنا
+            ];
         }
 
-        // عند الضغط على الزر، توجيه المستخدم لتحميل الفيديو
-        document.getElementById('downloadButton').addEventListener('click', () => {
-            const { oid, id } = getOidAndIdFromIframe();
-            const downloadUrl = convertUrl(oid, id);
-            if (downloadUrl.startsWith('sfrom.net')) {
-                window.location.href = `https://${downloadUrl}`;
-            } else {
-                alert(downloadUrl); // يعرض رسالة إذا كانت القيم غير صحيحة
-            }
-        });
+        // عرض الحلقات والأزرار
+        function displayEpisodes() {
+            const episodes = fetchEpisodes();
+            const episodeSelector = document.getElementById("episodeSelector");
+            const episodeDownload = document.getElementById("episodeDownload");
+
+            episodes.forEach(episode => {
+                const option = document.createElement("option");
+                option.value = episode.id;
+                option.textContent = episode.title;
+                episodeSelector.appendChild(option);
+
+                const downloadButton = document.createElement("a");
+                downloadButton.href = `https://savefrom.net/?url=https://vk.com/video_ext.php?oid=${episode.id}&id=456240756&hash=somehashvalue`;
+                downloadButton.textContent = `تحميل ${episode.title}`;
+                episodeDownload.appendChild(downloadButton);
+            });
+        }
+
+        displayEpisodes();
     </script>
-</body>
+</body> 
 </html>
