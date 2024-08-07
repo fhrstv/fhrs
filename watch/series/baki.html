@@ -4,35 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تحميل الفيديو</title>
-    <style>
-        .download-button {
-            text-decoration: none;
-            color: #fff;
-            background-color: #007bff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 20px;
-            font-size: 18px;
-        }
-        .download-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
 <body>
-    <h2>تحميل الفيديو من VK</h2>
-    <a id="downloadLink" class="download-button" href="#" target="_blank">تحميل الفيديو</a>
+    <h2>تحميل الفيديو</h2>
+    <button id="downloadButton">تحميل الفيديو</button>
 
     <script>
-        // رابط الفيديو من VK
-        const videoUrl = "https://m.vk.com/video760598098_456251010";
+        // الرابط الأصلي
+        const originalUrl = 'https://vk.com/video_ext.php?oid=760447746&id=456239342&hash=&hd=2s';
 
-        // رابط SaveFrom.net لتحميل الفيديو
-        const saveFromUrl = `https://en.savefrom.net/1-x-video-downloader?url=${encodeURIComponent(videoUrl)}`;
+        // دالة لتحويل الرابط
+        function convertUrl(url) {
+            // استخدم تعبيراً منتظماً لاستخراج القيم من الرابط
+            const regex = /oid=(\d+)&id=(\d+)/;
+            const match = url.match(regex);
 
-        // إعداد رابط التحميل
-        document.getElementById("downloadLink").href = saveFromUrl;
+            if (match) {
+                const oid = match[1];
+                const id = match[2];
+                
+                // بناء الرابط الجديد
+                const newUrl = `https://sfrom.net/https://m.vk.com/video${oid}_${id}`;
+                return newUrl;
+            } else {
+                return 'الرابط غير صحيح';
+            }
+        }
+
+        // عند الضغط على الزر، توجيه المستخدم لتحميل الفيديو
+        document.getElementById('downloadButton').addEventListener('click', () => {
+            const downloadUrl = convertUrl(originalUrl);
+            window.location.href = downloadUrl;
+        });
     </script>
 </body>
 </html>
