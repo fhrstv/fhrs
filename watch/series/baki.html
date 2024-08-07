@@ -3,44 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>زر تحميل</title>
+    <title>تحميل الحلقات</title>
     <style>
-        .button {
+        .btn {
+            display: inline-block;
             padding: 10px 20px;
-            color: #fff;
+            margin: 5px;
             background-color: #007bff;
-            border: none;
+            color: #fff;
+            text-decoration: none;
             border-radius: 5px;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <!-- الروابط -->
-    <a href="https://m.vk.com/video123_456" id="video-link" style="display:none;"></a>
-
-    <!-- أزرار العرض والتحميل -->
-    <button class="button" onclick="watchVideo()">مشاهدة الفيديو</button>
-    <button class="button" onclick="downloadVideo()">تحميل الفيديو</button>
+    <div id="movieInfo" class="movie-info"></div>
+    <div id="trailerContainer" class="trailer-container"></div>
+    <h2>شاهد الآن</h2>
+    <iframe id="movieIframe" src="https://vk.com/video_ext.php?oid=784675179&id=456240756&hash=&hd=2s" frameborder="0" allowfullscreen></iframe> 
+    <select id="episodeSelector" onchange="changeEpisode(this.value)">
+        <option value="" disabled selected>اختر الحلقة</option>
+        <option value="https://vk.com/video_ext.php?oid=784675179&id=456240756&hash=&hd=2">الموسم 1 : الحلقة 1</option>
+        <option value="https://vk.com/video_ext.php?oid=784675179&id=456240757&hash=&hd=2">الموسم 1 : الحلقة 2</option>
+        <option value="https://vk.com/video_ext.php?oid=784675179&id=456240753&hash=&hd=2">الموسم 1 : الحلقة 3</option>
+        <!-- أضف المزيد من الخيارات هنا -->
+    </select>
 
     <script>
-        function watchVideo() {
-            const linkElement = document.getElementById('video-link');
-            window.location.href = linkElement.href;
-        }
+        function changeEpisode(url) {
+            const iframe = document.getElementById('movieIframe');
+            iframe.src = url;
 
-        function downloadVideo() {
-            const linkElement = document.getElementById('video-link').href;
-            const regex = /video(\d+)_(\d+)/;
-            const match = linkElement.match(regex);
-
-            if (match) {
-                const oid = match[1];
-                const id = match[2];
-                const downloadLink = `https://sfrom.net/https://m.vk.com/video${oid}_${id}`;
-                window.location.href = downloadLink;
-            } else {
-                alert('خطأ في استخراج معرّف الفيديو.');
+            const oid = new URL(url).searchParams.get('oid');
+            const id = new URL(url).searchParams.get('id');
+            if (oid && id) {
+                const downloadUrl = `https://sfrom.net/https://m.vk.com/video${oid}_${id}`;
+                const downloadButton = document.createElement('a');
+                downloadButton.href = downloadUrl;
+                downloadButton.className = 'btn';
+                downloadButton.innerText = 'تحميل';
+                document.getElementById('trailerContainer').innerHTML = '';
+                document.getElementById('trailerContainer').appendChild(downloadButton);
             }
         }
     </script>
