@@ -142,16 +142,6 @@ video {
     background-color: black;
 }
 
-select {
-    width: 100%; /* لجعل القائمة المنسدلة عريضة */
-    padding: 10px;
-    margin-top: 10px;
-    font-size: 18px;
-    box-sizing: border-box;
-    text-align: center; /* لضمان أن النص في الوسط */
-    border-radius: 5px; /* تعديل الحواف */
-}
-
     </style>
 </head>
 <body>
@@ -182,73 +172,48 @@ select {
     </div>
 
     <script>
- const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
-        const mediaIds = ['70881'];
+ const apiKey = "cf64a661774f647b7513facb9f1e55e5";
+    const mediaId = 70881;
+    const mediaType = "tv"; // أو "tv" إذا كان المسلسل
 
-        mediaIds.forEach(mediaId => {
-            const apiUrl = `https://api.themoviedb.org/3/find/${mediaId}?api_key=${tmdbApiKey}&language=ar&external_source=imdb_id`;
+    // جلب بيانات الفيلم أو المسلسل
+    fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const title = data.name || data.title;
+        const overview = data.overview || "لا توجد معلومات";
+        const posterPath = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "";
+        const genres = data.genres && data.genres.length > 0 ? data.genres.map(genre => genre.name).join(", ") : "غير محدد";
+        const releaseDate = data.release_date || data.first_air_date || "تاريخ الإصدار غير متوفر";
+        const rating = data.vote_average ? `${data.vote_average.toFixed(1)} / 10` : "غير متوفر";
 
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.movie_results.length > 0) {
-                        const tmdbMovieId = data.movie_results[0].id;
-                        const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=ar`;
-                        displayMediaDetails(tmdbApiUrl, 'movie');
-                    } else if (data.tv_results.length > 0) {
-                        const tmdbTvId = data.tv_results[0].id;
-                        const tmdbApiUrl = `https://api.themoviedb.org/3/tv/${tmdbTvId}?api_key=${tmdbApiKey}&language=ar`;
-                        displayMediaDetails(tmdbApiUrl, 'tv');
-                    } else {
-                        console.error('No data found for media with ID:', mediaId);
-                    }
-                })
-                .catch(error => console.error('Error fetching media details:', error));
-        });
+        document.getElementById("title").innerHTML = title || "عنوان غير متوفر";
+        document.getElementById("overview").innerHTML = `القصة : ${overview}`;
+        document.getElementById("poster").src = posterPath;
+        document.getElementById("genres").innerHTML = `النوع : ${genres}`;
+        document.getElementById("release-date").innerHTML = ` تاريخ الإصدار : ${releaseDate}`;
+        document.getElementById("rating").innerHTML = `التقييم : ${rating}`;
 
-        function displayMediaDetails(apiUrl, type) {
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const imdbRating = (Math.round(data.vote_average * 10) / 10).toFixed(1);
-                    const trimmedOverview = data.overview.trim();
-                    const releaseYear = data.release_date ? data.release_date.split('-')[0] : 'غير متوفر';
-                    const mediaInfo = `
-                        <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
-                        <h2 class="movie-title">${data.title || data.name}</h2>
-                        <div class="movie-details">
-                            <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
-                            <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
-                            <p><strong>التقييم:</strong> ${imdbRating}/10</p>
-                            <div class="story-container">
-                            <div class="story-title">: القصة</div>
-                            <div class="story">${trimmedOverview}</div>
-                        </div>
-                        </div>
-                    `;
-                    document.getElementById('movieInfo').innerHTML = mediaInfo;
-
-                    const videoType = type === 'movie' ? 'movie' : 'tv';
-                    const videoUrl = `https://api.themoviedb.org/3/${videoType}/${data.id}?api_key=${tmdbApiKey}&append_to_response=videos`;
-                    fetch(videoUrl)
-                        .then(response => response.json())
-                        .then(videoData => {
-                            if (videoData.videos.results.length > 0) {
-                                const videoKey = videoData.videos.results[0].key;
-                                const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
-                                const trailerContainer = document.getElementById('trailerContainer');
-                                trailerContainer.innerHTML = `
-                                    <h3>التريلر</h3>
-                                    <iframe width="560" height="315" src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
-                                `;
-                            } else {
-                                console.error('No video found for this media.');
-                            }
-                        })
-                        .catch(error => console.error('Error fetching media video:', error));
-                })
-                .catch(error => console.error('Error fetching media details:', error));
+        // جلب التريلر
+        return fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos?api_key=${apiKey}&language=ar`);
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const trailers = data.results.filter(video => video.type === 'Trailer');
+        if (trailers.length > 0) {
+            const trailer = trailers[0];
+            const trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
+            document.getElementById("trailer").innerHTML = `
+                <iframe width="560" height="315" src="${trailerUrl}" frameborder="0" allowfullscreen></iframe>
+            `;
+        } else {
+            document.getElementById("trailer").innerHTML = "لا يوجد تريلر متوفر.";
         }
+      })
+      .catch(error => console.error(error));
+
 
 
 
