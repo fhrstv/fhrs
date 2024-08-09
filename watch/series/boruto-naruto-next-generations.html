@@ -152,7 +152,37 @@ select {
     border-radius: 5px; /* تعديل الحواف */
 }
 
+#copyButton {
+        background-color: #00bfff; /* أزرق سماوي */
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+        display: block;
+        width: 100%; /* عريض بالكامل */
+        font-size: 18px;
+    }
 
+    #copyButton:hover {
+        background-color: #009acd; /* أزرق سماوي داكن عند التمرير */
+    }
+    
+    h4 {
+    font-size: 15px; /* حجم الخط الوسط */
+    direction: rtl; /* من اليمين إلى اليسار */
+    font-family: 'Tahoma', sans-serif; /* استخدام خط يدعم الحروف اللاتينية والعربية */
+    font-weight: bold; /* إذا كنت ترغب في جعل الخط سميكاً */
+    text-align: center; /* محاذاة النص إلى الوسط */
+}
+    
+    
+    h4 span.english {
+    font-family: 'Arial', sans-serif; /* استخدام خط خاص للحروف اللاتينية */
+    font-size: inherit;
+    direction: ltr; /* تحديد الاتجاه من اليسار إلى اليمين للكلمات اللاتينية */
+}
     </style>
 </head>
 <body>
@@ -176,7 +206,11 @@ select {
             <label for="lowQualityEpisodes">حلقات الجودة المنخفضة : </label>
             <select id="lowQualityEpisodes" onchange="changeEpisode(this.value, 'low')">
                 <option value="" disabled selected>اختر الحلقة</option>
+                
+                
             </select>
+            <button id="copyButton" onclick="copyEpisodeLink()">نسخ رابط الحلقة</button>
+            <h4>لتحميل قم بنسخ رابط الفيلم او الحلقة و الذهاب الى برنامج <span class="english">vlc</span>    و انسخ الرابط داخل البرنامج وتستطيع تحميلها او مشاهدتها داخل البرنامج</h4>
         </div>
         <br>
         <a href="../../Series">رجوع</a>
@@ -396,6 +430,27 @@ function changeEpisode(value, quality) {
 window.onload = function() {
     generateEpisodes(); // توليد الحلقات عند تحميل الصفحة
 };
+
+function copyEpisodeLink() {
+    var highQualitySelect = document.getElementById('highQualityEpisodes');
+    var lowQualitySelect = document.getElementById('lowQualityEpisodes');
+    var selectedQualityOption = highQualitySelect.value || lowQualitySelect.value; // اختر الرابط المحدد سواء كان من الجودة العالية أو المنخفضة
+    
+    if (selectedQualityOption) {
+        // إنشاء عنصر مؤقت لنسخ النص
+        var tempInput = document.createElement("input");
+        tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+        tempInput.value = selectedQualityOption;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+        
+        alert("تم نسخ الرابط: " + selectedQualityOption);
+    } else {
+        alert("يرجى اختيار الحلقة أولاً.");
+    }
+}
     </script>
 </body>
 </html>
