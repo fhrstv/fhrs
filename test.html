@@ -184,6 +184,7 @@
 /* نص يتحرك ببطء من اليسار إلى اليمين */
 /* نص يتبدل بين حالتين */
 /* النص المتبدل */
+/* النص المتبدل */
 .marquee-container {
     width: 100%;
     overflow: hidden;
@@ -204,9 +205,10 @@
     text-align: center;
     opacity: 0;
     animation: fade 10s ease-in-out infinite;
+    font-size: 20px; /* حجم النص */
 }
 
-.text-item:nth-child(2) {
+#text2 {
     animation-delay: 5s; /* تأخير ظهور النص الثاني */
 }
 
@@ -227,10 +229,10 @@
         <!-- إضافة النصوص المتبدلة هنا -->
         <div class="marquee-container">
     <div class="marquee-text">
-        <div class="text-item">
+        <div class="text-item" id="text1">
             <h5>فهرس هي قائمتك للمشاهدة</h5>
         </div>
-        <div class="text-item">
+        <div class="text-item" id="text2">
             <h3>جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين<br>نحن لا نخزن و لا نرفع و لا ننشر <br>فقط نعرض اسهل طريقة للمشاهدة</h3>
         </div>
     </div>
