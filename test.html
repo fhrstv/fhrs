@@ -182,24 +182,24 @@
 
         /* مربعات النص المتبدلة */
         /* نص يتحرك من اليسار إلى اليمين */
+/* نص يتحرك ببطء من اليسار إلى اليمين */
 .marquee-container {
     width: 100%;
     overflow: hidden;
     background-color: #f9f9f9;
     padding: 10px 0;
-    direction: rtl; /* لتحديد اتجاه النص من اليمين لليسار */
 }
 
 .marquee-text {
     display: inline-block;
-    padding-right: 100%;
+    padding-left: 100%; /* تغيير padding-right إلى padding-left */
     white-space: nowrap;
-    animation: marquee 10s linear infinite;
+    animation: marquee 20s linear infinite; /* زيادة وقت الحركة ليكون بطيئاً */
 }
 
 @keyframes marquee {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+    0% { transform: translateX(-100%); } /* تغيير الاتجاه */
+    100% { transform: translateX(100%); }
 }
     </style>
 </head>
