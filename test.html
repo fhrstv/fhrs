@@ -183,6 +183,7 @@
         
 /* نص يتحرك ببطء من اليسار إلى اليمين */
 /* نص يتبدل بين حالتين */
+/* النص المتبدل */
 .marquee-container {
     width: 100%;
     overflow: hidden;
@@ -192,31 +193,24 @@
 }
 
 .marquee-text {
-    position: absolute;
+    position: relative;
     width: 100%;
-    white-space: nowrap;
-    animation: fade 10s ease-in-out infinite; /* ضبط وقت التبديل إلى 10 ثوانٍ */
+    height: auto;
 }
 
-.marquee-text h5,
-.marquee-text h3 {
-    display: inline;
-    opacity: 0;
+.text-item {
     position: absolute;
     width: 100%;
     text-align: center;
+    opacity: 0;
+    animation: fade 10s ease-in-out infinite;
 }
 
-.marquee-text h5 {
-    animation: fadeInOut 10s ease-in-out infinite;
-}
-
-.marquee-text h3 {
-    animation: fadeInOut 10s ease-in-out infinite;
+.text-item:nth-child(2) {
     animation-delay: 5s; /* تأخير ظهور النص الثاني */
 }
 
-@keyframes fadeInOut {
+@keyframes fade {
     0%, 100% { opacity: 0; }
     50% { opacity: 1; }
 }
@@ -233,8 +227,12 @@
         <!-- إضافة النصوص المتبدلة هنا -->
         <div class="marquee-container">
     <div class="marquee-text">
-        <h5>فهرس هي قائمتك للمشاهدة</h5>
-        <h3>جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين<br>نحن لا نخزن و لا نرفع و لا ننشر <br>فقط نعرض اسهل طريقة للمشاهدة</h3>
+        <div class="text-item">
+            <h5>فهرس هي قائمتك للمشاهدة</h5>
+        </div>
+        <div class="text-item">
+            <h3>جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين<br>نحن لا نخزن و لا نرفع و لا ننشر <br>فقط نعرض اسهل طريقة للمشاهدة</h3>
+        </div>
     </div>
 </div>
 
