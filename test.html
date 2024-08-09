@@ -181,20 +181,25 @@
         
 
         /* مربعات النص المتبدلة */
-        .text-box {
+        /* نص يتحرك من اليسار إلى اليمين */
+.marquee-container {
     width: 100%;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 0;
-    text-align: center;
+    overflow: hidden;
     background-color: #f9f9f9;
+    padding: 10px 0;
+    direction: rtl; /* لتحديد اتجاه النص من اليمين لليسار */
 }
 
-h3, h5 {
-    margin: 0;
+.marquee-text {
     display: inline-block;
-    border-bottom: 2px solid #000;
-    padding-bottom: 5px;
+    padding-right: 100%;
+    white-space: nowrap;
+    animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
 }
     </style>
 </head>
@@ -207,10 +212,11 @@ h3, h5 {
         <h2>اكبر موقع فهرسه بالوطن العربي</h2>
         
         <!-- إضافة النصوص المتبدلة هنا -->
-        <div class="text-box">
-            <h5 id="text1">فهرس هي قائمتك للمشاهدة</h5>
-            <h3 id="text2" style="display: none;">جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين<br>نحن لا نخزن و لا نرفع و لا ننشر <br>فقط نعرض اسهل طريقة للمشاهدة</h3>
-        </div>
+        <div class="marquee-container">
+    <div class="marquee-text">
+        فهرس هي قائمتك للمشاهدة | جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين، نحن لا نخزن ولا نرفع ولا ننشر، فقط نعرض اسهل طريقة للمشاهدة
+    </div>
+</div>
 
         <h4 class="telegram-link">
             <span onclick="window.open('https://t.me/fhrs_updates', '_blank');">
