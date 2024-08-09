@@ -185,6 +185,7 @@
 /* نص يتحرك ببطء من اليسار إلى اليمين */
 /* نص يتحرك ببطء من اليسار إلى اليمين */
 /* نص يتحرك ببطء من اليسار إلى اليمين */
+/* نص يتحرك ببطء من اليسار إلى اليمين */
 .marquee-container {
     width: 100%;
     overflow: hidden;
@@ -196,12 +197,12 @@
     display: inline-block;
     padding-left: 100%;
     white-space: nowrap;
-    animation: marquee 5s linear infinite; /* ضبط وقت الحركة إلى 5 ثوانٍ */
+    animation: marquee 20s steps(100) infinite; /* ضبط وقت الحركة إلى 20 ثانية */
 }
 
 @keyframes marquee {
-    0% { transform: translateX(-100%); } /* تغيير الاتجاه */
-    100% { transform: translateX(100%); }
+    0% { transform: translateX(-100%); } /* بداية الحركة من اليسار */
+    100% { transform: translateX(100%); } /* نهاية الحركة إلى اليمين */
 }
     </style>
 </head>
