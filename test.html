@@ -182,23 +182,43 @@
 
         
 /* نص يتحرك ببطء من اليسار إلى اليمين */
+/* نص يتبدل بين حالتين */
 .marquee-container {
     width: 100%;
     overflow: hidden;
     padding: 10px 0;
     background: none; /* إزالة الخلفية */
+    position: relative;
 }
 
 .marquee-text {
-    display: inline-block;
-    padding-right: 100%; /* تغيير padding-left إلى padding-right */
+    position: absolute;
+    width: 100%;
     white-space: nowrap;
-    animation: marquee 20s linear infinite; /* ضبط وقت الحركة إلى 20 ثانية */
+    animation: fade 10s ease-in-out infinite; /* ضبط وقت التبديل إلى 10 ثوانٍ */
 }
 
-@keyframes marquee {
-    0% { transform: translateX(-100%); } /* بداية الحركة من اليسار */
-    100% { transform: translateX(100%); } /* نهاية الحركة إلى اليمين */
+.marquee-text h5,
+.marquee-text h3 {
+    display: inline;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+
+.marquee-text h5 {
+    animation: fadeInOut 10s ease-in-out infinite;
+}
+
+.marquee-text h3 {
+    animation: fadeInOut 10s ease-in-out infinite;
+    animation-delay: 5s; /* تأخير ظهور النص الثاني */
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
 }
     </style>
 </head>
@@ -213,7 +233,8 @@
         <!-- إضافة النصوص المتبدلة هنا -->
         <div class="marquee-container">
     <div class="marquee-text">
-        فهرس هي قائمتك للمشاهدة | جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين، نحن لا نخزن ولا نرفع ولا ننشر، فقط نعرض اسهل طريقة للمشاهدة
+        <h5>فهرس هي قائمتك للمشاهدة</h5>
+        <h3>جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين<br>نحن لا نخزن و لا نرفع و لا ننشر <br>فقط نعرض اسهل طريقة للمشاهدة</h3>
     </div>
 </div>
 
