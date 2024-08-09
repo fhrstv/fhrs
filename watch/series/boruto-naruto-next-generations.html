@@ -7,12 +7,12 @@
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
-        body {
+       body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
-            color: #000;
+            color: #000
         }
 
         header {
@@ -36,7 +36,7 @@
 
         iframe {
             width: 100%;
-            height: 200px;
+            height: 400px;
         }
 
         a {
@@ -59,53 +59,56 @@
             margin-bottom: 10px;
         }
 
-        .movie-details {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .movie-poster {
+        #poster {
             width: 100%;
             max-width: 300px;
             border-radius: 10px;
             margin-bottom: 20px;
         }
 
-        .movie-info {
+        #title {
+            color: red; /* لون عنوان الفيلم أحمر */
+            margin-bottom: 10px;
             text-align: center;
-            padding: 0 20px;
         }
 
-        .movie-info p {
-            margin-bottom: 10px;
-        }
-
-        .movie-title {
-            color: #ff0000;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        
-       .story-title {
-            font-weight: bold;
-            margin-right: 10px; /* مسافة بين العنوان والنص */
-        }
-
-.story {
-    font-family: "Arial", sans-serif;
-    font-size: 17px;
-    line-height: 1.6;
-    text-align: right;
-    direction: rtl;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    text-align-last: right; /* لضمان محاذاة النص في النهاية لليمين */
-    display: block; /* لجعل النص يظهر ككتلة مستقلة */
+        #genres,
+#overview,
+#release-date,
+#rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000; /* لون النصوص الأسود */
+    font-size: 20px; /* حجم الخط */
+    margin-bottom: 10px; /* المسافة بين العناصر */
+    text-align: center; /* تمركز النص في الوسط */
+    font-weight: bold;
+    direction: rtl; /* اتجاه النصوص من اليمين لليسار */
 }
-        h2, h3, a {
-            color: #000; /* تغيير اللون إلى الأسود */
-        }
+
+         #trailer {
+    margin: 20px auto;
+    width: 100%;
+    max-width: 560px;
+}
+
+#trailer iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: none;
+}
+
+h2, h3, a {
+    color: #000; /* تغيير اللون إلى الأسود */
+    direction: rtl;
+}
+@media screen and (max-width: 425px), screen and (max-width: 375px), screen and (max-width: 320px) {
+    body {
+        zoom: 0.8; /* قم بتعديل القيمة حسب احتياجك */
+    }
+}
 
         .episode-box {
     width: 80%;
