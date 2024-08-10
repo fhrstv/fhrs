@@ -178,6 +178,7 @@ fetch(apiUrl)
     // Update the URL
     const url = new URL(window.location.href);
     url.search = '';
+    url.hash = ''; // Remove the hashtag
     window.history.pushState({}, '', url);
   })
   .catch(error => console.error('Error:', error));
