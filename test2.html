@@ -145,7 +145,7 @@
           
           const listItem = document.createElement('li');
           listItem.classList.add('movie-item');
-          listItem.innerHTML = `<a href="${fileUrl}" target="_blank" rel="noopener noreferrer">${displayName}</a>`;
+          listItem.innerHTML = `<a href="${fileUrl}" rel="noopener noreferrer">${displayName}</a>`;
           seriesList.appendChild(listItem);
           return listItem;
         });
