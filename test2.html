@@ -144,8 +144,11 @@
           const fileUrl = `${folderPath}/${file.name}`;
           
           const listItem = document.createElement('li');
-listItem.classList.add('movie-item');
-listItem.innerHTML = `<a href="${fileUrl}" onclick="window.location.href='${fileUrl}'; return false;">${displayName}</a>`;
+          listItem.classList.add('movie-item');
+          listItem.innerHTML = `<a href="${fileUrl}" rel="noopener noreferrer">${displayName}</a>`;
+          seriesList.appendChild(listItem);
+          return listItem;
+        });
 
         // Sort the movie list in alphabetical order
         links.sort((a, b) => a.textContent.localeCompare(b.textContent));
