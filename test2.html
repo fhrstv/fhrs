@@ -141,7 +141,7 @@ fetch(apiUrl)
         .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter of each word
         .join(' ');
 
-      const fileUrl = `${folderPath}/${file.name}`;
+      const fileUrl = `${folderPath}/${fileNameWithoutExtension}`; // Remove .html extension
       
       const listItem = document.createElement('li');
       listItem.classList.add('movie-item');
