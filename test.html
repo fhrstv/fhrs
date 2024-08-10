@@ -181,40 +181,19 @@
         
 
         
-/* نص يتحرك ببطء من اليسار إلى اليمين */
-/* نص يتبدل بين حالتين */
-/* النص المتبدل */
-/* النص المتبدل */
-.marquee-container {
+/* النصوص داخل مربعات النص */
+.text-box {
     width: 100%;
-    overflow: hidden;
     padding: 10px 0;
     background: none; /* إزالة الخلفية */
-    position: relative;
-}
-
-.marquee-text {
-    position: relative;
-    width: 100%;
-    height: auto;
-}
-
-.text-item {
-    position: absolute;
-    width: 100%;
     text-align: center;
-    opacity: 0;
-    animation: fade 10s ease-in-out infinite;
-    font-size: 20px; /* حجم النص */
+    font-size: 14px; /* حجم النص صغير */
+    color: #000; /* لون النص أسود */
+    margin-bottom: 10px;
 }
 
-#text2 {
-    animation-delay: 5s; /* تأخير ظهور النص الثاني */
-}
-
-@keyframes fade {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 1; }
+.text-box h3, .text-box h5 {
+    margin: 0;
 }
     </style>
 </head>
@@ -227,15 +206,8 @@
         <h2>اكبر موقع فهرسه بالوطن العربي</h2>
         
         <!-- إضافة النصوص المتبدلة هنا -->
-        <div class="marquee-container">
-    <div class="marquee-text">
-        <div class="text-item" id="text1">
-            <h5>فهرس هي قائمتك للمشاهدة</h5>
-        </div>
-        <div class="text-item" id="text2">
-            <h3>جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين<br>نحن لا نخزن و لا نرفع و لا ننشر <br>فقط نعرض اسهل طريقة للمشاهدة</h3>
-        </div>
-    </div>
+        <div class="text-box">
+    <h5 id="text-box">فهرس هي قائمتك للمشاهدة</h5>
 </div>
 
         <h4 class="telegram-link">
@@ -259,12 +231,22 @@
     </div>
     
     <script>
-        let isText1Visible = true;
-        setInterval(() => {
-            document.getElementById('text1').style.display = isText1Visible ? 'none' : 'block';
-            document.getElementById('text2').style.display = isText1Visible ? 'block' : 'none';
-            isText1Visible = !isText1Visible;
-        }, 3000);
+        // النصوص التي سيتم التبديل بينها
+const texts = [
+    "فهرس هي قائمتك للمشاهدة",
+    "جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين<br>نحن لا نخزن و لا نرفع و لا ننشر <br>فقط نعرض اسهل طريقة للمشاهدة"
+];
+
+let index = 0;
+const textBox = document.getElementById("text-box");
+
+function switchText() {
+    index = (index + 1) % texts.length;
+    textBox.innerHTML = texts[index];
+}
+
+// التبديل كل 5 ثوانٍ
+setInterval(switchText, 5000);
     </script>
 
     <script src="scripit.js"></script>
