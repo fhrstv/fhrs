@@ -23,7 +23,7 @@
 <body>
   <h1>Series List</h1>
   <ul class="movie-list" id="movie-list"></ul>
-  <div id="file-content"></div>
+  <iframe id="file-content" frameborder="0" width="100%" height="600"></iframe>
 
   <script>
     const repoOwner = 'fhrstv';
@@ -39,24 +39,16 @@
         data.forEach(file => {
           const listItem = document.createElement('li');
           listItem.classList.add('movie-item');
-          listItem.innerHTML = `<a href="?file=${file.path}">${file.name}</a>`;
+          listItem.innerHTML = `<a href="#" onclick="loadFile('${file.path}')">${file.name}</a>`;
           seriesList.appendChild(listItem);
         });
       })
       .catch(error => console.error('Error:', error));
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const fileParam = urlParams.get('file');
-
-    if (fileParam) {
-      const fileUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/master/${fileParam}`;
-      fetch(fileUrl)
-        .then(response => response.text())
-        .then(data => {
-          const fileContent = document.getElementById('file-content');
-          fileContent.innerHTML = data;
-        })
-        .catch(error => console.error('Error:', error));
+    function loadFile(filePath) {
+      const fileUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/master/${filePath}`;
+      const iframe = document.getElementById('file-content');
+      iframe.src = fileUrl;
     }
   </script>
 </body>
