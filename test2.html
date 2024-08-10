@@ -38,8 +38,9 @@
 
         data.forEach(file => {
           const fileNameWithoutExtension = file.name.replace('.html', '');
+          // Replace hyphens with spaces, keep dots as they are, and capitalize the first letter of each word
           const displayName = fileNameWithoutExtension
-            .replace(/-/g, ' ')
+            .replace(/-/g, ' ') // Replace hyphens with spaces
             .replace(/\b\w/g, char => char.toUpperCase()); // Capitalize the first letter of each word
 
           const fileUrl = `${folderPath}/${file.name}`;
