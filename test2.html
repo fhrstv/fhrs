@@ -55,42 +55,6 @@
         a:hover {
             background-color: gold;
         }
-
-        h2 {
-            text-align: center;
-        }
-
-        .search-box {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        input[type="text"] {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        input[type="submit"] {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        @media (max-width: 600px) {
-            h2 {
-                font-size: 24px;
-            }
-
-            .search-box {
-                margin-top: 10px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -99,17 +63,6 @@
     </header>
     <div class="content">
         <h2>الانمي</h2>
-        <h3>تحديث المسلسلات و المواسم و الحلقات في موقعنا يوميا</h3>
-        <h4>تجد هنا الافلام و المسلسلات للانمي فقط</h4>
-
-        <div class="search-box">
-            <form action="#" method="get" id="searchForm">
-                <input type="text" name="search" id="searchInput" placeholder="ابحث عن الانمي هنا ( اسمه بالانجليزي فقط )">
-            </form>
-        </div>
-
-        <div class="search-results" id="searchResults"></div>
-
         <ul class="movie-list">
             <li class="movie-item"><a id="movieLink" href="#"></a></li>
         </ul>
@@ -119,16 +72,16 @@
         // الحصول على المسار الكامل للملف الحالي
         var path = window.location.pathname;
 
-        // التحقق من أن الملف موجود مباشرة داخل مجلد series
-        if (path.includes('/series/') && path.split('/series/')[1].indexOf('/') === -1) {
+        // التحقق من أن الملف موجود داخل مجلد series
+        if (path.includes('/series/')) {
             // استخراج اسم الملف من المسار
-            var pageName = path.split("/").pop().split(".")[0];
-            
-            // إعداد الرابط والاسم
+            var fileName = path.substring(path.lastIndexOf('/') + 1);
+            var movieName = fileName.split(".")[0]; // إزالة الامتداد مثل .html
+
+            // تعديل النص داخل المربع الأحمر
             var movieLink = document.getElementById("movieLink");
-            movieLink.textContent = pageName.replace(/-/g, ' '); // استبدال "-" بمسافات
+            movieLink.textContent = movieName.replace(/-/g, ' '); // استبدال "-" بمسافات
         } else {
-            // إذا لم يكن الملف في مجلد series مباشرة، أخفي المربع الأحمر
             document.querySelector('.movie-item').style.display = 'none';
         }
     </script>
