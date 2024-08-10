@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(responses => {
                 const [moviesText, seriesText] = responses;
 
+                console.log("Fetched Movies and Series pages successfully");
+
                 // معالجة نصوص صفحات "Movies" و "Series"
                 const parser = new DOMParser();
 
@@ -37,6 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     .map(a => a.getAttribute('href'))
                     .filter(href => href.startsWith('watch/movies'));
 
+                console.log("Movie links found:", movieLinks);
+
                 allLinks = [...allLinks, ...movieLinks];
 
                 // استخراج الروابط من عناصر "Series"
@@ -44,6 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const seriesLinks = Array.from(seriesDoc.querySelectorAll('.movie-item a'))
                     .map(a => a.getAttribute('href'))
                     .filter(href => href.startsWith('watch/series'));
+
+                console.log("Series links found:", seriesLinks);
 
                 allLinks = [...allLinks, ...seriesLinks];
 
