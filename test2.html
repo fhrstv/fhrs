@@ -70,21 +70,39 @@
 
     <script>
         // الحصول على المسار الكامل للملف الحالي
-        var path = window.location.pathname;
+        // احصل على قائمة الأفلام والمسلسلات من المجلد watch/series
+const seriesFolder = 'watch/series/';
+const seriesList = [];
 
-        // استخراج اسم الملف من المسار
-        var fileName = path.substring(path.lastIndexOf('/') + 1);
-        var movieName = fileName.split(".")[0]; // إزالة الامتداد مثل .html
+// قم بقراءة محتويات المجلد watch/series
+fetch(seriesFolder)
+  .then(response => response.text())
+  .then(data => {
+    // قم بتحليل النص لاستخراج أسماء الملفات
+    const fileNames = data.split('\n');
+    fileNames.forEach(fileName => {
+      // قم بإزالة الامتداد من اسم الملف
+      const seriesName = fileName.replace(/\.[^/.]+$/, '');
+      seriesList.push(seriesName);
+    });
+    // قم بإنشاء المربعات تلقائيًا
+    createSeriesBoxes(seriesList);
+  })
+  .catch(error => console.error('Error:', error));
 
-        // التأكد من أن النص مستخرج بشكل صحيح
-        if (movieName) {
-            // تعديل النص داخل المربع الأحمر
-            var movieLink = document.getElementById("movieLink");
-            movieLink.textContent = movieName.replace(/-/g, ' '); // استبدال "-" بمسافات
-        } else {
-            // إذا لم يتم استخراج اسم الفيلم، قم بإخفاء المربع
-            document.querySelector('.movie-item').style.display = 'none';
-        }
+// قم بإنشاء المربعات تلقائيًا
+function createSeriesBoxes(seriesList) {
+  const movieListElement = document.querySelector('.movie-list');
+  seriesList.forEach(seriesName => {
+    const listItem = document.createElement('LI');
+    listItem.classList.add('movie-item');
+    const link = document.createElement('A');
+    link.href = `${seriesFolder}${seriesName}`;
+    link.textContent = seriesName;
+    listItem.appendChild(link);
+    movieListElement.appendChild(listItem);
+  });
+}
     </script>
 </body>
 </html>
