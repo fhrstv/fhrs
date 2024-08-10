@@ -32,18 +32,21 @@
     const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
 
     fetch(apiUrl)
-  .then(response => response.json())
-  .then(data => {
-    const seriesList = document.getElementById('movie-list');
-    data.forEach(file => {
-      const listItem = document.createElement('li');
-      listItem.classList.add('movie-item');
-      const fileUrl = `${folderPath}/${file.name}`;
-      listItem.innerHTML = `<a href="${fileUrl}" target="_blank" rel="noopener noreferrer">${file.name}</a>`;
-      seriesList.appendChild(listItem);
-    });
-  })
-  .catch(error => console.error('Error:', error));
+      .then(response => response.json())
+      .then(data => {
+        const seriesList = document.getElementById('movie-list');
+        data.forEach(file => {
+          const fileNameWithoutExtension = file.name.replace('.html', '');
+          const displayName = fileNameWithoutExtension.replace(/-/g, ' ');
+          const fileUrl = `${folderPath}/${file.name}`;
+          
+          const listItem = document.createElement('li');
+          listItem.classList.add('movie-item');
+          listItem.innerHTML = `<a href="${fileUrl}" target="_blank" rel="noopener noreferrer">${displayName}</a>`;
+          seriesList.appendChild(listItem);
+        });
+      })
+      .catch(error => console.error('Error:', error));
   </script>
 </body>
 </html>
