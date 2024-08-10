@@ -18,27 +18,37 @@
     .movie-item a:hover {
       color: #23527c;
     }
+    #search-container {
+      margin-bottom: 20px;
+    }
+    #search-input {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
   <h1>Series List</h1>
+  <div id="search-container">
+    <input type="text" id="search-input" placeholder="بحث عن فيلم...">
+  </div>
   <ul class="movie-list" id="movie-list"></ul>
 
   <script>
     const repoOwner = 'fhrstv';
     const repoName = 'fhrs';
     const folderPath = 'watch/series';
-
     const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
 
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
         const seriesList = document.getElementById('movie-list');
+        const searchInput = document.getElementById('search-input');
 
-        data.forEach(file => {
+        const links = data.map(file => {
           const fileNameWithoutExtension = file.name.replace('.html', '');
-          // Replace hyphens with spaces, preserve dots, and capitalize the first letter of each word
           const displayName = fileNameWithoutExtension
             .replace(/-/g, ' ') // Replace hyphens with spaces
             .split(' ')
@@ -49,8 +59,34 @@
           
           const listItem = document.createElement('li');
           listItem.classList.add('movie-item');
-          listItem.innerHTML = `<a href="${fileUrl}" rel="noopener noreferrer">${displayName}</a>`;
+          listItem.innerHTML = `<a href="${fileUrl}" target="_blank" rel="noopener noreferrer">${displayName}</a>`;
           seriesList.appendChild(listItem);
+          return listItem;
+        });
+
+        // Sort the movie list in alphabetical order
+        links.sort((a, b) => a.textContent.localeCompare(b.textContent));
+
+        // Reorder the links in the movie list
+        links.forEach(listItem => seriesList.appendChild(listItem));
+
+        searchInput.addEventListener('input', function() {
+          const searchTerm = searchInput.value.trim().toLowerCase();
+          links.forEach(listItem => {
+            const movieTitle = listItem.textContent.trim().toLowerCase();
+            if (movieTitle.includes(searchTerm)) {
+              listItem.style.display = 'block';
+            } else {
+              listItem.style.display = 'none';
+            }
+          });
+        });
+
+        searchInput.addEventListener('keypress', function(event) {
+          if (event.keyCode === 13) {
+            event.preventDefault(); // Prevent form submission
+            searchInput.blur(); // Hide the keyboard
+          }
         });
       })
       .catch(error => console.error('Error:', error));
