@@ -18,11 +18,15 @@
     .movie-item a:hover {
       color: #23527c;
     }
+    #movie-content {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <h1>Series List</h1>
   <ul class="movie-list" id="movie-list"></ul>
+  <div id="movie-content"></div>
 
   <script>
     const repoOwner = 'fhrstv';
@@ -49,8 +53,21 @@
           
           const listItem = document.createElement('li');
           listItem.classList.add('movie-item');
-          listItem.innerHTML = `<a href="${fileUrl}" target="_blank" rel="noopener noreferrer">${displayName}</a>`;
+          listItem.innerHTML = `<a href="#" data-url="${fileUrl}">${displayName}</a>`;
           seriesList.appendChild(listItem);
+        });
+
+        seriesList.addEventListener('click', event => {
+          if (event.target.tagName === 'A') {
+            event.preventDefault();
+            const fileUrl = event.target.getAttribute('data-url');
+            fetch(fileUrl)
+              .then(response => response.text())
+              .then(content => {
+                document.getElementById('movie-content').innerHTML = content;
+              })
+              .catch(error => console.error('Error:', error));
+          }
         });
       })
       .catch(error => console.error('Error:', error));
