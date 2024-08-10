@@ -1,93 +1,44 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فهرس</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap">
-    <style>
-        body {
-            font-family: Tajawal, Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #000;
-        }
-
-        header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
-            text-align: center;
-            padding: 10px;
-        }
-
-        h1 {
-            margin: 0;
-        }
-
-        .content {
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .movie-list {
-            list-style-type: none;
-            padding: 0;
-            text-align: center;
-        }
-
-        .movie-item {
-            margin: 10px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            font-size: 25px;
-        }
-
-        a:hover {
-            background-color: gold;
-        }
-    </style>
+  <title>Series List</title>
+  <style>
+    .movie-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .movie-item {
+      margin-bottom: 10px;
+    }
+    .movie-item a {
+      text-decoration: none;
+      color: #337ab7;
+    }
+    .movie-item a:hover {
+      color: #23527c;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>فهرس</h1>
-    </header>
-    <div class="content">
-        <h2>الانمي</h2>
-        <ul class="movie-list">
-            <li class="movie-item"><a id="movieLink" href="#"></a></li>
-        </ul>
-    </div>
+  <h1>Series List</h1>
+  <ul class="movie-list" id="movie-list"></ul>
 
-    <script>
-        // الحصول على المسار الكامل للملف الحالي
-        // احصل على قائمة الأفلام والمسلسلات من المجلد watch/series
-const seriesFolder = 'watch/series/';
-const seriesList = [];
+  <script>
+    const seriesFolder = 'watch/series/';
+    const seriesList = document.getElementById('movie-list');
 
-fetch(seriesFolder)
-  .then(response => response.json())
-  .then(data => {
-    data.forEach(file => {
-      seriesList.push(file.name);
-    });
-    const listElement = document.querySelector('.movie-list');
-    seriesList.forEach(seriesName => {
-      const listItem = document.createElement('li');
-      listItem.classList.add('movie-item');
-      listItem.innerHTML = `<a href="${seriesFolder}${seriesName}">${seriesName}</a>`;
-      listElement.appendChild(listItem);
-    });
-  });
-    </script>
+    fetch(seriesFolder)
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(file => {
+          const listItem = document.createElement('li');
+          listItem.classList.add('movie-item');
+          listItem.innerHTML = `<a href="${seriesFolder}${file.name}">${file.name}</a>`;
+          seriesList.appendChild(listItem);
+        });
+      })
+      .catch(error => console.error('Error:', error));
+  </script>
 </body>
 </html>
