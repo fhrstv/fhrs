@@ -38,7 +38,8 @@
         data.forEach(file => {
           const listItem = document.createElement('li');
           listItem.classList.add('movie-item');
-          listItem.innerHTML = `<a href="${file.download_url}" target="_blank">${file.name}</a>`;
+          const fileUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/master/${file.path}`;
+          listItem.innerHTML = `<a href="${fileUrl}" target="_blank">${file.name}</a>`;
           seriesList.appendChild(listItem);
         });
       })
