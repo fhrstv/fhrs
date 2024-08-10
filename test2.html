@@ -23,7 +23,6 @@
 <body>
   <h1>Series List</h1>
   <ul class="movie-list" id="movie-list"></ul>
-  <iframe id="file-content" frameborder="0" width="100%" height="600"></iframe>
 
   <script>
     const repoOwner = 'fhrstv';
@@ -39,17 +38,11 @@
         data.forEach(file => {
           const listItem = document.createElement('li');
           listItem.classList.add('movie-item');
-          listItem.innerHTML = `<a href="#" onclick="loadFile('${file.path}')">${file.name}</a>`;
+          listItem.innerHTML = `<a href="${file.download_url}" target="_blank">${file.name}</a>`;
           seriesList.appendChild(listItem);
         });
       })
       .catch(error => console.error('Error:', error));
-
-    function loadFile(filePath) {
-      const fileUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/master/${filePath}`;
-      const iframe = document.getElementById('file-content');
-      iframe.src = fileUrl;
-    }
   </script>
 </body>
 </html>
