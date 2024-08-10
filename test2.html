@@ -35,9 +35,13 @@
       .then(response => response.json())
       .then(data => {
         const seriesList = document.getElementById('movie-list');
+
         data.forEach(file => {
           const fileNameWithoutExtension = file.name.replace('.html', '');
-          const displayName = fileNameWithoutExtension.replace(/-/g, ' ');
+          const displayName = fileNameWithoutExtension
+            .replace(/-/g, ' ')
+            .replace(/\b\w/g, char => char.toUpperCase()); // Capitalize the first letter of each word
+
           const fileUrl = `${folderPath}/${file.name}`;
           
           const listItem = document.createElement('li');
