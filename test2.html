@@ -119,8 +119,8 @@
         // الحصول على المسار الكامل للملف الحالي
         var path = window.location.pathname;
 
-        // التحقق من أن الملف موجود مباشرة داخل مجلد series وليس ضمن مسار آخر
-        if (path.includes('/series/') && !path.includes('/watch/series/')) {
+        // التحقق من أن الملف موجود مباشرة داخل مجلد series
+        if (path.includes('/series/') && path.split('/series/')[1].indexOf('/') === -1) {
             // استخراج اسم الملف من المسار
             var pageName = path.split("/").pop().split(".")[0];
             
