@@ -124,40 +124,17 @@
   <script>
     const repoOwner = 'fhrstv';
 const repoName = 'fhrs';
-const folderPath = 'watch/movies'; // تأكد من أن المسار صحيح
-const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
+const folderPath = 'watch/movies';
+const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/git/trees/main?recursive=1`;
 
-const seriesList = document.getElementById('movie-list');
-const searchInput = document.getElementById('search-input');
-
-function fetchAllFiles(url, allFiles = []) {
-  return fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json().then(data => {
-        allFiles = allFiles.concat(data);
-
-        // التحقق من وجود المزيد من الصفحات
-        const linkHeader = response.headers.get('Link');
-        const nextUrl = linkHeader?.match(/<(.*?)>; rel="next"/)?.[1];
-
-        if (nextUrl) {
-          return fetchAllFiles(nextUrl, allFiles);
-        } else {
-          return allFiles;
-        }
-      });
-    });
-}
-
-fetchAllFiles(apiUrl)
+fetch(apiUrl)
+  .then(response => response.json())
   .then(data => {
-    console.log(data); // تحقق من البيانات التي تم استلامها
-
-    const links = data.map(file => {
-      const fileNameWithoutExtension = file.name.replace('.html', '');
+    const files = data.tree.filter(file => file.path.startsWith(folderPath) && file.path.endsWith('.html'));
+    const seriesList = document.getElementById('movie-list');
+    const links = files.slice(0, 50000).map(file => {
+      const fileName = file.path.split('/').pop();
+      const fileNameWithoutExtension = fileName.replace('.html', '');
       const displayName = fileNameWithoutExtension
         .replace(/-/g, ' ')
         .split(' ')
@@ -177,25 +154,6 @@ fetchAllFiles(apiUrl)
     links.forEach(listItem => seriesList.appendChild(listItem));
   })
   .catch(error => console.error('Error:', error));
-
-searchInput.addEventListener('input', function() {
-  const searchTerm = searchInput.value.trim().toLowerCase();
-  links.forEach(listItem => {
-    const movieTitle = listItem.textContent.trim().toLowerCase();
-    if (movieTitle.includes(searchTerm)) {
-      listItem.style.display = 'block';
-    } else {
-      listItem.style.display = 'none';
-    }
-  });
-});
-
-searchInput.addEventListener('keypress', function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault(); // Prevent form submission
-    searchInput.blur(); // Hide the keyboard
-  }
-});
   </script>
 </body>
 </html>
