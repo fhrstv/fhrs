@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Series List</title>
+<title>Series List</title>
   <style>
     .movie-list {
       list-style: none;
@@ -25,16 +25,20 @@
   <ul class="movie-list" id="movie-list"></ul>
 
   <script>
-    const seriesFolder = 'watch/series/';
-    const seriesList = document.getElementById('movie-list');
+    const repoOwner = 'fhrstv';
+    const repoName = 'fhrs';
+    const folderPath = 'watch/series';
 
-    fetch(seriesFolder)
+    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
+
+    fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
+        const seriesList = document.getElementById('movie-list');
         data.forEach(file => {
           const listItem = document.createElement('li');
           listItem.classList.add('movie-item');
-          listItem.innerHTML = `<a href="${seriesFolder}${file.name}">${file.name}</a>`;
+          listItem.innerHTML = `<a href="${file.html_url}">${file.name}</a>`;
           seriesList.appendChild(listItem);
         });
       })
