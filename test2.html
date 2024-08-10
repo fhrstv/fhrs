@@ -3,37 +3,112 @@
 <head>
   <title>Series List</title>
   <style>
-    .movie-list {
-      list-style: none;
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
       padding: 0;
+      color: #000;
+    }
+
+    header {
+      background-color: #333;
+      color: hsl(0, 94%, 46%);
+      text-align: center;
+      padding: 10px;
+    }
+
+    h1 {
       margin: 0;
     }
+
+    .content {
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .movie-list {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
+
+    .head-center {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
+
     .movie-item {
-      margin-bottom: 10px;
+      margin: 10px;
     }
-    .movie-item a {
+
+    a {
       text-decoration: none;
-      color: #337ab7;
+      color: #333;
+      display: block;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: red;
+      transition: background-color 0.3s;
+      font-size: 25px;
     }
-    .movie-item a:hover {
-      color: #23527c;
+
+    a:hover {
+      background-color: gold;
     }
-    #search-container {
-      margin-bottom: 20px;
+
+    h2 {
+      text-align: center;
     }
-    #search-input {
+
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
       width: 100%;
-      padding: 8px;
-      font-size: 16px;
+      max-width: 300px;
+    }
+
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #search-input {
+      touch-action: none;
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 24px;
+      }
+      .search-box {
+        margin-top: 10px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Series List</h1>
-  <div id="search-container">
-    <input type="text" id="search-input" placeholder="بحث عن فيلم...">
+  <header>
+    <h1>Series List</h1>
+  </header>
+  <div class="content">
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="بحث عن فيلم...">
+    </div>
+    <ul class="movie-list" id="movie-list"></ul>
   </div>
-  <ul class="movie-list" id="movie-list"></ul>
 
   <script>
     const repoOwner = 'fhrstv';
