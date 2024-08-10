@@ -72,16 +72,17 @@
         // الحصول على المسار الكامل للملف الحالي
         var path = window.location.pathname;
 
-        // التحقق من أن الملف موجود داخل مجلد series
-        if (path.includes('/series/')) {
-            // استخراج اسم الملف من المسار
-            var fileName = path.substring(path.lastIndexOf('/') + 1);
-            var movieName = fileName.split(".")[0]; // إزالة الامتداد مثل .html
+        // استخراج اسم الملف من المسار
+        var fileName = path.substring(path.lastIndexOf('/') + 1);
+        var movieName = fileName.split(".")[0]; // إزالة الامتداد مثل .html
 
+        // التأكد من أن النص مستخرج بشكل صحيح
+        if (movieName) {
             // تعديل النص داخل المربع الأحمر
             var movieLink = document.getElementById("movieLink");
             movieLink.textContent = movieName.replace(/-/g, ' '); // استبدال "-" بمسافات
         } else {
+            // إذا لم يتم استخراج اسم الفيلم، قم بإخفاء المربع
             document.querySelector('.movie-item').style.display = 'none';
         }
     </script>
