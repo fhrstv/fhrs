@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Series List</title>
+  <title>Series List</title>
   <style>
     .movie-list {
       list-style: none;
@@ -23,6 +23,7 @@
 <body>
   <h1>Series List</h1>
   <ul class="movie-list" id="movie-list"></ul>
+  <div id="file-content"></div>
 
   <script>
     const repoOwner = 'fhrstv';
@@ -38,11 +39,25 @@
         data.forEach(file => {
           const listItem = document.createElement('li');
           listItem.classList.add('movie-item');
-          listItem.innerHTML = `<a href="${file.html_url}">${file.name}</a>`;
+          listItem.innerHTML = `<a href="?file=${file.path}">${file.name}</a>`;
           seriesList.appendChild(listItem);
         });
       })
       .catch(error => console.error('Error:', error));
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const fileParam = urlParams.get('file');
+
+    if (fileParam) {
+      const fileUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/master/${fileParam}`;
+      fetch(fileUrl)
+        .then(response => response.text())
+        .then(data => {
+          const fileContent = document.getElementById('file-content');
+          fileContent.innerHTML = data;
+        })
+        .catch(error => console.error('Error:', error));
+    }
   </script>
 </body>
 </html>
