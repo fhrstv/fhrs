@@ -124,7 +124,7 @@
   <script>
     const repoOwner = 'fhrstv';
 const repoName = 'fhrs';
-const folderPath = 'watch/series'; // تأكد من تغيير المسار إلى المسار الصحيح
+const folderPath = 'watch/series'; // تأكد من أن المسار صحيح
 const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
 
 const seriesList = document.getElementById('movie-list');
@@ -132,22 +132,30 @@ const searchInput = document.getElementById('search-input');
 
 function fetchAllFiles(url, allFiles = []) {
   return fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      allFiles = allFiles.concat(data);
-
-      const nextUrl = response.headers.get('Link')?.match(/<(.*?)>; rel="next"/)?.[1];
-
-      if (nextUrl) {
-        return fetchAllFiles(nextUrl, allFiles);
-      } else {
-        return allFiles;
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
+      return response.json().then(data => {
+        allFiles = allFiles.concat(data);
+
+        // التحقق من وجود المزيد من الصفحات
+        const linkHeader = response.headers.get('Link');
+        const nextUrl = linkHeader?.match(/<(.*?)>; rel="next"/)?.[1];
+
+        if (nextUrl) {
+          return fetchAllFiles(nextUrl, allFiles);
+        } else {
+          return allFiles;
+        }
+      });
     });
 }
 
 fetchAllFiles(apiUrl)
   .then(data => {
+    console.log(data); // تحقق من البيانات التي تم استلامها
+
     const links = data.map(file => {
       const fileNameWithoutExtension = file.name.replace('.html', '');
       const displayName = fileNameWithoutExtension
@@ -156,7 +164,7 @@ fetchAllFiles(apiUrl)
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 
-      const fileUrl = `${folderPath}/${fileNameWithoutExtension}`; 
+      const fileUrl = `${folderPath}/${fileNameWithoutExtension}`;
 
       const listItem = document.createElement('li');
       listItem.classList.add('movie-item');
