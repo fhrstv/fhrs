@@ -74,35 +74,20 @@
 const seriesFolder = 'watch/series/';
 const seriesList = [];
 
-// قم بقراءة محتويات المجلد watch/series
 fetch(seriesFolder)
-  .then(response => response.text())
+  .then(response => response.json())
   .then(data => {
-    // قم بتحليل النص لاستخراج أسماء الملفات
-    const fileNames = data.split('\n');
-    fileNames.forEach(fileName => {
-      // قم بإزالة الامتداد من اسم الملف
-      const seriesName = fileName.replace(/\.[^/.]+$/, '');
-      seriesList.push(seriesName);
+    data.forEach(file => {
+      seriesList.push(file.name);
     });
-    // قم بإنشاء المربعات تلقائيًا
-    createSeriesBoxes(seriesList);
-  })
-  .catch(error => console.error('Error:', error));
-
-// قم بإنشاء المربعات تلقائيًا
-function createSeriesBoxes(seriesList) {
-  const movieListElement = document.querySelector('.movie-list');
-  seriesList.forEach(seriesName => {
-    const listItem = document.createElement('LI');
-    listItem.classList.add('movie-item');
-    const link = document.createElement('A');
-    link.href = `${seriesFolder}${seriesName}`;
-    link.textContent = seriesName;
-    listItem.appendChild(link);
-    movieListElement.appendChild(listItem);
+    const listElement = document.querySelector('.movie-list');
+    seriesList.forEach(seriesName => {
+      const listItem = document.createElement('li');
+      listItem.classList.add('movie-item');
+      listItem.innerHTML = `<a href="${seriesFolder}${seriesName}">${seriesName}</a>`;
+      listElement.appendChild(listItem);
+    });
   });
-}
     </script>
 </body>
 </html>
