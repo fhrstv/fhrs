@@ -124,22 +124,40 @@
   <script>
     const repoOwner = 'fhrstv';
 const repoName = 'fhrs';
-const folderPath = 'watch/movies';
+const folderPath = 'watch/movies'; // تأكد من تغيير المسار إلى المسار الصحيح
 const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
 
-fetch(apiUrl)
-  .then(response => response.json())
+const seriesList = document.getElementById('movie-list');
+const searchInput = document.getElementById('search-input');
+
+function fetchAllFiles(url, allFiles = []) {
+  return fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      allFiles = allFiles.concat(data);
+
+      const nextUrl = response.headers.get('Link')?.match(/<(.*?)>; rel="next"/)?.[1];
+
+      if (nextUrl) {
+        return fetchAllFiles(nextUrl, allFiles);
+      } else {
+        return allFiles;
+      }
+    });
+}
+
+fetchAllFiles(apiUrl)
   .then(data => {
     const links = data.map(file => {
       const fileNameWithoutExtension = file.name.replace('.html', '');
       const displayName = fileNameWithoutExtension
-        .replace(/-/g, ' ') 
+        .replace(/-/g, ' ')
         .split(' ')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 
       const fileUrl = `${folderPath}/${fileNameWithoutExtension}`; 
-      
+
       const listItem = document.createElement('li');
       listItem.classList.add('movie-item');
       listItem.innerHTML = `<a href="${fileUrl}" rel="noopener noreferrer">${displayName}</a>`;
@@ -151,6 +169,25 @@ fetch(apiUrl)
     links.forEach(listItem => seriesList.appendChild(listItem));
   })
   .catch(error => console.error('Error:', error));
+
+searchInput.addEventListener('input', function() {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  links.forEach(listItem => {
+    const movieTitle = listItem.textContent.trim().toLowerCase();
+    if (movieTitle.includes(searchTerm)) {
+      listItem.style.display = 'block';
+    } else {
+      listItem.style.display = 'none';
+    }
+  });
+});
+
+searchInput.addEventListener('keypress', function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault(); // Prevent form submission
+    searchInput.blur(); // Hide the keyboard
+  }
+});
   </script>
 </body>
 </html>
