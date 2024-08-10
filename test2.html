@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>فهرس</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Tajawal, Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
-            color: #000
+            color: #000;
         }
 
         header {
@@ -87,6 +86,7 @@
             h2 {
                 font-size: 24px;
             }
+
             .search-box {
                 margin-top: 10px;
             }
@@ -111,19 +111,26 @@
         <div class="search-results" id="searchResults"></div>
 
         <ul class="movie-list">
-            <li class="movie-item"><a id="movieLink" href=""></a></li>
+            <li class="movie-item"><a id="movieLink" href="#"></a></li>
         </ul>
     </div>
 
     <script>
-        // الحصول على اسم الملف من رابط الصفحة
+        // الحصول على المسار الكامل للملف الحالي
         var path = window.location.pathname;
-        var pageName = path.split("/").pop().split(".")[0];
-        
-        // إعداد الرابط والاسم
-        var movieLink = document.getElementById("movieLink");
-        movieLink.href = "#";
-        movieLink.textContent = pageName.replace(/-/g, ' '); // استبدال "-" بمسافات
+
+        // التحقق من أن الملف موجود مباشرة داخل مجلد series وليس ضمن مسار آخر
+        if (path.includes('/series/') && !path.includes('/watch/series/')) {
+            // استخراج اسم الملف من المسار
+            var pageName = path.split("/").pop().split(".")[0];
+            
+            // إعداد الرابط والاسم
+            var movieLink = document.getElementById("movieLink");
+            movieLink.textContent = pageName.replace(/-/g, ' '); // استبدال "-" بمسافات
+        } else {
+            // إذا لم يكن الملف في مجلد series مباشرة، أخفي المربع الأحمر
+            document.querySelector('.movie-item').style.display = 'none';
+        }
     </script>
 </body>
 </html>
