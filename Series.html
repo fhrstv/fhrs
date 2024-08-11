@@ -1,551 +1,181 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>فهرس</title>
+  <title>فهرس</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js" defer></script>
     <script src=".htaccess" defer></script>
 <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      color: #000;
+    }
 
+    header {
+      background-color: #333;
+      color: hsl(0, 94%, 46%);
+      text-align: center;
+      padding: 10px;
+    }
 
-    <style>
-      /* الأسلوب العام للصفحة */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #000
-        }
+    h1 {
+      margin: 0;
+    }
 
-        header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
-            text-align: center;
-            padding: 10px;
-        }
+    .content {
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
 
-        /* عنوان الصفحة */
-        h1 {
-            margin: 0;
-        }
+    .movie-list {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
 
-        /* منطقة العرض للأفلام والمسلسلات */
-        .content {
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center; /* توسيط المحتوى */
-        }
+    .head-center {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
 
-        /* قائمة لعرض الأفلام والمسلسلات */
-        .movie-list {
-            list-style-type: none;
-            padding: 0;
-            text-align: center; /* توسيط العناصر */
-        }
+    .movie-item {
+      margin: 10px;
+    }
 
-        .head-center {
-            list-style-type: none;
-            padding: 0;
-            text-align: center;
-        }
+    a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: red;
+      transition: background-color 0.3s;
+      font-size: 25px;
+    }
 
-        .movie-item {
-            margin: 10px;
-        }
+    a:hover {
+      background-color: gold;
+    }
 
-        /* المربعات الحمراء */
-        a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            font-size: 25px; /* تكبير حجم الخط داخل المربعات الحمراء */
-        }
+    h2 {
+      text-align: center;
+    }
 
-        a:hover {
-            background-color: gold;
-        }
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+    }
 
-        /* توسيط عنوان الأفلام والمسلسلات والانمي */
-        h2 {
-            text-align: center;
-        }
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 300px;
+    }
 
-        /* مربع البحث */
-        .search-box {
-            text-align: center;
-            margin-top: 20px;
-        }
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-        input[type="text"] {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 100%; /* يمتلئ عرض الشاشة بالكامل */
-            max-width: 300px; /* حد أقصى لعرض المربع */
-        }
+    #search-input {
+      touch-action: none;
+    }
 
-        input[type="submit"] {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        #search-input {
-  touch-action: none;
-}
-
-        
-        
-        
-
-
-
-        /* تعديل للشاشات الصغيرة (تقنية التجاوب) */
-        @media (max-width: 600px) {
-            h2 {
-                font-size: 24px; /* تصغير حجم العنوان للهواتف الصغيرة */
-            }
-            .search-box {
-                margin-top: 10px;
-            }
-        }
-    </style>
-    <!-- تضمين الخط العربي Tajawal -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap">
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 24px;
+      }
+      .search-box {
+        margin-top: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>فهرس</h1>
-    </header>
-    <div class="content">
-        <h2>المسلسلات الاجنبية و الانمي و العربية</h2>
+  <header>
+    <h1>فهرس</h1>
+  </header>
+  <div class="content">
+    <h2>المسلسلات الاجنبية و الانمي و العربية</h2>
 <br>تحديث المسلسلات و المواسم و الحلقات في موقعنا يوميا      <!-- مربع البحث -->
-        <div class="search-box">
-<input type="text" id="search-input" dir="auto" style="text-align: center;" placeholder="اكتب اسم مسلسلك هنا">
-</div>
-        <!-- نتائج البحث -->
-        <div class="search-results" id="searchResults">
-            <!-- هنا سيتم عرض نتائج البحث -->
-        </div>
-        <!-- قائمة الأفلام والمسلسلات الأخرى -->
-        <ul class="head-center">
+    <div class="search-box">
+      <input type="text" id="search-input" dir="auto" style="text-align: center;" placeholder="اكتب اسم مسلسلك هنا">
+    </div>
+    <ul class="head-center">
             <li class="head-item"><a href="/">رجوع</a></li>
         </ul>
-        <ul class="movie-list">
-            <!-- إضافة العناصر هنا -->
-             
-             <li class="movie-item"><a href="watch/series/d-p-2021">D.P. (2021)</a></li>
-             <li class="movie-item"><a href="watch/series/jiok-2021">Jiok 2021</a></li>
-            <li class="movie-item"><a href="watch/series/Kingdom 2019">Kingdom 2019</a></li>
-            <li class="movie-item"><a href="watch/series/all-of-us-are-dead-2020">All of Us Are Dead 2020</a></li>
-            <li class="movie-item"><a href="watch/series/alice-in-borderland-2020">Alice in Borderland 2020</a></li>
-            <li class="movie-item"><a href="watch/series/boruto-naruto-next-generations">Boruto: Naruto Next Generations</a></li>
-            <li class="movie-item"><a href="watch/series/hunter-x-hunter">Hunter x Hunter</a></li>
-            <li class="movie-item"><a href="watch/series/haikyuu">Haikyuu <br>هايكيو</a></li>
-            <li class="movie-item"><a href="watch/series/berserk">Berserk 2016 - 2017</a></li>
-            <li class="movie-item"><a href="watch/series/sword-art-online-alicization">Sword Art Online: alicization</a></li>
-            <li class="movie-item"><a href="watch/series/sword-art-online">Sword Art Online</a></li>
-            <li class="movie-item"><a href="watch/series/tokyo-ghoul">Tokyo Ghoul</a></li>
-            <li class="movie-item"><a href="watch/series/detective-conan">Detective Conan </a></li>
-            <li class="movie-item"><a href="watch/series/akame-ga-kill-2014">Akame ga Kill! 2014</a></li>
-            <li class="movie-item"><a href="watch/series/7-seeds">7Seeds</a></li>
-            <li class="movie-item"><a href="watch/series/البيت-بيتي">البيت بيتي</a></li>
-            <li class="movie-item"><a href="watch/series/no-escape-2023">No Escape 2023</a></li>
-            <li class="movie-item"><a href="watch/series/dear-child-2023">Dear Child <br>Liebes Kind 2023</a></li>
-            <li class="movie-item"><a href="watch/series/الاسطورة-2016">الاسطورة 2016</a></li>
-            <li class="movie-item"><a href="watch/series/bodyguard-2018">Bodyguard 2018</a></li>
-            <li class="movie-item"><a href="watch/series/one-day-2024">One Day 2024</a></li>
-            <li class="movie-item"><a href="watch/series/the-gentlemen-2024">The Gentlemen 2024</a></li>
-            <li class="movie-item"><a href="watch/series/the-loudest-voice-2019">The Loudest Voice 2019</a></li>
-            <li class="movie-item"><a href="watch/series/the-fable">The Fable</a></li>
-            <li class="movie-item"><a href="watch/series/kimetsu-no-yaiba">Kimetsu no Yaiba</a></li>
-            <li class="movie-item"><a href="watch/series/bleach-sennen-kessen-hen">Bleach: Sennen Kessen-hen</a></li>
-            <li class="movie-item"><a href="watch/series/solo-leveling">Solo Leveling</a></li>
-            <li class="movie-item"><a href="watch/series/bleach">Bleach<br>الموسم الاول فقط</a></li>
-            <li class="movie-item"><a href="watch/series/ninja-kamui">Ninja Kamui</a></li>
-            <li class="movie-item"><a href="watch/series/boku-no-hero">Boku No Hero <br>( جميع المواسم )</a></li>
-            <li class="movie-item"><a href="watch/series/vinland-saga">Vinland Saga<br>( جميع المواسم )</a></li>
-            <li class="movie-item"><a href="watch/series/one-piece">One Piece</a></li>
-            <li class="movie-item"><a href="watch/series/monster">Monster</a></li>
-            <li class="movie-item"><a href="watch/series/tokyo-revengers">Tokyo Revengers</a></li>
-            <li class="movie-item"><a href="watch/series/chainsaw-man">Chainsaw Man</a></li>
-            <li class="movie-item"><a href="watch/series/one-punch-man">One Punch Man<br>( جميع المواسم )</a></li>
-            <li class="movie-item"><a href="watch/series/death-note">Death Note</a></li>
-            <li class="movie-item"><a href="watch/series/jujutsu-kaisen">Jujutsu Kaisen<br>( جميع المواسم )</a></li>
-            <li class="movie-item"><a href="watch/series/blue-lock">Blue Lock</a></li>
-            <li class="movie-item"><a href="watch/series/yakusoku-no-neverland">Yakusoku no Neverland<br>( جميع المواسم )</a></li>
-            <li class="movie-item"><a href="watch/series/mashle">Mashle<br>( جميع المواسم )</a></li>
-            <li class="movie-item"><a href="watch/series/naruto">Naruto</a></li>
-            <li class="movie-item"><a href="watch/series/kingdom">Kingdom<br>( جميع المواسم )</a></li>
-            <li class="movie-item"><a href="watch/series/undead-unluck">Undead Unluck</a></li>
-            <li class="movie-item"><a href="watch/series/monster-2022">Monster 2022<br>jeffery dahmer</a></li>
-            <li class="movie-item"><a href="watch/series/welcome-to-wrexham-2022">Welcome to Wrexham 2022</a></li>
-            <li class="movie-item"><a href="watch/series/avatar-the-last-airbender-2024">Avatar: The Last Airbender 2024</a></li>
-            <li class="movie-item"><a href="watch/series/twd-the-ones-who-live-2024">The Walking Dead : the ones who Live 2024</a></li>
-            <li class="movie-item"><a href="watch/series/berlin-2023">Berlin 2023</a></li>
-                        <li class="movie-item"><a href="watch/series/tulsa-king-2022">Tulsa King 2022</a></li>
-                        <li class="movie-item"><a href="watch/series/your-honor-2020">Your Honor 2020</a></li>
-                        <li class="movie-item"><a href="watch/series/the-continental-2023">The Continental 2023</a></li>
-                         <li class="movie-item"><a href="watch/series/the-empress-2022">The Empress 2022</a></li>
-                         <li class="movie-item"><a href="watch/series/queen-charlotte-a-bridgerton-story-2023">Queen Charlotte: A Bridgerton Story 2023</a></li>
+    <ul class="movie-list" id="movie-list"></ul>
+  </div>
 
+  <script>
+    const repoOwner = 'fhrstv';
+const repoName = 'fhrs';
+const folderPath = 'watch/series';
+const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/git/trees/main?recursive=1`;
 
-                         <li class="movie-item"><a href="watch/series/chilling-adventures-of-sabrina-2018">Chilling Adventures of Sabrina 2018</a></li>
+fetch(apiUrl)
+  .then(response => response.json())
+  .then(data => {
+    const files = data.tree.filter(file => file.path.startsWith(folderPath) && file.path.endsWith('.html'));
+    const seriesList = document.getElementById('movie-list');
+    const links = files.slice(0, 50000).map(file => {
+      const fileName = file.path.split('/').pop();
+      const fileNameWithoutExtension = fileName.replace('.html', '');
+      const displayName = fileNameWithoutExtension
+        .replace(/-/g, ' ')
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
 
-                         <li class="movie-item"><a href="watch/series/locke-and-key-2020">Locke & Key (2020)</a></li>
+      const fileUrl = `${folderPath}/${fileNameWithoutExtension}`;
 
-                         <li class="movie-item"><a href="watch/series/the-order">The Order</a></li>
+      const listItem = document.createElement('li');
+      listItem.classList.add('movie-item');
+      listItem.innerHTML = `<a href="${fileUrl}" rel="noopener noreferrer">${displayName}</a>`;
+      seriesList.appendChild(listItem);
+      return listItem.querySelector('a');
+    });
 
-                        <li class="movie-item"><a href="watch/series/fate-the-winx-saga">Fate: The Winx Saga</a></li>
-
-                         <li class="movie-item"><a href="watch/series/emily-in-paris">Emily in Paris</a></li>
-                       <li class="movie-item"><a href="watch/series/ginny-and-georgia">Ginny & Georgia</a></li>
-
-                          <li class="movie-item"><a href="watch/series/never-have-i-ever">Never Have i Ever</a></li>
-
-                      <li class="movie-item"><a href="watch/series/the-undoing-2020">The Undoing 2020</a></li>
-
-                        <li class="movie-item"><a href="watch/series/maid-2021">Maid 2021</a></li>
-  
-                       <li class="movie-item"><a href="watch/series/behind-her-eyes-2021">Behind Her Eyes 2021</a></li>
-
-                        <li class="movie-item"><a href="watch/series/the-stranger-2020">The Stranger 2020</a></li>
-
-                         <li class="movie-item"><a href="watch/series/reacher-2022">Reacher 2022</a></li>
-
-                        <li class="movie-item"><a href="watch/series/gen-v">Gen V (2023)</a></li>
-                        <li class="movie-item"><a href="watch/series/power">Power</a></li>
-                         <li class="movie-item"><a href="watch/series/kin">Kin</a></li>
-                         <li class="movie-item"><a href="watch/series/silo">Silo</a></li>
-
-                         <li class="movie-item"><a href="watch/series/two-and-a-half-men">Two And a Half Men</a></li>
-                         <li class="movie-item"><a href="watch/series/sweet-home-2020">Sweet Home 2020</a></li>
-
-                         <li class="movie-item"><a href="watch/series/the-witcher">The Witcher</a></li>
-
-                         <li class="movie-item"><a href="watch/series/the-watch/serieser">The watch/serieser</a></li>
-
-                         <li class="movie-item"><a href="watch/series/angel">Angel</a></li>
-
-
-                         <li class="movie-item"><a href="watch/series/buffy-the-vampire-slayer">Buffy The Vampire Slayer</a></li>
-
-                         <li class="movie-item"><a href="watch/series/grimm">Grimm</a></li>
-                         <li class="movie-item"><a href="watch/series/true-blood">True Blood</a></li>
-                         <li class="movie-item"><a href="watch/series/the-magicians">The Magicians</a></li>
-                         <li class="movie-item"><a href="watch/series/a-discovery-of-witches">A Discovery of Witches</a></li>
-    
-
-                         <li class="movie-item"><a href="watch/series/the-nevers">The Nevers</a></li>
-
-                         <li class="movie-item"><a href="watch/series/how-to-get-away-with-murder">How To Get Away With Murder</a></li>
-
-                         <li class="movie-item"><a href="watch/series/glitch">Glitch 2015</a></li>
-                       <li class="movie-item"><a href="watch/series/wandavision-2021">WandaVision 2021</a></li>
-
-<li class="movie-item"><a href="watch/series/moon-knight-2022">Moon Knight 2022</a></li>
-                        <li class="movie-item"><a href="watch/series/blindspot">Blindspot</a></li>
-    <!--                     <li class="movie-item"><a href="watch/series/blindspotting-2018">Blindspotting 2018</a></li> -->
-                         <li class="movie-item"><a href="watch/series/the-office">The Office</a></li>
-                         <li class="movie-item"><a href="watch/series/orange-is-the-new-black-2013">Orange Is The New Black 2013</a></li>
-                         <li class="movie-item"><a href="watch/series/oz">Oz 1997</a></li>
-                         <li class="movie-item"><a href="watch/series/the-bear-2022">The Bear 2022</a></li>
-                         <li class="movie-item"><a href="watch/series/fleabag-2016">Fleabag 2016</a></li>
-                         <li class="movie-item"><a href="watch/series/sharp-objects-2018">Sharp Objects 2018</a></li>
-                        <li class="movie-item"><a href="watch/series/criminal-minds-suspect-behavior-2011">Criminal Minds: Suspect Behavior 2011</a></li>
-                         <li class="movie-item"><a href="watch/series/candy-2022">Candy 2022</a></li>
-                         <li class="movie-item"><a href="watch/series/the-act-2019">The Act 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/love-and-death-2023">Love & Death 2023</a></li>
-            <li class="movie-item"><a href="watch/series/game-of-thrones">Game Of Thrones</a></li>
-            <li class="movie-item"><a href="watch/series/i-am-georgina">I Am Georgina</a></li>
-            <li class="movie-item"><a href="watch/series/vis-a-vis">Vis a Vis</a></li>
-            <li class="movie-item"><a href="watch/series/young-royal-2021">Young Royal 2021</a></li>
-            <li class="movie-item"><a href="watch/series/riverdale-2017">Riverdale</a></li>
-            <li class="movie-item"><a href="watch/series/vikings-vallhala">Vikings Vallhala</a></li>
-            <li class="movie-item"><a href="watch/series/blacklist">Black List</a></li>
-            <li class="movie-item"><a href="watch/series/taboo-2017">Taboo 2017</a></li>
-            <li class="movie-item"><a href="watch/series/debris-2021">Debris 2021</a></li>
-            <li class="movie-item"><a href="watch/series/hijack-2023">Hijack 2023</a></li>
-            <li class="movie-item"><a href="watch/series/halo-2022">Halo 2022</a></li>
-            <li class="movie-item"><a href="watch/series/gypsy-2017">GyPsy 2017</a></li>
-            <li class="movie-item"><a href="watch/series/the-lord-of-the-rings-the-rings-of-power">The Lord Of The Rings : The Rings Of Power</a></li>
-            <li class="movie-item"><a href="watch/series/band-of-brothers-2001">Band Of Brothers 2001</a></li>
-            <li class="movie-item"><a href="watch/series/daredevil-2015">Daredevil 2015</a></li>
-            <li class="movie-item"><a href="watch/series/narcos-2015">Narcos 2015</a></li>
-            <li class="movie-item"><a href="watch/series/sex-Education-2019">Sex Education 2019</a></li>
-            <li class="movie-item"><a href="watch/series/loki-2021">Loki 2021</a></li>
-            <li class="movie-item"><a href="watch/series/better-call-saul">Better Call Saul</a></li>
-            <li class="movie-item"><a href="watch/series/la-casa-de-papel">La Casa De Papel <br>Money Heist</a></li>
-            <li class="movie-item"><a href="watch/series/house-of-the-dragon">House Of The Dragon</a></li>
-            <li class="movie-item"><a href="watch/series/breaking-bad">Breaking Bad</a></li>
-            <li class="movie-item"><a href="watch/series/1899">1899</a></li>
-            <li class="movie-item"><a href="watch/series/elite-2018">Elite 2018</a></li>
-            <li class="movie-item"><a href="watch/series/stranger-things-2016">Stranger Things</a></li>
-            <li class="movie-item"><a href="watch/series/wednesday-2022">Wednesday</a></li>
-            <li class="movie-item"><a href="watch/series/squid-game-2021">Squid Game</a></li>
-            <li class="movie-item"><a href="watch/series/peaky-blinders">Peaky Blinders</a></li>
-            <li class="movie-item"><a href="watch/series/raised-by-wolves-2020">Raised by wolves 2020</a></li>
-            <li class="movie-item"><a href="watch/series/1883">1883</a></li>
-            <li class="movie-item"><a href="watch/series/the-rehearsal-2022">The Rehearsal 2022</a></li>
-            <li class="movie-item"><a href="watch/series/the-last-of-us">The Last Of Us</a></li>
-            <li class="movie-item"><a href="watch/series/justified-2010">Justified 2010</a></li>
-            <li class="movie-item"><a href="watch/series/sherlock-2010">Sherlock 2010</a></li>
-            <li class="movie-item"><a href="watch/series/based-on-a-true-story-2023">Based on a True Story 2023</a></li>
-            <li class="movie-item"><a href="watch/series/rip-henry-2023">R.I.P. Henry 2023</a></li>
-            <li class="movie-item"><a href="watch/series/one-piece-netflix-2023">One Piece Netflix 2023</a></li>
-            <li class="movie-item"><a href="watch/series/lucky-hank-2023">Lucky Hank 2023</a></li>
-            <li class="movie-item"><a href="watch/series/true-detective-2014">True Detective</a></li>
-            <li class="movie-item"><a href="watch/series/the-rig-2023">The Rig 2023</a></li>
-            <li class="movie-item"><a href="watch/series/shrinking-2023">Shrinking 2023</a></li>
-            <li class="movie-item"><a href="watch/series/little-bird-2023">Little Bird 2023</a></li>
-            <li class="movie-item"><a href="watch/series/the-100">The 100</a></li>
-            <li class="movie-item"><a href="watch/series/vikings">Vikings</a></li>
-            <li class="movie-item"><a href="watch/series/the-walking-dead:daryl-dixon">The Walking Dead: Daryl Dixon</a></li>
-            <li class="movie-item"><a href="watch/series/black-snow-2022">Black Snow 2022</a></li>
-            <li class="movie-item"><a href="watch/series/hawkeye-2021">Hawkeye 2021</a></li>
-            <li class="movie-item"><a href="watch/series/anne-with-an-e">Anne with an "E"</a></li>
-            <li class="movie-item"><a href="watch/series/suits">Suits</a></li>
-            <li class="movie-item"><a href="watch/series/narcos-mexico-2018">Narcos:Mexico 2018</a></li>
-            <li class="movie-item"><a href="watch/series/black-mirror">Black Mirror</a></li>
-            <li class="movie-item"><a href="watch/series/friends">Friends</a></li>
-            <li class="movie-item"><a href="watch/series/chernobyl">Chernobyl</a></li>
-            <li class="movie-item"><a href="watch/series/secret-invasion-2023">Secret Invasion 2023</a></li>
-            <li class="movie-item"><a href="watch/series/the-walking-dead:dead-city">The Walking Dead:Dead City</a></li>
-            <li class="movie-item"><a href="watch/series/the-punisher-2017">The Punisher 2017</a></li>
-            <li class="movie-item"><a href="watch/series/ahsoka-2023">Ahsoka 2023</a></li>
-            <li class="movie-item"><a href="watch/series/i-woke-up-a-vampire-2023">I woke up a Vampire 2023</a></li>
-            <li class="movie-item"><a href="watch/series/the-days-2023">The Days 2023</a></li>
-            <li class="movie-item"><a href="watch/series/how-i-met-your-mother">How I Met Your Mother</a></li>
-            <li class="movie-item"><a href="watch/series/the-wire-2002">The Wire 2002</a></li>
-            <li class="movie-item"><a href="watch/series/the-sopranos-1999">The Sopranos 1999</a></li>
-                         <li class="movie-item"><a href="watch/series/fargo-2014">Fargo 2014</a></li>
-                         <li class="movie-item"><a href="watch/series/when-they-see-us-2019">When They See Us 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/ted-lasso-2020">Ted Lasso 2020</a></li>
-                         <li class="movie-item"><a href="watch/series/the-crown">The Crown 2016</a></li>
-                         <li class="movie-item"><a href="watch/series/the-marvelous-mrs-maisel-2017.html">The Marvelous Mrs.Maisel 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/the-book-of-boba-fett-2021">The Book Of Boba Fett 2021</a></li>
-                         <li class="movie-item"><a href="watch/series/dark">Dark 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/the-boys-2019">The Boys 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/downton-abbey-2010">Downton Abbey 2010</a></li>
-                         <li class="movie-item"><a href="watch/series/dexter">Dexter</a></li>
-                         <li class="movie-item"><a href="watch/series/house">House</a></li>
-                         <li class="movie-item"><a href="watch/series/house-of-cards">House of Cards</a></li>
-                         <li class="movie-item"><a href="watch/series/its-a-sin">It's a Sin 2021</a></li>
-                         <li class="movie-item"><a href="watch/series/yellowstone-2018">Yellowstone 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/doctor-who-2005">Doctor Who 2005</a></li>
-                         <li class="movie-item"><a href="watch/series/call-the-midwife-2012">Call The Midwife 2012</a></li>
-                         <li class="movie-item"><a href="watch/series/the-haunting-of-hill-house-2018">The Haunting of Hill House 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/mindhunter-2017">Mindhunter 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/mr-robot">Mr.Robot</a></li>
-                         <li class="movie-item"><a href="watch/series/shameless">Shameless</a></li>
-
-                         <li class="movie-item"><a href="watch/series/dopesick-2021">Dopesick 2021</a></li>
-                         <li class="movie-item"><a href="watch/series/the-queens-gambit-2020">The Queen's Gambit 2020</a></li>
-                         <li class="movie-item"><a href="watch/series/mr-inbetween-2018">Mr Inbetween 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/pose-2018">Pose 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/boardwalk-empire-2010">Boardwalk Empire 2010</a></li>
-                         <li class="movie-item"><a href="watch/series/the-expanse-2015">The Expanse 2015</a></li>
-                         <li class="movie-item"><a href="watch/series/schitts-creek-2015">Schitt's Creek 2015</a></li>
-                         <li class="movie-item"><a href="watch/series/westworld-2016">Westworld 2016</a></li>
-                         <li class="movie-item"><a href="watch/series/cobra-kai">Cobra Kai</a></li>
-                         <li class="movie-item"><a href="watch/series/the-last-kingdom-2015">The Last Kingdom 2015</a></li>
-                         <li class="movie-item"><a href="watch/series/spartacus-blood-and-sand">Spartacus: Blood And Sand</a></li>
-                         <li class="movie-item"><a href="watch/series/hannibal-2013">Hannibal 2013</a></li>
-                         <li class="movie-item"><a href="watch/series/the-night-of-2016">The Night Of 2016</a></li>
-                         <li class="movie-item"><a href="watch/series/big-little-lies-2017">Big Little Lies 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/ozark">Ozark</a></li>
-                         <li class="movie-item"><a href="watch/series/euphoria-2019">Euphoria 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/outlander-2014">Outlander</a></li>
-                         <li class="movie-item"><a href="watch/series/american-crime-story-2016">American Crime Story</a></li>
-                         <li class="movie-item"><a href="watch/series/after-life-2019">After Life 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/the-dark-crystal-age-of-resistance-2019">The Darl Crystal Age of Resistance 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/the-handmaids-tale-2017">The Handmaid's Tale 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/unbelievable-2019">Unbelievable 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/supernatural">Supernatural</a></li>
-                         <li class="movie-item"><a href="watch/series/billions">Billions 2016</a></li>
-                         <li class="movie-item"><a href="watch/series/utopia-2013">Utopia 2013</a></li>
-                         <li class="movie-item"><a href="watch/series/just-add-magic-2015">Just Add Magic 2015</a></li>
-                         <li class="movie-item"><a href="watch/series/scrubs">Scrubs</a></li>
-                         <li class="movie-item"><a href="watch/series/Fringe-2008">Fringe</a></li>
-                         <li class="movie-item"><a href="watch/series/life-on-mars-2006">Life On Mars 2006</a></li>
-                         <li class="movie-item"><a href="watch/series/love-death-robots-2019">Love, Death & Robots 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/mare-of-easttown-2021">Mare Of Easttown 2021</a></li>
-                         <li class="movie-item"><a href="watch/series/homeland-2011">Homeland 2011</a></li>
-                         <li class="movie-item"><a href="watch/series/the-leftovers-2014">The Leftovers 2014</a></li>
-                         <li class="movie-item"><a href="watch/series/orphan-black-2013">Orphan Black 2013</a></li>
-                         <li class="movie-item"><a href="watch/series/godless-2017">Godless 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/the-morining-show-2009">The Morning Show 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/lost">Lost</a></li>
-                         <li class="movie-item"><a href="watch/series/prison-break">Prison Break</a></li>
-                         <li class="movie-item"><a href="watch/series/watch/seriesmen-2019">watch/seriesmen 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/forever-2014">Forever 2014</a></li>
-                         <li class="movie-item"><a href="watch/series/4-blocks-2017">4 Blocks 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/legion-2017">Legion 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/the-big-bang-theory-2007">The Big Bang Theory 2007</a></li>
-                         <li class="movie-item"><a href="watch/series/dirk-gentlys-holistic-detective-agency-2016.html">The Dirk Gently's Holistic Detective Agency 2016</a></li>
-                         <li class="movie-item"><a href="watch/series/criminal-minds-2005">Criminal Minds 2005</a></li>
-                         <li class="movie-item"><a href="watch/series/the-walking-dead">The Walking Dead</a></li>
-                         <li class="movie-item"><a href="watch/series/lucifer-2016">Lucifer</a></li>
-                         <li class="movie-item"><a href="watch/series/bates-motel-2013">Bates Motel 2013</a></li>
-                         <li class="movie-item"><a href="watch/series/11-22-63">11.22.63</a></li>
-                         <li class="movie-item"><a href="watch/series/the-lost-room-2006">The Lost Room 2006</a></li>
-                         <li class="movie-item"><a href="watch/series/the-end-of-the-fucking-world">The End Of The Fucking World</a></li>
-                         <li class="movie-item"><a href="watch/series/manhunt-2017">Manhunt 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/the-deuce-2017">The Deuce 2017</a></li>
-                     <!--  <li class="movie-item"><a href="watch/series/the-new-pope-2020">The New Pope 2020</a></li>  -->
-                         <li class="movie-item"><a href="watch/series/happy-2017">Happy! 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/american-horror-story-2011">American Horror Story 2011</a></li>
-                         <li class="movie-item"><a href="watch/series/dead-to-me-2019">Dead to Me 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/jack-ryan-2018">Jack Ryan 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/godfather-of-harlem">Godfather Of Harlem 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/travelers-2016">Travelers 2016</a></li>
-                         <li class="movie-item"><a href="watch/series/the-looming-tower-2018">The Looming Tower 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/the-sinner-2017">The Sinner 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/altered-carbon-2018">Altered Carbon 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/escape-at-dannemora-2018">Escape at Dannemora 2018</a></li>
-             <!--            <li class="movie-item"><a href="watch/series/cocaine-coast-2018">Cocaine Coast 2018</a></li> -->
-                         <li class="movie-item"><a href="watch/series/bad-banks-2018">Bad Banks 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/pennyworth-2019">Pennyworth 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/the-umbrella-academy-2019">The Umbrella Academy 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/the-terror-2018">The Terror 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/the-affair-2014">The Affair 2014</a></li>
-                         <li class="movie-item"><a href="watch/series/upload-2020">Upload 2020</a></li>
-                         <li class="movie-item"><a href="watch/series/his-dark-materials-2019">His Dark Materials 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/carnival-row-2019">Carnival Row 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/doom-patrol-2019">Doom Patrol 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/startup-2016">Startup 2016</a></li>
-                         <li class="movie-item"><a href="watch/series/beforeigners-2019">Beforeigners 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/russian-doll-2019">Russian Doll 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/el-chapo-2017">El Chapo 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/undercover-2019">Undercover 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/how-to-sell-drugs-online-fast-2019">How To Sell Drugs Online (Fast) 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/les-miserables-2018">Les Miserables 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/you-2018">You</a></li>
-                         <li class="movie-item"><a href="watch/series/maniac-2018">Maniac 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/once-upon-a-time-2011">Once Upon a Time</a></li>
-                         <li class="movie-item"><a href="watch/series/devs-2020">Devs 2020</a></li>
-                         <li class="movie-item"><a href="watch/series/future-man-2017">Future Man 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/12-monkeys-2015">12 Monkeys 2015</a></li>
-                         <li class="movie-item"><a href="watch/series/being-erica-2009">Benig Erica 2009</a></li>
-                       <!--  <li class="movie-item"><a href="watch/series/the-magicians-2015">The Magicians 2015</a></li> -->
-                         <li class="movie-item"><a href="watch/series/see-2019">See</a></li>
-                         <li class="movie-item"><a href="watch/series/all-the-light-we-cannot-see-2023">All The Light We Cannot See</a></li>
-                         <li class="movie-item"><a href="watch/series/the-silent-sea-2021">The Silent Sea 2021</a></li>
-                         <li class="movie-item"><a href="watch/series/scenes-from-a-marriage-2021">Scenes From a Marriage 2021</a></li>
-                         <li class="movie-item"><a href="watch/series/timeless-2016">Timeless</a></li>
-                         <li class="movie-item"><a href="watch/series/continuum-2012">Continuum 2012</a></li>
-                         <li class="movie-item"><a href="watch/series/messiah-2020">Messiah 2020</a></li>
-                         <li class="movie-item"><a href="watch/series/spinning-out-2020">Spinning Out 2020</a></li>
-                         <li class="movie-item"><a href="watch/series/titans-2018">Titans 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/the-flash-2014">The Flash 2014</a></li>
-                         <li class="movie-item"><a href="watch/series/flashforward-2009">Flashforward 2009</a></li>
-                         <li class="movie-item"><a href="watch/series/servant-2019">Servant 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/13-reasons-why">13 Reasons Why</a></li>
-              <!--           <li class="movie-item"><a href="watch/series/brotherhood-2019">Brotherhood 2019</a></li> -->
-                         <li class="movie-item"><a href="watch/series/skylines-2019">Skylines 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/haven-2010">Haven 2010</a></li>
-                         <li class="movie-item"><a href="watch/series/bad-blood-2017">Bad Blood 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/deadly-class-2018">Deadly Class 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/arrow">Arrow</a></li>
-                         <li class="movie-item"><a href="watch/series/frequency-2016">Frequency 2016</a></li>
-                         <li class="movie-item"><a href="watch/series/heroes-2006">Heroes 2006</a></li>
-                         <li class="movie-item"><a href="watch/series/swamp-thing-2019">Swamp Thing 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/marianne-2019">Marianne 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/virgin-river-2019">Virgin River 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/tru-calling-2003">Tru Calling 2003</a></li>
-                         <li class="movie-item"><a href="watch/series/legacies">Legacies</a></li>
-                        <!-- <li class="movie-item"><a href="watch/series/lambs-of-god-2019">Lambs of God 2019</a></li> -->
-                         <li class="movie-item"><a href="watch/series/star-trek-picard-2020">Star Trek: Picard 2020</a></li>
-                         <li class="movie-item"><a href="watch/series/crime-traveller-1997">Crime Traveller 1997</a></li>
-                         <li class="movie-item"><a href="watch/series/lost-in-space-2018">Lost in Space 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/the-haunting-of-bly-manor-2020">The Haunting of bly Manor 2020</a></li>
-                         <li class="movie-item"><a href="watch/series/ratched-2020">Ratched 2020</a></li>
-                         <li class="movie-item"><a href="watch/series/lovecraft-country-2020">Lovecraft Country 2020</a></li>
-                         <li class="movie-item"><a href="watch/series/manifest">Manifest</a></li>
-                     <!--    <li class="movie-item"><a href="watch/series/phil-of-the-future-2004">Phil of The Future 2004</a></li> -->
-                         <li class="movie-item"><a href="watch/series/dcs-legends-of-tomorrow-2016">DC's Legends of Tomorrow 2016</a></li>
-                         <li class="movie-item"><a href="watch/series/dracula-2020">Dracula 2020</a></li>
-                         <li class="movie-item"><a href="watch/series/inventing-anna-2022">Inventing Anna 2022</a></li>
-                        <!-- <li class="movie-item"><a href="watch/series/time-traveling-bong-2016">Time Traveling Bong 2016</a></li>  -->
-                         <li class="movie-item"><a href="watch/series/time-after-time-2017">Time After Time 2017</a></li>
-                         <li class="movie-item"><a href="watch/series/terra-nova-2011">Terra Nova 2011</a></li>
-               <!--          <li class="movie-item"><a href="watch/series/timewasters-2017">Timewasters 2017</a></li> -->
-                         <li class="movie-item"><a href="watch/series/the-triangle-2005">The Triangle 2005</a></li>
-                         <li class="movie-item"><a href="watch/series/pieces-of-her-2022">Pieces of Her 2022</a></li>
-                         <li class="movie-item"><a href="watch/series/ms-marvel-2022">Ms. Marvel 2022</a></li>
-             <!--            <li class="movie-item"><a href="watch/series/twice-upon-a-time-2019">Twice Upon a Time 2019</a></li>
-                         <li class="movie-item"><a href="watch/series/jesus-and-josefine-2003">Jesus & Josefine 2003</a></li>
-                         <li class="movie-item"><a href="watch/series/best-friends-whenever-2015">Best Friends Whenever 2015</a></li> -->
-                         <li class="movie-item"><a href="watch/series/life-on-our-planet-2023">Life on Our Planet 2023</a></li>
-                         <li class="movie-item"><a href="watch/series/person-of-interest-2011">Person of Interest 2011</a></li>
-                         <li class="movie-item"><a href="watch/series/fear-the-walking-dead">Fear The Walking Dead</a></li>
-                         <li class="movie-item"><a href="watch/series/iron-fist-2018">Iron Fist 2018</a></li>
-                         <li class="movie-item"><a href="watch/series/the-originals">The Originals</a></li>
-                         <li class="movie-item"><a href="watch/series/squid-game-the-challenge-2023">Squid Game: The Challenge 2023</a></li>
-                         <li class="movie-item"><a href="watch/series/teen-wolf-2011">Teen Wolf 2011</a></li>
-                         <li class="movie-item"><a href="watch/series/outlast-2023">Outlast 2023</a></li>
-                         <li class="movie-item"><a href="watch/series/baby-2018">Baby 2018</a></li>
-                      <!--   <li class="movie-item"><a href="watch/series/legacies-2018">Legacies</a></li> -->
-                         <li class="movie-item"><a href="watch/series/bridgerton-2020">Bridgerton 2020</a></li>
-                         <li class="movie-item"><a href="watch/series/the-vampire-diaries">The Vampire Diaries</a></li>
-                         <li class="movie-item"><a href="watch/series/keep-breathing-2022">Keep Breathing 2022</a></li>
-                         <li class="movie-item"><a href="watch/series/from-2022">From (2022)</a></li>
-                         <li class="movie-item"><a href="watch/series/inside-man-2023">Inside Man 2023</a></li>
-                         <li class="movie-item"><a href="watch/series/outer-banks-2020">Outer Banks 2020</a></li>
-
-
-            
-      <!-- يمكنك إضافة المزيد من الأفلام والمسلسلات هنا -->
-        </ul>
-    </div>
-<script src="scripit.js"></script>
-<script src="random.js"></script>
-<script>
+    links.sort((a, b) => a.textContent.localeCompare(b.textContent));
+    links.forEach(link => seriesList.appendChild(link.parentElement));
 
     const searchInput = document.getElementById('search-input');
-const movieList = document.querySelector(".movie-list");
-const links = Array.from(movieList.querySelectorAll("a"));
 
-// Sort the movie list in alphabetical order
-links.sort(function(a, b) {
-  return a.textContent.localeCompare(b.textContent);
-});
+    searchInput.addEventListener('input', function() {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+      links.forEach(link => {
+        const movieTitle = link.textContent.trim().toLowerCase();
+        if (movieTitle.includes(searchTerm)) {
+          link.parentElement.style.display = 'block';
+        } else {
+          link.parentElement.style.display = 'none';
+        }
+      });
+    });
 
-// Reorder the links in the movie list
-links.forEach(function(link) {
-  movieList.appendChild(link.parentElement);
-});
+    searchInput.addEventListener('keypress', function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        searchInput.blur();
+      }
+    });
 
-searchInput.addEventListener('input', function() {
-  const searchTerm = searchInput.value.trim().toLowerCase();
-  links.forEach(function(link) {
-    const movieTitle = link.textContent.trim().toLowerCase();
-    if (movieTitle.includes(searchTerm)) {
-      link.parentElement.style.display = 'block';
-    } else {
-      link.parentElement.style.display = 'none';
-    }
-  });
-});
-
-searchInput.addEventListener('keypress', function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault(); // prevent form submission
-    searchInput.blur(); // hide the keyboard
-  }
-});
-</script>
+  })
+  .catch(error => console.error('Error:', error));
+  </script>
 </body>
 </html>
-
-
