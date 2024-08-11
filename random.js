@@ -17,7 +17,8 @@ async function getRandomHtmlFile() {
                     });
                     if (allFiles.length > 0) {
                         const randomFile = allFiles[Math.floor(Math.random() * allFiles.length)];
-                        window.location.href = randomFile;
+                        const finalUrl = `https://fhrs.site${randomFile}`;
+                        window.location.href = finalUrl;
                     } else {
                         console.error('No HTML files found.');
                     }
