@@ -9,7 +9,9 @@ async function getRandomHtmlFile() {
 
             data.forEach(file => {
                 if (file.name.endsWith('.html')) {
-                    allFiles.push(file.download_url);
+                    // تحويل URL إلى URL مباشر لصفحة HTML
+                    const pageUrl = `https://fhrstv.github.io/fhrs/${folder}/${file.name}`;
+                    allFiles.push(pageUrl);
                 }
             });
         } catch (error) {
