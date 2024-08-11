@@ -10,9 +10,9 @@ async function getRandomHtmlFile() {
             if (Array.isArray(data)) {
                 data.forEach(file => {
                     if (file.type === 'file' && file.name.endsWith('.html')) {
-                        // بناء الرابط لعرض الصفحة عبر GitHub Pages
                         const pageUrl = `https://fhrstv.github.io/fhrs/${folder}/${file.name}`;
-                        allFiles.push(pageUrl);
+                        const cleanUrl = pageUrl.replace('.html', ''); // إخفاء .html من الرابط
+                        allFiles.push(cleanUrl);
                     }
                 });
             } else {
@@ -25,24 +25,12 @@ async function getRandomHtmlFile() {
 
     if (allFiles.length > 0) {
         const randomFile = allFiles[Math.floor(Math.random() * allFiles.length)];
-        // تحميل المحتوى بشكل AJAX وبدون تغيير عنوان URL
-        loadContent(randomFile);
+        const redirectUrl = `https://fhrstv.github.io/fhrs/redirect.html?url=${encodeURIComponent(randomFile)}`;
+        console.log('Redirecting to:', redirectUrl); // تسجيل الرابط في وحدة التحكم للتأكد
+        window.location.href = redirectUrl;
     } else {
         console.error('No HTML files found.');
     }
-}
-
-function loadContent(url) {
-    fetch(url)
-        .then(response => response.text())
-        .then(html => {
-            document.open();
-            document.write(html);
-            document.close();
-        })
-        .catch(error => {
-            console.error('Error loading content:', error);
-        });
 }
 
 document.getElementById('randomButton').addEventListener('click', getRandomHtmlFile);
