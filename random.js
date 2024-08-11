@@ -8,8 +8,8 @@ async function getRandomHtmlFile() {
             const data = await response.json();
 
             data.forEach(file => {
-                if (file.name.endsWith('.html')) {
-                    // إنشاء الرابط لعرض الصفحة
+                if (file.type === 'file' && file.name.endsWith('.html')) {
+                    // إنشاء الرابط لعرض الصفحة عبر GitHub Pages
                     const pageUrl = `https://fhrstv.github.io/fhrs/${folder}/${file.name}`;
                     allFiles.push(pageUrl);
                 }
