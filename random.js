@@ -1,32 +1,27 @@
-// Get the button element
-const randomButton = document.getElementById('randomButton');
-
-// Check if the button element is found
-if (!randomButton) {
-  console.error('Button element not found!');
-} else {
-  console.log('Button element found!');
-
-  // Get the list of movie links
-  const movieList = document.getElementById('movie-list');
-  const movieLinks = movieList.querySelectorAll('a');
-
-  // Check if the movie list is populated
-  if (movieLinks.length === 0) {
-    console.error('Movie list is empty!');
-  } else {
-    console.log('Movie list populated!');
-
-    // Add an event listener to the button
-    randomButton.addEventListener('click', function() {
-      console.log('Button clicked!');
-
-      // Select a random movie from the list
-      const randomIndex = Math.floor(Math.random() * movieLinks.length);
-      const randomMovieLink = movieLinks[randomIndex];
-
-      // Redirect the user to the random movie page
-      window.location.href = randomMovieLink.href;
-    });
-  }
+function getRandomFile(files) {
+    const randomIndex = Math.floor(Math.random() * files.length);
+    return files[randomIndex];
 }
+
+function chooseRandomFile() {
+    fetch('get_files.php')
+        .then(response => response.json())
+        .then(data => {
+            const movies = data.movies;
+            const series = data.series;
+
+            if (movies.length === 0 && series.length === 0) {
+                console.error('No files found.');
+                return;
+            }
+
+            const randomMovie = getRandomFile(movies);
+            const randomSeries = getRandomFile(series);
+            const randomChoice = Math.random() < 0.5 ? randomMovie : randomSeries;
+
+            window.location.href = randomChoice;
+        })
+        .catch(error => console.error('Error fetching file list:', error));
+}
+
+document.getElementById('randomButton').addEventListener('click', chooseRandomFile);
