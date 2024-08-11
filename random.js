@@ -1,19 +1,72 @@
-// Define the directories to watch
-const dirs = ['watch/movies', 'watch/series'];
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Document is ready");
 
-// Function to get a random directory
-function getRandomDir() {
-  return dirs[Math.floor(Math.random() * dirs.length)];
-}
+            var randomButton = document.getElementById('randomButton');
+            if (randomButton) {
+                console.log("Random button found");
+                randomButton.addEventListener('click', function() {
+                    console.log("Random button clicked");
 
-// Get the random button element
-const randomButton = document.getElementById('randomButton');
+                    // قائمة لجمع الروابط
+                    let allLinks = [];
 
-// Add an event listener to the random button
-randomButton.addEventListener('click', function() {
-  // Get a random directory
-  const randomDir = getRandomDir();
+                    // إرسال طلب لجلب محتوى صفحة "Movies" و "Series" بشكل متزامن
+                    Promise.all([
+                        fetch('watch/movies').then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok for watch/movies');
+                            }
+                            return response.text();
+                        }),
+                        fetch('watch/series').then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok for watch/series');
+                            }
+                            return response.text();
+                        })
+                    ])
+                    .then(responses => {
+                        const [moviesText, seriesText] = responses;
 
-  // Redirect to the random directory
-  window.location.href = randomDir;
-});
+                        console.log("Fetched Movies and Series pages successfully");
+
+                        // معالجة نصوص صفحات "Movies" و "Series"
+                        const parser = new DOMParser();
+
+                        // استخراج الروابط من عناصر "Movies"
+                        const moviesDoc = parser.parseFromString(moviesText, 'text/html');
+                        const movieLinks = Array.from(moviesDoc.querySelectorAll('.movie-item a'))
+                            .map(a => a.getAttribute('href'))
+                            .filter(href => href.startsWith('watch/movies'));
+
+                        console.log("Movie links found:", movieLinks);
+
+                        allLinks = [...allLinks, ...movieLinks];
+
+                        // استخراج الروابط من عناصر "Series"
+                        const seriesDoc = parser.parseFromString(seriesText, 'text/html');
+                        const seriesLinks = Array.from(seriesDoc.querySelectorAll('.movie-item a'))
+                            .map(a => a.getAttribute('href'))
+                            .filter(href => href.startsWith('watch/series'));
+
+                        console.log("Series links found:", seriesLinks);
+
+                        allLinks = [...allLinks, ...seriesLinks];
+
+                        // اختيار رابط عشوائي
+                        if (allLinks.length > 0) {
+                            const randomLink = allLinks[Math.floor(Math.random() * allLinks.length)];
+                            console.log("Navigating to: " + randomLink);
+
+                            // الانتقال إلى الرابط العشوائي
+                            window.location.href = randomLink;
+                        } else {
+                            console.error("No valid links found.");
+                        }
+                    })
+                    .catch(error => console.error('Error fetching pages:', error));
+                });
+            } else {
+                console.error("Random button not found");
+            }
+        });
