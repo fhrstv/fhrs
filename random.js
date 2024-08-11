@@ -10,10 +10,8 @@ async function getRandomHtmlFile() {
             data.forEach(file => {
                 if (file.type === 'file' && file.name.endsWith('.html')) {
                     // إنشاء الرابط لعرض الصفحة عبر GitHub Pages
-                    const pageUrl = `https://fhrstv.github.io/fhrs/${folder}/${file.name}`;
-                    const fileName = file.name.replace('.html', ''); // إزالة الامتداد .html من اسم الملف
-                    const urlWithoutExtension = `https://fhrstv.github.io/fhrs/${folder}/${fileName}`; // إعادة تجميع الرابط
-                    allFiles.push(urlWithoutExtension);
+                    const pageUrl = `/${folder}/${file.name.replace('.html', '')}`;
+                    allFiles.push(pageUrl);
                 }
             });
         } catch (error) {
