@@ -14,13 +14,13 @@ document.addEventListener('DOMContentLoaded', function() {
             Promise.all([
                 fetch('watch/movies').then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok for Movies');
+                        throw new Error('Network response was not ok for watch/movies');
                     }
                     return response.text();
                 }),
                 fetch('watch/series').then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok for Series');
+                        throw new Error('Network response was not ok for watch/series');
                     }
                     return response.text();
                 })
