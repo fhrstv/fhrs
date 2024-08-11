@@ -1,1307 +1,181 @@
 <!DOCTYPE html>
+<html>
 <head>
-    <title>فهرس</title>
+  <title>فهرس</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js" defer></script>
     <script src=".htaccess" defer></script>
 <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      color: #000;
+    }
 
-    <style>
-      /* الأسلوب العام للصفحة */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #000
-        }
+    header {
+      background-color: #333;
+      color: hsl(0, 94%, 46%);
+      text-align: center;
+      padding: 10px;
+    }
 
-        header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
-            text-align: center;
-            padding: 10px;
-        }
+    h1 {
+      margin: 0;
+    }
 
-        /* عنوان الصفحة */
-        h1 {
-            margin: 0;
-        }
+    .content {
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
 
-        /* منطقة العرض للأفلام والمسلسلات */
-        .content {
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center; /* توسيط المحتوى */
-        }
+    .movie-list {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
 
-        /* قائمة لعرض الأفلام والمسلسلات */
-        .movie-list {
-            list-style-type: none;
-            padding: 0;
-            text-align: center; /* توسيط العناصر */
-        }
+    .head-center {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
 
-        .head-center {
-            list-style-type: none;
-            padding: 0;
-            text-align: center;
-        }
+    .movie-item {
+      margin: 10px;
+    }
 
-        .movie-item {
-            margin: 10px;
-        }
+    a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: red;
+      transition: background-color 0.3s;
+      font-size: 25px;
+    }
 
-        /* المربعات الحمراء */
-        a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            font-size: 25px; /* تكبير حجم الخط داخل المربعات الحمراء */
-        }
+    a:hover {
+      background-color: gold;
+    }
 
-        a:hover {
-            background-color: gold;
-        }
+    h2 {
+      text-align: center;
+    }
 
-        /* توسيط عنوان الأفلام والمسلسلات والانمي */
-        h2 {
-            text-align: center;
-        }
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+    }
 
-        /* مربع البحث */
-       .search-box {
-  text-align: center;
-  margin-top: 20px;
-}
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 300px;
+    }
 
-input[type="text"] {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 100%; /* يمتلئ عرض الشاشة بالكامل */
-  max-width: 300px; /* حد أقصى لعرض المربع */
-  
-}
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-input[type="submit"] {
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+    #search-input {
+      touch-action: none;
+    }
 
-#search-input {
-  touch-action: none;
-}
-
-        /* تعديل للشاشات الصغيرة (تقنية التجاوب) */
-        @media (max-width: 600px) {
-            h2 {
-                font-size: 24px; /* تصغير حجم العنوان للهواتف الصغيرة */
-            }
-            .search-box {
-                margin-top: 10px;
-            }
-        }
-        
-        
-    </style>
-    <!-- تضمين الخط العربي Tajawal -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap">
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 24px;
+      }
+      .search-box {
+        margin-top: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>فهرس</h1>
-    </header>
-    <div class="content">
-      <h2>الافلام الاجنبية و الانمي و العربية</h2>
-        <br>تحديث الافلام في موقعنا يوميا
-            
-        <!-- مربع البحث -->
-        <div class="search-box">
-<input type="text" id="search-input" dir="auto" style="text-align: center;" placeholder="اكتب اسم فيلمك هنا">
-</div>
-        <!-- نتائج البحث -->
-        <div class="search-results" id="searchResults">
-            <!-- هنا سيتم عرض نتائج البحث -->
-        </div>
-        <!-- قائمة الأفلام والمسلسلات الأخرى -->
-        <ul class="head-center">
+  <header>
+    <h1>فهرس</h1>
+  </header>
+  <div class="content">
+    <h2>الافلام الاجنبية و الانمي و العربية</h2>
+<br> تحديث الافلام في موقعنا يوميا
+    <div class="search-box">
+      <input type="text" id="search-input" dir="auto" style="text-align: center;" placeholder="اكتب اسم فلمك هنا">
+    </div>
+    <ul class="head-center">
             <li class="head-item"><a href="/">رجوع</a></li>
         </ul>
-        <ul class="movie-list">
-                   <!-- إضافة العناصر هنا -->
-               <li class="movie-item"><a href="watch/movies/امس-بعد-بكرة-2024">امس بعد بكرة 2024</a></li>
-                    <li class="movie-item"><a href="watch/movies/ناقة-2023">ناقة 2023</a></li>
-                <li class="movie-item"><a href="watch/movies/to-catch-a-killer-2024">To Catch a Killer <br>Misanthrope <br>2023</a></li>
-                <li class="movie-item"><a href="watch/movies/despicable-me-1-2010">Despicable Me 1 (2010)</a></li>
-                <li class="movie-item"><a href="watch/movies/despicable-me-2-2013">Despicable Me 2 (2013)</a></li>
-                <li class="movie-item"><a href="watch/movies/despicable-me-3-2017">Despicable Me 3 (2017)</a></li>
-                <li class="movie-item"><a href="watch/movies/despicable-me-4-2024">Despicable Me 4 (2024)</a></li>
-                   <li class="movie-item"><a href="watch/movies/one-piece-film-gold-2016">One Piece Film: Gold</a></li>
-                   <li class="movie-item"><a href="watch/movies/haikyuu-movie-1-owari-to-hajimari-2015">Haikyuu!! Movie 1: Owari to Hajimari 2015</a></li>
-                   <li class="movie-item"><a href="watch/movies/violet-evergarden-movie-2020">Violet Evergarden Movie 2020</a></li>
-                   <li class="movie-item"><a href="watch/movies/violet-evergarden-movie-2019">Violet Evergarden Gaiden: Eien to jido Shuki ningyo 2019</a></li>
-                   <li class="movie-item"><a href="watch/movies/the-last-naruto-the-movie-2014">The Last: Naruto The Movie 7 (2014)</a></li>
-                   <li class="movie-item"><a href="watch/movies/road-to-ninja-naruto-the-movie-2012">Road To Ninja: Naruto The Movie 6 (2012)</a></li>
-                   <li class="movie-item"><a href="watch/movies/naruto-shippuuden-movie-1-2007">Naruto: Shippuuden Movie 1 (2007)</a></li>
-                   <li class="movie-item"><a href="watch/movies/naruto-shippuuden-movie-2">Naruto: Shippuuden Movie 2</a></li>
-                   <li class="movie-item"><a href="watch/movies/naruto-shippuuden-movie-3">Naruto: Shippuuden Movie 3</a></li>
-                   <li class="movie-item"><a href="watch/movies/naruto-shippuuden-movie-4">Naruto: Shippuuden Movie 4</a></li>
-                   <li class="movie-item"><a href="watch/movies/naruto-shippuuden-movie-5">Naruto: Shippuuden Movie 5</a></li>
-                   <li class="movie-item"><a href="watch/movies/hanma-baki-vs-kengan-ashura-2024.html">Hanma Baki vs. Kengan Ashura 2024</a></li>
-                   <li class="movie-item"><a href="watch/movies/the-waterhouse-2023">The Waterhouse 2023</a></li>
-                <li class="movie-item"><a href="watch/movies/spy-x-family-movie-code-white-2023">Spy x Family Movie: Code : White 2023</a></li>
-                <li class="movie-item"><a href="watch/movies/cold-road-2023">Cold Road 2023</a></li>
-                <li class="movie-item"><a href="watch/movies/the-dunes-2021">The Dunes 2021</a></li>
-                <li class="movie-item"><a href="watch/movies/repeat-attenders-2020">Repeat Attenders 2020</a></li>
-                <li class="movie-item"><a href="watch/movies/under-my-skin-2020">Under My Skin 2020</a></li>
-                <li class="movie-item"><a href="watch/movies/the-night-of-the-harvest-2024">The Night of the Harvest 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/scrap-2022">Scrap 2022</a></li>
-                <li class="movie-item"><a href="watch/movies/clearMind-2024">ClearMind 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/daddio-2023">Daddio 2023</a></li>
-                <li class="movie-item"><a href="watch/movies/tuesday-2023">Tuesday 2023</a></li>
-                <li class="movie-item"><a href="watch/movies/wildcat-2023">Wildcat 2023</a></li>
-                <li class="movie-item"><a href="watch/movies/the-convert-2023">The Convert 2023</a></li>
-                <li class="movie-item"><a href="watch/movies/berlin-nobody-2024">Berlin Nobody 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/the-inheritance-2024">The Inheritance 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/the-abandon-2022">The Abandon 2022</a></li>
-                <li class="movie-item"><a href="watch/movies/dead-sea-2024">Dead Sea 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/touch-2024">Touch 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/ghostlight-2024">Ghostlight 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/dune-part-two-2024">Dune: Part Two (2024) </a></li>
-                <li class="movie-item"><a href="watch/movies/family-blood-2018">Family Blood 2018</a></li>
-                <li class="movie-item"><a href="watch/movies/الحريفة-2024">الحريفة 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/عصابة-عظيمة-2024">عصابة عظيمة 2024</a></li>
-                   <li class="movie-item"><a href="watch/movies/فاصل-من-اللحظات-اللذيذة-2024">فاصل من اللحظات اللذيذة 2024</a></li>
-                   <li class="movie-item"><a href="watch/movies/السرب-2024">السرب 2024</a></li>
-                   <li class="movie-item"><a href="watch/movies/البعبع-2023">البعبع 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/الاسكندراني-2024">الاسكندراني 2024</a></li>
-                   <li class="movie-item"><a href="watch/movies/مرعي-البريمو-2023">مرعي البريمو 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/العميل-صفر-2023">العميل صفر 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/وش-في-وش-2023">وش في وش 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/بنقدر-ظروفك-2024">بنقدر ظروفك 2024</a></li>
-                   <li class="movie-item"><a href="watch/movies/5-محي-الدين-ابوالعز-2023">5 محي الدين ابو العز 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/مقسوم-2024">مقسوم 2024</a></li>
-                   <li class="movie-item"><a href="watch/movies/ڤوي!-ڤوي!-ڤوي!-2023">ڤوي!-ڤوي-ڤوي!-2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/مغامرات-كوكو-2023">مغامرات كوكو 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/البطة-الصفرا-2023">البطة الصفرا 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/العنكبوت-2022">العنكبوت 2022</a></li>
-                   <li class="movie-item"><a href="watch/movies/بلوموندو-2023">بلوموندو 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/لعبة-الشيطان-2022">لعبة الشيطان 2022</a></li>
-                   <li class="movie-item"><a href="watch/movies/كارت-شحن-2023">كارت شحن 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/عالماشي-2024">عالماشي 2024</a></li>
-                   <li class="movie-item"><a href="watch/movies/monster-2003">Monster 2003</a></li>
-                   <li class="movie-item"><a href="watch/movies/notes-on-a-scandal-2006">Notes on a Scandal 2006</a></li>
-                   <li class="movie-item"><a href="watch/movies/salt-2010">Salt 2010</a></li>
-                   <li class="movie-item"><a href="watch/movies/no-escape-2015">NO Escape 2015</a></li>
-                   <li class="movie-item"><a href="watch/movies/rebel-moon-part-one-a-child-of-fire-2023">Rebel Moon - part One: A child of Fire 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/the-breakfast-club-1985">The Breakfast Club 1985</a></li>
-                   <li class="movie-item"><a href="watch/movies/رحلة-404-2024">رحلة 404 (2024)</a></li>
-                   <li class="movie-item"><a href="watch/movies/the-breed-2006">The Breed 2006 </a></li>
-                   <li class="movie-item"><a href="watch/movies/rush-hour-3-2007">Rush Hour 3 (2007) </a></li>
-                   <li class="movie-item"><a href="watch/movies/rush-hour-2-2001">Rush Hour 2 (2001)</a></li>
-                   <li class="movie-item"><a href="watch/movies/rush-hour-1-1998">Rush Hour 1 (1998)</a></li>
-                   <li class="movie-item"><a href="watch/movies/wanted-2008">Wanted 2008</a></li>
-                   <li class="movie-item"><a href="watch/movies/the-tourist-2010">The Tourist 2010</a></li>
-                   <li class="movie-item"><a href="watch/movies/secret-window-2004">Secret Window 2004</a></li>
-                   <li class="movie-item"><a href="watch/movies/the=ninth-gate-1999">The NInth Gate 1999 </a></li>
-                   <li class="movie-item"><a href="watch/movies/sleepy-hollow-1999">Sleepy Hollow 1999</a></li>
-                   <li class="movie-item"><a href="watch/movies/12-feet-deep-2017">12 Feet Deep 2017</a></li>
-                   <li class="movie-item"><a href="watch/movies/frozen-2010">Frozen 2010</a></li>
-                   <li class="movie-item"><a href="watch/movies/fall-2022">Fall 2022</a></li>
-                   <li class="movie-item"><a href="watch/movies/missing-2023">Missing 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/intrusion-2021">Intrusion 2021</a></li>
-                   <li class="movie-item"><a href="watch/movies/hypnotic-2021">Hypnotic 2021</a></li>
-                   <li class="movie-item"><a href="watch/movies/the-weekend-away-2022">The Weekend Away 2022</a></li>
-                   <li class="movie-item"><a href="watch/movies/locked-in-2023">Locked In 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/pain-hustlers-2023">Pain Hustlers 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/nyad-2023">Nyad 2023</a></li>
-                   <li class="movie-item"><a href="watch/movies/the-other-shore-2013">The Other Shore 2013</a></li>
-                   <li class="movie-item"><a href="watch/movies/the-swimmers-2022">The Swimmers 2022</a></li>
-                   <li class="movie-item"><a href="watch/movies/the-boy-who-harnessed-the-wind-2019">The Boy Who Harnessed The Wind 2019</a></li>
-                   <li class="movie-item"><a href="watch/movies/the-boy-in-the-striped-pajamas-2008">The Boy in the Striped Pajamas 2008</a></li>
-                   <li class="movie-item"><a href="watch/movies/black-hawk-down-2001">Black Hawk Down 2001</a></li>
-                   <li class="movie-item"><a href="watch/movies/everest-2015">Everest 2015</a></li>
-                   <li class="movie-item"><a href="watch/movies/source-code-2011">Source Code 2011</a></li>
-                   <li class="movie-item"><a href="watch/movies/love-and-other-drugs-2010">Love & other Drugs 2010 <br>LOve and other Drugs 2010</a></li>
-                   <li class="movie-item"><a href="watch/movies/no-strings-attached-2011">NO Strings Attached 2011</a></li>
-                   <li class="movie-item"><a href="watch/movies/the-ugly-truth-2009">The Ugly Truth 2009</a></li>
-                    <li class="movie-item"><a href="watch/movies/27-dresses-2008">The Dresses 2008</a></li>
-                     <li class="movie-item"><a href="watch/movies/13-going-on-30-">13 Going on 30 (2004)</a></li>
-                     <li class="movie-item"><a href="watch/movies/mean-girls-2004">Mean Girls 2004</a></li>
-                     <li class="movie-item"><a href="watch/movies/clueless-1995">Clueless 1995</a></li>
-                     <li class="movie-item"><a href="watch/movies/shes-the-man-2006">she’s the Man 2006</a></li>
-                     <li class="movie-item"><a href="watch/movies/easy-a-2010">Easy A 2010</a></li>
-                     <li class="movie-item"><a href="watch/movies/pitch-perfect-1-2012">Pitch Perfect 1 (2012)</a></li>
-                     <li class="movie-item"><a href="watch/movies/pitch-perfect-2-2015">Pitch Perfect 2 (2015)</a></li>
-                     <li class="movie-item"><a href="watch/movies/pitch-perfect-3-2017">Pitch Perfect 3 (2017)</a></li>
-                     <li class="movie-item"><a href="watch/movies/cruella-2021">Cruella 2021</a></li>
-                     <li class="movie-item"><a href="watch/movies/enola-holmes-2020">Enola Holmes 2020</a></li>
-                   <li class="movie-item"><a href="watch/movies/enola-holmes-2-2022">Enola Holmes 2 (2022)</a></li>
-                <li class="movie-item"><a href="watch/movies/رهبة-2023">رهبة 2023</a></li>
-                <li class="movie-item"><a href="watch/movies/شماريخ-2023">شماريخ 2023</a></li>
-                <li class="movie-item"><a href="watch/movies/التجربة-المكسيكية-٢٠٢٤">التجربة المكسيكية 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/اهل-الكهف-٢٠٢٤">اهل الكهف 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/اللعب-مع-العيال-2024">اللعب مع العيال 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/جوازة-توكسيك-2024">جوازة توكسيك 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/عصابة-الماكس-2024">عصابة الماكس 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/الخميس-إللي-جاي">الخميس إللي جاي</a></li>
-                <li class="movie-item"><a href="watch/movies/شقو-2024">شقو 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/السيستم-2024">السيستم 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/الصف-الأخير-2023">الصف الأخير 2023</a></li>
-                <li class="movie-item"><a href="watch/movies/عسل-اسود">عسل اسود</a></li>
-                <li class="movie-item"><a href="watch/movies/ولاد-رزق-١">ولاد رزق الجزء 1</a></li>
-                 <li class="movie-item"><a href="watch/movies/ولاد-رزق-٣">ولاد رزق الجزء 3</a></li>
-                <li class="movie-item"><a href="watch/movies/ولاد-رزق-٢">ولاد رزق الجزء 2</a></li>
-                <li class="movie-item"><a href="watch/movies/longlegs-2024">Longlegs 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/civil-war-2024">Civil War 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/road-house-2024">Road House 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/the-beekeeper-2024">The Beekeeper 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/the-fall-guy">The Fall Guy 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/furiosa-a-mad-max-saga-2024">Furiosa: A Mad Max Saga 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/gia-1998">Gia 1998</a></li>
-                <li class="movie-item"><a href="watch/movies/original-sin-2001">Original Sin 2001</a></li>
-                <li class="movie-item"><a href="watch/movies/kimetsu-no-yaiba-mugen-ressha-hen-2020">Kimetsu no yaiba: Mugen Ressha hen 2020 <br>فيلم</a></li>
-                   <li class="movie-item"><a href="watch/movies/beverly-hills-cop-1984">Beverly Hills Cop 1984</a></li>
-                <li class="movie-item"><a href="watch/movies/fifty-shades-of-grey-2015">Fifty Shades of Grey 2015</a></li>
-                <li class="movie-item"><a href="watch/movies/2012">2012</a></li>
-                <li class="movie-item"><a href="watch/movies/the-day-after-tomorrow-2004">The Day After Tomorrow 2004</a></li>
-                <li class="movie-item"><a href="watch/movies/twister-1996">Twister 1996</a></li>
-                <li class="movie-item"><a href="watch/movies/twisters-2024">Twisters 2024</a></li>
-                <li class="movie-item"><a href="watch/movies/the-menu-2022">The Menu 2022</a></li>
-                <li class="movie-item"><a href="watch/movies/dont-look-up-2021">Don't Look Up 2021</a></li>
-                   <li class="movie-item"><a href="watch/movies/glass-onion-a-knives-out-mystery-2022">Glass Onion: A Knives out Mystery 2022</a></li>
-                   <li class="movie-item"><a href="watch/movies/knives-out-2019">Knives Out 2019</a></li>
-                   <li class="movie-item"><a href="watch/movies/nobody-2021">Nobody 2021</a></li>
-                   <li class="movie-item"><a href="watch/movies/the-gentlemen-2019">The Gentlemen 2019</a></li>
-                   <li class="movie-item"><a href="watch/movies/wrath-of-man-2021">Wrath of Men 2021</a></li>
-                    <li class="movie-item"><a href="watch/movies/king-arthur-legend-of-the-sword-2017">King Arthur: Legend of The Sword 2017</a></li>
-                    <li class="movie-item"><a href="watch/movies/rocknrolla-2008">RocknRolla 2008</a></li>
-                    <li class="movie-item"><a href="watch/movies/the-man-from-u-n-c-l-e-2015">The Man from U.N.C.L.E. 2015</a></li>
-                    <li class="movie-item"><a href="watch/movies/sherlock-holmes-a-game-of-shadows-2011">Sherlock Holmes: A Game of Shadows 2011</a></li>
-                    <li class="movie-item"><a href="watch/movies/sherlock-holmes-2009">Sherlock Holmes 2009</a></li>
-                    <li class="movie-item"><a href="watch/movies/now-you-see-me-2016">Now You See Me 2 (2016)</a></li>
-                    <li class="movie-item"><a href="watch/movies/now-you-see-me-2013">Now You See Me 1 (2013)</a></li>
-                    <li class="movie-item"><a href="watch/movies/the-kings-speech-2010">The King's Speech 2010</a></li>
-                    <li class="movie-item"><a href="watch/movies/slumdog-millionaire-2008">Slumdog Millionaire 2008</a></li>
-                    <li class="movie-item"><a href="watch/movies/mirage-2018">Mirage 2018 <br>Durante la tormenta</a></li>
-                    <li class="movie-item"><a href="watch/movies/rec-4-2014">Rec 4 (2014)</a></li>
-                    <li class="movie-item"><a href="watch/movies/rec-3-2012">Rec 3 (2012)</a></li>
-                    <li class="movie-item"><a href="watch/movies/rec-2-2009">Rec 2 (2009)</a></li>
-                    <li class="movie-item"><a href="watch/movies/rec-2007">Rec 2007</a></li>
-                    <li class="movie-item"><a href="watch/movies/the-hills-have-eyes-2006">The Hills Have Eyes 2006</a></li>
-                    <li class="movie-item"><a href="watch/movies/the-ruins-2008">The Ruins 2008</a></li>
-                    <li class="movie-item"><a href="watch/movies/the-cave-2005">The Cave 2005</a></li>
-                    <li class="movie-item"><a href="watch/movies/the-descent-part-2-2009">The Descent: Part 2 (2009)</a></li>
-                    <li class="movie-item"><a href="watch/movies/the-descent-2005">The Descent 2005</a></li>
-                    <li class="movie-item"><a href="watch/movies/the-cabin-in-the-woods-2011">The Cabin in the Woods 2011</a></li>
-                    <li class="movie-item"><a href="watch/movies/us-2019">Us 2019</a></li>
-                    <li class="movie-item"><a href="watch/movies/annabelle-comes-home-2019">Annabelle Comes Home 2019</a></li>
-                    <li class="movie-item"><a href="watch/movies/annabelle-2014">Annabelle 2014</a></li>
-                    <li class="movie-item"><a href="watch/movies/annabelle-creation-2017">Annabelle: Creation 2017</a></li>
-                    <li class="movie-item"><a href="watch/movies/the-exorcism-of-emily-rose-2005">The Exorcism of Emily Rose 2005</a></li>
-                    <li class="movie-item"><a href="watch/movies/mad-max-2-1981">Mad Max 2 (1981)</a></li>
-                    <li class="movie-item"><a href="watch/movies/mad-max-1979">Mad Max 1979</a></li>
-                    <li class="movie-item"><a href="watch/movies/laroy-texas-2023">LaRoy, Texas 2023</a></li>
-                    <li class="movie-item"><a href="watch/movies/van-helsing-2004">Van Helsing 2004</a></li>
-                    <li class="movie-item"><a href="watch/movies/anger-management-2003">Anger Management <br> ( Self Control ) 2003</a></li>
-                    <li class="movie-item"><a href="watch/movies/the-end-we-start-from-2023">The End We Start From 2023</a></li>
-                    <li class="movie-item"><a href="watch/movies/eli-2019">Eli 2019</a></li>
-                    <li class="movie-item"><a href="watch/movies/voces-2020">Voces<br>Don't Listen 2020</a></li>
-                    <li class="movie-item"><a href="watch/movies/one-day-2011">One Day 2011</a></li>
-                    <li class="movie-item"><a href="watch/movies/upgraded-2024">Upgraded 2024</a></li>
-                     <li class="movie-item"><a href="watch/movies/anyone-but-you-2023">Anyone But You 2023</a></li>
-                     <li class="movie-item"><a href="watch/movies/the-iron-claw-2023">The Iron Claw 2023</a></li>
-                     <li class="movie-item"><a href="watch/movies/weekend-2011">Weekend 2011</a></li>
-                     <li class="movie-item"><a href="watch/movies/all-of-us-strangers-2023">All of us Strangers 2023</a></li>
-                     <li class="movie-item"><a href="watch/movies/past-lives-2023">Past Lives 2023</a></li>
-                      <li class="movie-item"><a href="watch/movies/the-holdovers-2023">The Holdovers 2023</a></li>
-                      <li class="movie-item"><a href="watch/movies/american-fiction-2023">American Fiction 2023</a></li>
-                        <li class="movie-item"><a href="watch/movies/tomorrowland-2015">Tomorrowland 2015</a></li>
-                           <li class="movie-item"><a href="watch/movies/jojo-rabbit-2019">Jojo Rabbit 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/doctor-sleep-2019">Doctor Sleep 2019</a></li>
-                       <li class="movie-item"><a href="watch/movies/gerald's-game-2017">Gerald's Game 2017</a></li>
-                        <li class="movie-item"><a href="watch/movies/hush-2016">Hush 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/ready-or-not-2019">Ready or Not 2019</a></li>
-                       <li class="movie-item"><a href="watch/movies/leave-the-world-behind-2023">Leave The World Behind 2023</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-lost-daughter-2021">The Lost Daughter 2021</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-power-of-the-dog-2021">The Power of the Dog 2021</a></li>
-                        <li class="movie-item"><a href="watch/movies/pieces-of-a-woman-2020">Pieces of a Woman 2020</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-foreigner-2017">The Foreigner 2017</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-good-nurse-2022">The Good Nurse 2022</a></li>
-                        <li class="movie-item"><a href="watch/movies/end-of-the-road-2022">End of The Road 2022</a></li>
-                        <li class="movie-item"><a href="watch/movies/50-first-dates-2004">50 First Dates 2004</a></li>
-                        <li class="movie-item"><a href="watch/movies/bruce-almighty-2003">Bruce Almighty 2003</a></li>
-                       <li class="movie-item"><a href="watch/movies/yes-man-2008">Yes Man 2008</a></li>
-                        <li class="movie-item"><a href="watch/movies/liar-liar-1997">Liar Liar 1997</a></li>
-                        <li class="movie-item"><a href="watch/movies/ace-ventura-when-nature-calls-1995">Ace Ventura: When Nature Calls 1995</a></li>
-                        <li class="movie-item"><a href="watch/movies/ace-ventura-pet-detective-1994">Ace Ventura: Pet Detective 1994</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-mask-1994">The Mask 1994</a></li>
-                         <li class="movie-item"><a href="watch/movies/dumb-and-dumber-to-2014">Dumb and Dumber To 2014</a></li>
-                       <li class="movie-item"><a href="watch/movies/dumb-and-dumber-1994">Dumb and Dumber 1994</a></li>
-                         <li class="movie-item"><a href="watch/movies/billy-madison-1995">Billy Madison 1995</a></li>
-                       <li class="movie-item"><a href="watch/movies/happy-gilmore-1996">Happy Gilmore 1996</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-northman-2022">The Northman 2022</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-king-2019">The King 2019</a></li>
-                        <li class="movie-item"><a href="watch/movies/outlaw-king-2018">Outlaw King 2018</a></li>
-                        <li class="movie-item"><a href="watch/movies/my-zoe-2019">My Zoe 2019</a></li>
-                        <li class="movie-item"><a href="watch/movies/albatros-2021">Albatros 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/goliath-2022">Goliath 2022</a></li>
-                        <li class="movie-item"><a href="watch/movies/coda-2021">CODA 2021</a></li>
-                       <li class="movie-item"><a href="watch/movies/army-of-thieves-2021">Army of Thieves 2021</a></li>
-                        <li class="movie-item"><a href="watch/movies/kingdom-of-heaven-2005">Kingdom of Heaven 2005</a></li>
-                        <li class="movie-item"><a href="watch/movies/sound-of-freedom-2023">Sound of Freedom 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/point-blank-2019">Point Blank 2019</a></li>
-                       <li class="movie-item"><a href="watch/movies/black-and-blue-2019">Black and Blue 2019</a></li>
-                        <li class="movie-item"><a href="watch/movies/21-bridges-2019">The Bridges 2019</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-protege-2021">The Protege 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-misfits-2021">The Misfits 2021</a></li>
-                       <li class="movie-item"><a href="watch/movies/el-hoyo-2019">El hoyo 2019</a></li>
-                        <li class="movie-item"><a href="watch/movies/cube-1997">Cube 1997</a></li>
-                        <li class="movie-item"><a href="watch/movies/exam-2009">Exam 2009</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-gift-2015">The Gift 2015</a></li>
-                        <li class="movie-item"><a href="watch/movies/enemy-2013">Enemy 2013</a></li>
-                        <li class="movie-item"><a href="watch/movies/nocturnal-animals-2016">Nocturnal Animals 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/wildlife-2018">Wildlife 2018</a></li>
-                       <li class="movie-item"><a href="watch/movies/stronger-2017">Stronger 2017</a></li>
-                        <li class="movie-item"><a href="watch/movies/demolition-2015">Demolition 2015</a></li>
-                        <li class="movie-item"><a href="watch/movies/brothers-2009">Brothers 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/southpaw-2015">Southpaw 2015</a></li>
-                       <li class="movie-item"><a href="watch/movies/end-of-watch-2012">End of Watch 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/jarhead-2005">Jarhead 2005</a></li>
-                       <li class="movie-item"><a href="watch/movies/captain-phillips-2013">Captain Phillips 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/unbroken-2014">Unbroken 2014</a></li>
-                       <li class="movie-item"><a href="watch/movies/war-horse-2011">War Horse 2011</a></li>
-                        <li class="movie-item"><a href="watch/movies/empire-of-the-sun-1987">Empire of The Sun 1987</a></li>
-                        <li class="movie-item"><a href="watch/movies/munich-2005">Munich 2005</a></li>
-                        <li class="movie-item"><a href="watch/movies/lincoln-2012">Lincoln 2012</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-post-2017">The Post 2017</a></li>
-                        <li class="movie-item"><a href="watch/movies/bridge-of-spies-2015">Bridge of Spies 2015</a></li> 
-                       <li class="movie-item"><a href="watch/movies/apollo-13-1995">Apollo 13 (1995)</a></li>
-                        <li class="movie-item"><a href="watch/movies/big">Big 1988</a></li>
-                        <li class="movie-item"><a href="watch/movies/youve-got-mail-1995">You've Got Mail 1995</a></li>
-                        <li class="movie-item"><a href="watch/movies/while-you-were-sleeping-1995">While You Weee Sleeping 1995</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-family-stone-2005">The Family Stone 2005</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-archies-2023">The Archies 2023</a></li>
-                       <li class="movie-item"><a href="watch/movies/no-one-will-save-you-2023">No One Will Save You 2023</a></li>
-                        <li class="movie-item"><a href="watch/movies/nowhere-2023">Nowhere 2023</a></li>
-                        <li class="movie-item"><a href="watch/movies/fair-play-2023">Fair Play 2023</a></li>
-                        <li class="movie-item"><a href="watch/movies/reptile-2023">Reptile 2023</a></li>
-                        <li class="movie-item"><a href="watch/movies/awake-2007">Awake 2007</a></li>
-                        <li class="movie-item"><a href="watch/movies/life-as-a-house-2001">Life as a House 2001</a></li>
-                        <li class="movie-item"><a href="watch/movies/shattered-glass-2003">Shattered Glass 2003</a></li>
-                        <li class="movie-item"><a href="watch/movies/first-kill-2017">First Kill 2017</a></li>
-                        <li class="movie-item"><a href="watch/movies/reprisal-2018">Reprisal 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/backtrace-2018">Backtrace 2018</a></li>
-                       <li class="movie-item"><a href="watch/movies/the-prince-2014">The Prince 2014</a></li>
-                        <li class="movie-item"><a href="watch/movies/escape-plan-2019">Escape Plan: The Extractors 2019</a></li>
-                        <li class="movie-item"><a href="watch/movies/escape-plan-2018">Escape Plan 2: Hades 2018</a></li>
-                        <li class="movie-item"><a href="watch/movies/escape-plan-2013">Escape Plan 2013</a></li>
-                        <li class="movie-item"><a href="watch/movies/death-race-2018">Death Race: Beyond Anarchy 2018</a></li>
-                        <li class="movie-item"><a href="watch/movies/death-race-2013">Death Race: Inferno 2013</a></li>
-                        <li class="movie-item"><a href="watch/movies/death-race-2010">Death Race 2 (2010)</a></li>
-                        <li class="movie-item"><a href="watch/movies/death-race-2008">Death Race 2008</a></li>
-                         <li class="movie-item"><a href="watch/movies/crank-2006">Crank 2006</a></li>
-                        <li class="movie-item"><a href="watch/movies/crank-2009">Crank: High Voltage 2009</a></li>
-                       <li class="movie-item"><a href="watch/movies/the-transporter-2008">The Transporter 3 (2008)</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-transporter-2005">The Transporter 2 (2005)</a></li>
-                       <li class="movie-item"><a href="watch/movies/the-transporter-2002">The Transporter 1 (2002)</a></li>
-                        <li class="movie-item"><a href="watch/movies/mechanic-resurrection-2016">Mechanic: Resurrection 2016</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-mechanic-2011">The Mechanic 2011</a></li>
-                        <li class="movie-item"><a href="watch/movies/parker-2013">Parker 2013</a></li>
-                        <li class="movie-item"><a href="watch/movies/homefront-2013">Homefront 2013</a></li>
-                        <li class="movie-item"><a href="watch/movies/mr-and-mrs-smith-2005">Mr. & Mrs. Smith 2005</a></li>
-                        <li class="movie-item"><a href="watch/movies/oceans-eight-2018">Ocean's Eight 2018 </a></li>
-                        <li class="movie-item"><a href="watch/movies/tangled-2010">Tangled 2010</a></li>
-                        <li class="movie-item"><a href="watch/movies/fallen-2016">Fallen 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/beastly-2011">Beastly 2011</a></li>
-                       <li class="movie-item"><a href="watch/movies/beautiful-creatures-2013">Beautiful Creatures 2013</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-mortal-instruments-city-of-bones-2013">The Mortal Instruments: City of Bones 2013</a></li>
-                        <li class="movie-item"><a href="watch/movies/red-riding-hood-2011">Red Riding Hood 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-5th-wave-2016">The 5th Wave 2016</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-darkest-minds-2018">The Darkest Minds 2018</a></li>
-                       <li class="movie-item"><a href="watch/movies/the-hate-u-give-2018">The Hate U Give 2018</a></li>
-                        <li class="movie-item"><a href="watch/movies/everything-everything-2017">Everything, Everything 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/if-i-stay-2014">If I Stay 2014</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-longest-ride-2015">The Longest Ride 2015</a></li>
-                       <li class="movie-item"><a href="watch/movies/the-choice-2016">The Choice 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/safe-haven-2013">Safe Haven 2013</a></li>
-                       <li class="movie-item"><a href="watch/movies/the-lucky-one-2012">The Lucky One 2012</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-vow-2012">The Vow 2012</a></li>
-                        <li class="movie-item"><a href="watch/movies/dear-john-2010">Dear John 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/love-actually-2003">Love Actually 2003</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-holiday-2006">The Holiday 2006</a></li>
-                       <li class="movie-item"><a href="watch/movies/black-panther-2018">Black Panther 2018</a></li>
-                        <li class="movie-item"><a href="watch/movies/black-panther-2022">Black Panther: Wakanda Forever 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/shang-chi-and-the-legend-of-the-ten-rings-2021">Shang-Chi and the Legend of the Ten Rings 2021</a></li>
-                        <li class="movie-item"><a href="watch/movies/Doctor-Strange-in-the-ultiverseof-madness-2023">Doctor Strange in the Multiverse of Madness 2023</a></li>
-                       <li class="movie-item"><a href="watch/movies/doctor-strange-2016">Doctor Strange 2016</a></li>
-                        <li class="movie-item"><a href="watch/movies/deep-blue-sea-2020">Deep Blue Sea 3 (2020)</a></li>
-                        <li class="movie-item"><a href="watch/movies/deep-blue-sea-2018">Deep Blue Sea 2 (2018)</a></li>
-                        <li class="movie-item"><a href="watch/movies/deep-blue-sea-1999">Deep Blue Sea 1 (1999)</a></li>
-                        <li class="movie-item"><a href="watch/movies/47-meters-down-2017">47 Meters Down 2017</a></li>
-                       <li class="movie-item"><a href="watch/movies/47-meters-down-uncaged-2019">47 Meters Down: Uncaged 2019 </a></li>
-                        <li class="movie-item"><a href="watch/movies/the-shallows-2016">The Shallows 2016</a></li>
-                        <li class="movie-item"><a href="watch/movies/crawl-2019">Crawl 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/black-water-2007">Black Water 2007</a></li>
-                        <li class="movie-item"><a href="watch/movies/bait-2012">Bait 2012</a></li>
-                        <li class="movie-item"><a href="watch/movies/great-white-2021">Great White 2021</a></li>
-                        <li class="movie-item"><a href="watch/movies/open-water-2017">Open Water 3: Cage Dive 2017</a></li>
-                        <li class="movie-item"><a href="watch/movies/open-water-2006">Open Water: Adrift <br>Open Water 2 <br>(2006)</a></li>
-                        <li class="movie-item"><a href="watch/movies/open-water-2003">Open Water 1 (2003)</a></li>
-                        <li class="movie-item"><a href="watch/movies/shark-night-3d-2011">Shark Night 3D (2011)</a></li>
-                         <li class="movie-item"><a href="watch/movies/247f-2011">247°F (2011)</a></li>
-                        <li class="movie-item"><a href="watch/movies/hollow-man-2006">Hollow Man 2 (2006)</a></li>
-                       <li class="movie-item"><a href="watch/movies/hollow-man-2000">Hollow Man 1 (2000)</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-woodsman-2004">The Woodsman 2004</a></li>
-                        <li class="movie-item"><a href="watch/movies/mean-creek-2004">Mean Creek 2004</a></li>
-                        <li class="movie-item"><a href="watch/movies/lymelife-2008">Lymelife 2008</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-song-of-sway-lake-2018">The Song of Sway Lake 2018</a></li>
-                        <li class="movie-item"><a href="watch/movies/bullet-head-2017">Bullet Head 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/security-2017">Security 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-illusionist-2006">The Illusionist 2006</a></li>
-                        <li class="movie-item"><a href="watch/movies/hannibal-rising-2007">Hannibal Rising 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-rite-2011">The Rite 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/red-dragon-2002">Red Dragon 2002</a></li>
-                         <li class="movie-item"><a href="watch/movies/hannibal-2001">Hannibal 2001</a></li>
-                        <li class="movie-item"><a href="watch/movies/fracture-2007">Fracture 2007</a></li>
-                        <li class="movie-item"><a href="watch/movies/primal-fear-1996">Primal Fear 1996</a></li>
-                        <li class="movie-item"><a href="watch/movies/gone-baby-gone-2007">Gone Baby Gone 2007</a></li>
-                        <li class="movie-item"><a href="watch/movies/mystic-river-2003">Mystic River 2003</a></li>
-                        <li class="movie-item"><a href="watch/movies/sleepers-1996">Sleepers 1996</a></li>
-                         <li class="movie-item"><a href="watch/movies/talk-to-me-2022">Talk To Me 2022</a></li>
-                        <li class="movie-item"><a href="watch/movies/cobweb-2023">Cobweb 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/night-of-the-hunted-2023">Night of The Hunted 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/suitable-flash-2023">Suitable Flash 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-devil-on-trial-2023">The Devil on Trial 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-conference-2023">The Conference<br>Konferensen <br>2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/dark-harvest-2023">Dark Harvest 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/appendage-2023">Appendage 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-knocking-2022">The Knocking <br>(Koputus)<br>2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-curious-case-of-benjamin-button-2008">The Curious Case of Benjamin Button 2008</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-social-network-2010">The Social Network 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/nightcrawler-2014">Nightcrawler 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/american-psycho-2000">American Psycho 2000</a></li>
-                         <li class="movie-item"><a href="watch/movies/donnie-darko-2001">Donnie Darko 2001</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-machinist-2004">The Machinist 2004</a></li>
-                         <li class="movie-item"><a href="watch/movies/drive-2011">Drive 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/blade-runner-2049-2017">Blade Runner 2049 (2017)</a></li>
-                         <li class="movie-item"><a href="watch/movies/dune-1984">Dune 1984</a></li>
-                         <li class="movie-item"><a href="watch/movies/dune-2021">Dune: Part One (2021)</a></li>
-                         <li class="movie-item"><a href="watch/movies/gangs-of-new-york-2002">Gangs of New York 2002</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-great-gatsby-2013">The Great Gatsby 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-danish-girl-2015">The Danish Girl 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-theory-of-everything-2014">The Theory of Everything 2014</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-limitation-game-2004">The Limitation Game 2004</a></li>
-                       <li class="movie-item"><a href="watch/movies/life-of-pi-2012">Life of Pi 2012</a></li>
-                          <li class="movie-item"><a href="watch/movies/gravity-2013">Gravity 2013</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-martian-2015">The Martian 2015</a></li>
-                       <li class="movie-item"><a href="watch/movies/the-babadook-2014">The Babadook 2014</a></li>
-                        <li class="movie-item"><a href="watch/movies/doghouse-2009">Doghouse 2009</a></li>
-                        <li class="movie-item"><a href="watch/movies/creep-2004">Creep 2004</a></li>
-                         <li class="movie-item"><a href="watch/movies/creep-2017">Creep 2 (2017)</a></li>
-                         <li class="movie-item"><a href="watch/movies/creep-2014">Creep 1 (2014)</a></li>
-                         <li class="movie-item"><a href="watch/movies/a-dark-song-2011">A Dark Song 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/relic-2020">Relic 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/censor-2021">Censor 2021</a></li>
-                        <li class="movie-item"><a href="watch/movies/possessor-2020">Possessor 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/pearl-2022">Pearl 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/barbarian-2022">Barbarian 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/iron-mask-2019">Iron Mask <br>(Journey to China)
-<br>Tayna pechati drakona
-<br>2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-black-phone-2021">The Black Phone 2021</a></li>
-                        <li class="movie-item"><a href="watch/movies/nope-2022">Nope 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/megan-2022">Megan 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/knock-at-the-cabin-2023">Knock at The Cabin 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/renfield-2023">Renfield 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/cocaine-bear-2023">Cocaine Bear 2023</a></li>
-                        <li class="movie-item"><a href="watch/movies/zodiac-2007">Zodiac 2007</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-game-1997">The Game 1997</a></li>
-                         <li class="movie-item"><a href="watch/movies/panic-room-2002">Panic Room 2002</a></li>
-                         <li class="movie-item"><a href="watch/movies/phone-booth-2002">Phone Booth 2002</a></li>
-                         <li class="movie-item"><a href="watch/movies/flightplan-2005">Flightplan 2005</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-call-2013">The Call 2013</a></li>
-                        <li class="movie-item"><a href="watch/movies/kidnap-2008">Kidnap 2008</a></li>
-                         <li class="movie-item"><a href="watch/movies/kidnap-2017">Kidnap 2017</a></li>
-                        <li class="movie-item"><a href="watch/movies/footloose-1984">Footloose 1984</a></li> 
-                        <li class="movie-item"><a href="watch/movies/grease-1982">Grease 2 (1982)</a></li>
-                         <li class="movie-item"><a href="watch/movies/grease-1978">Grease 1 (1978)</a></li>
-                         <li class="movie-item"><a href="watch/movies/ghost-1990">Ghost 1990</a></li>
-                         <li class="movie-item"><a href="watch/movies/pretty-woman-1990">Pretty Woman 1990</a></li>
-                         <li class="movie-item"><a href="watch/movies/notting-hill-1999">Notting Hill 1999</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-proposal-2009">The Proposal 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/how-to-lose-a-guy-in-10-days-2003">How To Lose a Guy in 10 Days 2003</a></li>
-                         <li class="movie-item"><a href="watch/movies/10-things-i-hate-about-you-1999">10 Things i Hate About You 1999</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-notebook-2004">The Notebook 2004</a></li>
-                        <li class="movie-item"><a href="watch/movies/love-rosie-2014">Love, Rosie 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/me-before-you-2016">Me Before You 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-age-of-adaline-2015">The Age of Adaline 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/red-white-royal-blue-2023">Red, White & Royal Blue 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/five-feet-apart-2019">Five Feet Apart 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/purple-hearts-2022">Purple Hearts 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hating-game-2021">The Hating Game 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/holidate-2020">Holidate 2020</a></li>
-                        <li class="movie-item"><a href="watch/movies/single-all-the-way-2021">Single All The Way 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/love-hard-2021">Love Hard 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-strangers-prey-at-night-2018">The Strangers: Prey at Night 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/youre-next-2011">You're Next 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-strangers-2008">The Strangers 2008</a></li>                   
-                         <li class="movie-item"><a href="watch/movies/parker-2013">Parker-2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/safe-2012">Safe 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/spy-2015">Spy 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/date-night-2010">Date Night 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/game-night-2018">Game Night 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/tag-2018">Tag 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/instant-family-2018">Instant Family 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-upside-2017">The Upside 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/fatherhood-2021">Fatherhood 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/night-school-2018">Night School 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/me-time-2022">Me Time 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-man-form-toronto-2022">The Man From Toronto 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/day-shift-2022">Day Shift 2022</a></li>
-                        <li class="movie-item"><a href="watch/movies/kingsman-the-secret-service-2014">Kingsman: The Secret Service 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/kingsman-the-golden-circle-2017">Kingsman: The Golden Circle 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-kings-man-2021">The Kings Man 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/uncharted-2022">Uncharted 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/jungle-cruise-2021">Jungle Cruise 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/scream-4-2011">Scream 4 (2011)</a></li>
-                         <li class="movie-item"><a href="watch/movies/project-power-2020">Project Power 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-adam-project-2022">The Adam Project 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/red-notice-2021">Red Notice 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/free-guy-2021">Free Guy 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-old-guard-2020">The Old Guard 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/6-underground-2019">6 Underground 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/triple-frontier-2019">Triple Frontier 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/spenser-confidential-2020">Spenser Confidential 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/mile-22-2018">Mile 22 (2018)</a></li>
-                        <li class="movie-item"><a href="watch/movies/patriots-day-2016">Patriots Day 2016</a></li>
-                        <li class="movie-item"><a href="watch/movies/deepwater-horizon-2016">Deepwater Horizon 2016</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-visit-2015">The Visit 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/it-2019">it Chapter Two <br>(it 2)<br>2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/glass-2019">Glass 2019</a></li>
-                        <li class="movie-item"><a href="watch/movies/unbreakable-2000">Unbreakable 2000</a></li>
-                        <li class="movie-item"><a href="watch/movies/lady-in-the-water-2006">Lady in The Water 2006</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-village-2004">The Village 2004</a></li>
-                         <li class="movie-item"><a href="watch/movies/signs-2002">Signs 2002</a></li>
-                         <li class="movie-item"><a href="watch/movies/lone-survivor-2013">Lone Survivor 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/zero-dark-thirty-2012">Zero Dark Thirty 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-fighter-2010">The Fighter 2010</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-enforcer-1976">The Enforcer 1976</a></li>
-                         <li class="movie-item"><a href="watch/movies/magnum-force-1973">Magnum Force 1973</a></li>
-                         <li class="movie-item"><a href="watch/movies/argo-2012">Argo 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hurt-locker-2008">The Hurt Locker 2008</a></li>
-                        <li class="movie-item"><a href="watch/movies/american-sniper-2014">American Sniper 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/sully-2016">Sully 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-terminal-2004">The Terminal 2004</a></li>
-                         <li class="movie-item"><a href="watch/movies/cast-away-2000">Cast Away 2000</a></li>
-                        <li class="movie-item"><a href="watch/movies/127-hours-2010">127 Hours 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-pursuit-of-happyness-2006">The Pursuit of Happyness 2006</a></li>
-                        <li class="movie-item"><a href="watch/movies/blood-diamond-2006">Blood Diamond 2006</a></li>
-                         <li class="movie-item"><a href="watch/movies/body-of-lies-2008">Body of Lies 2008</a></li>
-                         <li class="movie-item"><a href="watch/movies/american-gangster-2007">American Gangster 2007</a></li>
-                        <li class="movie-item"><a href="watch/movies/training-day-2001">Training Day 2001</a></li>
-                        <li class="movie-item"><a href="watch/movies/man-on-fire-2004">Man on Fire 2004</a></li> 
-                        <li class="movie-item"><a href="watch/movies/inside-man-2006">Inside Man 2006</a></li>
-                         <li class="movie-item"><a href="watch/movies/unstoppable-2010">Unstoppable 2010</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-taking-of-pelham-123-2009">The Taking of Pelham 123 (2009)</a></li>
-                         <li class="movie-item"><a href="watch/movies/safe-house-2012">Safe House 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/shooter-2007">Shooter 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/four-brothers-2005">Four Brothers 2005</a></li>
-                         <li class="movie-item"><a href="watch/movies/ride-along-2014">Ride Along 1 (2014)</a></li>
-                         <li class="movie-item"><a href="watch/movies/ride-along-2-2016">Ride Along 2 (2016)</a></li>
-                         <li class="movie-item"><a href="watch/movies/central-intelligence-2016">Central Intelligence 2016</a></li>
-                        <li class="movie-item"><a href="watch/movies/pain-and-gain-2013">Pain & Gain 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/2-guns-2013">2 Guns 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-italian-job-2007">The Italian Job 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-accountant-2016">The Accountant 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/live-by-night-2016">Live By Night 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/dirty-harry-1971">Dirty-harry-1971</a></li>
-                         <li class="movie-item"><a href="watch/movies/escape-from-alcatraz-1979">Escape From Alcatraz 1979</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-mule-2018">The Mule 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/richard-jewell-2019">Richard Jewell 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-jester-2023">The Jester 2023</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-town-2010">The Town 2010</a></li>
-                        <li class="movie-item"><a href="watch/movies/deep-water-2022">Deep Water 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-silence-2019">The Silence 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/barton-fink-1991">Barton Fink 1991</a></li>
-                         <li class="movie-item"><a href="watch/movies/burn-after-reading-2008">Burn After Reading 2008</a></li>
-                        <li class="movie-item"><a href="watch/movies/true-grit-2010">True Grit 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-ballad-of-buster-scruggs-2018">The Ballad of Buster Scruggs 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/enemy-at-the-gates-2001">Enemy at The Gates 2001</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hangover-2009">The Hangover 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hangover-2011">The Hangover Part 2 (2011)</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hangover-2013">The Hangover Part 3 (2013)</a></li>
-                        <li class="movie-item"><a href="watch/movies/ted-2012">Ted 1 (2012)</a></li>
-                         <li class="movie-item"><a href="watch/movies/ted-2015">Ted 2 (2015)</a></li>
-                         <li class="movie-item"><a href="watch/movies/city-of-god-2002">City Of God <br>Cidade de Deus <br>2002</a></li>
-                         <li class="movie-item"><a href="watch/movies/yojimbo-1961">Yojimbo <br>Yôjinbô<br> 1961</a></li>
-                         <li class="movie-item"><a href="watch/movies/stand-by-me-1986">Stand By Me 1986</a></li>
-                         <li class="movie-item"><a href="watch/movies/rear-window-1954">Rear Window 1954</a></li>
-                         <li class="movie-item"><a href="watch/movies/corpse-bride-2005">Corpse Bride 2005</a></li>
-                         <li class="movie-item"><a href="watch/movies/alice-through-the-looking-glss-2016">Alice Through The Looking Glass 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/miss-Peregrines-home-for-peculiar-children-2016">Miss Peregrine's Home for Peculiar Children 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/alice-in-wonderland-2010">Alice in Wonderland 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/miss-peregrines-home-for-peculiar-children-2016">Miss Peregrine's Home for Peculiar Children 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/hugo-2011">Hugo 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-golden-compass-2007">The Golden Compass 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/nanny-mcphee-2005">Nanny McPhee 2005</a></li>
-                         <li class="movie-item"><a href="watch/movies/inkheart-2008">Inkheart 2008</a></li>
-                        <li class="movie-item"><a href="watch/movies/christopher-robin-2018">Christopher Robin 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/paddington-2014">Paddington 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-bfg-2016">The BFG 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/a-monster-call-2016">A Monster Calls 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/one-piece-film-red-2022">One Piece Film Red 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/cool-hand-luke-1967">Cool Hand Luke 1967</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-verdict-1982">The Verdict 1982</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hustler-1961">The Hustler 1961</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-color-of-money-1986">The Color of Money 1986</a></li>
-                         <li class="movie-item"><a href="watch/movies/alice-doesnt-live-here-anymore-1974">Alice Doesn't Live Here Anymore 1974</a></li>
-                         <li class="movie-item"><a href="watch/movies/new-york-new-york-1977">New York, New York 1977</a></li>
-                         <li class="movie-item"><a href="watch/movies/mean-streets-1973">Mean Streets 1973</a></li>
-                         <li class="movie-item"><a href="watch/movies/la-haine-1995">La Haine 1995</a></li>
-                         <li class="movie-item"><a href="watch/movies/cape-fear-1991">Cape Fear 1991</a></li>
-                         <li class="movie-item"><a href="watch/movies/godzilla-king-of-the-monsters-2019">Godzilla: King of The Monsters 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/godzilla-2014">Godzilla 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/godzilla-vs-kong-2021">Godzilla vs. Kong 2021</a></li>
-                          <li class="movie-item"><a href="watch/movies/rampage-2018">Rampage 2018</a></li>
-                        <li class="movie-item"><a href="watch/movies/kong-skull-island-2017">Kong: Skull Island 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/king-kong-2005">King Kong 2005</a></li>
-                         <li class="movie-item"><a href="watch/movies/dawn-of-the-planet-of-the-apes-2014">Dawn of The Planet of The Apes 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/rise-of-the-planet-of-the-apes-2011">Rise of The Planet of The Apes 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/war-for-the-planet-of-the-apes-2017">War for the Planet of the Apes 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/planet-of-the-apes-2001">Planet of The Apes 2001</a></li>
-                         <li class="movie-item"><a href="watch/movies/dawn-of-the-planet-of-the-apes-2014">Dawn of The Planet of The Apes 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/marlowe-2022">Marlowe 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/retribution-2023">Retribution 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/widows-2018">Widows 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/cold-pursuit-2019">Cold Pursuit 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/men-in-black-international-2019">Men in Black: International 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/blacklight-2022">Blacklight 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-ice-road-2021">The Ice Road 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-marksman-2021">The Marksman 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/made-in-italy-2020">Made in Italy 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/ordinary-love-2019">Ordinary Love 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/men-in-black-international-2019">Men in Black: International 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/honest-thief-2020">Honest Thief 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/memory-2022">Memory 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-creator-2023">The Creator 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/monsters-2010">Monsters 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/a-deadly-mistake-2023">A deadly Mistake <br>you'll Never Leave Me<br>2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/show-down-at-the-grand-2023">Showdown at The Grand 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/freelance-2023">Freelance 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/family-switch-2023">Family Switch 2023</a></li>
-                          <li class="movie-item"><a href="watch/movies/cnady-cane-lane-2023">Candy Cane Lane 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/may-december-2023">May December 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-shepherd-2023">The Shepherd 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/holes-2003">Holes 2003</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-parent-trap-1998">The Parent Trap 1998</a></li>
-                         <li class="movie-item"><a href="watch/movies/we-bought-a-zoo-2011">We Bought a Zoo 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/marley-and-me-2008">Marley & Me 2008</a></li>
-                        <li class="movie-item"><a href="watch/movies/togo-2019">Togo 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/after-hours-1985">After Hours 1985</a></li>
-                         <li class="movie-item"><a href="watch/movies/silence-2016">Silence 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-aviator-2004">The Aviator 2004</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-irishman-2019">The Irishman 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/once-upon-a-time-in-hollywood-2019">Once a Upon Time in Hollywood 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hateful-eight-2015">The Hateful Eight 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/fury-2014">Fury 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-revenant-2015">The Revenant 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/dunkirk-2017">Dunkirk 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/tenet-2020">Tenet 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-invisible-man-2020">The Invisible Man 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/it-follows-2014">It Follows 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/hereditary-2018">Hereditary 2018</a></li>
-                        <li class="movie-item"><a href="watch/movies/get-out-2017">Get Out 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/midsommar-2019">Midsommar-2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-lighthouse-2012">The Lighthouse 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-master-2012">The Master 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/fresh-2022">Fresh 2022</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-king-of-comedy-1982">The King of Comedy 1982</a></li>
-<li class="movie-item"><a href="watch/movies/angry-birds-2016">Angry Birds 1 (2016)</a></li>
-<li class="movie-item"><a href="watch/movies/angry-birds-2019">Angry Birds 2 (2019)</a></li>
-<li class="movie-item"><a href="watch/movies/the-grinch-2018">The Grinch 2018</a></li>
-<li class="movie-item"><a href="watch/movies/a-christmas-carol-2009">A Christmas Carol 2009</a></li>
-<li class="movie-item"><a href="watch/movies/elf">Elf (2003)</a></li>
-<li class="movie-item"><a href="watch/movies/x">X (2022)</a></li>
-<li class="movie-item"><a href="watch/movies/killer-joe-2011">Killer Joe 2011</a></li>
-<li class="movie-item"><a href="watch/movies/wonder-woman-2017">Wonder Woman 2017</a></li>
-<li class="movie-item"><a href="watch/movies/wonder-2017">Wonder 2017</a></li>
-<li class="movie-item"><a href="watch/movies/captain-america-2011">Captain America: The First Avenger 2011</a></li>
-<li class="movie-item"><a href="watch/movies/captain-america-2014">Captain America: The Winter Soldier 2014</a></li>
-<li class="movie-item"><a href="watch/movies/captain-america-2016">Captain America: Civil War 2016</a></li>
-<li class="movie-item"><a href="watch/movies/captain-marvel-2019">Captain Marvel 2019</a></li>
-<li class="movie-item"><a href="watch/movies/spider-man-2002">Spider-Man 1<br>Spider Man <br>2002</a></li>
-<li class="movie-item"><a href="watch/movies/spider-man-homecoming-2017">Spider-Man: Homecoming 2017</a></li>
-<li class="movie-item"><a href="watch/movies/spider-man-2007">Spider-Man 3 <br>Spider Man<br>2007</a></li>
-<li class="movie-item"><a href="watch/movies/spider-man-2004">Spider-Man 2 <br>Spider Man<br>2004</a></li>
-<li class="movie-item"><a href="watch/movies/the-amazing-spider-man-2012">The Amazing Spider Man 1 (2012)</a></li>
-<li class="movie-item"><a href="watch/movies/the-amazing-spider-man-2014">The Amazing Spider Man 2 (2014)</a></li>
-<li class="movie-item"><a href="watch/movies/spider-man-far-from-home-2019">Spider-Man: Far From Home 2019</a></li>
-<li class="movie-item"><a href="watch/movies/thor-2022">Thor: Love And Thunder 2022</a></li>
-<li class="movie-item"><a href="watch/movies/thor-2011">Thor 2011</a></li>
-<li class="movie-item"><a href="watch/movies/thor-2017">Thor: Ragnarok 2017</a></li>
-<li class="movie-item"><a href="watch/movies/thor-2013">Thor: The Dark World 2013</a></li>
-<li class="movie-item"><a href="watch/movies/superman-1978">Superman 1 (1978)</a></li>
-<li class="movie-item"><a href="watch/movies/superman-1980">Superman 2 (1980)</a></li>
-<li class="movie-item"><a href="watch/movies/superman-1983">Superman 3 (1983)</a></li>
-<li class="movie-item"><a href="watch/movies/superman-returns-2006">Superman Returns 2006</a></li>
-<li class="movie-item"><a href="watch/movies/close-2022">Close 2022</a></li>
-<li class="movie-item"><a href="watch/movies/aftersun-2022">Aftersun 2022</a></li>
-<li class="movie-item"><a href="watch/movies/we-own-the-night-2007">We Own The Night 2007</a></li>
-<li class="movie-item"><a href="watch/movies/die-wand-2012">Die Wand 2012<br>(The Wall 2012)</a></li>
-<li class="movie-item"><a href="watch/movies/the-wall-2017">The Wall 2017</a></li>
-<li class="movie-item"><a href="watch/movies/like-stars-on-earth-2007">Like Stars on Earth 2007</a></li>
-<li class="movie-item"><a href="watch/movies/night-at-the-museum-2006">Night At The Museum 2006</a></li>
-<li class="movie-item"><a href="watch/movies/night-at-the-museum-battle-of-the-smithsonian-2009">Night At The Museum: Battle Of The Smithsonian 2009</a></li>
-<li class="movie-item"><a href="watch/movies/night-at-the-museum-secret-of-the-tomb-2014">Night At The Museum: Secret of The Tomb 2014</a></li>
-<li class="movie-item"><a href="watch/movies/the-polar-express-2004">The Polar Express 2004</a></li>
-<li class="movie-item"><a href="watch/movies/home-alone-1997">Home Alone 3 (1997)</a></li>
-<li class="movie-item"><a href="watch/movies/home-alone-1992">Home Alone 2<br>Lost in New York (1992)</a></li>
-<li class="movie-item"><a href="watch/movies/home-alone-1990">Home Alone 1 (1990)</a></li>
-<li class="movie-item"><a href="watch/movies/iron-man-2008">Iron Man 1 (2008)</a></li>
-<li class="movie-item"><a href="watch/movies/iron-man-2010">Iron Man 2 (2010)</a></li>
-<li class="movie-item"><a href="watch/movies/iron-man-2013">Iron Man 3 (2013)</a></li>
-<li class="movie-item"><a href="watch/movies/ant-man-2015">Ant-Man 2015<br>(Ant Man)</a></li>
-<li class="movie-item"><a href="watch/movies/ant-man-and-the-wasp-quantumania-2023">Ant-Man and The Wasp: Quantumania 2023<br>(Ant Man)</a></li>
-<li class="movie-item"><a href="watch/movies/ant-man-and-the-wasp-2018">Ant-Man and The Wasp 2018<br>(Ant Man)</a></li>
-<li class="movie-item"><a href="watch/movies/hulk-2003">Hulk 2003</a></li>
-<li class="movie-item"><a href="watch/movies/the-incredible-hulk-2008">The Incredible Hulk 2008</a></li>
-<li class="movie-item"><a href="watch/movies/xxx-state-of-the-union-2005">xXx: State Of The Union 2005</a></li>
-<li class="movie-item"><a href="watch/movies/xxx-return-of-xander-cage-2017">xXx: Return Of Xander Cage 2017</a></li>
-<li class="movie-item"><a href="watch/movies/the-batman-2022">The Batman 2022</a></li>
-<li class="movie-item"><a href="watch/movies/batman-1989">Batman 1989</a></li>
-<li class="movie-item"><a href="watch/movies/batman-returns-1992">Batman Returns 1992</a></li>
-<li class="movie-item"><a href="watch/movies/batman-and-robin-1997">Batman & Robin 1997</a></li>
-<li class="movie-item"><a href="watch/movies/batman-forever-1995">Batman Forever 1995</a></li>
-<li class="movie-item"><a href="watch/movies/batman-v-superman-dawn-of-justice-2016">Batman v Superman: Dawn Of Justice 2016</a></li>
-<li class="movie-item"><a href="watch/movies/pulp-fiction-1994">Pulp Fiction 1994</a></li>
-<li class="movie-item"><a href="watch/movies/leon-1994">Leon<br>The Professional<br>1994<br>(Léon)</a></li>
-<li class="movie-item"><a href="watch/movies/la-vita-e-bella-1997">La Vita è Bella <br>Life Is Beautiful <br> 1997</a></li>
-<li class="movie-item"><a href="watch/movies/la-la-land-2016">La La Land 2016</a></li>
-<li class="movie-item"><a href="watch/movies/black-swan-2010">Black Swan 2010</a></li>
-                        <li class="movie-item"><a href="watch/movies/her-2013">Her 2013</a></li>
-                        <li class="movie-item"><a href="watch/movies/marriage-story-2019">Marriage Story 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/manchester-by-the-sea-2016">Manchester By The Sea 2016</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-purge-2013">The Purge 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-purge-anarchy-2014">The Purge: Anarchy 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-purge-election-year-2016">The Purge: Election Year 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-first-purge-2018">The First Purge 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-forever-purge-2021">The Forever Purge 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/insidious-2010">Insidious 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/insidious-chapter-2-2013">Insidious: Chapter 2 (2013)</a></li>
-                         <li class="movie-item"><a href="watch/movies/insidious-chapter-3-2015">Insidious: Chapter 3 (2015)</a></li>
-                         <li class="movie-item"><a href="watch/movies/insidious-the-last-key-2018">Insidious: The Last Key 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/insidious-the-red-door-2023">Insidious: The Red Door 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/sinister-2015">Sinister 2 (2015)</a></li>
-                        <li class="movie-item"><a href="watch/movies/sinister-2012">Sinister 1 (2012)</a></li>
-                        <li class="movie-item"><a href="watch/movies/host-2020">Host 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/aterrados-2017">Aterrados 2017</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-dark-and-the-wicked-2020">The Dark And The Wicked 2020</a></li>
-                          <li class="movie-item"><a href="watch/movies/the-cleansing-hour-2019">The Cleansing Hour 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/hitman-2007">Hitman 2007</a></li>
-                        <li class="movie-item"><a href="watch/movies/hitman-agent-47">Hitman: Agent 47 (2015)</a></li>
-                         <li class="movie-item"><a href="watch/movies/cloverfield-2008">Cloverfield 2008</a></li>
-                         <li class="movie-item"><a href="watch/movies/10-cloverfield-lane-2016">10 Cloverfield Lane 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-cloverfield-paradox-2018">The Cloverfield Paradox 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-mist-2007">The Mist 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/evil-dead-rise-2023">Evil Dead Rise 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/evil-dead-2013">Evil Dead 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-evil-dead-1981">The Evil Dead 1 (1981)</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-evil-dead-1987">The Evil Dead 2 (1987)</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-chronicles-of-narnia-the-voyage-of-the-dawn-treader-2010">The Chronicles of Narnia: The Voyage of the Dawn Treader 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-chronicles-of-narnia-prince-caspian-2008">The Chronicles of Narnia: Prince Caspian 2008</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-chronicles-of-narnia-the-lion-the-witch-and-the-wardrobe-2005">The Chronicles of Narnia: The Lion, the Witch and the Wardrobe 2005</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-witch-2015">The Witch 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/blindspotting-2018">Blindspotting 2018</a></li>
-                        <li class="movie-item"><a href="watch/movies/shrek-2001">Shrek 1 (2001)</a></li>
-                         <li class="movie-item"><a href="watch/movies/shrek-2004">Shrek 2 (2004)</a></li>
-                         <li class="movie-item"><a href="watch/movies/shrek-2007">Shrek 3 <br>The Third (2007)</a></li>
-                         <li class="movie-item"><a href="watch/movies/shrek-2010">Shrek 4 <br>Forever After (2010)</a></li>
-                         <li class="movie-item"><a href="watch/movies/rango-2011">Rango 2011</a></li>
-                        <li class="movie-item"><a href="watch/movies/megamind-2010">Megamind 2010</a></li>
-<li class="movie-item"><a href="watch/movies/guardians-of-the-galaxy-2014">Guardians of the Galaxy 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/guardians-of-the-galaxy-vol2-2017">Guardians of the Galaxy Vol. 2 (2017)</a></li>
-                         <li class="movie-item"><a href="watch/movies/guardians-of-the-galaxy-vol3-2023">Guardians of the Galaxy Vol. 3 (2023)</a></li>
-                         <li class="movie-item"><a href="watch/movies/barbie-2023">Barbie 2023</a></li>
-                        <li class="movie-item"><a href="watch/movies/silent-hill-2006">Silent Hill 2006</a></li>
-                         <li class="movie-item"><a href="watch/movies/silent-hill-revelation-2012">Silent Hill: Revelation 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/titanic-1997">Titanic 1997</a></li>
-     <!--                    <li class="movie-item"><a href="watch/movies/silent-night-2023">Silent Night 2023</a></li> -->
-                       <li class="movie-item"><a href="watch/movies/happy-death-day-2107">Happy Death Day 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/happy-death-day-2u-2019">Happy Death Day 2U 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/your-lucky-day-2023">Your Lucky Day 2023</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-royal-hotel-2023">The Royal Hotel 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/leo-2023">Leo 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/butchers-crossing-2022">Butcher's Crossing 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/kung-fu-panda-2008">Kung Fu Panda 1 (2008)</a></li>
-                          <li class="movie-item"><a href="watch/movies/kung-fu-panda-2011">Kung Fu Panda 2 (2011)</a></li>
-                         <li class="movie-item"><a href="watch/movies/kung-fu-panda-2016">Kung Fu Panda 3 (2016)</a></li>
-                        <li class="movie-item"><a href="watch/movies/incredibles-2018">Incredibles 2 (2018)</a></li>
-                         <li class="movie-item"><a href="watch/movies/up-2009">Up 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/moana-2016">Moana 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/brave-2012">Brave 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/big-hero-6-2014">Big Hero 6 (2014)</a></li>
-                         <li class="movie-item"><a href="watch/movies/zootopia-2016">Zootopia 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/frozen-2019">Frozen 2 (2019)</a></li>
-                         <li class="movie-item"><a href="watch/movies/maleficent-mistress-of-evil-2019">Maleficent: Mistress of Evil 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/frozen-2013">Frozen 2013</a></li>  
-                    <li class="movie-item"><a href="watch/movies/maleficent-2014">Maleficent 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/cinderella-2015">Cinderella 2015</a></li>
-                        <li class="movie-item"><a href="watch/movies/beauty-and-the-beast-2017">Beauty and The Beast 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/fantastic-beasts-the-secrets-of-dumbledore-2022">Fantastic Beasts: The Secrets of Dumbledore 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/fantastic-beasts-the-crimes of-grindelwald-2018">Fantastic Beasts: The Crimes of Grindelwald 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/fantastic-beasts-and-where to-find-them-2016">Fantastic Beasts and Where to Find Them 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/in-the-land-of-saints-and-sinners-2023">In The Land Of Saints And Sinners 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-guilty-2021">The Guilty 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/fractured-2019">Fractured 2019</a></li>
-                        <li class="movie-item"><a href="watch/movies/run-2020">Run 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/girl-in-the-basement-2021">Girl in The Basement 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/red-2010">Red 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/red-2-2013">Red 2 (2013)</a></li>
-                         <li class="movie-item"><a href="watch/movies/red-sparrow-2018">Red Sparrow 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/redeeming-love-2022">Redeeming Love 2022</a></li>
-                       <li class="movie-item"><a href="watch/movies/terminator-2003">Terminator 3: Rise Of The Machines 2003</a></li>
-                         <li class="movie-item"><a href="watch/movies/terminator-dark-fate-2019">Terminator: Dark Fate 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/terminator-genisys-2015">Terminator Genisys 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/terminator-salvation-2009">Terminator Salvation 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/back-to-the-future-part-2-1989">Back To The Future Part 2 (1989)</a></li>
-                         <li class="movie-item"><a href="watch/movies/back-to-the-future-part-3-1990">Back To The Future Part 3 (1990)</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hobbit-the-battle-of-the-five-armies-2014">The Hobbit: The Battle of The Five Armies 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hobbit-an-unexpected-journey-2012">The Hobbit: An Unexpected Journey 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hobbit-the-desolation-of-smaug-2013">The Hobbit: The Desolation of Smaug 2013</a></li>
-                       <li class="movie-item"><a href="watch/movies/wrong-turn-2003">Wrong Turn 1 (2003)</a></li>
-                         <li class="movie-item"><a href="watch/movies/wrong-turn-2021">Wrong Turn 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/wrong-turn-2012">Wrong Turn 5 (2012)</a></li>
-                         <li class="movie-item"><a href="watch/movies/wrong-turn-2007">Wrong Turn 2: Dead End 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/wrong-turn-2011">Wrong Turn 4: Bloody Beginnings 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/wrong-turn-2014">Wrong Turn 6: Last Resort 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/wrong-turn-2009">Wrong Turn 3: Left for Dead 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/extraction-2-2023">Extraction 2 (2023)</a></li>
-                         <li class="movie-item"><a href="watch/movies/extraction-2020">Extraction 1 (2020)</a></li>
-                         <li class="movie-item"><a href="watch/movies/extraction-2015">Extraction 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-meg-2018">The Meg 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-meg-2-the-trench-2023">The Meg 2: The Trench 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hunger-games-2012">The Hunger Games 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hunger-games-catching-fire-2013">The Hunger Games: Catching Fire 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hunger-games-mockingjay-part-2-2015">The Hunger Games: Mockingjay - Part 2 (2015)</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hunger-games-mockingjay-part-1-2014">The Hunger Games: Mockingjay - Part 1 (2014)</a></li>
-                       <li class="movie-item"><a href="watch/movies/f9-2021">Fast and Furious: F9 (2021)</a></li>
-                         <li class="movie-item"><a href="watch/movies/fast-and-furious-2009">Fast And Furious: 4 (2009)</a></li>
-                         <li class="movie-item"><a href="watch/movies/fast-and-furious-2001">Fast and Furious 2001</a></li>
-                         <li class="movie-item"><a href="watch/movies/fast-and-furious-2015">Fast And Furious: 7 (2015)</a></li>
-                         <li class="movie-item"><a href="watch/movies/fast-and-furious-presents-hobbs-and-shaw-2019">Fast And Furious Present: Hobbs & Shaw 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/fast-five-2011">Fast And Furious: 5 (2011) <br>Fast Five (2011)</a></li>
-                         <li class="movie-item"><a href="watch/movies/furious-6-2013">Fast And Furious: 6 (2013) <br>Furious 6 (2013)</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-fate-of-the-furious-2017">The Fate Of The Furious 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/fast-and-furious-tokyo-drift-2006">The Fast And The Furious: Tokyo Drift 2006</a></li>
-                         <li class="movie-item"><a href="watch/movies/fast-x-2023">Fast X (2023)</a></li>
-                         <li class="movie-item"><a href="watch/movies/2-fast-2-furious-2003">2 Fast 2 Furious 2003</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-nun-2018">The Nun 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-nun-2-2023">The Nun 2 (2023)</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-conjuring-2013">The Conjuring 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-conjuring-2-2016">The Conjuring 2 (2016)</a></li>
-                      <!--   <li class="movie-item"><a href="watch/movies/the-conjuring-last-rites">The Conjuring: Last Rites</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/the-conjuring-3-the-devil-made-me-do-it-2021">The Conjuring 3: Made Me Do It 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-conjuring-the-beyond-2022">Conjuring: The Beyond 2022</a></li>
-                        <li class="movie-item"><a href="watch/movies/train-to-busan-2016">Train To Busan (2016)</a></li>
-                       <!--  <li class="movie-item"><a href="watch/movies/train-to-busan-2-bando-2020">Train To Busan 2: Bando 2020</a></li>-->
-                         <li class="movie-item"><a href="watch/movies/mission-impossible-dead-reckoning-part-1-2023">Mission: Impossible - Dead Reckoning Part 1 (2023)</a></li>
-                         <li class="movie-item"><a href="watch/movies/mission-impossible-1996">Mission: Impossible 1996</a></li>
-                         <li class="movie-item"><a href="watch/movies/mission-impossible-fallout-2018">Mission: Impossible - Fallout 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/mission-impossible-2-2000">Mission: Impossible 2 (2000)</a></li>
-                         <li class="movie-item"><a href="watch/movies/mission-impossible-3-2006">Mission: Impossible 3 (2006)</a></li>
-                         <li class="movie-item"><a href="watch/movies/mission-impossible-rogue-nation-2015">Mission: Impossible - Rogue Nation 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/mission-impossible-ghost-protocol-2011">Mission: Impossible - Ghost Protocol 2011</a></li>
-                        <li class="movie-item"><a href="watch/movies/fantastic-four-2015">Fantastic Four 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/fantastic-four-2005">Fantastic Four 2005</a></li>
-                         <li class="movie-item"><a href="watch/movies/4-rise-of-the-silver-surfer-2007">Fantastic Four: Rise Of The Silver Surfer 2007 <br>4: Rise Of The Silver Surfer 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/harry-potter-and-the-prisoner-of-azkaban-2004">Harry Potter And The Prisoner Of Azkaban 2004</a></li>
-                         <li class="movie-item"><a href="watch/movies/harry-potter-and-the-order-of-the-phoenix-2007">Harry Potter And The Order Of The Phoenix 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/harry-potter-and-the-sorcerers-stone-2001">Harry Potter And The Sorcerers Stone 2001</a></li>
-                         <li class="movie-item"><a href="watch/movies/harry-potter-and-the-goblet-of-fire-2005">Harry Potter And The Goblet Of Fire 2005</a></li>
-                         <li class="movie-item"><a href="watch/movies/harry-potter-and-the-chamber-of-secrets-2002">Harry Potter And The Chamber Of Secrets 2002</a></li>
-                         <li class="movie-item"><a href="watch/movies/harry-potter-and-the-half-blood-prince-2009">Harry Potter And The Half-Blood Prince 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/harry-potter-and-the-deathly-hallows-part-1-2010">Harry Potter And The Deathly Hallows - Part 1 (2010)</a></li>
-                         <li class="movie-item"><a href="watch/movies/x-men-2000">X-Men 2000</a></li>
-                         <li class="movie-item"><a href="watch/movies/x-men-first-class-2011">X-men: First Class 2011 <br>X: First Class 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/x-men-origins-wolverine-2009">X-Men Origins: Wolverine 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/x2-2003">X-Men: X2 <br>X2 (2003)</a></li>
-                         <li class="movie-item"><a href="watch/movies/x-men-the-last-stand-2006">X-Men: The Last Stand 2006</a></li>
-                         <li class="movie-item"><a href="watch/movies/dark-phoenix-2019">X-Men: Dark Phoenix 2019 <br>Dark Phoenix 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/x-men-days-of-future-past-2014">X-Men: Days Of Future Past 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/john-wick-2014">John Wick 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/john-wick-chapter-2-2017">John Wick: Chapter 2 (2017)</a></li>
-                         <li class="movie-item"><a href="watch/movies/john-wick-chapter-3-parabellum-2019">John Wick: Chapter 3 - Parabellum 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/john-wick-chapter-4-2023">John Wick: Chapter 4 (2023)</a></li>
-                         <li class="movie-item"><a href="watch/movies/underworld-2003">Underworld 2003</a></li>
-                         <li class="movie-item"><a href="watch/movies/underworld-evolution-2006">Underworld: Evolution 2006</a></li>
-                         <li class="movie-item"><a href="watch/movies/underworld-blood-wars-2016">Underworld: Blood Wars 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/underworld-awakening-2012">Underworld: Awakening 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/underworld-rise-of-the-lycans-2009">Underworld: Rise Of The Lycans 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/equalizer-2014">Equalizer 1 (2014)</a></li>
-                         <li class="movie-item"><a href="watch/movies/equalizer-2018">Equalizer 2 (2018)</a></li>
-                         <li class="movie-item"><a href="watch/movies/equalizer-2023">Equalizer 3 (2023)</a></li>
-                         <li class="movie-item"><a href="watch/movies/resident-evil-2002">Resident Evil 2002</a></li>
-                         <li class="movie-item"><a href="watch/movies/resident-evil-apocalypse-2004">Resident Evil: Apocalypse 2004</a></li>
-                         <li class="movie-item"><a href="watch/movies/resident-evil-retribution-2012">Resident Evil: Retribution 2012 </a></li>
-                         <li class="movie-item"><a href="watch/movies/resident-evil-extinction-2007">Resident Evil: Extinction 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/resident-evil-afterlife-2010">Resident Evil: Afterlife 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/expendables-2010">Expendables 1 (2010)</a></li>
-                         <li class="movie-item"><a href="watch/movies/expendables-2012">Expendables 2 (2012)</a></li>
-                         <li class="movie-item"><a href="watch/movies/expendables-2014">Expendables 3 (2016)</a></li>
-                         <li class="movie-item"><a href="watch/movies/expendables-2023">Expendables 4 (2023)</a></li>
-                       <li class="movie-item"><a href="watch/movies/pirates-of-the-caribbean-dead-man-tell-no-tales-2017">Pirates Of Caribbean: Dead Man Tell No Tales 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/pirates-of-the-caribbean-at-worlds-end-2007">Pirates Of Caribbean: At Worlds End 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/pirates-of-caribbean-on-stranger-tides-2011">Pirates Of Caribbean: On Stranger Tides 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/pirates-of-the-caribbean-dead-mans-chest-2006">Pirates Of The Caribbean: Dead Man Chest 2006</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-matrix-resurrections-2021">The Matrix Resurrections 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-matrix-reloaded-2003">The Matrix Reloaded 2003</a></li>
-                        <li class="movie-item"><a href="watch/movies/the-matrix-revolutions-2003">The Matrix Revolutions 2003</a></li>
-                        <li class="movie-item"><a href="watch/movies/killers-of-the-flower-moon-2023">Killers Of The Flower Moon 2023</a></li>
-            <li class="movie-item"><a href="watch/movies/the-shawshank-redemption-1994">The Shawshank Redemption 1994</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-godfather-1972">The Godfather 1 (1972)</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-dark-knight-2008">The Dark Knight 2008</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-godfather-part2-1974">The Godfather Part 2 (1974)</a></li>
-                         <li class="movie-item"><a href="watch/movies/12-angry-man-1957">The Angry Man 1957</a></li>
-                         <li class="movie-item"><a href="watch/movies/schindlers-list-1993">The Schindler's List 1993</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-lord-of-the-rings-the-return-of-the-king-2003">The Lord of the Rings : The Return of the King 2003</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-lord-of-the-rings-the-fellowship-of-the-ring-2001">The Lord of the Rings : The Fellowship of The Rings 2001</a></li>
-                       <!--  <li class="movie-item"><a href="watch/movies/il-buono-il-brutto-il-cattivo-1966">II buono, il brutto, il cattivo 1966</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/john-carter-2012">John Carter 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/forrest-gump-1994">Forrest Gump 1994</a></li>
-                         <li class="movie-item"><a href="watch/movies/fight-club-1999">Fight Club 1999</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-lord-of-the-rings-the-two-towers-2002">The Lord of The Rings The Two Towers 2002</a></li>
-                         <li class="movie-item"><a href="watch/movies/inception-2010">Inception 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/star-wars-epsiodes-v-the-empire-strikes-back-1980">Star Wars : Episode V - The Empire Strikes Back 1980</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-matrix-1999">The Matrix 1999</a></li>
-                         <li class="movie-item"><a href="watch/movies/goodfellas-1990">Goodfelles 1990</a></li>
-                         <li class="movie-item"><a href="watch/movies/one-flew-over-the-cuckoos-nest-1975">One Flew Over the Cuckoos Nest 1975</a></li>
-                         <li class="movie-item"><a href="watch/movies/sa7en-1995">Sa7en 1995</a></li>
-                         <li class="movie-item"><a href="watch/movies/its-a-wonderful-life-1946">It's a Wonderful Life 1946</a></li>
-                         <li class="movie-item"><a href="watch/movies/interstellar-2014">Interstellar 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-silence-of-the-lambs-1991">The Silence of The Lambs 1991</a></li>
-                         <li class="movie-item"><a href="watch/movies/saving-private-ryan-1998">Saving Private Ryan 1998</a></li>
-                         <li class="movie-item"><a href="watch/movies/spider-man-across-the-spider-verse-2023">Spider-Man : Across the Spider-Verse 2023</a></li>
-                       <!--  <li class="movie-item"><a href="watch/movies/la-vita-e-bella-1997">La vita è bella 1997</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/the-green-mile-1999">The Green Mile 1999</a></li>
-                         <li class="movie-item"><a href="watch/movies/star-wars-1977">Star Wars: Episode IV - A New Hope 1977</a></li>
-                         <li class="movie-item"><a href="watch/movies/terminator-2-judgment-day-1991">Terminator 2 Judgement Day 1991</a></li>
-                         <li class="movie-item"><a href="watch/movies/back-to-the-future-1985">Back To the Future 1985</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-pianist-2002">The Pianist 2002</a></li>
-                         <li class="movie-item"><a href="watch/movies/psycho-1960">Psycho 1960</a></li>
-                         <li class="movie-item"><a href="watch/movies/parasite-2019">Parasite 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/gladiator-2000">Gladiator 2000</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-lion-king-1994">The Lion King 1994</a></li>
-                         <li class="movie-item"><a href="watch/movies/leon-1994">Lèon 1994</a></li>
-                         <li class="movie-item"><a href="watch/movies/american-history-x-1998">American History X 1998</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-departed-2006">The Departed 2006</a></li>
-                         <li class="movie-item"><a href="watch/movies/whiplash-2014">Whiplash 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-prestige-2006">The Prestige 2006</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-usual-suspects-1995">The Usual Suspects 1995</a></li>
-                         <li class="movie-item"><a href="watch/movies/casablanca-1942">Casablanca 1942</a></li>
-                         <li class="movie-item"><a href="watch/movies/intouchables-2011">Intouchables 2011</a></li>
-                       <!--  <li class="movie-item"><a href="watch/movies/modern-times-1936">Modern Times 1936</a></li>. -->
-                         <li class="movie-item"><a href="watch/movies/alien-1979">Alien 1979</a></li>
-                         <li class="movie-item"><a href="watch/movies/oppenheimer-2023">Oppenheimer 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/apocalypse-now-1979">Apocalypse Now 1979</a></li>
-                         <li class="movie-item"><a href="watch/movies/django-unchained-2012">Django-Unchained 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/memento-2000">Memento 2000</a></li>
-                         <li class="movie-item"><a href="watch/movies/raiders-of-the-lost-ark-1981">Indiana Jones and the Raiders of The Lost Ark 1981</a></li>
-                         <li class="movie-item"><a href="watch/movies/wall-e-2008">Wall•E</a></li>
-                   <!--      <li class="movie-item"><a href="watch/movies/das-leben-der-anderen-2006">Das Leben der Anderen 2006</a></li> -->
-                       <!--  <li class="movie-item"><a href="watch/movies/sunset-blvd-1950">Sunset Blvd 1950</a></li> -->
-       <!--                  <li class="movie-item"><a href="watch/movies/paths-of-glory-1957">Paths of Glory 1957</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/avengers-infinity-war-2018">Avengers : Infinity War 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-shining-1980">The Shining 1980</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-big-bull-2021">The Big Bull 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/spider-man-into-the-spider-verse-2018">Spider-Man : Into The Spider Verse 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/aliens-1986">Aliens 1986</a></li>
-                         <li class="movie-item"><a href="watch/movies/inglourious-basterds-2009">Inglourious Basterds 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-dark-knight-rises-2012">The Dark Knight Rises 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/american-beauty-1999">American Beauty 1999</a></li>
-                         <li class="movie-item"><a href="watch/movies/oldboy-2003">OldBoy 2003</a></li>
-                         <li class="movie-item"><a href="watch/movies/coco-2017">Coco 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/amadeus-1984">Amadeus 1984</a></li>
-                         <li class="movie-item"><a href="watch/movies/toy-story-1995">Toy Story 1995</a></li>
-                         <li class="movie-item"><a href="watch/movies/braveheart-1995">Braveheart 1995</a></li>
-                         <li class="movie-item"><a href="watch/movies/avengers-endgame-2019">Avengers Endgame 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/joker-2019">Joker 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/good-will-hunting-1997">Good WILL Hunting 1997</a></li>
-                         <li class="movie-item"><a href="watch/movies/once-upon-a-time-in-america-1984">Once Upon a Time In America 1984</a></li>
-                         <li class="movie-item"><a href="watch/movies/3-idiots-2009">3 Idiots 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/requiem-for-a-dream-2000">Requiem For a Dream 2000</a></li>
-                         <li class="movie-item"><a href="watch/movies/toy-story-3-2010">Toy Story 3 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/idi-i-smotri-1985">Idi i Smotri 1985</a></li>
-                         <li class="movie-item"><a href="watch/movies/star-wars-episode-vi-return-of-the-jedi-1983">Star Wars : Episode Vi - Return of The Jedi 1983</a></li>
-                         <li class="movie-item"><a href="watch/movies/eternal-sunshine-of-the-spotless-mind-2004">Eternal Sunshine of The Spotless Mind 2004</a></li>
-                         <li class="movie-item"><a href="watch/movies/2001-a-space-odyssey-1968">2001 : A Space Odyssey 1968</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-hunt-2013">The Hunt 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/reservoir-dogs-1992">Reservoir Dogs 1992</a></li>
-                         <li class="movie-item"><a href="watch/movies/ikiru-1952">Ikiru 1952</a></li>
-                         <li class="movie-item"><a href="watch/movies/lawrence-of-arabia-1962">Lawrence of Arabia 1962</a></li>
-                         <li class="movie-item"><a href="watch/movies/citizen-kane-1941">Citizen Kane 1941</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-apartment-1960">The Apartment 1960</a></li>
-          <!--               <li class="movie-item"><a href="watch/movies/m-eine-stadt-sucht-einen-morder-1931">M-</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/north-by-northwest-1959">North By Northwest 1959</a></li>
-                      <!--   <li class="movie-item"><a href="watch/movies/vertigo-1958">Vertigo 1958</a></li> -->
-                  <!--       <li class="movie-item"><a href="watch/movies/double-indemnity-1944">Double Indemnity 1944</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/le-fabuleux-destin-damelie-poulain-2001">Le Fabuleux Destin d'Amélie Poulain 2001</a></li>
-                         <li class="movie-item"><a href="watch/movies/scarface-1983">Scarface 1983</a></li>
-                        <!-- <li class="movie-item"><a href="watch/movies/full-metal-jacket-1987">Full Metal Jacket 1987</a></li> -->
-                       <!--  <li class="movie-item"><a href="watch/movies/a-clockwork-orange-1971">A Clockwork Orange 1971</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/incendies-2010">Incendies 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/heat-1995">Heat 1995</a></li>
-                      <!--   <li class="movie-item"><a href="watch/movies/up-2009">Up 2009</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/hamilton-2020">Hamilton 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/apocalypto-2006">Apocalypto 2006</a></li>
-                         <li class="movie-item"><a href="watch/movies/bardo-false-chronicle-of-a-handful-of-truths-2022">Bardo: false chronicle of handful of truths 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/love-and-monsters-2020">love and monsters 2020</a></li>
-                        <!-- <li class="movie-item"><a href="watch/movies/the-marvels-2023">The Marvels 2023</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/die-hard-1988">Die Hard 1988</a></li>
-                     <!--    <li class="movie-item"><a href="watch/movies/indiana-jones-and-the-last-crusade-1989">Indiana Jones and the Last Crusade 1989</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/metropolis-1927">Metropolis 1927</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-sting-1973">The Sting 1973</a></li>
-                         <li class="movie-item"><a href="watch/movies/snatch-2000">Snatch 2001</a></li>
-                         <li class="movie-item"><a href="watch/movies/la-confidential-1997">L.A. Confidential 1997</a></li>
-                         <li class="movie-item"><a href="watch/movies/taxi-driver-1976">Taxi Driver 1976</a></li>
-                         <li class="movie-item"><a href="watch/movies/1917">1917 (2019)</a></li>
-                         <li class="movie-item"><a href="watch/movies/der-untergang-2004">Der Untergang 2005 ( downfall )</a></li>
-                         <li class="movie-item"><a href="watch/movies/batman-begins-2005">Batman Begins 2005</a></li>
-                         <li class="movie-item"><a href="watch/movies/top-gun-maverick-2022">Top Gun : Maverick 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/x-men-apocalypse-2016">X-Men: Apocalypse 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/12-angry-men-1957">12 Angry Men 1957</a></li>
-                         <li class="movie-item"><a href="watch/movies/some-like-it-hot-1959">Some Like it Hot 1959</a></li>
-                      <!--   <li class="movie-item"><a href="watch/movies/the-kid-1921">The Kid 1921</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/the-wolf-of-wall-street-2013">The Wolf of Wall Street 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-father-2020">The Father 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/green-book-2018">Green Book 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/all-about-eve-1950">All About Eve 1950</a></li>
-                         <li class="movie-item"><a href="watch/movies/judgment-at-nuremberg-1961">Judgment at Nuremberg 1961</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-truman-show-1998">The Truman Show 1998</a></li>
-                         <li class="movie-item"><a href="watch/movies/casino-1995">Casino 1995</a></li>
-                         <li class="movie-item"><a href="watch/movies/ran-1985">Ran 1985</a></li>
-                         <li class="movie-item"><a href="watch/movies/there-will-be-blood-2007">There Will be Blood 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/shutter-island-2010">Shutter Island 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/jurassic-park-1993">Jurassic Park 1993</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-sixth-sense-1999">The Sixth Sense 1999</a></li>
-                         <li class="movie-item"><a href="watch/movies/unforgivin-1992">Unforgivin 1992</a></li>
-                         <li class="movie-item"><a href="watch/movies/a-beautiful-mind-2001">A Beautiful Mind 2001</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-treasure-of-the-sierra-madre-1948">The Treasure of the Sierra Madre 1948</a></li>
-                         <li class="movie-item"><a href="watch/movies/kill-bill-vol-1-2003">Kill Bill : Vol.1</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-thing-1982">The Thing 1982</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-great-escape-1963">The Great Escape 1963</a></li>
-                         <li class="movie-item"><a href="watch/movies/finding-nemo-2003">Finding Nemo 2003</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-elephant-man-1980">The Elephant Man 1980</a></li>
-                         <li class="movie-item"><a href="watch/movies/chinatown-1974">Chinatown 1974</a></li>
-                         <li class="movie-item"><a href="watch/movies/gone-with-the-wind-1939">Gone with The Wind 1939</a></li>
-                         <li class="movie-item"><a href="watch/movies/v-for-vendetta-2005">V For Vendetta 2005</a></li>
-                         <li class="movie-item"><a href="watch/movies/raging-bull-1980">Raging Bull 1980</a></li>
-                         <li class="movie-item"><a href="watch/movies/prisoners-2013">Prisoners 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/lock-stock-and-two-smoking-barrels-1998">Lock, Stock and two Smoking Barrels 1998</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-secret-in-their-eyes-2010">The Secret in their Eyes 2010</a></li>
-                      <!--   <li class="movie-item"><a href="watch/movies/inside-out-2015">Inside Out 2015</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/spider-man-no-way-home-2021">Spider-Man: No Way Home 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/three-billboards-outside-ebbing-missouri-2017">Three Billboards Outside Ebbin, Missouri 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-bridge-on-the-river-kwai-1957">The Bridge on The River Kwai 1957</a></li>
-                         <li class="movie-item"><a href="watch/movies/trainspotting-1996">Trainspotting 1996</a></li>
-                         <li class="movie-item"><a href="watch/movies/fargo-1996">Fargo 1996</a></li>
-                         <li class="movie-item"><a href="watch/movies/warrior-2011">Warrior 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/gran-torino-2008">Gran Torino 2008</a></li>
-                         <li class="movie-item"><a href="watch/movies/catch-me-if-you-can-2002">Catch Me if You Can 2002</a></li>
-                         <li class="movie-item"><a href="watch/movies/million-dollar-baby-2004">Million Dollar Baby 2004</a></li>
-                      <!--   <li class="movie-item"><a href="watch/movies/klaus-2019">Klaus 2019</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/harry-potter-and-the-deathly-hallows-part-2-2011">Harry Potter and The Deathly Hallows - Part 2 (2011)</a></li>
-                         <li class="movie-item"><a href="watch/movies/blade-runner-1982">Blade Runner 1982</a></li>
-                         <li class="movie-item"><a href="watch/movies/12-years-a-slave-2013">12 Years a Slave 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/before-sunrise-1995">Before Sunrise 1995</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-grand-budapest-hotel-2014">The Grand Budapest Hotel 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/ben-hur-1959">Ben-Hur 1959</a></li>
-                         <li class="movie-item"><a href="watch/movies/gone-girl-2014">Gone Girl 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/barry-lyndon-1975">Barry Lyndon 1975</a></li>
-                         <li class="movie-item"><a href="watch/movies/hacksaw-ridge-2016">Hacksaw Ridge 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/on-the-waterfront-1954">On The Waterfront 1954</a></li>
-                         <li class="movie-item"><a href="watch/movies/in-the-name-of-the-father-1993">In The Name of The Father 1993</a></li>
-                         <li class="movie-item"><a href="watch/movies/memories-of-murder-2003">Memories of Murder 2003</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-general-1926">The General 1926</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-dear-hunter-1978">The Dear Hunter 1978</a></li>
-                         <li class="movie-item"><a href="watch/movies/mad-max-fury-road-2015">Mad Max : Fury Road 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/no-country-for-old-men-2007">No Country for Old Men 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/monsters-inc-2001">Monsters,Inc. 2001</a></li>
-                         <li class="movie-item"><a href="watch/movies/jaws-1975">Jaws 1975</a></li>
-                         <li class="movie-item"><a href="watch/movies/how-to-train-your-dragon-2010">How To Train Your Dragon 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/mary-and-max-2009">Mary And Max. 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/ford-v-ferrari-2019">Ford v Ferrari 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/room-2015">Room 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-big-lebowski-1998">The Big Lebowski 1998</a></li>
-                         <li class="movie-item"><a href="watch/movies/ratatouille-2007">Ratatouille 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/rocky-1976">Rocky 1976</a></li>
-                         <li class="movie-item"><a href="watch/movies/hotel-rwanda-2004">Hotel Rwanda 2004</a></li>
-                         <li class="movie-item"><a href="watch/movies/logan-2017">Logan 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/spotlight-2015">Spotlight 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/platoon-1986">Platoon 1986</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-terminator-1984">The Terminator 1984</a></li>
-                         <li class="movie-item"><a href="watch/movies/before-sunset-2004">Before Sunset 2004</a></li>
-                         <li class="movie-item"><a href="watch/movies/rush-2013">Rush 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/network-1976">Network 1976</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-exorcist-1973">The Exorcist 1973</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-incredibles-2004">The Incredibles 2004</a></li>
-                         <li class="movie-item"><a href="watch/movies/into-the-wild-2007">Into The Wild 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/pirates-of-the-caribbean-the-curse-of-the-black-pearl-2003">Pirates of The Caribbean : The Curse of The Black Pearl 2003 </a></li>
-                         <li class="movie-item"><a href="watch/movies/the-help-2011">The Help 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/aladdin-1992">Aladdin 1992</a></li>
-                         <li class="movie-item"><a href="watch/movies/persona-1966">Persona 1966</a></li>
-                         <li class="movie-item"><a href="watch/movies/scream-1996">Scream 1996</a></li>
-                         <li class="movie-item"><a href="watch/movies/scream-2-1997">Scream 2 (1997)</a></li>
-                         <li class="movie-item"><a href="watch/movies/scream-3-2000">Scream 3 (2000)</a></li>
-                     <!--    <li class="movie-item"><a href="watch/movies/scream-4-2011">Scream 4 (2011)</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/scream-5-2022">Scream 5 (2022)</a></li>
-                         <li class="movie-item"><a href="watch/movies/scream-6-2023">Scream 6 (2023)</a></li>
-                         <li class="movie-item"><a href="watch/movies/twilight-2008">Twilight 2008</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-twilight-saga-eclipse-2010">The Twilight Saga: Eclipse 2010</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-twilight-saga-breaking-dawn-part-2-2012">The Twilight Saga: Breaking Dawn - Part 2 (2012)</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-twilight-saga-breaking-dawn-part-1-2011">The Twilight Saga: Breaking Dawn - Part 1 (2011)</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-twilight-saga-new-moon-2009">The Twilight Saga: New Moon 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/american-hustle-2013">American Hustle 2013</a></li>
-                         <li class="movie-item"><a href="watch/movies/manodrome-2023">Manodrome 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/rustin-2023">Rustin 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-queenstown-kings-2023">The Queenstown Kings 2023</a></li>
-          <!--               <li class="movie-item"><a href="watch/movies/bihter-2023">Bihter 2023</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/pollen-2023">Pollen 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/passenger-2023">Passenger 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-black-book-2023">The Black Book 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/in-my-mothers-skin-2023">In My Mother's Skin 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/exile-2023">Exile 2023</a></li>
-            <!--             <li class="movie-item"><a href="watch/movies/love-in-taipei-2023">Love In Taipei 2023</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/margin-call-2011">Margin Call 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/black-beauty-2020">Black Beauty 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/ong-bak-the-thai-warrior-2005">Ong Bak 1 (2005)</a></li>
-                         <li class="movie-item"><a href="watch/movies/ong-bak-2-2008">Ong Bak 2 (2008)</a></li>
-                         <li class="movie-item"><a href="watch/movies/ong-bak-3-2010">Ong Bak 3 (2010)</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-avengers-2012">The Avengers 2012</a></li>
-                        <!-- <li class="movie-item"><a href="watch/movies/the-avengers-age-of-ultron-2015">Avengers: Age of Ultron 2015</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/the-boy-2016">The Boy 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/old-2021">Old 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/wild-card-2015">Wild Card 2015</a></li>
-              <!--           <li class="movie-item"><a href="watch/movies/napoleon-2023">Napoleon 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/aquaman-and-the-lost-kingdom-2023">Aquaman And The Lost Kingdom 2023</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/xxx-2002">xXx (2002)</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-fault-in-our-stars-2014">The Fault in Our Stars 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/final-destination-2000">Final Destination 1 (2000)</a></li>
-                         <li class="movie-item"><a href="watch/movies/final-destination-2-2003">Final Destination 2 (2003)</a></li>
-                         <li class="movie-item"><a href="watch/movies/final-destination-3-2006">Final Destination 3 (2006)</a></li>
-                         <li class="movie-item"><a href="watch/movies/final-destination-4-2009">Final Destination 4 (2009)</a></li>
-                         <li class="movie-item"><a href="watch/movies/final-destination-5-2011">Final Destination 5 (2011)</a></li>
-                         <li class="movie-item"><a href="watch/movies/smile-2022">Smile 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/dont-breathe-2016">Don't Breathe 1 (2016)</a></li>
-                         <li class="movie-item"><a href="watch/movies/dont-breathe-2-2021">Don't Breathe 2 (2021)</a></li>
-                         <li class="movie-item"><a href="watch/movies/bird-box-2018">Bird Box 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/bird-box-barcelona-2023">Bird Box: Barcelona 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/a-quite-place-2018">A Quite Place 1 (2018)</a></li>
-                         <li class="movie-item"><a href="watch/movies/a-quite-place-2-2020">A Quite Place 2 (2020)</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-killer-2023">The Killer 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/flight-2012">Flight 2012</a></li>
-                         <li class="movie-item"><a href="watch/movies/i-am-legend-2007">I Am Legend 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/split-2016">Split 2016</a></li>
-         <!--                <li class="movie-item"><a href="watch/movies/beau-is-afraid-2023">Beau Is Afraid 2023</a></li> -->
-               <!--          <li class="movie-item"><a href="watch/movies/river-wild-2023">River Wild 2023</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/midnight-sun-2018">Midnight Sun 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/san-andreas-2015">San Andreas 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/taken-1-2008">Taken 1 (2008)</a></li>
-                         <li class="movie-item"><a href="watch/movies/taken-2-2012">Taken 2 (2012)</a></li>
-                         <li class="movie-item"><a href="watch/movies/taken-3-2014">Taken 3 (2014)</a></li>
-                         <li class="movie-item"><a href="watch/movies/deadpool-1-2016">Deadpool 1 (2016)</a></li>
-                         <li class="movie-item"><a href="watch/movies/deadpool-2-2018">Deadpool 2 (2018)</a></li>
-                         <li class="movie-item"><a href="watch/movies/baby-driver-2017">Baby Driver 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/lullaby-2022">Lullaby 2022</a></li>
-                         <li class="movie-item"><a href="watch/it-2017">It 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/maze-runner-2014">Maze Runner (2014)</a></li>
-                         <li class="movie-item"><a href="watch/movies/maze-runner-the-scorch-trials-2015">Maze Runner: The Scorch Trials 2015</a></li>
-                         <li class="movie-item"><a href="watch/movies/maze-runner-the-death-cure-2018">Maze Runner: The Death Cure 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/sabrina-1954">Sabrina 1954</a></li>
-                         <li class="movie-item"><a href="watch/movies/orphan-2009">Orphan 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/transformers-2007">Transformers 2007</a></li>
-                         <li class="movie-item"><a href="watch/movies/transformers-rise-of-the-beasts-2023">Transformers: Rise Of The Beasts 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/transformers-the-last-knight-2017">Transformers: The Last Knight 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/transformers-dark-of-the-moon-2011">Transformers: Dark Of The Moon 2011</a></li>
-                         <li class="movie-item"><a href="watch/movies/transformers-age-of-extinction-2014">Transformers: Age Of Extinction 2014</a></li>
-                         <li class="movie-item"><a href="watch/movies/transformers-revenge-of-the-fallen-2009">Transformers: Revenge Of The Fallen 2009</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-call-of-the-wild-2020">The Call Of The Wild 2020</a></li>
-                         <li class="movie-item"><a href="watch/movies/shazam-2019">Shazam! 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/shazam-fury-of-the-gods-2023">Shazam! Fury Of The Gods 2023</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-suicide-squad-2021">The Suicide Squad 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/suicide-squad-2016">Suicide Squad 2016</a></li>
-                         <li class="movie-item"><a href="watch/movies/troll-2022">Troll 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/before-i-fall-2017">Before I Fall 2017</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-in-between-2022">The In Between 2022</a></li>
-                         <li class="movie-item"><a href="watch/movies/polaroid-2019">Polaroid 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/candyman-2021">Candyman 2021</a></li>
-                         <li class="movie-item"><a href="watch/movies/the-tomorrow-man-2019">The Tomorrow Man 2019</a></li>
-                         <li class="movie-item"><a href="watch/movies/little-woods-2018">Little Woods 2018</a></li>
-                         <li class="movie-item"><a href="watch/movies/saw-2004">Saw 1 (2004)</a></li>
-                         <li class="movie-item"><a href="watch/movies/saw-2005">Saw 2 (2005)</a></li>
-                         <li class="movie-item"><a href="watch/movies/saw-2006">Saw 3 (2006)</a></li>
-                         <li class="movie-item"><a href="watch/movies/saw-2007">Saw 4 (2007)</a></li>
-                         <li class="movie-item"><a href="watch/movies/saw-2008">Saw 5 (2008)</a></li>
-                         <li class="movie-item"><a href="watch/movies/saw-2009">Saw 6 (2009)</a></li>
-                         <li class="movie-item"><a href="watch/movies/saw-2010">Saw 7 (2010)<br>Saw 3D : The Final Chapter</a></li>
-                         <li class="movie-item"><a href="watch/movies/saw-2017">Saw 8 (2017) <br>Jigsaw 2017</a></li>
-                     <!--    <li class="movie-item"><a href="watch/movies/saw-2021">Saw 9 (2021)</a></li> -->
-                         <li class="movie-item"><a href="watch/movies/saw-2023">Saw 10 (2023) <br>Saw X (2023)</a></li>      
-
-
-
-
-
-     
-      <!-- يمكنك إضافة المزيد من الأفلام والمسلسلات هنا -->
-        </ul>
-    </div>
-<script src="scripit.js"></script>
+    <ul class="movie-list" id="movie-list"></ul>
+  </div>
 <script src="random.js"></script>
-     <script>
+  <script>
+    const repoOwner = 'fhrstv';
+const repoName = 'fhrs';
+const folderPath = 'watch/movies';
+const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/git/trees/main?recursive=1`;
+
+fetch(apiUrl)
+  .then(response => response.json())
+  .then(data => {
+    const files = data.tree.filter(file => file.path.startsWith(folderPath) && file.path.endsWith('.html'));
+    const seriesList = document.getElementById('movie-list');
+    const links = files.slice(0, 50000).map(file => {
+      const fileName = file.path.split('/').pop();
+      const fileNameWithoutExtension = fileName.replace('.html', '');
+      const displayName = fileNameWithoutExtension
+        .replace(/-/g, ' ')
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+
+      const fileUrl = `${folderPath}/${fileNameWithoutExtension}`;
+
+      const listItem = document.createElement('li');
+      listItem.classList.add('movie-item');
+      listItem.innerHTML = `<a href="${fileUrl}" rel="noopener noreferrer">${displayName}</a>`;
+      seriesList.appendChild(listItem);
+      return listItem.querySelector('a');
+    });
+
+    links.sort((a, b) => a.textContent.localeCompare(b.textContent));
+    links.forEach(link => seriesList.appendChild(link.parentElement));
+
     const searchInput = document.getElementById('search-input');
-const movieList = document.querySelector(".movie-list");
-const links = Array.from(movieList.querySelectorAll("a"));
 
-// Sort the movie list in alphabetical order
-links.sort(function(a, b) {
-  return a.textContent.localeCompare(b.textContent);
-});
+    searchInput.addEventListener('input', function() {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+      links.forEach(link => {
+        const movieTitle = link.textContent.trim().toLowerCase();
+        if (movieTitle.includes(searchTerm)) {
+          link.parentElement.style.display = 'block';
+        } else {
+          link.parentElement.style.display = 'none';
+        }
+      });
+    });
 
-// Reorder the links in the movie list
-links.forEach(function(link) {
-  movieList.appendChild(link.parentElement);
-});
+    searchInput.addEventListener('keypress', function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        searchInput.blur();
+      }
+    });
 
-searchInput.addEventListener('input', function() {
-  const searchTerm = searchInput.value.trim().toLowerCase();
-  links.forEach(function(link) {
-    const movieTitle = link.textContent.trim().toLowerCase();
-    if (movieTitle.includes(searchTerm)) {
-      link.parentElement.style.display = 'block';
-    } else {
-      link.parentElement.style.display = 'none';
-    }
-  });
-});
-
-searchInput.addEventListener('keypress', function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault(); // prevent form submission
-    searchInput.blur(); // hide the keyboard
-  }
-});
-</script>
+  })
+  .catch(error => console.error('Error:', error));
+  </script>
 </body>
 </html>
