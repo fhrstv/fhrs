@@ -1,6 +1,3 @@
-const fs = require('fs');
-const path = require('path');
-
 // Define the directories to watch
 const dirs = ['watch/movies', 'watch/series'];
 
@@ -9,13 +6,14 @@ function getRandomDir() {
   return dirs[Math.floor(Math.random() * dirs.length)];
 }
 
-// Get a random directory
-const randomDir = getRandomDir();
+// Get the random button element
+const randomButton = document.getElementById('randomButton');
 
-// Log the random directory
-console.log(`Random directory: ${randomDir}`);
+// Add an event listener to the random button
+randomButton.addEventListener('click', function() {
+  // Get a random directory
+  const randomDir = getRandomDir();
 
-// Change into the random directory
-process.chdir(randomDir);
-
-console.log(`Current working directory: ${process.cwd()}`);
+  // Redirect to the random directory
+  window.location.href = randomDir;
+});
