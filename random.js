@@ -9,7 +9,7 @@ async function getRandomHtmlFile() {
 
             data.forEach(file => {
                 if (file.name.endsWith('.html')) {
-                    // تحويل URL إلى URL مباشر لصفحة HTML
+                    // إنشاء الرابط لعرض الصفحة
                     const pageUrl = `https://fhrstv.github.io/fhrs/${folder}/${file.name}`;
                     allFiles.push(pageUrl);
                 }
