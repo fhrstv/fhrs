@@ -1,27 +1,34 @@
-function getRandomFile(files) {
-    const randomIndex = Math.floor(Math.random() * files.length);
-    return files[randomIndex];
-}
+async function getRandomFile() {
+    const repoOwner = 'fhrstv';  // ضع هنا اسم المستخدم الخاص بك على GitHub
+    const repoName = 'fhrs';  // ضع هنا اسم المستودع الخاص بك
+    const folders = ['watch/movies', 'watch/series'];
 
-function chooseRandomFile() {
-    fetch('get_files.php')
-        .then(response => response.json())
-        .then(data => {
-            const movies = data.movies;
-            const series = data.series;
+    let allFiles = [];
 
-            if (movies.length === 0 && series.length === 0) {
-                console.error('No files found.');
-                return;
+    for (const folder of folders) {
+        const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folder}`;
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (Array.isArray(data)) {
+                const files = data
+                    .filter(item => item.type === 'file')
+                    .map(file => file.download_url);
+
+                allFiles = allFiles.concat(files);
             }
+        } catch (error) {
+            console.error('Error fetching files:', error);
+        }
+    }
 
-            const randomMovie = getRandomFile(movies);
-            const randomSeries = getRandomFile(series);
-            const randomChoice = Math.random() < 0.5 ? randomMovie : randomSeries;
-
-            window.location.href = randomChoice;
-        })
-        .catch(error => console.error('Error fetching file list:', error));
+    if (allFiles.length > 0) {
+        const randomFile = allFiles[Math.floor(Math.random() * allFiles.length)];
+        window.location.href = randomFile;
+    } else {
+        console.error('No files found.');
+    }
 }
 
-document.getElementById('randomButton').addEventListener('click', chooseRandomFile);
+document.getElementById('randomButton').addEventListener('click', getRandomFile);
