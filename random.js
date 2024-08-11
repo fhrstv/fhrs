@@ -12,8 +12,7 @@ async function getRandomHtmlFile() {
                     if (file.type === 'file' && file.name.endsWith('.html')) {
                         // بناء الرابط لعرض الصفحة عبر GitHub Pages
                         const pageUrl = `https://fhrstv.github.io/fhrs/${folder}/${file.name}`;
-                        const cleanUrl = pageUrl.replace('.html', ''); // إخفاء .html من الرابط
-                        allFiles.push(cleanUrl);
+                        allFiles.push(pageUrl);
                     }
                 });
             } else {
@@ -26,11 +25,24 @@ async function getRandomHtmlFile() {
 
     if (allFiles.length > 0) {
         const randomFile = allFiles[Math.floor(Math.random() * allFiles.length)];
-        console.log('Redirecting to:', randomFile); // تسجيل الرابط في وحدة التحكم للتأكد
-        window.location.href = randomFile;
+        // تحميل المحتوى بشكل AJAX وبدون تغيير عنوان URL
+        loadContent(randomFile);
     } else {
         console.error('No HTML files found.');
     }
+}
+
+function loadContent(url) {
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            document.open();
+            document.write(html);
+            document.close();
+        })
+        .catch(error => {
+            console.error('Error loading content:', error);
+        });
 }
 
 document.getElementById('randomButton').addEventListener('click', getRandomHtmlFile);
