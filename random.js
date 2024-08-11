@@ -11,7 +11,8 @@ async function getRandomHtmlFile() {
                 if (file.type === 'file' && file.name.endsWith('.html')) {
                     // إنشاء الرابط لعرض الصفحة عبر GitHub Pages
                     const pageUrl = `https://fhrstv.github.io/fhrs/${folder}/${file.name}`;
-                    allFiles.push(pageUrl);
+                    const urlWithoutExtension = pageUrl.replace('.html', ''); // Remove .html extension
+                    allFiles.push(urlWithoutExtension);
                 }
             });
         } catch (error) {
