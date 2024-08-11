@@ -9,7 +9,7 @@ async function getRandomHtmlFile() {
 
             data.forEach(file => {
                 if (file.type === 'file' && file.name.endsWith('.html')) {
-                    // إنشاء الرابط لعرض الصفحة عبر GitHub Pages
+                    // Create the URL to load the HTML file
                     const pageUrl = `https://fhrstv.github.io/fhrs/${folder}/${file.name}`;
                     allFiles.push(pageUrl);
                 }
@@ -21,7 +21,12 @@ async function getRandomHtmlFile() {
 
     if (allFiles.length > 0) {
         const randomFile = allFiles[Math.floor(Math.random() * allFiles.length)];
-        window.location.href = randomFile;
+        const iframe = document.createElement('iframe');
+        iframe.src = randomFile;
+        iframe.frameBorder = '0';
+        iframe.width = '100%';
+        iframe.height = '100%';
+        document.body.appendChild(iframe);
     } else {
         console.error('No HTML files found.');
     }
