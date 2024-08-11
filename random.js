@@ -1,11 +1,12 @@
-async function getRandomHtmlFile() {
+let allFiles = [];
+
+async function loadAllHtmlFiles() {
     const folders = ['watch/movies', 'watch/series'];
-    let allFiles = [];
 
     for (const folder of folders) {
         try {
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `https://api.github.com/repos/fhrstv/fhrs/contents/${folder}`, true);
+            xhr.open('GET', `https://api.github.com/repos/fhrstv/fhrs/contents/${folder}`, false); // جلب متزامن
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     const data = JSON.parse(xhr.responseText);
@@ -15,13 +16,6 @@ async function getRandomHtmlFile() {
                             allFiles.push(pageUrl);
                         }
                     });
-                    if (allFiles.length > 0) {
-                        const randomFile = allFiles[Math.floor(Math.random() * allFiles.length)];
-                        const finalUrl = `https://fhrs.site${randomFile}`;
-                        window.location.href = finalUrl;
-                    } else {
-                        console.error('No HTML files found.');
-                    }
                 } else {
                     console.error(`Error fetching files from ${folder}:`, xhr.statusText);
                 }
@@ -33,4 +27,18 @@ async function getRandomHtmlFile() {
     }
 }
 
+function getRandomHtmlFile() {
+    if (allFiles.length > 0) {
+        const randomFile = allFiles[Math.floor(Math.random() * allFiles.length)];
+        const finalUrl = `https://fhrs.site${randomFile}`;
+        window.location.href = finalUrl;
+    } else {
+        console.error('No HTML files found.');
+    }
+}
+
+// جلب جميع الروابط عند تحميل الصفحة
+loadAllHtmlFiles();
+
+// ربط زر "الاختيار العشوائي" بالدالة
 document.getElementById('randomButton').addEventListener('click', getRandomHtmlFile);
