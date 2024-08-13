@@ -119,7 +119,7 @@
       <li class="head-item"><a href="/">رجوع</a></li>
         </ul>
             <ul class="movie-list" id="movie-list">
-  <li id="loading-message">جاري تحميل الأفلام...اذا لم تظهر الافلام قم بتحديث الصفحة</li>
+  <li id="loading-message">جاري تحميل الأفلام...</li>
 </ul>
 
 <script src="random.js"></script>
@@ -184,7 +184,7 @@
     })
     .catch(error => {
       console.error('Error:', error);
-      document.getElementById('movie-list').innerHTML = '<li>فشل في تحميل الأفلام</li>';
+      document.getElementById('movie-list').innerHTML = '<li>فشل في تحميل الافلام قم بتحديث الصفحة</li>';
     });
 </script>
 </body>
