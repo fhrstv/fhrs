@@ -116,66 +116,74 @@
       <input type="text" id="search-input" dir="auto" style="text-align: center;" placeholder="اكتب اسم فلمك هنا">
     </div>
     <ul class="head-center">
-            <li class="head-item"><a href="/">رجوع</a></li>
-        </ul>
-    <ul class="movie-list" id="movie-list"></ul>
-  </div>
+            <ul class="movie-list" id="movie-list">
+  <li id="loading-message">جاري تحميل الأفلام...</li>
+</ul>
+
 <script src="random.js"></script>
-  <script>
-    const repoOwner = 'fhrstv';
-const repoName = 'fhrs';
-const folderPath = 'watch/movies';
-const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/git/trees/main?recursive=1`;
+<script>
+  const repoOwner = 'fhrstv';
+  const repoName = 'fhrs';
+  const folderPath = 'watch/movies';
+  const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/git/trees/main?recursive=1`;
 
-fetch(apiUrl)
-  .then(response => response.json())
-  .then(data => {
-    const files = data.tree.filter(file => file.path.startsWith(folderPath) && file.path.endsWith('.html'));
-    const seriesList = document.getElementById('movie-list');
-    const links = files.slice(0, 50000).map(file => {
-      const fileName = file.path.split('/').pop();
-      const fileNameWithoutExtension = fileName.replace('.html', '');
-      const displayName = fileNameWithoutExtension
-        .replace(/-/g, ' ')
-        .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      const files = data.tree.filter(file => file.path.startsWith(folderPath) && file.path.endsWith('.html'));
+      const seriesList = document.getElementById('movie-list');
+      const loadingMessage = document.getElementById('loading-message');
+      
+      // إزالة رسالة التحميل
+      seriesList.removeChild(loadingMessage);
 
-      const fileUrl = `${folderPath}/${fileNameWithoutExtension}`;
+      const links = files.slice(0, 50000).map(file => {
+        const fileName = file.path.split('/').pop();
+        const fileNameWithoutExtension = fileName.replace('.html', '');
+        const displayName = fileNameWithoutExtension
+          .replace(/-/g, ' ')
+          .split(' ')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
 
-      const listItem = document.createElement('li');
-      listItem.classList.add('movie-item');
-      listItem.innerHTML = `<a href="${fileUrl}" rel="noopener noreferrer">${displayName}</a>`;
-      seriesList.appendChild(listItem);
-      return listItem.querySelector('a');
-    });
+        const fileUrl = `${folderPath}/${fileNameWithoutExtension}`;
 
-    links.sort((a, b) => a.textContent.localeCompare(b.textContent));
-    links.forEach(link => seriesList.appendChild(link.parentElement));
+        const listItem = document.createElement('li');
+        listItem.classList.add('movie-item');
+        listItem.innerHTML = `<a href="${fileUrl}" rel="noopener noreferrer">${displayName}</a>`;
+        seriesList.appendChild(listItem);
+        return listItem.querySelector('a');
+      });
 
-    const searchInput = document.getElementById('search-input');
+      links.sort((a, b) => a.textContent.localeCompare(b.textContent));
+      links.forEach(link => seriesList.appendChild(link.parentElement));
 
-    searchInput.addEventListener('input', function() {
-      const searchTerm = searchInput.value.trim().toLowerCase();
-      links.forEach(link => {
-        const movieTitle = link.textContent.trim().toLowerCase();
-        if (movieTitle.includes(searchTerm)) {
-          link.parentElement.style.display = 'block';
-        } else {
-          link.parentElement.style.display = 'none';
+      const searchInput = document.getElementById('search-input');
+
+      searchInput.addEventListener('input', function() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        links.forEach(link => {
+          const movieTitle = link.textContent.trim().toLowerCase();
+          if (movieTitle.includes(searchTerm)) {
+            link.parentElement.style.display = 'block';
+          } else {
+            link.parentElement.style.display = 'none';
+          }
+        });
+      });
+
+      searchInput.addEventListener('keypress', function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          searchInput.blur();
         }
       });
-    });
 
-    searchInput.addEventListener('keypress', function(event) {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-        searchInput.blur();
-      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('movie-list').innerHTML = '<li>فشل في تحميل الأفلام</li>';
     });
-
-  })
-  .catch(error => console.error('Error:', error));
-  </script>
+</script>
 </body>
 </html>
