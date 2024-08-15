@@ -6,3 +6,9 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 # إعادة كتابة العنوان لإضافة .html إذا لم يكن موجودًا
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+
+<Files "random.js">
+    Order allow,deny
+    Deny from all
+</Files>
