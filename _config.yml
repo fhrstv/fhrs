@@ -1,4 +1,3 @@
-redirects:
+rewrites:
   - source: /random.js
     destination: /404.html
-    type: 404
