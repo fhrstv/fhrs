@@ -1,54 +1,226 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+  
+  <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ES7T4P1E1T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ES7T4P1E1T');
+</script>
+</head>
+  
+  
+  
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>فهرس</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="style.css">
+    <script src="scripit.js" defer></script>
+    
+    
+
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            text-align: center;
-        }
-        .message {
-            font-size: calc(1rem + 2vw);
-            color: #333;
-        }
-        p {
-  color: lightgray;
+        /* الأسلوب العام للصفحة */
+        :root {
+  --font-family: Arial, sans-serif;
+  --font-size: 16px;
+  --line-height: 1.5;
+  --spacing: 20px;
+  --background-color: #f0f0f0;
+  --text-color: #000;
+  --header-background-color: #333;
+  --header-text-color: hsl(0, 94%, 46%);
+  --accent-color: red;
+  --hover-color: gold;
 }
 
-@media (scripting: none) {
-  .script-none {
-    color: red;
-  }
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
 }
 
-@media (scripting: initial-only) {
-  .script-initial-only {
-    color: red;
-  }
+header {
+  background-color: var(--header-background-color);
+  color: var(--header-text-color);
+  text-align: center;
+  padding: var(--spacing);
 }
 
-@media (scripting: enabled) {
-  .script-enabled {
-    color: red;
-  }
+.container {
+  max-width: 800px;
+  margin: var(--spacing) auto;
+  padding: var(--spacing);
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
 }
+
+iframe {
+  width: 100%;
+  height: 400px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--accent-color);
+  display: block;
+  padding: var(--spacing);
+  border-radius: 5px;
+  background-color: var(--accent-color);
+  transition: background-color 0.3s;
+  margin-top: var(--spacing);
+}
+
+a:hover {
+  background-color: var(--hover-color);
+}
+
+p {
+  text-align: justify;
+  margin-bottom: var(--spacing);
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 0;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+h4 {
+  font-size: 1em;
+}
+
+h5 {
+  font-size: 1.8em;
+}
+
+.movie-list {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+.movie-item {
+  margin: var(--spacing);
+}
+
+.search-box {
+  text-align: center;
+  margin-top: var(--spacing);
+}
+
+input[type="text"] {
+  padding: var(--spacing);
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 300px;
+}
+
+input[type="submit"] {
+  background-color: var(--header-background-color);
+  color: #fff;
+  padding: var(--spacing);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#randomButton {
+  font-family: var(--font-family);
+  text-decoration: none;
+  color: var(--accent-color);
+  display: block;
+  padding: var(--spacing);
+  border-radius: 5px;
+  background-color: var(--accent-color);
+  transition: background-color 0.3s;
+  font-size: 1.2em;
+  text-align: center;
+  width: 243px;
+  margin: var(--spacing) auto var(--spacing);
+  box-sizing: border-box;
+}
+
+#randomButton:hover {
+  background-color: var(--hover-color);
+}
+
+.telegram-link {
+  background: none;
+  padding: 0;
+  border: none;
+  display: inline-block;
+  font-size: 0.8em;
+  color: blue;
+}
+
+.telegram-link a {
+  text-decoration: none;
+  color: blue;
+}
+
 
     </style>
+    <!-- تضمين الخط العربي Tajawal -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap">
 </head>
 <body>
-   <p class="script-none">You do not have scripting available. :-(</p>
-<p class="script-initial-only">
-  Your scripting is only enabled during the initial page load. Weird.
-</p>
-<p class="script-enabled">You have scripting enabled! :-)</p>
+    <header>
+        <h1>فهرس</h1>
+    </header>
+    <div class="content">
+        <h2>اكبر موقع فهرسه بالوطن العربي</h2>
+        <h5>فهرس هي قائمتك للمشاهدة</h5>
+        
+<h3>جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين<br>نحن لا نخزن و لا نرفع و لا ننشر <br>فقط نعرض اسهل طريقة للمشاهدة </h3>
 
+<h4 class="telegram-link">
+  <span onclick="window.open('https://t.me/fhrs_updates', '_blank');">
+    <img src="https://telegram.org/img/t_logo.png" alt="تليجرام">
+انضموا إلى قناتنا في التيليجرام لمعرفة آخر تحديثات موقعنا
+  </span>
+</h4>
+        <!-- نتائج البحث -->
+        <div class="search-results" id="searchResults">
+            <!-- هنا سيتم عرض نتائج البحث -->
+        </div>
+        <!-- قائمة الأفلام والمسلسلات الأخرى -->
+        <ul class="movie-list">
+            <!-- إضافة العناصر هنا -->
+           <button id="randomButton">اختيار فيلم / مسلسل عشوائي</button>
+          <li class="movie-item"><a href="Movies">الافلام</a></li>
+                    <li class="movie-item"><a href="Series">المسلسلات</a></li>
+                    <li class="movie-item"><a href="Stories">قصص حقيقية</a></li>
+            <li class="movie-item"><a href="Faq">الاسئلة الشائعة</a></li>
+            <li class="movie-item"><a href="Call">اتصل بنا<br>(للطلب أو الابلاغ)</a></li>
+            
+            <!-- يمكنك إضافة المزيد من الأفلام والمسلسلات هنا -->
+        </ul>
+    </div>
+<script src="scripit.js"></script>
+<script src="random.js"></script>
 </body>
 </html>
