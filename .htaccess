@@ -8,7 +8,5 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
 
-<Files "random.js">
-    Order allow,deny
-    Deny from all
-</Files>
+RewriteEngine On
+RewriteRule ^random\.js$ - [R=404,L]
