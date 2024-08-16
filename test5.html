@@ -36,19 +36,40 @@
         async function fetchMovies() {
             try {
                 const response = await fetch('https://vidsrc.xyz/embed/movie');
+                
+                // Log the response to ensure it’s working
+                console.log('API Response:', response);
+                
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
                 const movies = await response.json();
+                
+                // Log the parsed JSON to check structure
+                console.log('Movies Data:', movies);
 
                 const movieList = document.getElementById('movie-list');
                 movieList.innerHTML = '';
 
-                movies.forEach(movie => {
+                if (Array.isArray(movies)) {
+                    movies.forEach(movie => {
+                        const movieBox = document.createElement('div');
+                        movieBox.className = 'movie-box';
+                        movieBox.textContent = movie.title || 'Unnamed Movie';
+                        movieList.appendChild(movieBox);
+                    });
+                } else {
                     const movieBox = document.createElement('div');
                     movieBox.className = 'movie-box';
-                    movieBox.textContent = movie.title;
+                    movieBox.textContent = 'No movies available';
                     movieList.appendChild(movieBox);
-                });
+                }
             } catch (error) {
                 console.error('Error fetching movies:', error);
+
+                const movieList = document.getElementById('movie-list');
+                movieList.innerHTML = '<p style="color: red;">Failed to load movies. Please try again later.</p>';
             }
         }
 
