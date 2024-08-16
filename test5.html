@@ -51,7 +51,7 @@
                 }
                 const data = await response.json();
                 console.log('Page Data:', data); // Log data to verify
-                return data.movies || []; // Adjust based on the actual structure
+                return data; // Return raw data to see structure
             } catch (error) {
                 console.error('Error fetching movies from page', pageNumber, error);
                 return [];
@@ -83,6 +83,9 @@
 
             while (hasMorePages) {
                 const pageData = await fetchMoviesFromPage(pageNumber);
+
+                // Log pageData to understand its structure
+                console.log('Movies Data:', pageData);
 
                 if (pageData && pageData.length > 0) {
                     for (const movie of pageData) {
