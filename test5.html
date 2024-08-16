@@ -117,27 +117,28 @@
 
         async function fetchAllMovies() {
             let pageNumber = 1;
-            let hasMorePages = true;
             const movieList = document.getElementById('movie-list');
             movieList.innerHTML = '';
 
-            while (hasMorePages && pageNumber <= 2000) { // Set a reasonable number of pages to fetch
+            while (pageNumber <= 5) { // Limit to a smaller number of pages to test
                 console.log(`Fetching page ${pageNumber}...`);
                 const pageData = await fetchMoviesFromPage(pageNumber);
 
                 if (pageData && pageData.length > 0) {
                     for (const movie of pageData) {
-                        const tmdbData = await fetchTMDBData(movie.tmdb_id);
-                        if (tmdbData) {
-                            allMovies.push({
-                                title: movie.title,
-                                tmdb_id: movie.tmdb_id,
-                            });
+                        if (movie.tmdb_id) {
+                            const tmdbData = await fetchTMDBData(movie.tmdb_id);
+                            if (tmdbData) {
+                                allMovies.push({
+                                    title: movie.title,
+                                    tmdb_id: movie.tmdb_id,
+                                });
+                            }
                         }
                     }
                     pageNumber++;
                 } else {
-                    hasMorePages = false;
+                    break; // Exit loop if no more pages
                 }
             }
 
