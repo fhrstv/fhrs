@@ -24,6 +24,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             width: 200px;
             text-align: center;
+            position: relative;
         }
         .movie-box a {
             color: white;
@@ -31,11 +32,16 @@
             display: block;
             margin-bottom: 10px;
         }
+        .movie-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Movies from Vidsrc</h1>
+    <h1>Movies from Vidsrc and TMDB</h1>
     <div id="movie-list" class="movie-container"></div>
 
     <script>
@@ -50,8 +56,7 @@
                     throw new Error('Failed to load page ' + pageNumber);
                 }
                 const data = await response.json();
-                console.log('Page Data:', data); // Log data to verify
-                return data.result || []; // Adjust based on the actual structure
+                return data.result || [];
             } catch (error) {
                 console.error('Error fetching movies from page', pageNumber, error);
                 return [];
@@ -67,8 +72,7 @@
                     throw new Error('Failed to fetch data from TMDB for ' + tmdbId);
                 }
                 const data = await response.json();
-                console.log('TMDB Data:', data); // Log TMDB data to verify
-                return data; // Return the movie data from TMDB
+                return data;
             } catch (error) {
                 console.error('Error fetching TMDB data for', tmdbId, error);
                 return null;
@@ -84,18 +88,23 @@
             while (hasMorePages) {
                 const pageData = await fetchMoviesFromPage(pageNumber);
 
-                // Log pageData to understand its structure
-                console.log('Movies Data:', pageData);
-
                 if (pageData && pageData.length > 0) {
                     for (const movie of pageData) {
+                        const tmdbData = await fetchTMDBData(movie.tmdb_id);
                         const movieBox = document.createElement('div');
                         movieBox.className = 'movie-box';
 
                         const movieLink = document.createElement('a');
-                        movieLink.href = movie.embed_url;
+                        movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
                         movieLink.target = '_blank';
-                        movieLink.textContent = movie.title || 'Unnamed Movie';
+
+                        const moviePoster = document.createElement('img');
+                        moviePoster.src = `https://image.tmdb.org/t/p/w200/${tmdbData.poster_path}`;
+                        movieLink.appendChild(moviePoster);
+
+                        const movieTitle = document.createElement('div');
+                        movieTitle.textContent = movie.title || 'Unnamed Movie';
+                        movieLink.appendChild(movieTitle);
 
                         movieBox.appendChild(movieLink);
                         movieList.appendChild(movieBox);
@@ -108,7 +117,6 @@
             }
         }
 
-        // Fetch all movies when the page loads
         window.onload = fetchAllMovies;
     </script>
 
