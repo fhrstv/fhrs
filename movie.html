@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .movie-details {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .movie-details img {
+            width: 300px;
+            height: auto;
+            border-radius: 5px;
+        }
+        .movie-details h1 {
+            margin: 0;
+        }
+        .movie-details p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="movie-details" id="movie-details">
+        <h1>Movie Title</h1>
+        <img src="" alt="Movie Poster">
+        <p><strong>Release Date:</strong> <span id="release-date">N/A</span></p>
+        <p><strong>Overview:</strong> <span id="overview">No overview available.</span></p>
+    </div>
+
+    <script>
+        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+
+        async function fetchMovieDetails(tmdbId) {
+            const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch movie details.');
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching movie details:', error);
+                return null;
+            }
+        }
+
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        async function displayMovieDetails() {
+            const tmdbId = getQueryParameter('tmdb_id');
+
+            if (!tmdbId) {
+                document.getElementById('movie-details').innerHTML = '<p>No movie ID provided.</p>';
+                return;
+            }
+
+            const movieData = await fetchMovieDetails(tmdbId);
+
+            if (movieData) {
+                document.querySelector('h1').textContent = movieData.title || 'No Title';
+                document.querySelector('img').src = `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`;
+                document.getElementById('release-date').textContent = movieData.release_date || 'N/A';
+                document.getElementById('overview').textContent = movieData.overview || 'No overview available.';
+            } else {
+                document.getElementById('movie-details').innerHTML = '<p>Failed to load movie details.</p>';
+            }
+        }
+
+        window.onload = displayMovieDetails;
+    </script>
+
+</body>
+</html>
