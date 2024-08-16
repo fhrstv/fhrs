@@ -86,8 +86,10 @@ async function fetchAllMovies() {
       movieBox.style.padding = '10px';
       movieBox.style.margin = '10px';
       const movieTitle = document.createElement('span');
-      movieTitle.textContent = movie.title || 'Unnamed Movie';
+      movieTitle.textContent = movie.title;
       movieTitle.style.color = 'red';
+      movieTitle.style.fontSize = '18px';
+      movieTitle.style.fontWeight = 'bold';
       movieBox.appendChild(movieTitle);
       movieList.appendChild(movieBox);
     });
