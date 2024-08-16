@@ -1,62 +1,60 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قائمة عناوين الأفلام</title>
+    <title>Movie List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .movie-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .movie-box {
+            background-color: red;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 200px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Movie List</h1>
+    <div id="movie-list" class="movie-container"></div>
+
     <script>
-        async function getMoviesList() {
+        async function fetchMovies() {
             try {
-                // قائمة معرّفات الأفلام
-                const movieIds = ['tt5433140', 'tt0111161', 'tt0468569']; // أضف المزيد من المعرفات هنا
-                const movieListElement = document.getElementById('movieList');
-                movieListElement.innerHTML = 'جاري جلب البيانات...';
+                const response = await fetch('https://vidsrc.xyz/embed/movie');
+                const movies = await response.json();
 
-                // استدعاء البيانات لكل فيلم
-                const fetchPromises = movieIds.map(id =>
-                    fetch(`https://vidsrc.xyz/embed/movie?imdb=${id}`)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error(`فشل الطلب للمعرف ${id}: ${response.statusText}`);
-                            }
-                            return response.json();
-                        })
-                        .then(data => ({
-                            id,
-                            title: data.title || 'عنوان غير متوفر'
-                        }))
-                        .catch(error => ({
-                            id,
-                            title: `حدث خطأ: ${error.message}`
-                        }))
-                );
+                const movieList = document.getElementById('movie-list');
+                movieList.innerHTML = '';
 
-                // الانتظار حتى يتم جلب جميع البيانات
-                const moviesData = await Promise.all(fetchPromises);
-
-                // التحقق من وجود بيانات وعرضها
-                if (moviesData && moviesData.length > 0) {
-                    movieListElement.innerHTML = ''; // مسح النص الحالي
-                    moviesData.forEach(movie => {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = `فيلم ${movie.id}: ${movie.title}`;
-                        movieListElement.appendChild(listItem);
-                    });
-                } else {
-                    movieListElement.textContent = 'لا توجد أفلام لعرضها';
-                }
+                movies.forEach(movie => {
+                    const movieBox = document.createElement('div');
+                    movieBox.className = 'movie-box';
+                    movieBox.textContent = movie.title;
+                    movieList.appendChild(movieBox);
+                });
             } catch (error) {
-                console.error('حدث خطأ:', error);
-                document.getElementById('movieList').textContent = 'حدث خطأ أثناء جلب البيانات: ' + error.message;
+                console.error('Error fetching movies:', error);
             }
         }
 
-        // استدعاء الدالة عند تحميل الصفحة
-        window.onload = getMoviesList;
+        // Fetch movies when the page loads
+        window.onload = fetchMovies;
     </script>
-</head>
-<body>
-    <h1>قائمة عناوين الأفلام</h1>
-    <ul id="movieList">جاري جلب البيانات...</ul>
+
 </body>
 </html>
