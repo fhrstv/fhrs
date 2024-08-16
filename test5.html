@@ -50,63 +50,66 @@
 </head>
 <body>
 
-    <input type="text" id="search-input" placeholder="بحث عن فيلم...">
-<button id="search-button">بحث</button>
-<div id="movie-list"></div>
-    
+    <div class="search-container">
+        <input type="text" id="search-box" placeholder="Search for a movie...">
+    </div>
+    <h1>Movies from Vidsrc and TMDB</h1>
+    <div id="movie-list" class="movie-container"></div>
 
     <script>
-        const apiUrl = 'https://vidsrc.xyz/movies/latest/page-';
-const maxPages = 1543;
-const movieList = document.getElementById('movie-list');
-const searchInput = document.getElementById('search-input');
-const searchButton = document.getElementById('search-button');
+        async function fetchMovies() {
+    const url = 'vidsrcs/page-1.json';
 
-async function fetchMoviesFromPage(pageNumber) {
-  const url = `${apiUrl}${pageNumber}.json`;
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Failed to load page ${pageNumber}`);
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to load movies');
+        }
+        const data = await response.json();
+        return data.result || [];
+    } catch (error) {
+        console.error('Error fetching movies:', error);
+        return [];
     }
-    const data = await response.json();
-    return data.result || [];
-  } catch (error) {
-    console.error(`Error fetching movies from page ${pageNumber}`, error);
-    return [];
-  }
 }
 
-async function searchMovies(query) {
-  movieList.innerHTML = ''; // مسح الأفلام السابقة
-  for (let pageNumber = 1; pageNumber <= maxPages; pageNumber++) {
-    const movies = await fetchMoviesFromPage(pageNumber);
-    const filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
-    
-    filteredMovies.forEach((movie) => {
-      const movieBox = document.createElement('div');
-      movieBox.className = 'movie-box';
-      const movieTitle = document.createTextNode(movie.title);
-      movieBox.appendChild(movieTitle);
-      movieList.appendChild(movieBox);
+function updateMovieList(movies) {
+    const movieList = document.getElementById('movie-list');
+    movieList.innerHTML = '';
+
+    if (movies.length === 0) {
+        movieList.innerHTML = '<p>No movies found.</p>';
+        return;
+    }
+
+    movies.forEach(movie => {
+        const movieBox = document.createElement('div');
+        movieBox.className = 'movie-box';
+
+        const movieLink = document.createElement('a');
+        movieLink.href = `movie.html?imdb_id=${movie.imdb_id}&tmdb_id=${movie.tmdb_id}`;
+        movieLink.textContent = movie.title || 'Unnamed Movie';
+        
+        movieBox.appendChild(movieLink);
+        movieList.appendChild(movieBox);
     });
-
-    // إيقاف البحث إذا تم العثور على نتائج في صفحة معينة
-    if (filteredMovies.length > 0) {
-      break;
-    }
-  }
 }
 
-searchButton.addEventListener('click', () => {
-  const query = searchInput.value;
-  if (query.trim()) {
-    searchMovies(query);
-  }
+function filterMovies(movies, query) {
+    return movies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
+}
+
+document.getElementById('search-box').addEventListener('input', async (event) => {
+    const query = event.target.value;
+    const allMovies = await fetchMovies();
+    const filteredMovies = filterMovies(allMovies, query);
+    updateMovieList(filteredMovies);
 });
 
-// تحميل الأفلام عند تحميل الصفحة (اختياري)
-fetchAllMovies();
+window.onload = async () => {
+    const allMovies = await fetchMovies();
+    updateMovieList(allMovies);
+};
     </script>
 
 </body>
