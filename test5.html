@@ -99,6 +99,9 @@ async function fetchAllMovies() {
         currentPage++;
     }
 
+    // ترتيب الأفلام حسب العنوان من A إلى Z
+    allMovies.sort((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }));
+
     displayedMovies = [...allMovies];
     updateMovieList();
     fetching = false;
