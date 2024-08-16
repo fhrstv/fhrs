@@ -11,10 +11,22 @@
             margin: 0;
             padding: 20px;
         }
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .search-container input {
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
         .movie-container {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
+            justify-content: center;
         }
         .movie-box {
             background-color: red;
@@ -29,23 +41,25 @@
         .movie-box a {
             color: white;
             text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
         }
-        .movie-box img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
+        .movie-box span {
+            display: block;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
+    <div class="search-container">
+        <input type="text" id="search-box" placeholder="Search for a movie...">
+    </div>
     <h1>Movies from Vidsrc and TMDB</h1>
     <div id="movie-list" class="movie-container"></div>
 
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+        let allMovies = [];
+        let displayedMovies = [];
 
         async function fetchMoviesFromPage(pageNumber) {
             const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
@@ -98,16 +112,17 @@
                         movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
                         movieLink.target = '_blank';
 
-                        const moviePoster = document.createElement('img');
-                        moviePoster.src = `https://image.tmdb.org/t/p/w200/${tmdbData.poster_path}`;
-                        movieLink.appendChild(moviePoster);
-
-                        const movieTitle = document.createElement('div');
+                        const movieTitle = document.createElement('span');
                         movieTitle.textContent = movie.title || 'Unnamed Movie';
                         movieLink.appendChild(movieTitle);
 
                         movieBox.appendChild(movieLink);
                         movieList.appendChild(movieBox);
+
+                        allMovies.push({
+                            title: movie.title,
+                            tmdb_id: movie.tmdb_id,
+                        });
                     }
 
                     pageNumber++;
@@ -115,7 +130,40 @@
                     hasMorePages = false;
                 }
             }
+
+            displayedMovies = [...allMovies];
+            updateMovieList();
         }
+
+        function updateMovieList() {
+            const movieList = document.getElementById('movie-list');
+            movieList.innerHTML = '';
+
+            displayedMovies.forEach(movie => {
+                const movieBox = document.createElement('div');
+                movieBox.className = 'movie-box';
+
+                const movieLink = document.createElement('a');
+                movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
+                movieLink.target = '_blank';
+
+                const movieTitle = document.createElement('span');
+                movieTitle.textContent = movie.title || 'Unnamed Movie';
+                movieLink.appendChild(movieTitle);
+
+                movieBox.appendChild(movieLink);
+                movieList.appendChild(movieBox);
+            });
+        }
+
+        function filterMovies(query) {
+            displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
+            updateMovieList();
+        }
+
+        document.getElementById('search-box').addEventListener('input', (event) => {
+            filterMovies(event.target.value);
+        });
 
         window.onload = fetchAllMovies;
     </script>
