@@ -58,114 +58,66 @@
 
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-        let allMovies = [];
-        let displayedMovies = [];
+let allMovies = [];
+let displayedMovies = [];
 
-        async function fetchMoviesFromPage(pageNumber) {
-            const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
+// دالة البحث عن الأفلام بواسطة العنوان في IMDb
+async function searchMoviesByTitle(query) {
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
 
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Failed to load page ' + pageNumber);
-                }
-                const data = await response.json();
-                return data.result || [];
-            } catch (error) {
-                console.error('Error fetching movies from page', pageNumber, error);
-                return [];
-            }
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to search movies for ' + query);
         }
+        const data = await response.json();
+        return data.results || [];
+    } catch (error) {
+        console.error('Error searching movies with title', query, error);
+        return [];
+    }
+}
 
-        async function fetchTMDBData(tmdbId) {
-            const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}`;
+function updateMovieList() {
+    const movieList = document.getElementById('movie-list');
+    movieList.innerHTML = '';
 
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch data from TMDB for ' + tmdbId);
-                }
-                const data = await response.json();
-                return data;
-            } catch (error) {
-                console.error('Error fetching TMDB data for', tmdbId, error);
-                return null;
-            }
-        }
+    displayedMovies.forEach(movie => {
+        const movieBox = document.createElement('div');
+        movieBox.className = 'movie-box';
 
-        async function fetchAllMovies() {
-            let pageNumber = 1;
-            let hasMorePages = true;
-            const movieList = document.getElementById('movie-list');
-            movieList.innerHTML = '';
+        const movieLink = document.createElement('a');
+        movieLink.href = `movie.html?imdb_id=${movie.imdb_id}`;
+        movieLink.target = '_blank';
 
-            while (hasMorePages) {
-                const pageData = await fetchMoviesFromPage(pageNumber);
+        const movieTitle = document.createElement('span');
+        movieTitle.textContent = movie.title || 'Unnamed Movie';
+        movieLink.appendChild(movieTitle);
 
-                if (pageData && pageData.length > 0) {
-                    for (const movie of pageData) {
-                        const tmdbData = await fetchTMDBData(movie.tmdb_id);
-                        const movieBox = document.createElement('div');
-                        movieBox.className = 'movie-box';
+        movieBox.appendChild(movieLink);
+        movieList.appendChild(movieBox);
+    });
+}
 
-                        const movieLink = document.createElement('a');
-                        movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
-                        movieLink.target = '_blank';
+// تعديل دالة البحث لتقوم بالبحث بواسطة عنوان الفيلم
+async function filterMovies(query) {
+    if (query.trim() === "") {
+        displayedMovies = allMovies;
+    } else {
+        const searchResults = await searchMoviesByTitle(query);
+        displayedMovies = searchResults.map(movie => ({
+            title: movie.title,
+            imdb_id: movie.id // نستخدم هنا id كـ imdb_id، يمكنك تعديل هذا الجزء إذا كنت تستخدم id مختلف
+        }));
+    }
+    updateMovieList();
+}
 
-                        const movieTitle = document.createElement('span');
-                        movieTitle.textContent = movie.title || 'Unnamed Movie';
-                        movieLink.appendChild(movieTitle);
+document.getElementById('search-box').addEventListener('input', (event) => {
+    filterMovies(event.target.value);
+});
 
-                        movieBox.appendChild(movieLink);
-                        movieList.appendChild(movieBox);
-
-                        allMovies.push({
-                            title: movie.title,
-                            tmdb_id: movie.tmdb_id,
-                        });
-                    }
-
-                    pageNumber++;
-                } else {
-                    hasMorePages = false;
-                }
-            }
-
-            displayedMovies = [...allMovies];
-            updateMovieList();
-        }
-
-        function updateMovieList() {
-            const movieList = document.getElementById('movie-list');
-            movieList.innerHTML = '';
-
-            displayedMovies.forEach(movie => {
-                const movieBox = document.createElement('div');
-                movieBox.className = 'movie-box';
-
-                const movieLink = document.createElement('a');
-                movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
-                movieLink.target = '_blank';
-
-                const movieTitle = document.createElement('span');
-                movieTitle.textContent = movie.title || 'Unnamed Movie';
-                movieLink.appendChild(movieTitle);
-
-                movieBox.appendChild(movieLink);
-                movieList.appendChild(movieBox);
-            });
-        }
-
-        function filterMovies(query) {
-            displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
-            updateMovieList();
-        }
-
-        document.getElementById('search-box').addEventListener('input', (event) => {
-            filterMovies(event.target.value);
-        });
-
-        window.onload = fetchAllMovies;
+window.onload = fetchAllMovies;
     </script>
 
 </body>
