@@ -79,12 +79,21 @@ async function loadMoviesFromPage(pageNumber) {
 
 // دالة لتحميل جميع الصفحات
 async function loadAllMovies() {
-    for (let i = 1; i <= 1543; i++) {
-        const moviesFromPage = await loadMoviesFromPage(i);
-        allMovies = allMovies.concat(moviesFromPage);
+    let page = 1;
+    let moviesLoaded = true;
+
+    while (moviesLoaded) {
+        const moviesFromPage = await loadMoviesFromPage(page);
+        if (moviesFromPage.length > 0) {
+            allMovies = allMovies.concat(moviesFromPage);
+            page++;
+        } else {
+            moviesLoaded = false;
+        }
     }
+
     allMovies.sort((a, b) => a.title.localeCompare(b.title)); // ترتيب الأفلام أبجديًا
-    displayedMovies = allMovies;
+    displayedMovies = [...allMovies];
     updateMovieList();
 }
 
@@ -113,7 +122,7 @@ function updateMovieList() {
 // دالة لتصفية الأفلام بناءً على عنوان الفيلم
 function filterMovies(query) {
     if (query.trim() === "") {
-        displayedMovies = allMovies;
+        displayedMovies = [...allMovies];
     } else {
         displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
     }
@@ -123,7 +132,7 @@ function filterMovies(query) {
 // تحميل جميع الأفلام وعرضها عند تحميل الصفحة
 window.onload = async () => {
     await loadAllMovies(); // تحميل جميع الأفلام
-    updateMovieList(); // عرض الأفلام فور تحميلها
+    // updateMovieList() سيتم استدعاؤه داخل loadAllMovies بعد تحميل وترتيب الأفلام
 };
 
 // إضافة حدث على مربع البحث لتصفية الأفلام
