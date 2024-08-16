@@ -14,7 +14,17 @@
 
                 // استدعاء البيانات لكل فيلم
                 const fetchPromises = movieIds.map(id => 
-                    fetch(`https://vidsrc.xyz/embed/movie?imdb=${id}`).then(response => response.json())
+                    fetch(`https://vidsrc.xyz/embed/movie?imdb=${id}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .catch(error => {
+                            console.error(`حدث خطأ في طلب الفيلم ${id}:`, error);
+                            return { embedUrl: 'رابط غير متوفر' };
+                        })
                 );
 
                 // الانتظار حتى يتم جلب جميع البيانات
@@ -23,9 +33,9 @@
                 // التحقق من وجود بيانات وعرضها
                 if (moviesData && moviesData.length > 0) {
                     movieListElement.innerHTML = ''; // مسح النص الحالي
-                    moviesData.forEach(data => {
+                    moviesData.forEach((data, index) => {
                         const listItem = document.createElement('li');
-                        listItem.textContent = data.embedUrl || 'رابط غير متوفر';
+                        listItem.textContent = `فيلم ${movieIds[index]}: ${data.embedUrl || 'رابط غير متوفر'}`;
                         movieListElement.appendChild(listItem);
                     });
                 } else {
