@@ -119,9 +119,10 @@ function filterMovies(query) {
     updateMovieList();
 }
 
-// تحميل جميع الأفلام عند تحميل الصفحة
+// تحميل جميع الأفلام وعرضها عند تحميل الصفحة
 window.onload = async () => {
-    await loadAllMovies();
+    await loadAllMovies(); // تحميل جميع الأفلام
+    updateMovieList(); // عرض الأفلام فور تحميلها
 };
 
 // إضافة حدث على مربع البحث لتصفية الأفلام
