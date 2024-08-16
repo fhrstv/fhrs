@@ -1,0 +1,15 @@
+<Files "random.js">
+    Require all denied
+</Files>
+
+<Files "Movies.js">
+    Require all denied
+</Files>
+
+<Files "Series.js">
+    Require all denied
+</Files>
+
+<Files "Scripit.js">
+    Require all denied
+</Files>
