@@ -62,42 +62,22 @@
     <div id="movie-list" class="movie-container"></div>
 
     <script>
-        const totalPages = 1543; // العدد الإجمالي للصفحات
-let allMovies = [];
+        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+let displayedMovies = [];
 
-async function fetchMoviesFromPage(pageNumber) {
-    const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
+async function searchTMDB(query) {
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
 
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error('Failed to load page ' + pageNumber);
+            throw new Error('Failed to search for movies on TMDB');
         }
         const data = await response.json();
-        return data.result || [];
+        return data.results || [];
     } catch (error) {
-        console.error('Error fetching movies from page', pageNumber, error);
+        console.error('Error searching TMDB', error);
         return [];
-    }
-}
-
-async function searchMovies(query) {
-    allMovies = []; // إعادة تعيين القائمة لإجراء البحث الجديد
-    for (let page = 1; page <= totalPages; page++) {
-        const movies = await fetchMoviesFromPage(page);
-        allMovies = allMovies.concat(movies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase())));
-
-        if (allMovies.length > 0) {
-            break; // توقف عند العثور على نتائج
-        }
-    }
-
-    if (allMovies.length === 0) {
-        updateMovieList();
-        const movieList = document.getElementById('movie-list');
-        movieList.innerHTML = '<div class="no-results">No movies found</div>';
-    } else {
-        updateMovieList();
     }
 }
 
@@ -105,12 +85,20 @@ function updateMovieList() {
     const movieList = document.getElementById('movie-list');
     movieList.innerHTML = '';
 
-    allMovies.forEach(movie => {
+    if (displayedMovies.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.textContent = 'No movies found';
+        movieList.appendChild(noResults);
+        return;
+    }
+
+    displayedMovies.forEach(movie => {
         const movieBox = document.createElement('div');
         movieBox.className = 'movie-box';
 
         const movieLink = document.createElement('a');
-        movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
+        movieLink.href = `movie.html?tmdb_id=${movie.id}`;
         movieLink.target = '_blank';
 
         const movieTitle = document.createElement('span');
@@ -122,13 +110,16 @@ function updateMovieList() {
     });
 }
 
-document.getElementById('search-box').addEventListener('input', (event) => {
+document.getElementById('search-box').addEventListener('input', async (event) => {
     const query = event.target.value;
     if (query.length >= 3) { // البحث فقط عند إدخال 3 أحرف على الأقل
-        searchMovies(query);
+        displayedMovies = await searchTMDB(query);
+        updateMovieList();
+    } else {
+        displayedMovies = []; // إعادة تعيين قائمة الأفلام إذا كان الاستعلام قصيرًا جدًا
+        updateMovieList();
     }
 });
-            
                     </script>
 
 </body>
