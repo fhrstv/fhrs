@@ -57,13 +57,12 @@
     <div id="movie-list" class="movie-container"></div>
 
     <script>
-        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-let allMovies = [];
+        let allMovies = [];
 let displayedMovies = [];
 
 // دالة البحث عن الأفلام بواسطة العنوان في IMDb
 async function searchMoviesByTitle(query) {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
+    const url = `https://vidsrc.xyz/api/search/${encodeURIComponent(query)}`;
 
     try {
         const response = await fetch(url);
@@ -71,7 +70,7 @@ async function searchMoviesByTitle(query) {
             throw new Error('Failed to search movies for ' + query);
         }
         const data = await response.json();
-        return data.results || [];
+        return data.result || [];
     } catch (error) {
         console.error('Error searching movies with title', query, error);
         return [];
@@ -99,7 +98,7 @@ function updateMovieList() {
     });
 }
 
-// تعديل دالة البحث لتقوم بالبحث بواسطة عنوان الفيلم
+// تعديل دالة البحث لتقوم بالبحث بواسطة عنوان الفيلم فقط
 async function filterMovies(query) {
     if (query.trim() === "") {
         displayedMovies = allMovies;
@@ -107,7 +106,7 @@ async function filterMovies(query) {
         const searchResults = await searchMoviesByTitle(query);
         displayedMovies = searchResults.map(movie => ({
             title: movie.title,
-            imdb_id: movie.id // نستخدم هنا id كـ imdb_id، يمكنك تعديل هذا الجزء إذا كنت تستخدم id مختلف
+            imdb_id: movie.imdb_id // تأكد من أن المفتاح هو imdb_id
         }));
     }
     updateMovieList();
@@ -117,7 +116,9 @@ document.getElementById('search-box').addEventListener('input', (event) => {
     filterMovies(event.target.value);
 });
 
-window.onload = fetchAllMovies;
+window.onload = () => {
+    // قد ترغب في تحميل بعض الأفلام بشكل مبدئي إذا كنت بحاجة لذلك
+};
     </script>
 
 </body>
