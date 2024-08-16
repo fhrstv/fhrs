@@ -1,5 +1,2 @@
-exclude:
+keep_files:
   - random.js
-
-include:
-  - index.html
