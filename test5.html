@@ -66,7 +66,7 @@
 let allMovies = [];
 let displayedMovies = [];
 let currentPage = 1;
-const maxPages = 2000; // يمكن تغيير هذا بناءً على العدد الفعلي للصفحات
+let fetching = false;
 
 async function fetchMoviesFromPage(pageNumber) {
     const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
@@ -85,11 +85,14 @@ async function fetchMoviesFromPage(pageNumber) {
 }
 
 async function fetchAllMovies() {
-    while (currentPage <= maxPages) {
+    if (fetching) return;
+    fetching = true;
+
+    while (true) {
         const pageData = await fetchMoviesFromPage(currentPage);
 
         if (pageData.length === 0) {
-            break; // إذا لم يكن هناك بيانات، توقف عن التحميل
+            break; // توقف إذا لم يكن هناك بيانات في الصفحة
         }
 
         allMovies = allMovies.concat(pageData);
@@ -98,6 +101,7 @@ async function fetchAllMovies() {
 
     displayedMovies = [...allMovies];
     updateMovieList();
+    fetching = false;
 }
 
 function updateMovieList() {
