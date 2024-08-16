@@ -66,6 +66,7 @@
 let allMovies = [];
 let displayedMovies = [];
 let currentPage = 1;
+const totalPages = 1543; // العدد الإجمالي للصفحات
 let fetching = false;
 
 async function fetchMoviesFromPage(pageNumber) {
@@ -88,15 +89,15 @@ async function fetchAllMovies() {
     if (fetching) return;
     fetching = true;
 
-    while (true) {
-        const pageData = await fetchMoviesFromPage(currentPage);
+    for (let i = currentPage; i <= totalPages; i++) {
+        const pageData = await fetchMoviesFromPage(i);
 
         if (pageData.length === 0) {
+            console.log(`No data found on page ${i}. Stopping.`);
             break; // توقف إذا لم يكن هناك بيانات في الصفحة
         }
 
         allMovies = allMovies.concat(pageData);
-        currentPage++;
     }
 
     // ترتيب الأفلام حسب العنوان من A إلى Z
