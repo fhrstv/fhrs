@@ -51,26 +51,26 @@
                 }
                 const data = await response.json();
                 console.log('Page Data:', data); // Log data to verify
-                return data; // Return raw data to see structure
+                return data.result || []; // Adjust based on the actual structure
             } catch (error) {
                 console.error('Error fetching movies from page', pageNumber, error);
                 return [];
             }
         }
 
-        async function fetchTMDBData(movieTitle) {
-            const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(movieTitle)}`;
+        async function fetchTMDBData(tmdbId) {
+            const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}`;
 
             try {
                 const response = await fetch(url);
                 if (!response.ok) {
-                    throw new Error('Failed to fetch data from TMDB for ' + movieTitle);
+                    throw new Error('Failed to fetch data from TMDB for ' + tmdbId);
                 }
                 const data = await response.json();
                 console.log('TMDB Data:', data); // Log TMDB data to verify
-                return data.results[0]; // Return the first result from TMDB
+                return data; // Return the movie data from TMDB
             } catch (error) {
-                console.error('Error fetching TMDB data for', movieTitle, error);
+                console.error('Error fetching TMDB data for', tmdbId, error);
                 return null;
             }
         }
@@ -89,12 +89,12 @@
 
                 if (pageData && pageData.length > 0) {
                     for (const movie of pageData) {
-                        const tmdbData = await fetchTMDBData(movie.title);
+                        const tmdbData = await fetchTMDBData(movie.tmdb_id);
                         const movieBox = document.createElement('div');
                         movieBox.className = 'movie-box';
 
                         const movieLink = document.createElement('a');
-                        movieLink.href = `https://vidsrc.xyz/embed/movie/${movie.id}`;
+                        movieLink.href = movie.embed_url;
                         movieLink.target = '_blank';
                         movieLink.textContent = movie.title || 'Unnamed Movie';
 
