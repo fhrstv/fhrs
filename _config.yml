@@ -2,4 +2,4 @@ exclude:
   - random.js
   - Movies.js
   - Series.js
-  - Scripit.js
+  - scripit.js
