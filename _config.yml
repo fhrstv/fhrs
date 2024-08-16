@@ -1,2 +1,2 @@
-keep_files:
-  - random.js
+data:
+  random_js: random.js
