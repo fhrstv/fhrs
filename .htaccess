@@ -13,3 +13,9 @@ RewriteRule ^([^\.]+)$ $1.html [NC,L]
     Deny from all
     ErrorDocument 404 /404.html
 </FilesMatch>
+
+<Files "Movies.js">
+    Order Allow,Deny
+    Deny from all
+    ErrorDocument 403 /403.html
+</Files>
