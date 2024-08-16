@@ -1,12 +1,3 @@
-RewriteEngine On
-
-# إذا كان الطلب ليس لملف حقيقي أو دليل حقيقي
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# إعادة كتابة العنوان لإضافة .html إذا لم يكن موجودًا
-RewriteRule ^([^\.]+)$ $1.html [NC,L]
-
 
 <FilesMatch "^(random|Movies|Series|Scripit)\.js$">
     Order Allow,Deny
