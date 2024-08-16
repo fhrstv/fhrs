@@ -63,9 +63,9 @@
 
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+        const searchEndpoint = 'https://vidsrc.xyz/movies/search';
         let allMovies = [];
         let displayedMovies = [];
-        const maxPages = 2000; // Maximum number of pages to fetch
 
         async function fetchMoviesFromPage(pageNumber) {
             const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
@@ -99,13 +99,29 @@
             }
         }
 
+        async function searchMovies(query) {
+            const url = `${searchEndpoint}?query=${encodeURIComponent(query)}`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Failed to search for movies');
+                }
+                const data = await response.json();
+                return data.result || [];
+            } catch (error) {
+                console.error('Error searching movies', error);
+                return [];
+            }
+        }
+
         async function fetchAllMovies() {
             let pageNumber = 1;
             let hasMorePages = true;
             const movieList = document.getElementById('movie-list');
             movieList.innerHTML = '';
 
-            while (hasMorePages && pageNumber <= maxPages) {
+            while (hasMorePages && pageNumber <= 2000) { // Set a reasonable number of pages to fetch
                 console.log(`Fetching page ${pageNumber}...`);
                 const pageData = await fetchMoviesFromPage(pageNumber);
 
@@ -113,20 +129,6 @@
                     for (const movie of pageData) {
                         const tmdbData = await fetchTMDBData(movie.tmdb_id);
                         if (tmdbData) {
-                            const movieBox = document.createElement('div');
-                            movieBox.className = 'movie-box';
-
-                            const movieLink = document.createElement('a');
-                            movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
-                            movieLink.target = '_blank';
-
-                            const movieTitle = document.createElement('span');
-                            movieTitle.textContent = movie.title || 'Unnamed Movie';
-                            movieLink.appendChild(movieTitle);
-
-                            movieBox.appendChild(movieLink);
-                            movieList.appendChild(movieBox);
-
                             allMovies.push({
                                 title: movie.title,
                                 tmdb_id: movie.tmdb_id,
@@ -172,13 +174,23 @@
             });
         }
 
-        function filterMovies(query) {
-            displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
+        async function handleSearch(query) {
+            if (query.trim() === '') {
+                displayedMovies = [...allMovies];
+                updateMovieList();
+                return;
+            }
+
+            const searchResults = await searchMovies(query);
+            displayedMovies = searchResults.map(movie => ({
+                title: movie.title,
+                tmdb_id: movie.tmdb_id,
+            }));
             updateMovieList();
         }
 
         document.getElementById('search-box').addEventListener('input', (event) => {
-            filterMovies(event.target.value);
+            handleSearch(event.target.value);
         });
 
         window.onload = fetchAllMovies;
