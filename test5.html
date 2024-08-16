@@ -100,7 +100,9 @@ async function fetchAllMovies() {
 }
 
 function searchMovieByTitle(title) {
+  console.log('Searching for movie:', title);
   const exactMatch = allMovies.find(movie => movie.title.toLowerCase() === title.toLowerCase());
+  console.log('Exact match found:', exactMatch);
   if (exactMatch) {
     console.log('Exact match found:', exactMatch);
     // Display the exact match movie
@@ -122,6 +124,7 @@ function searchMovieByTitle(title) {
 }
 
 document.getElementById('search-box').addEventListener('input', (event) => {
+  console.log('Search box input event triggered:', event.target.value);
   const searchQuery = event.target.value.trim();
   if (searchQuery.length > 0) {
     searchMovieByTitle(searchQuery);
@@ -133,6 +136,11 @@ document.getElementById('search-box').addEventListener('input', (event) => {
 });
 
 window.onload = fetchAllMovies;
+
+// Add a test button to test the searchMovieByTitle function
+document.getElementById('test-button').addEventListener('click', () => {
+  searchMovieByTitle('The Shawshank Redemption');
+});
     </script>
 
 </body>
