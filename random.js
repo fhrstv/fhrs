@@ -45,15 +45,8 @@ document.getElementById('randomButton').addEventListener('click', getRandomHtmlF
 
 
 
-// تحقق من أن السكربت يتم تحميله مباشرة من console.log("Checking path...");(function() {
-    // تسجيل مسار الصفحة الحالي للتحقق
-    console.log("Current pathname:", window.location.pathname);
-
-    // التحقق مما إذا كان المسار هو '/random.js'
+(function() {
     if (window.location.pathname === '/random.js') {
-        console.log("Redirecting to /404.html");
-        window.location.replace('/404.html');
-    } else {
-        console.log("Not matching /random.js");
+        window.location.href = '/404.html';
     }
 })();
