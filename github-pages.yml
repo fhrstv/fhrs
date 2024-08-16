@@ -1,0 +1,3 @@
+rewrites:
+  - source: /random.js
+    destination: /404.html
