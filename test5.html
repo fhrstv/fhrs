@@ -105,24 +105,12 @@
                 if (pageData && pageData.length > 0) {
                     for (const movie of pageData) {
                         const tmdbData = await fetchTMDBData(movie.tmdb_id);
-                        const movieBox = document.createElement('div');
-                        movieBox.className = 'movie-box';
-
-                        const movieLink = document.createElement('a');
-                        movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
-                        movieLink.target = '_blank';
-
-                        const movieTitle = document.createElement('span');
-                        movieTitle.textContent = movie.title || 'Unnamed Movie';
-                        movieLink.appendChild(movieTitle);
-
-                        movieBox.appendChild(movieLink);
-                        movieList.appendChild(movieBox);
-
-                        allMovies.push({
-                            title: movie.title,
-                            tmdb_id: movie.tmdb_id,
-                        });
+                        if (tmdbData) {
+                            allMovies.push({
+                                title: movie.title,
+                                tmdb_id: movie.tmdb_id,
+                            });
+                        }
                     }
 
                     pageNumber++;
