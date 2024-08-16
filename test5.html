@@ -28,6 +28,8 @@
         .movie-box a {
             color: white;
             text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -48,7 +50,7 @@
                     throw new Error('Failed to load page ' + pageNumber);
                 }
                 const data = await response.json();
-                console.log('Page Data:', data); // Log the data to verify structure
+                console.log('Page Data:', data); // Log data to verify
                 return data;
             } catch (error) {
                 console.error('Error fetching movies from page', pageNumber, error);
@@ -65,7 +67,7 @@
                     throw new Error('Failed to fetch data from TMDB for ' + movieTitle);
                 }
                 const data = await response.json();
-                console.log('TMDB Data:', data); // Log the TMDB data to verify
+                console.log('TMDB Data:', data); // Log TMDB data to verify
                 return data.results[0]; // Return the first result from TMDB
             } catch (error) {
                 console.error('Error fetching TMDB data for', movieTitle, error);
