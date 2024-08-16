@@ -62,45 +62,67 @@
     <div id="movie-list" class="movie-container"></div>
 
     <script>
-        const searchApiUrl = 'https://vidsrc.xyz/search'; // فرضية عنوان API للبحث
+        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+let allMovies = [];
+let displayedMovies = [];
+let currentPage = 1;
+const totalPages = 1543; // العدد الإجمالي للصفحات
+const pagesToLoad = 10; // عدد الصفحات التي نريد تحميلها في كل مرة
 
-async function searchMovies(query) {
-    const url = `${searchApiUrl}?query=${encodeURIComponent(query)}`;
+async function fetchMoviesFromPage(pageNumber) {
+    const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
 
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error('Failed to fetch search results');
+            throw new Error('Failed to load page ' + pageNumber);
         }
         const data = await response.json();
         return data.result || [];
     } catch (error) {
-        console.error('Error searching movies', error);
+        console.error('Error fetching movies from page', pageNumber, error);
         return [];
     }
 }
 
-async function handleSearch(event) {
-    const query = event.target.value;
-    if (query.length < 3) {
-        // Avoid searching if query is too short
-        return;
+async function fetchMovies() {
+    while (currentPage <= totalPages) {
+        const pageData = await fetchMoviesFromPage(currentPage);
+
+        if (pageData.length === 0) {
+            break; // توقف إذا لم يكن هناك بيانات في الصفحة
+        }
+
+        allMovies = allMovies.concat(pageData);
+
+        // زيادة الصفحة التي نريد تحميلها
+        currentPage++;
+        
+        // قم بتحميل عدد معين من الصفحات لتفادي التحميل الكبير
+        if (currentPage % pagesToLoad === 1) {
+            console.log(`Loaded ${allMovies.length} movies`);
+            // يمكن إضافة منبه لتحديث واجهة المستخدم
+        }
     }
 
-    const results = await searchMovies(query);
+    // ترتيب الأفلام حسب العنوان من A إلى Z
+    allMovies.sort((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }));
 
-    if (results.length === 0) {
-        const movieList = document.getElementById('movie-list');
-        movieList.innerHTML = '<div class="no-results">No movies found</div>';
-    } else {
-        displayedMovies = results;
-        updateMovieList();
-    }
+    displayedMovies = [...allMovies];
+    updateMovieList();
 }
 
 function updateMovieList() {
     const movieList = document.getElementById('movie-list');
     movieList.innerHTML = '';
+
+    if (displayedMovies.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.textContent = 'No movies found';
+        movieList.appendChild(noResults);
+        return;
+    }
 
     displayedMovies.forEach(movie => {
         const movieBox = document.createElement('div');
@@ -119,8 +141,18 @@ function updateMovieList() {
     });
 }
 
-document.getElementById('search-box').addEventListener('input', handleSearch);
-    </script>
+function filterMovies(query) {
+    displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
+    updateMovieList();
+}
+
+document.getElementById('search-box').addEventListener('input', (event) => {
+    filterMovies(event.target.value);
+});
+
+window.onload = fetchMovies;
+            
+                    </script>
 
 </body>
 </html>
