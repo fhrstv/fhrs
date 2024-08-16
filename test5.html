@@ -82,14 +82,7 @@ async function fetchAllMovies() {
     movies.forEach((movie) => {
       const movieBox = document.createElement('div');
       movieBox.className = 'movie-box';
-      movieBox.style.border = '1px solid red';
-      movieBox.style.padding = '10px';
-      movieBox.style.margin = '10px';
-      const movieTitle = document.createElement('span');
-      movieTitle.textContent = movie.title;
-      movieTitle.style.color = 'red';
-      movieTitle.style.fontSize = '18px';
-      movieTitle.style.fontWeight = 'bold';
+      const movieTitle = document.createTextNode(movie.title);
       movieBox.appendChild(movieTitle);
       movieList.appendChild(movieBox);
     });
@@ -97,7 +90,6 @@ async function fetchAllMovies() {
 }
 
 fetchAllMovies();
-// يمكنك استخدام الروابط لتصفية الأفلام أو أي عملية أخرى
     </script>
 
 </body>
