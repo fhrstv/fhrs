@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies from Vidsrc</title>
+    <title>Movies from Vidsrc and TMDB</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,11 +46,6 @@
             display: block;
             margin-top: 10px;
         }
-        .no-results {
-            text-align: center;
-            font-size: 18px;
-            color: #333;
-        }
     </style>
 </head>
 <body>
@@ -58,69 +53,119 @@
     <div class="search-container">
         <input type="text" id="search-box" placeholder="Search for a movie...">
     </div>
-    <h1>Movies from Vidsrc</h1>
+    <h1>Movies from Vidsrc and TMDB</h1>
     <div id="movie-list" class="movie-container"></div>
 
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-let displayedMovies = [];
+        let allMovies = [];
+        let displayedMovies = [];
 
-async function searchTMDB(query) {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=en-US`;
+        async function fetchMoviesFromPage(pageNumber) {
+            const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
 
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Failed to search for movies on TMDB');
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Failed to load page ' + pageNumber);
+                }
+                const data = await response.json();
+                console.log('Fetched page', pageNumber, data); // Debugging
+                return data.result || [];
+            } catch (error) {
+                console.error('Error fetching movies from page', pageNumber, error);
+                return [];
+            }
         }
-        const data = await response.json();
-        return data.results.filter(movie => movie.original_language === 'en'); // تصفية الأفلام التي تكون لغتها الأصلية إنجليزية
-    } catch (error) {
-        console.error('Error searching TMDB', error);
-        return [];
-    }
-}
 
-function updateMovieList() {
-    const movieList = document.getElementById('movie-list');
-    movieList.innerHTML = '';
+        async function fetchTMDBData(tmdbId) {
+            const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}`;
 
-    if (displayedMovies.length === 0) {
-        const noResults = document.createElement('div');
-        noResults.className = 'no-results';
-        noResults.textContent = 'No movies found';
-        movieList.appendChild(noResults);
-        return;
-    }
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data from TMDB for ' + tmdbId);
+                }
+                const data = await response.json();
+                console.log('Fetched TMDB data for', tmdbId, data); // Debugging
+                return data;
+            } catch (error) {
+                console.error('Error fetching TMDB data for', tmdbId, error);
+                return null;
+            }
+        }
 
-    displayedMovies.forEach(movie => {
-        const movieBox = document.createElement('div');
-        movieBox.className = 'movie-box';
+        async function fetchAllMovies() {
+            let pageNumber = 1;
+            let hasMorePages = true;
+            const movieList = document.getElementById('movie-list');
+            movieList.innerHTML = '';
 
-        const movieLink = document.createElement('a');
-        movieLink.href = `movie.html?tmdb_id=${movie.id}`;
-        movieLink.target = '_blank';
+            while (hasMorePages) {
+                const pageData = await fetchMoviesFromPage(pageNumber);
 
-        const movieTitle = document.createElement('span');
-        movieTitle.textContent = movie.title || 'Unnamed Movie';
-        movieLink.appendChild(movieTitle);
+                if (pageData && pageData.length > 0) {
+                    for (const movie of pageData) {
+                        // التأكد من عدم تكرار الأفلام
+                        if (!allMovies.some(m => m.tmdb_id === movie.tmdb_id)) {
+                            const tmdbData = await fetchTMDBData(movie.tmdb_id);
+                            if (tmdbData) {
+                                allMovies.push({
+                                    title: movie.title,
+                                    tmdb_id: movie.tmdb_id,
+                                });
+                            }
+                        }
+                    }
+                    pageNumber++;
+                } else {
+                    hasMorePages = false;
+                }
+            }
 
-        movieBox.appendChild(movieLink);
-        movieList.appendChild(movieBox);
-    });
-}
+            displayedMovies = [...allMovies];
+            updateMovieList();
+        }
 
-document.getElementById('search-box').addEventListener('input', async (event) => {
-    const query = event.target.value;
-    if (query.length >= 3) { // البحث فقط عند إدخال 3 أحرف على الأقل
-        displayedMovies = await searchTMDB(query);
-        updateMovieList();
-    } else {
-        displayedMovies = []; // إعادة تعيين قائمة الأفلام إذا كان الاستعلام قصيرًا جدًا
-        updateMovieList();
-    }
-});
-                    </script>
+        function updateMovieList() {
+            const movieList = document.getElementById('movie-list');
+            movieList.innerHTML = '';
+
+            if (displayedMovies.length === 0) {
+                movieList.innerHTML = '<p>No movies found.</p>';
+                return;
+            }
+
+            displayedMovies.forEach(movie => {
+                const movieBox = document.createElement('div');
+                movieBox.className = 'movie-box';
+
+                const movieLink = document.createElement('a');
+                movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
+                movieLink.target = '_blank';
+
+                const movieTitle = document.createElement('span');
+                movieTitle.textContent = movie.title || 'Unnamed Movie';
+                movieLink.appendChild(movieTitle);
+
+                movieBox.appendChild(movieLink);
+                movieList.appendChild(movieBox);
+            });
+
+            console.log('Movies displayed:', displayedMovies); // Debugging
+        }
+
+        function filterMovies(query) {
+            displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
+            updateMovieList();
+        }
+
+        document.getElementById('search-box').addEventListener('input', (event) => {
+            filterMovies(event.target.value);
+        });
+
+        window.onload = fetchAllMovies;
+    </script>
 
 </body>
 </html>
