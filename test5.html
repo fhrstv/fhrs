@@ -58,89 +58,38 @@
 
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-let allMovies = [];
-let displayedMovies = [];
 
-async function fetchTMDBData(tmdbId) {
-    const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}`;
+async function searchMovies(query) {
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=en-US`;
 
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error('Failed to fetch data from TMDB for ' + tmdbId);
+            throw new Error('Failed to fetch search results');
         }
         const data = await response.json();
-        
-        // استبعاد الأفلام العربية
-        if (!data.original_language || data.original_language === 'ar') {
-            return null;
-        }
-
-        return data;
+        return data.results || [];
     } catch (error) {
-        console.error('Error fetching TMDB data for', tmdbId, error);
-        return null;
-    }
-}
-
-async function fetchMoviesFromPage(pageNumber) {
-    const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
-
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Failed to load page ' + pageNumber);
-        }
-        const data = await response.json();
-        return data.result || [];
-    } catch (error) {
-        console.error('Error fetching movies from page', pageNumber, error);
+        console.error('Error searching movies:', error);
         return [];
     }
 }
 
-async function fetchAllMovies() {
-    let pageNumber = 1;
-    let hasMorePages = true;
-
-    while (hasMorePages && pageNumber <= 10) { // تقليل عدد الصفحات للتحميل
-        const pageData = await fetchMoviesFromPage(pageNumber);
-
-        if (pageData && pageData.length > 0) {
-            for (const movie of pageData) {
-                const tmdbData = await fetchTMDBData(movie.tmdb_id);
-                if (tmdbData) {
-                    allMovies.push({
-                        title: tmdbData.title,
-                        tmdb_id: tmdbData.id,
-                    });
-                }
-            }
-            pageNumber++;
-        } else {
-            hasMorePages = false;
-        }
-    }
-
-    displayedMovies = [...allMovies];
-    updateMovieList();
-}
-
-function updateMovieList() {
+function updateMovieList(movies) {
     const movieList = document.getElementById('movie-list');
     movieList.innerHTML = '';
 
-    if (displayedMovies.length === 0) {
+    if (movies.length === 0) {
         movieList.innerHTML = '<p>No movies found.</p>';
         return;
     }
 
-    displayedMovies.forEach(movie => {
+    movies.forEach(movie => {
         const movieBox = document.createElement('div');
         movieBox.className = 'movie-box';
 
         const movieLink = document.createElement('a');
-        movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
+        movieLink.href = `movie.html?tmdb_id=${movie.id}`;
         movieLink.target = '_blank';
 
         const movieTitle = document.createElement('span');
@@ -152,16 +101,21 @@ function updateMovieList() {
     });
 }
 
-function filterMovies(query) {
-    displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
-    updateMovieList();
-}
-
-document.getElementById('search-box').addEventListener('input', (event) => {
-    filterMovies(event.target.value);
+document.getElementById('search-box').addEventListener('input', async (event) => {
+    const query = event.target.value;
+    if (query.length > 2) { // البحث يبدأ بعد إدخال 3 أحرف على الأقل
+        const movies = await searchMovies(query);
+        updateMovieList(movies);
+    } else {
+        document.getElementById('movie-list').innerHTML = '';
+    }
 });
 
-window.onload = fetchAllMovies;
+window.onload = async () => {
+    // يمكن البحث عن الأفلام الأكثر شهرة أو أي تصنيف افتراضي عند تحميل الصفحة
+    const popularMovies = await searchMovies('');
+    updateMovieList(popularMovies);
+};
     </script>
 
 </body>
