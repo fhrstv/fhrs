@@ -43,8 +43,10 @@ loadAllHtmlFiles();
 // ربط زر "الاختيار العشوائي" بالدالة
 document.getElementById('randomButton').addEventListener('click', getRandomHtmlFile);
 
-// تحقق من أن السكربت يتم تحميله مباشرة من URL
+// تحقق من أن السكربت يتم تحميله مباشرة من console.log("Checking path...");
 if (window.location.pathname === '/random.js') {
-    // حول المستخدم إلى صفحة 404
+    console.log("Redirecting to 404.html");
     window.location.replace('/404.html');
+} else {
+    console.log("Not the random.js path");
 }
