@@ -1,0 +1,5 @@
+exclude:
+  - random.js
+
+include:
+  - index.html
