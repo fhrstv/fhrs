@@ -57,21 +57,44 @@
     <div id="movie-list" class="movie-container"></div>
 
     <script>
-        function generatePageUrls(totalPages) {
-    const baseUrl = 'https://vidsrc.xyz/movies/latest/page-';
-    const urls = [];
+        const apiUrl = 'https://vidsrc.xyz/movies/latest/page-';
+const maxPages = 1543;
+const movieList = document.getElementById('movie-list');
 
-    for (let i = 1; i <= totalPages; i++) {
-        urls.push(`${baseUrl}${i}.json`);
+async function fetchMoviesFromPage(pageNumber) {
+  const url = `${apiUrl}${pageNumber}.json`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to load page ${pageNumber}`);
     }
-
-    return urls;
+    const data = await response.json();
+    return data.result || [];
+  } catch (error) {
+    console.error(`Error fetching movies from page ${pageNumber}`, error);
+    return [];
+  }
 }
 
-// توليد الروابط من 1 إلى 1543
-const urls = generatePageUrls(1543);
-console.log(urls);
+async function fetchAllMovies() {
+  for (let pageNumber = 1; pageNumber <= maxPages; pageNumber++) {
+    const movies = await fetchMoviesFromPage(pageNumber);
+    movies.forEach((movie) => {
+      const movieBox = document.createElement('div');
+      movieBox.className = 'movie-box';
+      movieBox.style.border = '1px solid red';
+      movieBox.style.padding = '10px';
+      movieBox.style.margin = '10px';
+      const movieTitle = document.createElement('span');
+      movieTitle.textContent = movie.title || 'Unnamed Movie';
+      movieTitle.style.color = 'red';
+      movieBox.appendChild(movieTitle);
+      movieList.appendChild(movieBox);
+    });
+  }
+}
 
+fetchAllMovies();
 // يمكنك استخدام الروابط لتصفية الأفلام أو أي عملية أخرى
     </script>
 
