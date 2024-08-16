@@ -60,23 +60,34 @@
         let allMovies = [];
 let displayedMovies = [];
 
-// دالة البحث عن الأفلام بواسطة العنوان في IMDb
-async function searchMoviesByTitle(query) {
-    const url = `https://vidsrc.xyz/api/search/${encodeURIComponent(query)}`;
+// دالة تحميل الأفلام من ملف JSON معين
+async function loadMoviesFromPage(pageNumber) {
+    const url = `vidsrcs/page-${pageNumber}.json`; // استبدل هذا بالمسار الصحيح
 
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error('Failed to search movies for ' + query);
+            throw new Error('Failed to load movies from page ' + pageNumber);
         }
         const data = await response.json();
-        return data.result || [];
+        return data.result || []; // تأكد من أن البيانات موجودة داخل result
     } catch (error) {
-        console.error('Error searching movies with title', query, error);
+        console.error('Error loading movies from page', pageNumber, error);
         return [];
     }
 }
 
+// دالة لتحميل جميع الصفحات
+async function loadAllMovies() {
+    for (let i = 1; i <= 1543; i++) {
+        const moviesFromPage = await loadMoviesFromPage(i);
+        allMovies = allMovies.concat(moviesFromPage);
+    }
+    displayedMovies = allMovies;
+    updateMovieList();
+}
+
+// دالة لتحديث قائمة الأفلام المعروضة
 function updateMovieList() {
     const movieList = document.getElementById('movie-list');
     movieList.innerHTML = '';
@@ -98,27 +109,25 @@ function updateMovieList() {
     });
 }
 
-// تعديل دالة البحث لتقوم بالبحث بواسطة عنوان الفيلم فقط
-async function filterMovies(query) {
+// دالة لتصفية الأفلام بناءً على عنوان الفيلم
+function filterMovies(query) {
     if (query.trim() === "") {
         displayedMovies = allMovies;
     } else {
-        const searchResults = await searchMoviesByTitle(query);
-        displayedMovies = searchResults.map(movie => ({
-            title: movie.title,
-            imdb_id: movie.imdb_id // تأكد من أن المفتاح هو imdb_id
-        }));
+        displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
     }
     updateMovieList();
 }
 
+// تحميل جميع الأفلام عند تحميل الصفحة
+window.onload = async () => {
+    await loadAllMovies();
+};
+
+// إضافة حدث على مربع البحث لتصفية الأفلام
 document.getElementById('search-box').addEventListener('input', (event) => {
     filterMovies(event.target.value);
 });
-
-window.onload = () => {
-    // قد ترغب في تحميل بعض الأفلام بشكل مبدئي إذا كنت بحاجة لذلك
-};
     </script>
 
 </body>
