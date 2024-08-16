@@ -162,7 +162,7 @@ function updateMovieList() {
 }
 
 function filterMovies(query) {
-    displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
+    displayedMovies = allMovies.filter(movie => movie.title.toLowerCase() === query.toLowerCase());
     updateMovieList();
 }
 
