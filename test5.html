@@ -46,6 +46,11 @@
             display: block;
             margin-top: 10px;
         }
+        .no-results {
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -138,6 +143,14 @@
         function updateMovieList() {
             const movieList = document.getElementById('movie-list');
             movieList.innerHTML = '';
+
+            if (displayedMovies.length === 0) {
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.textContent = 'No movies found';
+                movieList.appendChild(noResults);
+                return;
+            }
 
             displayedMovies.forEach(movie => {
                 const movieBox = document.createElement('div');
