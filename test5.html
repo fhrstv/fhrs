@@ -83,6 +83,7 @@ async function loadAllMovies() {
         const moviesFromPage = await loadMoviesFromPage(i);
         allMovies = allMovies.concat(moviesFromPage);
     }
+    allMovies.sort((a, b) => a.title.localeCompare(b.title)); // ترتيب الأفلام أبجديًا
     displayedMovies = allMovies;
     updateMovieList();
 }
