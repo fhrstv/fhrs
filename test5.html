@@ -86,10 +86,11 @@ function updateMovieList(movies) {
         const movieBox = document.createElement('div');
         movieBox.className = 'movie-box';
 
-        const movieTitle = document.createElement('span');
-        movieTitle.textContent = movie.title || 'Unnamed Movie';
-
-        movieBox.appendChild(movieTitle);
+        const movieLink = document.createElement('a');
+        movieLink.href = `movie.html?imdb_id=${movie.imdb_id}&tmdb_id=${movie.tmdb_id}`;
+        movieLink.textContent = movie.title || 'Unnamed Movie';
+        
+        movieBox.appendChild(movieLink);
         movieList.appendChild(movieBox);
     });
 }
