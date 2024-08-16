@@ -1,16 +1,13 @@
 import requests
-import json
 
-api_url = 'https://vidsrc.xyz/movies/latest/page-'
-max_pages = 1543
+base_url = 'https://vidsrc.xyz/movies/latest/page-'
+total_pages = 1543
 
-movies = []
-
-for page in range(1, max_pages + 1):
-    url = f'{api_url}{page}.json'
+for page in range(1, total_pages + 1):
+    url = f'{base_url}{page}.json'
     response = requests.get(url)
-    data = response.json()
-    movies.extend(data['result'])
-
-with open('movies.json', 'w') as f:
-    json.dump(movies, f)
+    if response.status_code == 200:
+        with open(f'page-{page}.json', 'wb') as file:
+            file.write(response.content)
+    else:
+        print(f'Failed to download page {page}')
