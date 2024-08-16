@@ -1,41 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Movie List</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    #movie-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    #movie-list li {
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة عناوين الأفلام</title>
+    <script>
+        async function getMoviesList() {
+            try {
+                // قائمة معرّفات الأفلام
+                const movieIds = ['tt5433140', 'tt0111161', 'tt0468569']; // أضف المزيد من المعرفات هنا
+                const movieListElement = document.getElementById('movieList');
+                movieListElement.innerHTML = 'جاري جلب البيانات...';
+
+                // استدعاء البيانات لكل فيلم
+                const fetchPromises = movieIds.map(id =>
+                    fetch(`https://vidsrc.xyz/embed/movie?imdb=${id}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => ({
+                            id,
+                            title: data.title || 'عنوان غير متوفر'
+                        }))
+                        .catch(error => ({
+                            id,
+                            title: 'حدث خطأ في جلب العنوان'
+                        }))
+                );
+
+                // الانتظار حتى يتم جلب جميع البيانات
+                const moviesData = await Promise.all(fetchPromises);
+
+                // التحقق من وجود بيانات وعرضها
+                if (moviesData && moviesData.length > 0) {
+                    movieListElement.innerHTML = ''; // مسح النص الحالي
+                    moviesData.forEach(movie => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `فيلم ${movie.id}: ${movie.title}`;
+                        movieListElement.appendChild(listItem);
+                    });
+                } else {
+                    movieListElement.textContent = 'لا توجد أفلام لعرضها';
+                }
+            } catch (error) {
+                console.error('حدث خطأ:', error);
+                document.getElementById('movieList').textContent = 'حدث خطأ أثناء جلب البيانات';
+            }
+        }
+
+        // استدعاء الدالة عند تحميل الصفحة
+        window.onload = getMoviesList;
+    </script>
 </head>
 <body>
-  <h1>Movie List</h1>
-  <ul id="movie-list"></ul>
-  <script>
-    const apiUrl = 'https://vidsrc.xyz/movies/latest/page-1.json';
-const movieList = document.getElementById('movie-list');
-
-fetch(apiUrl)
-  .then(response => response.json())
-  .then(data => {
-    data.results.forEach(movie => {
-      const movieItem = document.createElement('li');
-      movieItem.textContent = movie.title;
-      movieList.appendChild(movieItem);
-    });
-  })
-  .catch(error => console.error(error));
-  </script>
+    <h1>قائمة عناوين الأفلام</h1>
+    <ul id="movieList">جاري جلب البيانات...</ul>
 </body>
 </html>
