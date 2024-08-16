@@ -65,6 +65,7 @@
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
         let allMovies = [];
         let displayedMovies = [];
+        const maxPages = 2000; // Maximum number of pages to fetch
 
         async function fetchMoviesFromPage(pageNumber) {
             const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
@@ -104,32 +105,34 @@
             const movieList = document.getElementById('movie-list');
             movieList.innerHTML = '';
 
-            while (hasMorePages) {
+            while (hasMorePages && pageNumber <= maxPages) {
+                console.log(`Fetching page ${pageNumber}...`);
                 const pageData = await fetchMoviesFromPage(pageNumber);
 
                 if (pageData && pageData.length > 0) {
                     for (const movie of pageData) {
                         const tmdbData = await fetchTMDBData(movie.tmdb_id);
-                        const movieBox = document.createElement('div');
-                        movieBox.className = 'movie-box';
+                        if (tmdbData) {
+                            const movieBox = document.createElement('div');
+                            movieBox.className = 'movie-box';
 
-                        const movieLink = document.createElement('a');
-                        movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
-                        movieLink.target = '_blank';
+                            const movieLink = document.createElement('a');
+                            movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
+                            movieLink.target = '_blank';
 
-                        const movieTitle = document.createElement('span');
-                        movieTitle.textContent = movie.title || 'Unnamed Movie';
-                        movieLink.appendChild(movieTitle);
+                            const movieTitle = document.createElement('span');
+                            movieTitle.textContent = movie.title || 'Unnamed Movie';
+                            movieLink.appendChild(movieTitle);
 
-                        movieBox.appendChild(movieLink);
-                        movieList.appendChild(movieBox);
+                            movieBox.appendChild(movieLink);
+                            movieList.appendChild(movieBox);
 
-                        allMovies.push({
-                            title: movie.title,
-                            tmdb_id: movie.tmdb_id,
-                        });
+                            allMovies.push({
+                                title: movie.title,
+                                tmdb_id: movie.tmdb_id,
+                            });
+                        }
                     }
-
                     pageNumber++;
                 } else {
                     hasMorePages = false;
