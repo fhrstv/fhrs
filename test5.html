@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies from Vidsrc</title>
+    <title>Movies from Vidsrc and TMDB</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,10 +33,12 @@
 </head>
 <body>
 
-    <h1>All Movies from Vidsrc</h1>
+    <h1>Movies from Vidsrc with TMDB Info</h1>
     <div id="movie-list" class="movie-container"></div>
 
     <script>
+        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+
         async function fetchMoviesFromPage(pageNumber) {
             const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
 
@@ -54,6 +56,24 @@
             }
         }
 
+        async function fetchTMDBData(movieTitle) {
+            const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(movieTitle)}`;
+
+            try {
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data from TMDB for ' + movieTitle);
+                }
+
+                const data = await response.json();
+                return data.results[0]; // نأخذ النتيجة الأولى من TMDB
+            } catch (error) {
+                console.error('Error fetching TMDB data for', movieTitle, error);
+                return null;
+            }
+        }
+
         async function fetchAllMovies() {
             let pageNumber = 1;
             let hasMorePages = true;
@@ -64,7 +84,8 @@
                 const pageData = await fetchMoviesFromPage(pageNumber);
 
                 if (pageData && pageData.length > 0) {
-                    pageData.forEach(movie => {
+                    for (const movie of pageData) {
+                        const tmdbData = await fetchTMDBData(movie.title);
                         const movieBox = document.createElement('div');
                         movieBox.className = 'movie-box';
 
@@ -73,9 +94,15 @@
                         movieLink.target = '_blank';
                         movieLink.textContent = movie.title || 'Unnamed Movie';
 
+                        if (tmdbData) {
+                            const tmdbInfo = document.createElement('p');
+                            tmdbInfo.textContent = `TMDB: ${tmdbData.title} (${tmdbData.release_date})`;
+                            movieBox.appendChild(tmdbInfo);
+                        }
+
                         movieBox.appendChild(movieLink);
                         movieList.appendChild(movieBox);
-                    });
+                    }
 
                     pageNumber++;
                 } else {
