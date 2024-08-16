@@ -64,104 +64,88 @@
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
 let allMovies = [];
+let displayedMovies = [];
+let currentPage = 1;
+let fetching = false;
 
 async function fetchMoviesFromPage(pageNumber) {
-  const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
+    const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
 
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('Failed to load page ' + pageNumber);
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to load page ' + pageNumber);
+        }
+        const data = await response.json();
+        return data.result || [];
+    } catch (error) {
+        console.error('Error fetching movies from page', pageNumber, error);
+        return [];
     }
-    const data = await response.json();
-    return data.result || [];
-  } catch (error) {
-    console.error('Error fetching movies from page', pageNumber, error);
-    return [];
-  }
 }
 
 async function fetchAllMovies() {
-  let pageNumber = 1;
-  let hasMorePages = true;
+    if (fetching) return;
+    fetching = true;
 
-  while (hasMorePages && pageNumber <= 1543) {
-    const pageData = await fetchMoviesFromPage(pageNumber);
+    while (true) {
+        const pageData = await fetchMoviesFromPage(currentPage);
 
-    if (pageData && pageData.length > 0) {
-      allMovies = allMovies.concat(pageData);
-      pageNumber++;
-    } else {
-      hasMorePages = false;
+        if (pageData.length === 0) {
+            break; // توقف إذا لم يكن هناك بيانات في الصفحة
+        }
+
+        allMovies = allMovies.concat(pageData);
+        currentPage++;
     }
-  }
 
-  // Sort the movies in alphabetical order
-  allMovies.sort((a, b) => {
-    const titleA = a.title.toLowerCase();
-    const titleB = b.title.toLowerCase();
-    if (titleA < titleB) return -1;
-    if (titleA > titleB) return 1;
-    return 0;
-  });
+    // ترتيب الأفلام حسب العنوان من A إلى Z
+    allMovies.sort((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }));
 
-  console.log('All movies fetched and sorted:', allMovies);
+    displayedMovies = [...allMovies];
+    updateMovieList();
+    fetching = false;
 }
 
-function searchMovieByTitle(title) {
-  console.log('Searching for movie:', title);
-  const exactMatch = allMovies.find(movie => movie.title.toLowerCase() === title.toLowerCase());
-  console.log('Exact match found:', exactMatch);
-  if (exactMatch) {
-    console.log('Exact match found:', exactMatch);
-    // Display the exact match movie
+function updateMovieList() {
     const movieList = document.getElementById('movie-list');
     movieList.innerHTML = '';
-    const movieBox = document.createElement('div');
-    movieBox.className = 'movie-box';
-    const movieLink = document.createElement('a');
-    movieLink.href = `movie.html?tmdb_id=${exactMatch.tmdb_id}`;
-    movieLink.target = '_blank';
-    const movieTitle = document.createElement('span');
-    movieTitle.textContent = exactMatch.title || 'Unnamed Movie';
-    movieLink.appendChild(movieTitle);
-    movieBox.appendChild(movieLink);
-    movieList.appendChild(movieBox);
-  } else {
-    console.log('No exact match found');
-  }
+
+    if (displayedMovies.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.textContent = 'No movies found';
+        movieList.appendChild(noResults);
+        return;
+    }
+
+    displayedMovies.forEach(movie => {
+        const movieBox = document.createElement('div');
+        movieBox.className = 'movie-box';
+
+        const movieLink = document.createElement('a');
+        movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
+        movieLink.target = '_blank';
+
+        const movieTitle = document.createElement('span');
+        movieTitle.textContent = movie.title || 'Unnamed Movie';
+        movieLink.appendChild(movieTitle);
+
+        movieBox.appendChild(movieLink);
+        movieList.appendChild(movieBox);
+    });
+}
+
+function filterMovies(query) {
+    displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
+    updateMovieList();
 }
 
 document.getElementById('search-box').addEventListener('input', (event) => {
-  console.log('Search box input event triggered:', event.target.value);
-  const searchQuery = event.target.value.trim();
-  if (searchQuery.length > 0) {
-    searchMovieByTitle(searchQuery);
-  } else {
-    // Display the sorted list of movies when the search query is empty
-    const movieList = document.getElementById('movie-list');
-    movieList.innerHTML = '';
-    allMovies.forEach((movie) => {
-      const movieBox = document.createElement('div');
-      movieBox.className = 'movie-box';
-      const movieLink = document.createElement('a');
-      movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
-      movieLink.target = '_blank';
-      const movieTitle = document.createElement('span');
-      movieTitle.textContent = movie.title || 'Unnamed Movie';
-      movieLink.appendChild(movieTitle);
-      movieBox.appendChild(movieLink);
-      movieList.appendChild(movieBox);
-    });
-  }
+    filterMovies(event.target.value);
 });
 
 window.onload = fetchAllMovies;
-
-// Add a test button to test the searchMovieByTitle function
-document.getElementById('test-button').addEventListener('click', () => {
-  searchMovieByTitle('The Shawshank Redemption');
-});
     </script>
 
 </body>
