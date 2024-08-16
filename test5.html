@@ -17,7 +17,7 @@
                     fetch(`https://vidsrc.xyz/embed/movie?imdb=${id}`)
                         .then(response => {
                             if (!response.ok) {
-                                throw new Error('Network response was not ok');
+                                throw new Error(`فشل الطلب للمعرف ${id}: ${response.statusText}`);
                             }
                             return response.json();
                         })
@@ -27,7 +27,7 @@
                         }))
                         .catch(error => ({
                             id,
-                            title: 'حدث خطأ في جلب العنوان'
+                            title: `حدث خطأ: ${error.message}`
                         }))
                 );
 
@@ -47,7 +47,7 @@
                 }
             } catch (error) {
                 console.error('حدث خطأ:', error);
-                document.getElementById('movieList').textContent = 'حدث خطأ أثناء جلب البيانات';
+                document.getElementById('movieList').textContent = 'حدث خطأ أثناء جلب البيانات: ' + error.message;
             }
         }
 
