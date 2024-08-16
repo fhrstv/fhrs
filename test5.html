@@ -66,7 +66,7 @@
 let displayedMovies = [];
 
 async function searchTMDB(query) {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=en-US`;
 
     try {
         const response = await fetch(url);
@@ -74,7 +74,7 @@ async function searchTMDB(query) {
             throw new Error('Failed to search for movies on TMDB');
         }
         const data = await response.json();
-        return data.results || [];
+        return data.results.filter(movie => movie.original_language === 'en'); // تصفية الأفلام التي تكون لغتها الأصلية إنجليزية
     } catch (error) {
         console.error('Error searching TMDB', error);
         return [];
