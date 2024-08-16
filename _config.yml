@@ -1,2 +1,2 @@
-data:
-  random_js: random.js
+plugins:
+  - random_loader
