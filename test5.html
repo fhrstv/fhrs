@@ -27,15 +27,9 @@
 const movieList = document.getElementById('movie-list');
 
 fetch(apiUrl)
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      throw new Error('Error fetching data');
-    }
-  })
+  .then(response => response.json())
   .then(data => {
-    data.forEach(movie => {
+    data.results.forEach(movie => {
       const movieItem = document.createElement('li');
       movieItem.textContent = movie.title;
       movieList.appendChild(movieItem);
