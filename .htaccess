@@ -8,8 +8,8 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
 
-<Files "random.js">
+<FilesMatch "^(random|Movies|Series|Scripit)\.js$">
     Order Allow,Deny
     Deny from all
     ErrorDocument 404 /404.html
-</Files>
+</FilesMatch>
