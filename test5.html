@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies from Vidsrc and TMDB</title>
+    <title>Movies from TMDB</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,49 +58,16 @@
     <div class="search-container">
         <input type="text" id="search-box" placeholder="Search for a movie...">
     </div>
-    <h1>Movies from Vidsrc and TMDB</h1>
+    <h1>Movies from TMDB</h1>
     <div id="movie-list" class="movie-container"></div>
 
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-        const searchEndpoint = 'https://vidsrc.xyz/movies/search';
-        let allMovies = [];
+        const searchEndpoint = 'https://api.themoviedb.org/3/search/movie';
         let displayedMovies = [];
 
-        async function fetchMoviesFromPage(pageNumber) {
-            const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Failed to load page ' + pageNumber);
-                }
-                const data = await response.json();
-                return data.result || [];
-            } catch (error) {
-                console.error('Error fetching movies from page', pageNumber, error);
-                return [];
-            }
-        }
-
-        async function fetchTMDBData(tmdbId) {
-            const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}`;
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch data from TMDB for ' + tmdbId);
-                }
-                const data = await response.json();
-                return data;
-            } catch (error) {
-                console.error('Error fetching TMDB data for', tmdbId, error);
-                return null;
-            }
-        }
-
         async function searchMovies(query) {
-            const url = `${searchEndpoint}?query=${encodeURIComponent(query)}`;
+            const url = `${searchEndpoint}?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
 
             try {
                 const response = await fetch(url);
@@ -108,42 +75,11 @@
                     throw new Error('Failed to search for movies');
                 }
                 const data = await response.json();
-                return data.result || [];
+                return data.results || [];
             } catch (error) {
                 console.error('Error searching movies', error);
                 return [];
             }
-        }
-
-        async function fetchAllMovies() {
-            let pageNumber = 1;
-            const movieList = document.getElementById('movie-list');
-            movieList.innerHTML = '';
-
-            while (pageNumber <= 5) { // Limit to a smaller number of pages to test
-                console.log(`Fetching page ${pageNumber}...`);
-                const pageData = await fetchMoviesFromPage(pageNumber);
-
-                if (pageData && pageData.length > 0) {
-                    for (const movie of pageData) {
-                        if (movie.tmdb_id) {
-                            const tmdbData = await fetchTMDBData(movie.tmdb_id);
-                            if (tmdbData) {
-                                allMovies.push({
-                                    title: movie.title,
-                                    tmdb_id: movie.tmdb_id,
-                                });
-                            }
-                        }
-                    }
-                    pageNumber++;
-                } else {
-                    break; // Exit loop if no more pages
-                }
-            }
-
-            displayedMovies = [...allMovies];
-            updateMovieList();
         }
 
         function updateMovieList() {
@@ -163,7 +99,7 @@
                 movieBox.className = 'movie-box';
 
                 const movieLink = document.createElement('a');
-                movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
+                movieLink.href = `https://www.themoviedb.org/movie/${movie.id}`;
                 movieLink.target = '_blank';
 
                 const movieTitle = document.createElement('span');
@@ -177,24 +113,19 @@
 
         async function handleSearch(query) {
             if (query.trim() === '') {
-                displayedMovies = [...allMovies];
+                displayedMovies = [];
                 updateMovieList();
                 return;
             }
 
             const searchResults = await searchMovies(query);
-            displayedMovies = searchResults.map(movie => ({
-                title: movie.title,
-                tmdb_id: movie.tmdb_id,
-            }));
+            displayedMovies = searchResults;
             updateMovieList();
         }
 
         document.getElementById('search-box').addEventListener('input', (event) => {
             handleSearch(event.target.value);
         });
-
-        window.onload = fetchAllMovies;
     </script>
 
 </body>
