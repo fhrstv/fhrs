@@ -5,7 +5,25 @@
     ErrorDocument 404 /404.html
 </FilesMatch>
 
+<Files "random.js">
+    Order Allow,Deny
+    Deny from all
+    ErrorDocument 404 /404.html
+</Files>
+
 <Files "Movies.js">
+    Order Allow,Deny
+    Deny from all
+    ErrorDocument 404 /404.html
+</Files>
+
+<Files "Series.js">
+    Order Allow,Deny
+    Deny from all
+    ErrorDocument 404 /404.html
+</Files>
+
+<Files "Scripit.js">
     Order Allow,Deny
     Deny from all
     ErrorDocument 404 /404.html
