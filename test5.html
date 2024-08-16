@@ -63,83 +63,82 @@
 
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-        let allMovies = [];
-        let displayedMovies = [];
+let allMovies = [];
+let displayedMovies = [];
+let currentPage = 1;
+const maxPages = 2000; // عدد الصفحات المتوقعة أو القيم العليا التي تتوقعها
 
-        async function fetchMoviesFromPage(pageNumber) {
-            const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
+async function fetchMoviesFromPage(pageNumber) {
+    const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
 
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Failed to load page ' + pageNumber);
-                }
-                const data = await response.json();
-                return data.result || [];
-            } catch (error) {
-                console.error('Error fetching movies from page', pageNumber, error);
-                return [];
-            }
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to load page ' + pageNumber);
         }
+        const data = await response.json();
+        return data.result || [];
+    } catch (error) {
+        console.error('Error fetching movies from page', pageNumber, error);
+        return [];
+    }
+}
 
-        async function fetchAllMovies() {
-            let pageNumber = 15;
-            let hasMorePages = true;
+async function fetchAllMovies() {
+    while (currentPage <= maxPages) {
+        const pageData = await fetchMoviesFromPage(currentPage);
 
-            while (hasMorePages) {
-                const pageData = await fetchMoviesFromPage(pageNumber);
-
-                if (pageData && pageData.length > 0) {
-                    allMovies = allMovies.concat(pageData);
-                    pageNumber++;
-                } else {
-                    hasMorePages = false;
-                }
-            }
-
-            displayedMovies = [...allMovies];
-            updateMovieList();
+        if (pageData.length > 0) {
+            allMovies = allMovies.concat(pageData);
+            currentPage++;
+        } else {
+            break; // لا توجد بيانات في الصفحة الحالية، توقف عن التحميل
         }
+    }
 
-        function updateMovieList() {
-            const movieList = document.getElementById('movie-list');
-            movieList.innerHTML = '';
+    displayedMovies = [...allMovies];
+    updateMovieList();
+}
 
-            if (displayedMovies.length === 0) {
-                const noResults = document.createElement('div');
-                noResults.className = 'no-results';
-                noResults.textContent = 'No movies found';
-                movieList.appendChild(noResults);
-                return;
-            }
+function updateMovieList() {
+    const movieList = document.getElementById('movie-list');
+    movieList.innerHTML = '';
 
-            displayedMovies.forEach(movie => {
-                const movieBox = document.createElement('div');
-                movieBox.className = 'movie-box';
+    if (displayedMovies.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.textContent = 'No movies found';
+        movieList.appendChild(noResults);
+        return;
+    }
 
-                const movieLink = document.createElement('a');
-                movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
-                movieLink.target = '_blank';
+    displayedMovies.forEach(movie => {
+        const movieBox = document.createElement('div');
+        movieBox.className = 'movie-box';
 
-                const movieTitle = document.createElement('span');
-                movieTitle.textContent = movie.title || 'Unnamed Movie';
-                movieLink.appendChild(movieTitle);
+        const movieLink = document.createElement('a');
+        movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
+        movieLink.target = '_blank';
 
-                movieBox.appendChild(movieLink);
-                movieList.appendChild(movieBox);
-            });
-        }
+        const movieTitle = document.createElement('span');
+        movieTitle.textContent = movie.title || 'Unnamed Movie';
+        movieLink.appendChild(movieTitle);
 
-        function filterMovies(query) {
-            displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
-            updateMovieList();
-        }
+        movieBox.appendChild(movieLink);
+        movieList.appendChild(movieBox);
+    });
+}
 
-        document.getElementById('search-box').addEventListener('input', (event) => {
-            filterMovies(event.target.value);
-        });
+function filterMovies(query) {
+    displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
+    updateMovieList();
+}
 
-        window.onload = fetchAllMovies;
+document.getElementById('search-box').addEventListener('input', (event) => {
+    filterMovies(event.target.value);
+});
+
+window.onload = fetchAllMovies;
     </script>
 
 </body>
