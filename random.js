@@ -42,11 +42,3 @@ loadAllHtmlFiles();
 
 // ربط زر "الاختيار العشوائي" بالدالة
 document.getElementById('randomButton').addEventListener('click', getRandomHtmlFile);
-
-
-
-(function() {
-    if (window.location.pathname === '/random.js') {
-        window.location.href = '/404.html';
-    }
-})();
