@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة الأفلام</title>
+    <script>
+        async function getMovies() {
+            try {
+                // إرسال طلب GET إلى API
+                const response = await fetch('https://vidsrc.xyz/embed/movie');
+                // التحقق من نجاح الطلب
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // تحويل الاستجابة إلى JSON
+                const data = await response.json();
+                
+                // العثور على عنصر في الصفحة لعرض البيانات
+                const movieList = document.getElementById('movieList');
+                
+                // التحقق من وجود بيانات
+                if (data && Array.isArray(data.movies)) {
+                    // إنشاء عناصر قائمة وعرضها
+                    data.movies.forEach(movie => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = movie.title || 'عنوان غير متوفر';
+                        movieList.appendChild(listItem);
+                    });
+                } else {
+                    movieList.textContent = 'لا توجد أفلام لعرضها';
+                }
+            } catch (error) {
+                console.error('حدث خطأ:', error);
+                document.getElementById('movieList').textContent = 'حدث خطأ أثناء جلب البيانات';
+            }
+        }
+
+        // استدعاء الدالة عند تحميل الصفحة
+        window.onload = getMovies;
+    </script>
+</head>
+<body>
+    <h1>قائمة الأفلام</h1>
+    <ul id="movieList">جاري جلب البيانات...</ul>
+</body>
+</html>
