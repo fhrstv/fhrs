@@ -57,59 +57,22 @@
     <div id="movie-list" class="movie-container"></div>
 
     <script>
-        async function fetchMovies() {
-    const url = 'vidsrcs/page-1.json';
+        function generatePageUrls(totalPages) {
+    const baseUrl = 'https://vidsrc.xyz/movies/latest/page-';
+    const urls = [];
 
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Failed to load movies');
-        }
-        const data = await response.json();
-        return data.result || [];
-    } catch (error) {
-        console.error('Error fetching movies:', error);
-        return [];
-    }
-}
-
-function updateMovieList(movies) {
-    const movieList = document.getElementById('movie-list');
-    movieList.innerHTML = '';
-
-    if (movies.length === 0) {
-        movieList.innerHTML = '<p>No movies found.</p>';
-        return;
+    for (let i = 1; i <= totalPages; i++) {
+        urls.push(`${baseUrl}${i}.json`);
     }
 
-    movies.forEach(movie => {
-        const movieBox = document.createElement('div');
-        movieBox.className = 'movie-box';
-
-        const movieLink = document.createElement('a');
-        movieLink.href = `movie.html?imdb_id=${movie.imdb_id}&tmdb_id=${movie.tmdb_id}`;
-        movieLink.textContent = movie.title || 'Unnamed Movie';
-        
-        movieBox.appendChild(movieLink);
-        movieList.appendChild(movieBox);
-    });
+    return urls;
 }
 
-function filterMovies(movies, query) {
-    return movies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
-}
+// توليد الروابط من 1 إلى 1543
+const urls = generatePageUrls(1543);
+console.log(urls);
 
-document.getElementById('search-box').addEventListener('input', async (event) => {
-    const query = event.target.value;
-    const allMovies = await fetchMovies();
-    const filteredMovies = filterMovies(allMovies, query);
-    updateMovieList(filteredMovies);
-});
-
-window.onload = async () => {
-    const allMovies = await fetchMovies();
-    updateMovieList(allMovies);
-};
+// يمكنك استخدام الروابط لتصفية الأفلام أو أي عملية أخرى
     </script>
 
 </body>
