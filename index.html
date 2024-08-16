@@ -381,7 +381,9 @@ a {
         </ul>
     </div>
 <script src="scripit.js"></script>
-<script>{{ site.data.random_js }}</script>
+<script>
+  {{ site.data.random_js | strip_newlines }}
+</script>
 <script src="main.js"></script>
 </body>
 </html>
