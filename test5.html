@@ -35,7 +35,7 @@
 </head>
 <body>
 
-    <h1>Movies from Vidsrc with TMDB Info</h1>
+    <h1>Movies from Vidsrc</h1>
     <div id="movie-list" class="movie-container"></div>
 
     <script>
@@ -89,7 +89,6 @@
 
                 if (pageData && pageData.length > 0) {
                     for (const movie of pageData) {
-                        const tmdbData = await fetchTMDBData(movie.tmdb_id);
                         const movieBox = document.createElement('div');
                         movieBox.className = 'movie-box';
 
@@ -97,12 +96,6 @@
                         movieLink.href = movie.embed_url;
                         movieLink.target = '_blank';
                         movieLink.textContent = movie.title || 'Unnamed Movie';
-
-                        if (tmdbData) {
-                            const tmdbInfo = document.createElement('p');
-                            tmdbInfo.textContent = `TMDB: ${tmdbData.title} (${tmdbData.release_date})`;
-                            movieBox.appendChild(tmdbInfo);
-                        }
 
                         movieBox.appendChild(movieLink);
                         movieList.appendChild(movieBox);
