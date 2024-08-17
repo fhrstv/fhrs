@@ -33,29 +33,10 @@
       text-align: center;
     }
 
-    .movie-list {
-      list-style-type: none;
-      padding: 0;
-      text-align: center;
-      max-height: 300px;
-      overflow-y: auto;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .movie-item {
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
-      cursor: pointer;
-    }
-
-    .movie-item:hover {
-      background-color: #f0f0f0;
-    }
-
     .search-box {
       text-align: center;
       margin-top: 20px;
+      position: relative;
     }
 
     #search-input {
@@ -71,6 +52,39 @@
     #search-input:focus {
       transform: scale(1.1);
       outline: none;
+    }
+
+    .movie-list {
+      list-style-type: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 0 0 5px 5px;
+      position: absolute;
+      top: calc(100% - 2px); /* Align it directly below the search input, -2px to remove the gap */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 300px;
+      background-color: #fff;
+      z-index: 1;
+      display: none;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .movie-list.show {
+      display: block;
+    }
+
+    .movie-item {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    .movie-item:hover {
+      background-color: #f0f0f0;
     }
 
     .head-center {
@@ -102,6 +116,7 @@
         margin-top: 10px;
       }
     }
+
   </style>
 </head>
 <body>
@@ -110,14 +125,13 @@
   </header>
   <div class="content">
     <h2>الأفلام الأجنبية والأنمي والعربية</h2>
-    <br> تحديث الأفلام في موقعنا يوميًا
     <div class="search-box">
-      <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
+        <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
+      
+        <ul class="movie-list">
+          <!-- list items here -->
+        </ul>
     </div>
-    <div id="movie-list" class="movie-list"></div>
-    <ul class="head-center">
-      <li class="head-item"><a href="/">رجوع</a></li>
-    </ul>
   </div>
   <script>
     const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
@@ -141,13 +155,11 @@
             const aTitle = a.title.toLowerCase();
             const bTitle = b.title.toLowerCase();
 
-            // الترتيب الأبجدي A to Z
             const titleComparison = aTitle.localeCompare(bTitle);
             if (titleComparison !== 0) {
                 return titleComparison;
             }
 
-            // ترتيب بناءً على تاريخ الإصدار من الأقدم إلى الأحدث
             const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
             const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
             return aYear - bYear;
@@ -156,11 +168,11 @@
 
     function updateMovieList(movies) {
         const sortedMovies = sortMovies(movies);
-        const movieList = document.getElementById('movie-list');
+        const movieList = document.querySelector('.movie-list');
         movieList.innerHTML = '';
 
         sortedMovies.forEach(movie => {
-            const movieItem = document.createElement('div');
+            const movieItem = document.createElement('li');
             movieItem.className = 'movie-item';
             
             const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown Year';
@@ -183,7 +195,7 @@
             allMovies = await searchMovies(query);
             updateMovieList(allMovies);
         } else {
-            document.getElementById('movie-list').style.display = 'none';
+            document.querySelector('.movie-list').style.display = 'none';
         }
     });
   </script>
