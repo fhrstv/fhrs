@@ -147,6 +147,25 @@ async function displayMovieDetails() {
 }
 
 window.onload = displayMovieDetails;
+
+
+
+// تأكد من أن هذا السكريبت يتم تحميله بعد تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    // العثور على إطار المحتوى
+    const container = document.querySelector('.movie-embed-container');
+    
+    // التحقق من وجود الإطار
+    if (container) {
+        // التحقق من وجود العنصر الذي يحتوي على الرسالة
+        const errorElement = container.querySelector('#error');
+        
+        if (errorElement && errorElement.innerText.includes('This media is unavailable at the moment.')) {
+            // تحويل الصفحة إلى 404.html
+            window.location.href = '404.html';
+        }
+    }
+});
     </script>
 
 </body>
