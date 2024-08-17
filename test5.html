@@ -79,8 +79,9 @@
                 movieItem.textContent = `${movie.title || 'Unnamed Movie'} (${releaseYear})`;
                 movieItem.dataset.id = movie.id;
 
+                // تحويل عند الضغط على الفيلم إلى صفحة movie.html مع tmdb_id
                 movieItem.addEventListener('click', () => {
-                    window.location.href = `https://www.themoviedb.org/movie/${movie.id}`;
+                    window.location.href = `movie.html?tmdb_id=${movie.id}`;
                 });
 
                 movieList.appendChild(movieItem);
