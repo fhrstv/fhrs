@@ -62,7 +62,7 @@ let displayedMovies = [];
 
 // دالة تحميل الأفلام من ملف JSON معين
 async function loadMoviesFromPage(pageNumber) {
-    const url = `vidsrcs/page-${pageNumber}.json`; // استبدل هذا بالمسار الصحيح
+    const url = `watch/Movie/page-${pageNumber}.json`; // استبدل هذا بالمسار الصحيح
 
     try {
         const response = await fetch(url);
