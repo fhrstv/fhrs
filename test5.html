@@ -2,11 +2,108 @@
 <html>
 <head>
   <title>فهرس</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <script src="script.js" defer></script>
-  <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="script.js" defer></script>
+    <script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      color: #000;
+    }
+
+    header {
+      background-color: #333;
+      color: hsl(0, 94%, 46%);
+      text-align: center;
+      padding: 10px;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .content {
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .movie-list {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
+
+    .head-center {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
+
+    .movie-item {
+      margin: 10px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: red;
+      transition: background-color 0.3s;
+      font-size: 25px;
+    }
+
+    a:hover {
+      background-color: gold;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #search-input {
+      touch-action: none;
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 24px;
+      }
+      .search-box {
+        margin-top: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -14,75 +111,18 @@
   </header>
   <div class="content">
     <h2>الافلام الاجنبية و الانمي و العربية</h2>
-    <br> تحديث الافلام في موقعنا يوميا
+<br> تحديث الافلام في موقعنا يوميا
     <div class="search-box">
       <input type="text" id="search-input" dir="auto" style="text-align: center;" placeholder="اكتب اسم فلمك هنا">
-      <input type="text" id="release-date-input" placeholder="اكتب تاريخ الاصدار">
-      <button id="search-button">Search</button>
     </div>
     <ul class="head-center">
       <li class="head-item"><a href="/">رجوع</a></li>
-    </ul>
-    <ul id="movie-list" class="movie-list"></ul>
-  </div>
-       <script>
-  // Import tmdbIds from tmdb.js
-// Import tmdbIds from tmdb.js
-// Import tmdbIds from tmdb.js
-import { tmdbIds } from './tmdb.js';
+        </ul>
+            <ul class="movie-list" id="movie-list">
+  <li id="loading-message">جاري تحميل الأفلام...</li>
+</ul>
 
-// Function to fetch movie data from TMDB API
-async function fetchMovieData(id) {
-  const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=cf64a661774f647b7513facb9f1e55e5&language=en-US`);
-  return response.json();
-}
-
-// Function to search for movies by title and release date
-async function searchMovies(query) {
-  console.log('Searching for movies...');
-  const searchResults = [];
-  for (const id of tmdbIds) {
-    const movieData = await fetchMovieData(id);
-    if (
-      movieData.title.toLowerCase().includes(query.title.toLowerCase()) &&
-      (query.releaseDate === '' || movieData.release_date.includes(query.releaseDate))
-    ) {
-      searchResults.push({
-        title: movieData.title,
-        year: movieData.release_date ? new Date(movieData.release_date).getFullYear() : 'Unknown Year',
-        id: movieData.id,
-      });
-    }
-  }
-  console.log('Search results:', searchResults);
-  displayMovies(searchResults);
-}
-
-// Function to display search results
-function displayMovies(movies) {
-  const seriesList = document.getElementById('movie-list');
-  seriesList.innerHTML = '';
-  movies.forEach(movie => {
-    const listItem = document.createElement('li');
-    listItem.classList.add('movie-item');
-    listItem.innerHTML = `<a href="movie.html?tmdb_id=${movie.id}" rel="noopener noreferrer">${movie.title} (${movie.year})</a>`;
-    seriesList.appendChild(listItem);
-  });
-}
-
-// Add event listener to search button
-const searchButton = document.getElementById('search-button');
-searchButton.addEventListener('click', function() {
-  console.log('Search button clicked!');
-  const titleQuery = document.getElementById('search-input').value.trim();
-  const releaseDateQuery = document.getElementById('release-date-input').value.trim();
-  console.log('Search query:', titleQuery, releaseDateQuery);
-  if (titleQuery.length > 2) {
-    console.log('Calling
-      </script>
+<script src="random.js"></script>
+<script src="Movies.js"></script>
 </body>
 </html>
-
-
-
-
