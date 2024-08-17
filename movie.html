@@ -137,7 +137,7 @@ function checkIframeContent() {
             } catch (e) {
                 console.warn('Could not access iframe content due to cross-origin restrictions.');
             }
-        }, 5000); // انتظر 5 ثوان بعد تحميل iframe
+        }, 3000); // انتظر 3 ثوان بعد تحميل iframe
     };
 
     setTimeout(() => {
@@ -169,7 +169,7 @@ async function displayMovieDetails() {
         document.querySelector('img').src = `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`;
         document.getElementById('release-date').textContent = movieData.release_date || 'N/A';
         document.getElementById('overview').textContent = movieData.overview || 'No overview available.';
-        document.getElementById('movie-embed').src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
+        document.querySelector('.movie-embed').src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
         
         // Find the first trailer and display it
         const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
