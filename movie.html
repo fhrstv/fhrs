@@ -119,11 +119,6 @@ function getQueryParameter(name) {
     return urlParams.get(name);
 }
 
-function displayErrorMessage() {
-    document.querySelector('.movie-details').style.display = 'none';
-    document.querySelector('#error-message').style.display = 'block';
-}
-
 async function displayMovieDetails() {
     const tmdbId = getQueryParameter('tmdb_id');
     if (!tmdbId) {
@@ -144,7 +139,7 @@ async function displayMovieDetails() {
         const movieEmbedIframe = document.createElement('iframe');
         movieEmbedIframe.src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
         movieEmbedIframe.className = 'movie-embed';
-        
+
         // Add the iframe to the container
         const movieEmbedContainer = document.getElementById('movie-embed-container');
         movieEmbedContainer.innerHTML = ''; // Clear previous content
@@ -158,12 +153,13 @@ async function displayMovieDetails() {
                 if (iframeDoc) {
                     const errorMessage = iframeDoc.body.innerText.includes('This media is unavailable at the moment');
                     if (errorMessage) {
-                        displayErrorMessage(); // Display error message if specific text is found
+                        document.querySelector('.block-msg').style.display = 'block'; // Show block message
+                        document.querySelector('.movie-embed').style.display = 'none'; // Hide iframe
                     }
                 }
             } catch (error) {
                 // Handle cross-origin errors or any other issues
-                displayErrorMessage();
+                console.error(error);
             }
         }, 1000); // Adjust timeout as needed (5 seconds)
 
