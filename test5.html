@@ -172,6 +172,11 @@ Promise.all(tmdbIds.map(id =>
     });
   });
   
+  const listItems = Array.from(seriesList.getElementsByClassName('movie-item'));
+  listItems.sort((a, b) => a.textContent.localeCompare(b.textContent));
+  listItems.forEach(item => seriesList.appendChild(item));
+
+  // إضافة مستمع الحدث لكل عنصر في القائمة
   seriesList.addEventListener('click', function(event) {
     const target = event.target;
     if (target && target.classList.contains('movie-item')) {
@@ -181,6 +186,7 @@ Promise.all(tmdbIds.map(id =>
       }
     }
   });
+
 
 
   searchInput.addEventListener('keypress', function(event) {
