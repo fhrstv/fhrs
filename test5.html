@@ -41,17 +41,12 @@
 
     #search-input {
       padding: 10px;
-      border-radius: 5px;
+      border-radius: 5px 5px 0 0;
       border: 1px solid #ccc;
       width: 100%;
       max-width: 300px;
-      transition: transform 0.3s ease;
       text-align: center;
-    }
-
-    #search-input:focus {
-      transform: scale(1.1);
-      outline: none;
+      box-sizing: border-box;
     }
 
     .movie-list {
@@ -60,17 +55,18 @@
       max-height: 300px;
       overflow-y: auto;
       border: 1px solid #ccc;
+      border-top: none;
       border-radius: 0 0 5px 5px;
       position: absolute;
-      top: calc(100% - 2px); /* Align it directly below the search input, -2px to remove the gap */
-      left: 50%;
-      transform: translateX(-50%);
       width: 100%;
       max-width: 300px;
       background-color: #fff;
       z-index: 1;
       display: none;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      left: 0;
+      right: 0;
+      margin: auto;
     }
 
     .movie-list.show {
@@ -87,27 +83,6 @@
       background-color: #f0f0f0;
     }
 
-    .head-center {
-      list-style-type: none;
-      padding: 0;
-      text-align: center;
-    }
-
-    .head-item a {
-      text-decoration: none;
-      color: #333;
-      display: block;
-      padding: 20px;
-      border-radius: 5px;
-      background-color: red;
-      transition: background-color 0.3s;
-      font-size: 25px;
-    }
-
-    .head-item a:hover {
-      background-color: gold;
-    }
-
     @media (max-width: 600px) {
       h2 {
         font-size: 24px;
@@ -116,7 +91,6 @@
         margin-top: 10px;
       }
     }
-
   </style>
 </head>
 <body>
@@ -126,11 +100,8 @@
   <div class="content">
     <h2>الأفلام الأجنبية والأنمي والعربية</h2>
     <div class="search-box">
-        <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
-      
-        <ul class="movie-list">
-          <!-- list items here -->
-        </ul>
+      <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
+      <ul class="movie-list"></ul>
     </div>
   </div>
   <script>
