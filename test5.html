@@ -33,25 +33,30 @@
       text-align: center;
     }
 
-    .movie-list {
-      list-style-type: none;
-      padding: 0;
-      text-align: center;
-      max-height: 300px;
-      overflow-y: auto;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
+    #movie-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: calc(100% - 20px); /* لضبط العرض مع عرض مربع البحث */
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: none;
+}
 
-    .movie-item {
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
-      cursor: pointer;
-    }
+.movie-item {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
 
-    .movie-item:hover {
-      background-color: #f0f0f0;
-    }
+.movie-item:hover {
+  background-color: #f0f0f0;
+}
 
     .search-box {
       text-align: center;
@@ -177,15 +182,31 @@
         movieList.style.display = sortedMovies.length ? 'block' : 'none';
     }
 
-    document.getElementById('search-input').addEventListener('input', async (event) => {
-        const query = event.target.value.trim();
-        if (query.length > 2) {
-            allMovies = await searchMovies(query);
-            updateMovieList(allMovies);
-        } else {
-            document.getElementById('movie-list').style.display = 'none';
-        }
-    });
+    const searchInput = document.getElementById('search-input');
+const movieList = document.getElementById('movie-list');
+
+searchInput.addEventListener('focus', () => {
+    if (allMovies.length > 0) {
+        movieList.style.display = 'block';
+    }
+});
+
+searchInput.addEventListener('blur', () => {
+    setTimeout(() => {
+        movieList.style.display = 'none';
+    }, 200);
+});
+
+searchInput.addEventListener('input', async (event) => {
+    const query = event.target.value.trim();
+    if (query.length > 2) {
+        allMovies = await searchMovies(query);
+        updateMovieList(allMovies);
+        movieList.style.display = allMovies.length ? 'block' : 'none';
+    } else {
+        movieList.style.display = 'none';
+    }
+});
   </script>
 </body>
 </html>
