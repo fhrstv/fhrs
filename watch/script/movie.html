@@ -32,13 +32,15 @@
             margin: 10px 0;
         }
         iframe {
-            width: 100%;
-            height: 500px;
             border: none;
             border-radius: 5px;
         }
-        .trailer-container {
+        .trailer-container, .movie-embed-container {
             margin-top: 20px;
+        }
+        .trailer-container iframe, .movie-embed-container iframe {
+            width: 100%;
+            height: 400px; /* Adjust height as needed */
         }
     </style>
 </head>
@@ -49,6 +51,7 @@
         <img src="" alt="Movie Poster">
         <p><strong>Release Date:</strong> <span id="release-date">N/A</span></p>
         <p><strong>Overview:</strong> <span id="overview">No overview available.</span></p>
+        <div class="movie-embed-container" id="movie-embed-container"></div>
         <div class="trailer-container" id="trailer-container"></div>
     </div>
 
@@ -108,8 +111,13 @@
                 document.querySelector('img').src = `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`;
                 document.getElementById('release-date').textContent = movieData.release_date || 'N/A';
                 document.getElementById('overview').textContent = movieData.overview || 'No overview available.';
-                
-                // Find the first trailer and display it
+
+                // Embed movie from Vidsrc
+                document.getElementById('movie-embed-container').innerHTML = `
+                    <iframe src="https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}" allowfullscreen></iframe>
+                `;
+
+                // Find and display the first trailer
                 const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
                 if (trailer) {
                     document.getElementById('trailer-container').innerHTML = `
