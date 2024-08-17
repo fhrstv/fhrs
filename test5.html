@@ -19,19 +19,47 @@
     <div id="movie-list"></div>
 
     <script>
-        async function searchMovies(query) {
+        const TOTAL_PAGES = 1543; // عدد الصفحات
+        const allMovies = []; // لتخزين الأفلام
+
+        // تحميل الأفلام من صفحة معينة
+        async function fetchMoviesFromPage(pageNumber) {
+            const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
             try {
-                const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
+                const response = await fetch(url);
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Failed to load page ' + pageNumber);
                 }
-                const movies = await response.json();
-                updateMovieList(movies);
+                const data = await response.json();
+                return data.result || [];
             } catch (error) {
-                console.error('Error fetching search results:', error);
+                console.error('Error fetching page', pageNumber, error);
+                return [];
             }
         }
 
+        // تحميل جميع الأفلام من الصفحات
+        async function loadAllMovies() {
+            for (let pageNumber = 1; pageNumber <= TOTAL_PAGES; pageNumber++) {
+                const movies = await fetchMoviesFromPage(pageNumber);
+                if (movies.length > 0) {
+                    allMovies.push(...movies);
+                    console.log(`Loaded page ${pageNumber}, total movies: ${allMovies.length}`);
+                } else {
+                    break; // إذا لم تكن هناك أفلام في الصفحة، توقف عن التحميل
+                }
+            }
+            console.log('All movies loaded');
+        }
+
+        // البحث في الأفلام
+        function searchMovies(query) {
+            query = query.toLowerCase();
+            const results = allMovies.filter(movie => movie.title.toLowerCase().includes(query));
+            updateMovieList(results);
+        }
+
+        // تحديث قائمة الأفلام في الصفحة
         function updateMovieList(movies) {
             const movieList = document.getElementById('movie-list');
             movieList.innerHTML = '';
@@ -65,6 +93,9 @@
                 updateMovieList([]); // مسح النتائج إذا كان النص قصيرًا جدًا
             }
         });
+
+        // تحميل الأفلام عند تحميل الصفحة
+        window.onload = loadAllMovies;
     </script>
 </body>
 </html>
