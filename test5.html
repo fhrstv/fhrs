@@ -27,6 +27,47 @@ label{
   max-width: 300px;
 }
 
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: transparent;
+    pointer-events: none;
+    transition: 500ms ease-in-out;
+    ::selection{
+      color: transparent;
+    }
+    &::after,
+    &::before{
+      color: black;
+      position: absolute;
+      transition: 500ms ease-in-out;
+    }
+    &::before{
+      top: -20px;
+    }
+    &::after{
+      top: -63px;
+      transform: scale(0) rotate(210deg);
+      filter: blur(20px);
+    }
+    $chars: s,e,a,r,c,h;
+    @each $char in $chars {
+      $i: index($chars, $char);
+      $x: index($chars, $char);
+      $i: $i * 200;
+      $y: $x * 12;
+      &[#{$char}]::before{
+        content: attr($char) quote($char);
+        transition-delay: $i+ms;
+      }
+      &[#{$char}]::after{
+        content: attr($char) quote($char);
+        left: unquote($y+'px');
+        color: #666;
+      }
+    }
+  }
+}
+
 .content {
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
