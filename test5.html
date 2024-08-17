@@ -8,166 +8,100 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
   <style>
-    *{
-  box-sizing: border-box;
-}
-body{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  background-color: white;
-  font-family: 'Knewave', cursive;
-}
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      color: #000;
+    }
 
-label{
-  width: 100%;
-  max-width: 300px;
-}
+    header {
+      background-color: #333;
+      color: hsl(0, 94%, 46%);
+      text-align: center;
+      padding: 10px;
+    }
 
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: transparent;
-    pointer-events: none;
-    transition: 500ms ease-in-out;
-    ::selection{
-      color: transparent;
+    h1 {
+      margin: 0;
     }
-    &::after,
-    &::before{
-      color: black;
-      position: absolute;
-      transition: 500ms ease-in-out;
+
+    .content {
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
-    &::before{
-      top: -20px;
+
+    .movie-list {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-    &::after{
-      top: -63px;
-      transform: scale(0) rotate(210deg);
-      filter: blur(20px);
+
+    .movie-item {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      cursor: pointer;
     }
-    $chars: s,e,a,r,c,h;
-    @each $char in $chars {
-      $i: index($chars, $char);
-      $x: index($chars, $char);
-      $i: $i * 200;
-      $y: $x * 12;
-      &[#{$char}]::before{
-        content: attr($char) quote($char);
-        transition-delay: $i+ms;
+
+    .movie-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #search-input {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 300px;
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    #search-input:focus {
+      transform: scale(1.1);
+      outline: none;
+    }
+
+    .head-center {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
+
+    .head-item a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: red;
+      transition: background-color 0.3s;
+      font-size: 25px;
+    }
+
+    .head-item a:hover {
+      background-color: gold;
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 24px;
       }
-      &[#{$char}]::after{
-        content: attr($char) quote($char);
-        left: unquote($y+'px');
-        color: #666;
+      .search-box {
+        margin-top: 10px;
       }
     }
-  }
-}
-
-.content {
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  position: relative; /* لجعل القائمة المنسدلة مرتبطة بمربع البحث */
-}
-
-header {
-  background-color: #333;
-  color: hsl(0, 94%, 46%);
-  text-align: center;
-  padding: 10px;
-}
-
-h1 {
-  margin: 0;
-}
-
-
-
-#search-input {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc; /* حدود رصاصية فاتحة */
-  width: 100%;
-  max-width: 300px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* إضافة ظل خفيف لمربع البحث */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
-}
-
-#search-input:focus {
-  border-color: #666; /* تغيير لون الحدود عند التركيز */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* زيادة ظل مربع البحث عند التركيز */
-  outline: none;
-}
-
-#movie-list {
-  position: absolute;
-  top: 100%; /* يظهر أسفل مربع البحث مباشرة */
-  left: 50%; /* يضع القائمة في وسط العنصر الأب */
-  transform: translateX(-50%); /* لضبط مركز القائمة بالنسبة لمربع البحث */
-  width: 100%;
-  max-width: 300px;
-  background-color: #fff; /* إضافة لون خلفية للقائمة */
-  border: 1px solid #ccc; /* إضافة إطار للقائمة */
-  border-radius: 5px; /* إضافة حواف مستديرة للقائمة */
-  padding: 10px; /* إضافة بعض الحشو للقائمة */
-  z-index: 1; /* التأكد من أن القائمة فوق العناصر الأخرى */
-  max-height: 300px; /* تحديد أقصى ارتفاع للقائمة */
-  overflow-y: auto; /* السماح بالتمرير إذا كانت القائمة طويلة */
-  display: none; /* إخفاء القائمة افتراضيًا */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* إضافة ظل خفيف للقائمة */
-}
-
-#movie-list li {
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-}
-
-#movie-list li:last-child {
-  border-bottom: none;
-}
-
-.movie-item {
-  padding: 10px;
-  border-bottom: 1px solid #ddd; /* الخط بين العناصر بلون رمادي فاتح */
-  cursor: pointer;
-  position: relative;
-  transition: background-color 0.3s ease; /* إضافة تأثير ناعم لتغيير الخلفية */
-}
-
-.movie-item:last-child {
-  border-bottom: none; /* إزالة الخط الأخير */
-}
-
-.movie-item:hover {
-  background-color: #eee; /* تغيير الخلفية عند التمرير فوق العنصر */
-}
-
-.head-center {
-  list-style-type: none;
-  padding: 0;
-  text-align: center;
-}
-
-.head-item a {
-  text-decoration: none;
-  color: #333;
-  display: block;
-  padding: 20px;
-  border-radius: 5px;
-  background-color: red;
-  transition: background-color 0.3s;
-  font-size: 25px;
-}
-
-.head-item a:hover {
-  background-color: gold;
-}
   </style>
 </head>
 <body>
@@ -177,25 +111,14 @@ h1 {
   <div class="content">
     <h2>الأفلام الأجنبية والأنمي والعربية</h2>
     <br> تحديث الأفلام في موقعنا يوميًا
-  <input type="text" id="search-input" placeholder="ابحث...">
-    <label>
-  <input type="text" required>
-  <ul>
-    <li s>s</li>
-    <li e>e</li>
-    <li a>a</li>
-    <li r>r</li>
-    <li c>c</li>
-    <li h>h</li>
-  </ul>
-</label>
-  <div id="movie-list">
-    <!-- سيتم إدراج نتائج البحث هنا -->
+    <div class="search-box">
+      <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
+    </div>
+    <div id="movie-list" class="movie-list"></div>
+    <ul class="head-center">
+      <li class="head-item"><a href="/">رجوع</a></li>
+    </ul>
   </div>
-</div>
-    <!-- سيتم إدراج نتائج البحث هنا -->
-  </div>
-</div>
   <script>
     const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
     let allMovies = [];
