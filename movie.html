@@ -150,26 +150,25 @@ window.onload = displayMovieDetails;
 
 
 
-// تأكد من أن هذا السكريبت يتم تحميله بعد تحميل الصفحة
-const puppeteer = require('puppeteer');
+const axios = require('axios');
+const cheerio = require('cheerio');
 
-(async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto('https://example.com');
+const url = 'https://fhrs.site/movie.html?tmdb_id=255413'; // استبدل هذا برابط الصفحة الخاصة بك
 
-    const errorMessage = await page.evaluate(() => {
-        const errorElement = document.querySelector('#error');
-        return errorElement ? errorElement.innerText.includes('This media is unavailable at the moment.') : false;
+axios.get(url)
+    .then(response => {
+        const $ = cheerio.load(response.data);
+        const errorMessage = $('#error').text().includes('This media is unavailable at the moment.');
+        
+        if (errorMessage) {
+            // تنفيذ الإجراءات هنا
+            console.log('Redirecting to 404.html');
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching the page:', error);
     });
 
-    if (errorMessage) {
-        console.log('Redirecting to 404.html');
-        // يمكنك إضافة رمز لتحويل المستخدم هنا إذا كنت تستخدم موقعك الخاص
-    }
-
-    await browser.close();
-})();
     </script>
 
 </body>
