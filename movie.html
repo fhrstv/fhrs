@@ -121,11 +121,6 @@ function getQueryParameter(name) {
     return urlParams.get(name);
 }
 
-function handleIframeError() {
-    document.querySelector('.movie-details').style.display = 'none';
-    document.querySelector('#error-message').style.display = 'block';
-}
-
 async function displayMovieDetails() {
     const tmdbId = getQueryParameter('tmdb_id');
 
@@ -147,7 +142,19 @@ async function displayMovieDetails() {
         const movieEmbedIframe = document.createElement('iframe');
         movieEmbedIframe.src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
         movieEmbedIframe.className = 'movie-embed';
-        movieEmbedIframe.onerror = handleIframeError; // Add error handler
+        movieEmbedIframe.onload = function() {
+            const iframeContent = movieEmbedIframe.contentDocument || movieEmbedIframe.contentWindow.document;
+            const errorMessage = iframeContent.body.textContent.trim();
+            if (errorMessage === "This media is unavailable at the moment.") {
+                document.querySelector('.movie-details').style.display = 'none';
+                document.querySelector('#error-message').style.display = 'block';
+                document.getElementById('error-message').innerHTML = `
+                    <h2>This film is not available for download.</h2>
+                    <p>Please try again later.</p>
+                    <button onclick="window.history.back()">Go back</button>
+                `;
+            }
+        };
         document.getElementById('movie-embed-container').appendChild(movieEmbedIframe);
 
         // Check for trailer and display it
