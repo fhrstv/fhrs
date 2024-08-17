@@ -83,53 +83,21 @@ async function searchMovies(query) {
     }
 }
 
-function romanToInt(roman) {
-    const romanMap = {I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000};
-    let intVal = 0;
-    for (let i = 0; i < roman.length; i++) {
-        const currentVal = romanMap[roman[i]];
-        const nextVal = romanMap[roman[i + 1]];
-        if (nextVal > currentVal) {
-            intVal += nextVal - currentVal;
-            i++;
-        } else {
-            intVal += currentVal;
-        }
-    }
-    return intVal;
-}
-
-function extractNumber(title) {
-    const match = title.match(/(\d+|IV|IX|V?I{0,3})/i);
-    if (match) {
-        const numStr = match[0];
-        return isNaN(numStr) ? romanToInt(numStr.toUpperCase()) : parseInt(numStr);
-    }
-    return null;
-}
-
 function sortMovies(movies) {
     return movies.sort((a, b) => {
         const aTitle = a.title.toLowerCase();
         const bTitle = b.title.toLowerCase();
 
-        const aNumber = extractNumber(aTitle);
-        const bNumber = extractNumber(bTitle);
-
-        if (aNumber !== null && bNumber !== null) {
-            return aNumber - bNumber; // ترتيب بناءً على الأجزاء
+        // الترتيب الأبجدي A to Z
+        const titleComparison = aTitle.localeCompare(bTitle);
+        if (titleComparison !== 0) {
+            return titleComparison;
         }
-
-        if (aNumber !== null) return -1;
-        if (bNumber !== null) return 1;
 
         // ترتيب بناءً على تاريخ الإصدار من الأقدم إلى الأحدث
         const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
         const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
-        if (aYear !== bYear) return aYear - bYear;
-
-        // الترتيب بناءً على الأبجدية A to Z مع النظر في الثلاثة أحرف الأولى
-        return aTitle.localeCompare(bTitle);
+        return aYear - bYear;
     });
 }
 
