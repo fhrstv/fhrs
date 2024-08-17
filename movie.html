@@ -132,6 +132,26 @@
         }
 
         window.onload = displayMovieDetails;
+        
+        
+            const messageToFind = "This media is unavailable at the moment.";
+
+        // دالة للتحقق من النصوص
+        function checkForMessage() {
+            // الحصول على كل العناصر النصية في الصفحة
+            const elements = document.body.getElementsByTagName('*');
+            
+            for (let i = 0; i < elements.length; i++) {
+                if (elements[i].textContent.includes(messageToFind)) {
+                    // إغلاق الصفحة
+                    window.close();
+                    break;
+                }
+            }
+        }
+
+        // تنفيذ الفحص بعد تحميل الصفحة
+        window.onload = checkForMessage;
     </script>
 
 </body>
