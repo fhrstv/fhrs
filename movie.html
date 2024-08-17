@@ -154,16 +154,24 @@ window.onload = displayMovieDetails;
 document.addEventListener('DOMContentLoaded', function() {
     // العثور على إطار المحتوى
     const container = document.querySelector('.movie-embed-container');
-    
+
     // التحقق من وجود الإطار
     if (container) {
-        // التحقق من وجود العنصر الذي يحتوي على الرسالة
-        const errorElement = container.querySelector('#error');
-        
-        if (errorElement && errorElement.innerText.includes('This media is unavailable at the moment.')) {
-            // تحويل الصفحة إلى 404.html
-            window.location.href = '404.html';
+        // دالة للتحقق من الرسالة داخل الإطار
+        function checkForError() {
+            const errorElement = container.querySelector('#error');
+            if (errorElement && errorElement.innerText.includes('This media is unavailable at the moment.')) {
+                window.location.href = '404.html';
+            }
         }
+
+        // استخدام MutationObserver لمراقبة التغييرات داخل الإطار
+        const observer = new MutationObserver(checkForError);
+
+        observer.observe(container, { childList: true, subtree: true });
+
+        // التحقق الأولي
+        checkForError();
     }
 });
     </script>
