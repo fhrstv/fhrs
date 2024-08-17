@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .movie-details {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .movie-details img {
+            width: 300px;
+            height: auto;
+            border-radius: 5px;
+        }
+        .movie-details h1 {
+            margin: 0;
+        }
+        .movie-details p {
+            margin: 10px 0;
+        }
+        iframe {
+            border: none;
+            border-radius: 5px;
+        }
+        .trailer-container, .movie-embed-container {
+            margin-top: 20px;
+        }
+        .trailer-container iframe, .movie-embed-container iframe {
+            width: 100%;
+            height: 400px; /* Adjust height as needed */
+        }
+
+        .movie-details h1 {
+        color: red; /* تغيير اللون إلى الأحمر */
+    }
+    </style>
+</head>
+<body>
+
+    <div class="movie-details" id="movie-details">
+        <img src="" alt="Movie Poster">
+        <h1>Movie Title</h1>
+        <p><strong>تاريخ الاصدار : </strong> <span id="release-date">N/A</span></p>
+        <p><strong>القصة : </strong> <span id="overview">No overview available.</span></p>
+        <p><strong>النوع : </strong> <span id="genre">N/A</span></p>
+        <p><strong>التقييم : </strong> <span id="rating">N/A</span></p>
+        <div class="trailer-container" id="trailer-container"></div>
+        <div class="movie-embed-container" id="movie-embed-container"></div>
+    </div>
+    
+
+    <script>
+        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+
+async function fetchMovieDetails(tmdbId) {
+  const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=ar`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('فشل في جلب تفاصيل الفيلم.');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('خطأ في جلب تفاصيل الفيلم:', error);
+    return null;
+  }
+}
+
+async function fetchMovieVideos(tmdbId) {
+  const url = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}&language=ar`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('فشل في جلب فيديوهات الفيلم.');
+    }
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error('خطأ في جلب فيديوهات الفيلم:', error);
+    return [];
+  }
+}
+
+function getQueryParameter(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+async function checkIframeMessage() {
+  const iframe = document.getElementById('movie-embed-container').querySelector('iframe');
+  iframe.onload = function() {
+    const iframeContent = iframe.contentDocument || iframe.contentWindow.document;
+    const messageElement = iframeContent.querySelector('h4');
+    if (messageElement && messageElement.textContent === 'This media is unavailable at the moment.') {
+      // Redirect to a custom error page or previous page
+      window.location.href = '/error-page.html'; // or '/previous-page.html'
+    }
+  };
+}
+
+async function displayMovieDetails() {
+  const tmdbId = getQueryParameter('tmdb_id');
+
+  if (!tmdbId) {
+    document.getElementById('movie-details').innerHTML = '<p>لم يتم توفير معرّف الفيلم.</p>';
+    return;
+  }
+
+  const movieData = await fetchMovieDetails(tmdbId);
+  const movieVideos = await fetchMovieVideos(tmdbId);
+
+  if (movieData) {
+    document.querySelector('h1').textContent = movieData.title || 'لا يوجد عنوان';
+    document.querySelector('img').src = movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : '';
+    document.getElementById('release-date').textContent = movieData.release_date || 'غير متوفر';
+    document.getElementById('overview').textContent = movieData.overview || 'لا يوجد ملخص متاح.';
+
+    // Display genre
+    const genres = movieData.genres.map(genre => genre.name).join(', ');
+    document.getElementById('genre').textContent = genres || 'غير متوفر';
+
+    // Display rating (formatted to 1 decimal place)
+    const rating = movieData.vote_average ? movieData.vote_average.toFixed(1) : 'غير متوفر';
+    document.getElementById('rating').textContent = `${rating} / 10`;
+
+    // Embed movie from Vidsrc
+    document.getElementById('movie-embed-container').innerHTML = `
+      <iframe src="https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}" allowfullscreen></iframe>
+    `;
+
+    // Check the iframe message
+    checkIframeMessage();
+
+    // Find and display the first trailer
+    const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+    if (trailer) {
+      document.getElementById('trailer-container').innerHTML = `
+        <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
+      `;
+    } else {
+      document.getElementById('trailer-container').innerHTML = '<p>لا يوجد تريلر متاح.</p>';
+    }
+  } else {
+    document.getElementById('movie-details').innerHTML = '<p>فشل في تحميل تفاصيل الفيلم.</p>';
+  }
+}
+
+window.onload = displayMovieDetails;
+
+    </script>
+
+</body>
+</html>
