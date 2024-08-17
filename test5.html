@@ -146,7 +146,7 @@ function displayMovies(movies) {
 
 // إجراء البحث في TMDB
 function searchMovies(query) {
-  fetch(`${tmdbSearchUrl}?api_key=${tmdbApiKey}&query=${encodeURIComponent(query)}&language=en-US`)
+  fetch(`${tmdbSearchUrl}?api_key=${tmdbApiKey}&query=${encodeURIComponent(query)}&language=en-US&region=US`)
     .then(response => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
