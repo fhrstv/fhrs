@@ -52,6 +52,7 @@
     .movie-item:hover {
       background-color: #f0f0f0;
     }
+
     .search-box {
       text-align: center;
       margin-top: 20px;
@@ -120,86 +121,71 @@
   </div>
   <script>
     const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-let allMovies = [];
+    let allMovies = [];
+    let displayedMovies = [];
 
-async function searchMovies(query) {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}`;
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data.results || [];
-    } catch (error) {
-        console.error('Error fetching data from TMDB', error);
-        return [];
-    }
-}
-
-function sortMovies(movies) {
-    return movies.sort((a, b) => {
-        const aTitle = a.title.toLowerCase();
-        const bTitle = b.title.toLowerCase();
-
-        // الترتيب الأبجدي A to Z
-        const titleComparison = aTitle.localeCompare(bTitle);
-        if (titleComparison !== 0) {
-            return titleComparison;
+    async function searchMovies(query) {
+        const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}`;
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.results || [];
+        } catch (error) {
+            console.error('Error fetching data from TMDB', error);
+            return [];
         }
+    }
 
-        // ترتيب بناءً على تاريخ الإصدار من الأقدم إلى الأحدث
-        const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
-        const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
-        return aYear - bYear;
-    });
-}
+    function sortMovies(movies) {
+        return movies.sort((a, b) => {
+            const aTitle = a.title.toLowerCase();
+            const bTitle = b.title.toLowerCase();
 
-function updateMovieList(movies) {
-    const sortedMovies = sortMovies(movies);
-    const movieList = document.getElementById('movie-list');
-    movieList.innerHTML = '';
+            // الترتيب الأبجدي A to Z
+            const titleComparison = aTitle.localeCompare(bTitle);
+            if (titleComparison !== 0) {
+                return titleComparison;
+            }
 
-    sortedMovies.forEach(movie => {
-        const movieItem = document.createElement('div');
-        movieItem.className = 'movie-item';
+            // ترتيب بناءً على تاريخ الإصدار من الأقدم إلى الأحدث
+            const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
+            const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
+            return aYear - bYear;
+        });
+    }
 
-        const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown Year';
-        movieItem.textContent = `${movie.title || 'Unnamed Movie'} (${releaseYear})`;
-        movieItem.dataset.id = movie.id;
+    function updateMovieList(movies) {
+        const sortedMovies = sortMovies(movies);
+        const movieList = document.getElementById('movie-list');
+        movieList.innerHTML = '';
 
-        movieItem.addEventListener('click', () => {
-            window.location.href = `movie.html?tmdb_id=${movie.id}`;
+        sortedMovies.forEach(movie => {
+            const movieItem = document.createElement('div');
+            movieItem.className = 'movie-item';
+            
+            const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown Year';
+            movieItem.textContent = `${movie.title || 'Unnamed Movie'} (${releaseYear})`;
+            movieItem.dataset.id = movie.id;
+
+            movieItem.addEventListener('click', () => {
+                window.location.href = `movie.html?tmdb_id=${movie.id}`;
+            });
+
+            movieList.appendChild(movieItem);
         });
 
-        movieList.appendChild(movieItem);
+        movieList.style.display = sortedMovies.length ? 'block' : 'none';
+    }
+
+    document.getElementById('search-input').addEventListener('input', async (event) => {
+        const query = event.target.value.trim();
+        if (query.length > 2) {
+            allMovies = await searchMovies(query);
+            updateMovieList(allMovies);
+        } else {
+            document.getElementById('movie-list').style.display = 'none';
+        }
     });
-
-    movieList.style.display = sortedMovies.length ? 'block' : 'none';
-}
-
-const searchInput = document.getElementById('search-input');
-const movieList = document.getElementById('movie-list');
-
-searchInput.addEventListener('input', async (event) => {
-    const query = event.target.value.trim();
-    if (query.length > 2) {
-        allMovies = await searchMovies(query);
-        updateMovieList(allMovies);
-        movieList.style.display = allMovies.length ? 'block' : 'none';
-    } else {
-        movieList.style.display = 'none';
-    }
-});
-
-searchInput.addEventListener('focus', () => {
-    if (movieList.children.length > 0) {
-        movieList.style.display = 'block';
-    }
-});
-
-searchInput.addEventListener('blur', () => {
-    setTimeout(() => {
-        movieList.style.display = 'none';
-    }, 200);
-});
   </script>
 </body>
 </html>
