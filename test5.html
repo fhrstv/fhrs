@@ -1,144 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies from Vidsrc and TMDB</title>
+    <title>Movie List</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-        }
-        .search-container {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .search-container input {
-            padding: 10px;
-            width: 300px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-        }
-        .movie-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
         .movie-box {
-            background-color: red;
-            color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 200px;
-            text-align: center;
-            position: relative;
+            background-color: red; /* لون الخلفية */
+            padding: 10px; /* المسافة الداخلية */
+            margin: 10px; /* المسافة بين المربعات */
+            border-radius: 5px; /* زوايا مستديرة */
+            display: inline-block; /* لعرض المربعات بجانب بعضها */
         }
-        .movie-box a {
-            color: white;
-            text-decoration: none;
-        }
+
         .movie-box span {
-            display: block;
-            margin-top: 10px;
+            color: white; /* لون النص */
+            font-weight: bold; /* جعل النص عريض */
+        }
+
+        #search-box {
+            margin: 20px;
+            padding: 10px;
+            width: 200px;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
 
-    <div class="search-container">
-        <input type="text" id="search-box" placeholder="Search for a movie...">
-    </div>
-    <h1>Movies from Vidsrc and TMDB</h1>
-    <div id="movie-list" class="movie-container"></div>
+    <input type="text" id="search-box" placeholder="ابحث عن فيلم...">
+    <div id="movie-list"></div>
 
     <script>
         let allMovies = [];
-let displayedMovies = [];
+        let displayedMovies = [];
 
-// دالة تحميل الأفلام من ملف JSON معين
-async function loadMoviesFromPage(pageNumber) {
-    const url = `watch/Movie/page-${pageNumber}.json`; // استبدل هذا بالمسار الصحيح
+        // دالة تحميل الأفلام من ملف JSON معين
+        async function loadMoviesFromPage(pageNumber) {
+            const url = `watch/Movie/page-${pageNumber}.json`; // المسار الصحيح للملفات
 
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Failed to load movies from page ' + pageNumber);
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Failed to load movies from page ' + pageNumber);
+                }
+                const data = await response.json();
+                return data.result || []; // تأكد من أن البيانات موجودة داخل result
+            } catch (error) {
+                console.error('Error loading movies from page', pageNumber, error);
+                return [];
+            }
         }
-        const data = await response.json();
-        return data.result || []; // تأكد من أن البيانات موجودة داخل result
-    } catch (error) {
-        console.error('Error loading movies from page', pageNumber, error);
-        return [];
-    }
-}
 
-// دالة لتحميل جميع الصفحات
-async function loadAllMovies() {
-    let page = 1;
-    let moviesLoaded = true;
+        // دالة لتحميل جميع الصفحات
+        async function loadAllMovies() {
+            let page = 1;
+            let moviesLoaded = true;
 
-    while (moviesLoaded) {
-        const moviesFromPage = await loadMoviesFromPage(page);
-        if (moviesFromPage.length > 0) {
-            allMovies = allMovies.concat(moviesFromPage);
-            page++;
-        } else {
-            moviesLoaded = false;
+            while (moviesLoaded) {
+                const moviesFromPage = await loadMoviesFromPage(page);
+                if (moviesFromPage.length > 0) {
+                    allMovies = allMovies.concat(moviesFromPage);
+                    page++;
+                } else {
+                    moviesLoaded = false;
+                }
+            }
+
+            allMovies.sort((a, b) => a.title.localeCompare(b.title)); // ترتيب الأفلام أبجديًا
+            displayedMovies = [...allMovies];
+            updateMovieList();
         }
-    }
 
-    allMovies.sort((a, b) => a.title.localeCompare(b.title)); // ترتيب الأفلام أبجديًا
-    displayedMovies = [...allMovies];
-    updateMovieList();
-}
+        // دالة لتحديث قائمة الأفلام المعروضة
+        function updateMovieList() {
+            const movieList = document.getElementById('movie-list');
+            movieList.innerHTML = '';
 
-// دالة لتحديث قائمة الأفلام المعروضة
-function updateMovieList() {
-    const movieList = document.getElementById('movie-list');
-    movieList.innerHTML = '';
+            displayedMovies.forEach(movie => {
+                const movieBox = document.createElement('div');
+                movieBox.className = 'movie-box';
 
-    displayedMovies.forEach(movie => {
-        const movieBox = document.createElement('div');
-        movieBox.className = 'movie-box';
+                const movieLink = document.createElement('a');
+                movieLink.href = `movie.html?imdb_id=${movie.imdb_id}`;
+                movieLink.target = '_blank';
 
-        const movieLink = document.createElement('a');
-        movieLink.href = `movie.html?imdb_id=${movie.imdb_id}`;
-        movieLink.target = '_blank';
+                const movieTitle = document.createElement('span');
+                movieTitle.textContent = movie.title || 'Unnamed Movie';
 
-        const movieTitle = document.createElement('span');
-        movieTitle.textContent = movie.title || 'Unnamed Movie';
-        movieLink.appendChild(movieTitle);
+                movieLink.appendChild(movieTitle);
+                movieBox.appendChild(movieLink);
+                movieList.appendChild(movieBox);
+            });
+        }
 
-        movieBox.appendChild(movieLink);
-        movieList.appendChild(movieBox);
-    });
-}
+        // دالة لتصفية الأفلام بناءً على عنوان الفيلم
+        function filterMovies(query) {
+            if (query.trim() === "") {
+                displayedMovies = [...allMovies];
+            } else {
+                displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
+            }
+            updateMovieList();
+        }
 
-// دالة لتصفية الأفلام بناءً على عنوان الفيلم
-function filterMovies(query) {
-    if (query.trim() === "") {
-        displayedMovies = [...allMovies];
-    } else {
-        displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
-    }
-    updateMovieList();
-}
+        // تحميل جميع الأفلام وعرضها عند تحميل الصفحة
+        window.onload = async () => {
+            await loadAllMovies(); // تحميل جميع الأفلام
+        };
 
-// تحميل جميع الأفلام وعرضها عند تحميل الصفحة
-window.onload = async () => {
-    await loadAllMovies(); // تحميل جميع الأفلام
-    // updateMovieList() سيتم استدعاؤه داخل loadAllMovies بعد تحميل وترتيب الأفلام
-};
-
-// إضافة حدث على مربع البحث لتصفية الأفلام
-document.getElementById('search-box').addEventListener('input', (event) => {
-    filterMovies(event.target.value);
-});
+        // إضافة حدث على مربع البحث لتصفية الأفلام
+        document.getElementById('search-box').addEventListener('input', (event) => {
+            filterMovies(event.target.value);
+        });
     </script>
 
 </body>
