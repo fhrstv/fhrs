@@ -34,8 +34,8 @@
     }
 
     #movie-list {
-  width: 100%; /* نصف عرض مربع البحث */
-  max-width: 300px; /* عرض ثابت للقائمة */
+  width: 50%; /* نصف عرض مربع البحث */
+  max-width: 150px; /* عرض ثابت للقائمة */
   max-height: 300px; /* تحديد الارتفاع الأقصى للقائمة */
   margin-top: 5px; /* فاصل بسيط بين مربع البحث والقائمة المنسدلة */
   border: 1px solid #ccc; /* لون حدود القائمة */
@@ -45,6 +45,28 @@
   left: 50%; /* موضع القائمة في المنتصف أفقيًا */
   transform: translateX(-50%); /* لضمان مركزية القائمة بالضبط */
   overflow-y: auto; /* إظهار شريط تمرير عمودي عند الحاجة */
+}
+
+/* تخصيص شريط التمرير للمتصفحات المختلفة */
+
+/* لمتصفحات WebKit (Chrome, Safari) */
+#movie-list::-webkit-scrollbar {
+  width: 12px; /* عرض شريط التمرير */
+}
+
+#movie-list::-webkit-scrollbar-track {
+  background: #f0f0f0; /* لون خلفية شريط التمرير */
+}
+
+#movie-list::-webkit-scrollbar-thumb {
+  background: #000; /* لون مقبض شريط التمرير */
+  border-radius: 10px; /* انحناء مقبض التمرير */
+}
+
+/* لمتصفحات Firefox */
+#movie-list {
+  scrollbar-width: thin; /* عرض شريط التمرير */
+  scrollbar-color: #000 #f0f0f0; /* اللون الأول هو لون مقبض التمرير، واللون الثاني هو لون الخلفية */
 }
 
     .movie-item {
