@@ -34,20 +34,15 @@
     }
 
     #movie-list {
-  width: 100%;
-  max-width: 300px; /* تأكد من أن العرض لا يتجاوز عرض مربع البحث */
+  width: 50%;
+  max-width: 150px; /* نصف عرض مربع البحث */
   margin-top: 5px; /* فاصل بسيط بين مربع البحث والقائمة المنسدلة */
   border: 1px solid #ccc; /* نفس لون حدود القائمة المنسدلة */
   border-radius: 5px; /* نفس انحناء الحدود مثل مربع البحث */
-  background-color: #fff;
-  list-style-type: none;
-      padding: 0;
-      text-align: center;
-      max-height: 300px;
-      overflow-y: auto;
-      
-  
-   /* خلفية بيضاء للقائمة المنسدلة */
+  background-color: #fff; /* خلفية بيضاء للقائمة المنسدلة */
+  position: absolute; /* لضمان وضع القائمة أسفل مربع البحث */
+  left: 50%; /* مركز القائمة عموديًا */
+  transform: translateX(-50%); /* لضمان مركزية القائمة بالضبط */
 }
 
     .movie-item {
@@ -76,9 +71,10 @@
     }
 
     .search-box {
-      text-align: center;
-      margin-top: 20px;
-    }
+  position: relative; /* لتحديد موضع القائمة بشكل صحيح */
+  text-align: center;
+  margin-top: 20px;
+}
 
     #search-input {
       padding: 10px;
