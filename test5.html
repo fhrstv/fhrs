@@ -32,87 +32,68 @@
     <div id="movie-list"></div>
 
     <script>
-        let allMovies = [];
-        let displayedMovies = [];
+        const repoOwner = 'fhrstv';
+  const repoName = 'fhrs';
+  const folderPath = 'watch/movies';
+  const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/git/trees/main?recursive=1`;
 
-        // دالة تحميل الأفلام من ملف JSON معين
-        async function loadMoviesFromPage(pageNumber) {
-            const url = `watch/Movie/page-${pageNumber}.json`; // المسار الصحيح للملفات
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      const files = data.tree.filter(file => file.path.startsWith(folderPath) && file.path.endsWith('.html'));
+      const seriesList = document.getElementById('movie-list');
+      const loadingMessage = document.getElementById('loading-message');
+      
+      // إزالة رسالة التحميل
+      seriesList.removeChild(loadingMessage);
 
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Failed to load movies from page ' + pageNumber);
-                }
-                const data = await response.json();
-                return data.result || []; // تأكد من أن البيانات موجودة داخل result
-            } catch (error) {
-                console.error('Error loading movies from page', pageNumber, error);
-                return [];
-            }
-        }
+      const links = files.slice(0, 50000).map(file => {
+        const fileName = file.path.split('/').pop();
+        const fileNameWithoutExtension = fileName.replace('.html', '');
+        const displayName = fileNameWithoutExtension
+          .replace(/-/g, ' ')
+          .split(' ')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
 
-        // دالة لتحميل جميع الصفحات
-        async function loadAllMovies() {
-            let page = 1;
-            let moviesLoaded = true;
+        const fileUrl = `${folderPath}/${fileNameWithoutExtension}`;
 
-            while (moviesLoaded) {
-                const moviesFromPage = await loadMoviesFromPage(page);
-                if (moviesFromPage.length > 0) {
-                    allMovies = allMovies.concat(moviesFromPage);
-                    page++;
-                } else {
-                    moviesLoaded = false;
-                }
-            }
+        const listItem = document.createElement('li');
+        listItem.classList.add('movie-item');
+        listItem.innerHTML = `<a href="${fileUrl}" rel="noopener noreferrer">${displayName}</a>`;
+        seriesList.appendChild(listItem);
+        return listItem.querySelector('a');
+      });
 
-            allMovies.sort((a, b) => a.title.localeCompare(b.title)); // ترتيب الأفلام أبجديًا
-            displayedMovies = [...allMovies];
-            updateMovieList();
-        }
+      links.sort((a, b) => a.textContent.localeCompare(b.textContent));
+      links.forEach(link => seriesList.appendChild(link.parentElement));
 
-        // دالة لتحديث قائمة الأفلام المعروضة
-        function updateMovieList() {
-            const movieList = document.getElementById('movie-list');
-            movieList.innerHTML = '';
+      const searchInput = document.getElementById('search-input');
 
-            displayedMovies.forEach(movie => {
-                const movieBox = document.createElement('div');
-                movieBox.className = 'movie-box';
-
-                const movieLink = document.createElement('a');
-                movieLink.href = `movie.html?imdb_id=${movie.imdb_id}`;
-                movieLink.target = '_blank';
-
-                const movieTitle = document.createElement('span');
-                movieTitle.textContent = movie.title || 'Unnamed Movie';
-
-                movieLink.appendChild(movieTitle);
-                movieBox.appendChild(movieLink);
-                movieList.appendChild(movieBox);
-            });
-        }
-
-        // دالة لتصفية الأفلام بناءً على عنوان الفيلم
-        function filterMovies(query) {
-            if (query.trim() === "") {
-                displayedMovies = [...allMovies];
-            } else {
-                displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
-            }
-            updateMovieList();
-        }
-
-        // تحميل جميع الأفلام وعرضها عند تحميل الصفحة
-        window.onload = async () => {
-            await loadAllMovies(); // تحميل جميع الأفلام
-        };
-
-        // إضافة حدث على مربع البحث لتصفية الأفلام
-        document.getElementById('search-box').addEventListener('input', (event) => {
-            filterMovies(event.target.value);
+      searchInput.addEventListener('input', function() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        links.forEach(link => {
+          const movieTitle = link.textContent.trim().toLowerCase();
+          if (movieTitle.includes(searchTerm)) {
+            link.parentElement.style.display = 'block';
+          } else {
+            link.parentElement.style.display = 'none';
+          }
         });
+      });
+
+      searchInput.addEventListener('keypress', function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          searchInput.blur();
+        }
+      });
+
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('movie-list').innerHTML = '<li>فشل في تحميل الافلام قم بتحديث الصفحة</li>';
+    });
     </script>
 
 </body>
