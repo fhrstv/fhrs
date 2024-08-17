@@ -12,45 +12,68 @@
     <div id="results"></div>
 
     <script>
-const imdbIDs = [
-    'tt0111161',
-    'tt0068646',
-    'tt0071562',
-    // أضف المزيد من المعرفات هنا
-];
+const tmdbIds = [123, 456, 789]; // قائمة معرّفات TMDB التي تريد البحث عنها
+const tmdbApiKey = 'YOUR_TMDB_API_KEY';
+const tmdbApiUrl = 'https://api.themoviedb.org/3/movie/';
 
-const tmdbAPIKey = 'cf64a661774f647b7513facb9f1e55e5'; // مفتاح API الخاص بك
+const seriesList = document.getElementById('movie-list');
+const loadingMessage = document.getElementById('loading-message');
 
-async function searchMovie() {
-    const query = document.getElementById('searchInput').value.trim();
-    const resultsDiv = document.getElementById('results');
-    
-    // تنظيف النتائج السابقة
-    resultsDiv.innerHTML = '';
+// إزالة رسالة التحميل
+seriesList.removeChild(loadingMessage);
 
-    // تحقق مما إذا كان المعرف المدخل موجودًا في قائمة المعرفات
-    if (imdbIDs.includes(query)) {
-        try {
-            const response = await fetch(`https://api.themoviedb.org/3/find/${query}?api_key=${tmdbAPIKey}&external_source=imdb_id`);
-            const data = await response.json();
+// جلب معلومات الأفلام من TMDB بناءً على معرّفات TMDB
+Promise.all(tmdbIds.map(id => 
+  fetch(`${tmdbApiUrl}${id}?api_key=${tmdbApiKey}&language=en-US`)
+    .then(response => response.json())
+    .then(data => {
+      return {
+        title: data.title || 'Unknown Title',
+        url: `https://www.themoviedb.org/movie/${data.id}`,
+      };
+    })
+    .catch(error => {
+      console.error(`Error fetching data for TMDB ID ${id}:`, error);
+    })
+))
+.then(movies => {
+  const links = movies.filter(Boolean).map(movie => {
+    const listItem = document.createElement('li');
+    listItem.classList.add('movie-item');
+    listItem.innerHTML = `<a href="${movie.url}" rel="noopener noreferrer">${movie.title}</a>`;
+    seriesList.appendChild(listItem);
+    return listItem.querySelector('a');
+  });
 
-            if (data.movie_results && data.movie_results.length > 0) {
-                const movie = data.movie_results[0];
-                const resultElement = document.createElement('div');
-                resultElement.textContent = `Title: ${movie.title}, IMDb ID: ${query}`;
-                resultsDiv.appendChild(resultElement);
-            } else {
-                resultsDiv.textContent = 'لم يتم العثور على نتائج.';
-            }
-        } catch (error) {
-            console.error('Error fetching movie data:', error);
-            resultsDiv.textContent = 'حدث خطأ أثناء البحث.';
-        }
-    } else {
-        resultsDiv.textContent = 'معرف الفيلم غير موجود في القائمة.';
+  links.sort((a, b) => a.textContent.localeCompare(b.textContent));
+  links.forEach(link => seriesList.appendChild(link.parentElement));
+
+  const searchInput = document.getElementById('search-input');
+
+  searchInput.addEventListener('input', function() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    links.forEach(link => {
+      const movieTitle = link.textContent.trim().toLowerCase();
+      if (movieTitle.includes(searchTerm)) {
+        link.parentElement.style.display = 'block';
+      } else {
+        link.parentElement.style.display = 'none';
+      }
+    });
+  });
+
+  searchInput.addEventListener('keypress', function(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      searchInput.blur();
     }
-}
-    
+  });
+
+})
+.catch(error => {
+  console.error('Error:', error);
+  seriesList.innerHTML = '<li>فشل في تحميل الافلام قم بتحديث الصفحة</li>';
+});
     </script>
 </body>
 </html>
