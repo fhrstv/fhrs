@@ -121,71 +121,79 @@
             <ul class="movie-list" id="movie-list">
   <li id="loading-message">جاري تحميل الأفلام...</li>
 </ul>
-    <script>
-const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
-const tmdbSearchUrl = 'https://api.themoviedb.org/3/search/movie';
+     <script type="module">
+    import { tmdbIds } from './tmdb.js';
 
-const seriesList = document.getElementById('movie-list');
-const loadingMessage = document.getElementById('loading-message');
+    const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
+    const tmdbApiUrl = 'https://api.themoviedb.org/3/movie/';
 
-// إزالة رسالة التحميل إذا كانت موجودة
-if (loadingMessage) {
-  seriesList.removeChild(loadingMessage);
-}
+    const seriesList = document.getElementById('movie-list');
+    const searchInput = document.getElementById('search-input');
 
-// عرض الأفلام في القائمة
-function displayMovies(movies) {
-  seriesList.innerHTML = ''; // مسح أي محتوى موجود سابقًا
-  movies.forEach(movie => {
-    const listItem = document.createElement('li');
-    listItem.classList.add('movie-item');
-    listItem.innerHTML = `<a href="movie.html?tmdb_id=${movie.id}" rel="noopener noreferrer">${movie.title} (${movie.year})</a>`;
-    seriesList.appendChild(listItem);
-  });
-}
+    // جلب معلومات الأفلام من TMDB بناءً على معرّفات TMDB
+    function fetchMoviesByIds(ids) {
+      return Promise.all(ids.map(id =>
+        fetch(`${tmdbApiUrl}${id}?api_key=${tmdbApiKey}&language=en-US`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(data => ({
+            title: data.title || 'Unknown Title',
+            year: data.release_date ? new Date(data.release_date).getFullYear() : 'Unknown Year',
+            id: data.id,
+          }))
+          .catch(error => {
+            console.error(`Error fetching data for TMDB ID ${id}:`, error);
+          })
+      ));
+    }
 
-// إجراء البحث في TMDB
-function searchMovies(query) {
-  fetch(`${tmdbSearchUrl}?api_key=${tmdbApiKey}&query=${encodeURIComponent(query)}&language=en-US&region=US`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    // عرض الأفلام في القائمة
+    function displayMovies(movies) {
+      seriesList.innerHTML = ''; // مسح أي محتوى موجود سابقًا
+      movies.forEach(movie => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('movie-item');
+        listItem.innerHTML = `<a href="movie.html?tmdb_id=${movie.id}" rel="noopener noreferrer">${movie.title} (${movie.year})</a>`;
+        seriesList.appendChild(listItem);
+      });
+    }
+
+    // إجراء البحث في TMDB
+    function searchMovies(query) {
+      fetchMoviesByIds(tmdbIds)
+        .then(movies => {
+          const filteredMovies = movies.filter(movie =>
+            movie.title.toLowerCase().includes(query.toLowerCase())
+          );
+          displayMovies(filteredMovies); // عرض الأفلام
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          seriesList.innerHTML = '<li>فشل في تحميل الأفلام. حاول تحديث الصفحة.</li>';
+        });
+    }
+
+    // إضافة ميزة البحث
+    searchInput.addEventListener('input', function() {
+      const searchTerm = searchInput.value.trim();
+      if (searchTerm.length > 2) { // بدء البحث بعد إدخال 3 أحرف
+        searchMovies(searchTerm);
+      } else {
+        seriesList.innerHTML = ''; // مسح النتائج إذا كان النص المدخل أقل من 3 أحرف
       }
-      return response.json();
-    })
-    .then(data => {
-      const movies = data.results.map(movie => ({
-        title: movie.title || 'Unknown Title',
-        year: movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown Year',
-        id: movie.id,
-      }));
-      displayMovies(movies); // عرض الأفلام
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      seriesList.innerHTML = '<li>فشل في تحميل الأفلام. حاول تحديث الصفحة.</li>';
     });
-}
 
-// إضافة ميزة البحث
-const searchInput = document.getElementById('search-input');
-
-searchInput.addEventListener('input', function() {
-  const searchTerm = searchInput.value.trim();
-  if (searchTerm.length > 2) { // بدء البحث بعد إدخال 3 أحرف
-    searchMovies(searchTerm);
-  } else {
-    seriesList.innerHTML = ''; // مسح النتائج إذا كان النص المدخل أقل من 3 أحرف
-  }
-});
-
-searchInput.addEventListener('keypress', function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault();
-    searchInput.blur();
-  }
-});
-    </script>
+    searchInput.addEventListener('keypress', function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        searchInput.blur();
+      }
+    });
+  </script>
 </body>
 </html>
 
