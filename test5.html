@@ -44,10 +44,25 @@
     }
 
     .movie-item {
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
-      cursor: pointer;
-    }
+  padding: 10px;
+  border-bottom: 1px solid #ccc; /* الخط بين العناصر */
+  cursor: pointer;
+  position: relative;
+}
+
+.movie-item:last-child {
+  border-bottom: none; /* إزالة الخط الأخير */
+}
+
+.movie-item::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 1px solid #ccc; /* الخط بين العناصر */
+}
 
     .movie-item:hover {
       background-color: #f0f0f0;
