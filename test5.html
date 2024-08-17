@@ -139,7 +139,7 @@ Promise.all(tmdbIds.map(id =>
     .then(data => {
       return {
         title: data.title || 'Unknown Title',
-        url: `https://www.themoviedb.org/movie/${data.id}`,
+        id: data.id, // الاحتفاظ بالمعرّف
       };
     })
     .catch(error => {
@@ -147,27 +147,40 @@ Promise.all(tmdbIds.map(id =>
     })
 ))
 .then(movies => {
-  const links = movies.filter(Boolean).map(movie => {
+  movies.filter(Boolean).forEach(movie => {
     const listItem = document.createElement('li');
     listItem.classList.add('movie-item');
-    listItem.innerHTML = `<a href="${movie.url}" rel="noopener noreferrer">${movie.title}</a>`;
+    listItem.textContent = movie.title;
+    listItem.dataset.tmdbId = movie.id; // تخزين معرّف TMDB في خاصية البيانات
     seriesList.appendChild(listItem);
-    return listItem.querySelector('a');
   });
 
-  links.sort((a, b) => a.textContent.localeCompare(b.textContent));
-  links.forEach(link => seriesList.appendChild(link.parentElement));
+  // ترتيب العناصر في القائمة
+  const listItems = Array.from(seriesList.getElementsByClassName('movie-item'));
+  listItems.sort((a, b) => a.textContent.localeCompare(b.textContent));
+  listItems.forEach(item => seriesList.appendChild(item));
+
+  // إضافة مستمع الحدث لكل عنصر في القائمة
+  seriesList.addEventListener('click', function(event) {
+    const target = event.target;
+    if (target && target.classList.contains('movie-item')) {
+      const tmdbId = target.dataset.tmdbId;
+      if (tmdbId) {
+        window.location.href = `movie.html?tmdb_id=${tmdbId}`;
+      }
+    }
+  });
 
   const searchInput = document.getElementById('search-input');
 
   searchInput.addEventListener('input', function() {
     const searchTerm = searchInput.value.trim().toLowerCase();
-    links.forEach(link => {
-      const movieTitle = link.textContent.trim().toLowerCase();
+    listItems.forEach(item => {
+      const movieTitle = item.textContent.trim().toLowerCase();
       if (movieTitle.includes(searchTerm)) {
-        link.parentElement.style.display = 'block';
+        item.style.display = 'block';
       } else {
-        link.parentElement.style.display = 'none';
+        item.style.display = 'none';
       }
     });
   });
@@ -182,7 +195,7 @@ Promise.all(tmdbIds.map(id =>
 })
 .catch(error => {
   console.error('Error:', error);
-  seriesList.innerHTML = '<li>فشل في تحميل الافلام قم بتحديث الصفحة</li>';
+  seriesList.innerHTML = '<li>فشل في تحميل الأفلام قم بتحديث الصفحة</li>';
 });
 
     </script>
