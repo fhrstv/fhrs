@@ -132,73 +132,68 @@ const seriesList = document.getElementById('movie-list');
 const loadingMessage = document.getElementById('loading-message');
 
 // إزالة رسالة التحميل
-seriesList.removeChild(loadingMessage);
+if (loadingMessage) {
+  seriesList.removeChild(loadingMessage);
+}
 
-let batchSize = 100; // عدد الأفلام لكل دفعة
-let currentIndex = 0;
+let moviesData = []; // لتخزين بيانات الأفلام
 
-function loadBatch() {
-  const batchIds = tmdbIds.slice(currentIndex, currentIndex + batchSize);
-
-  // جلب معلومات الأفلام من TMDB بناءً على معرّفات TMDB
-  Promise.all(batchIds.map(id => 
+// جلب بيانات الأفلام من TMDB بناءً على المعرفات
+function loadMoviesByIds(ids) {
+  return Promise.all(ids.map(id =>
     fetch(`${tmdbApiUrl}${id}?api_key=${tmdbApiKey}&language=en-US`)
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then(data => {
         const year = data.release_date ? new Date(data.release_date).getFullYear() : 'Unknown Year';
         return {
           title: data.title || 'Unknown Title',
           year: year,
-          id: data.id, // الاحتفاظ بالمعرّف
+          id: data.id,
         };
       })
       .catch(error => {
         console.error(`Error fetching data for TMDB ID ${id}:`, error);
       })
-  ))
+  ));
+}
+
+// تحميل الأفلام وتخزينها في البيانات
+loadMoviesByIds(tmdbIds)
   .then(movies => {
-    const links = movies.filter(Boolean).map(movie => {
-      const listItem = document.createElement('li');
-      listItem.classList.add('movie-item');
-      listItem.innerHTML = `<a href="movie.html?tmdb_id=${movie.id}" rel="noopener noreferrer">${movie.title} ${movie.year}</a>`;
-      seriesList.appendChild(listItem);
-      return listItem.querySelector('a');
-    });
-
-    // فرز الأفلام
-    links.sort((a, b) => a.textContent.localeCompare(b.textContent));
-    links.forEach(link => seriesList.appendChild(link.parentElement));
-
-    // استمر في تحميل الدفعات
-    currentIndex += batchSize;
-    if (currentIndex < tmdbIds.length) {
-      loadBatch(); // تحميل الدفعة التالية
-    }
+    moviesData = movies.filter(Boolean); // تخزين البيانات
+    displayMovies(moviesData); // عرض الأفلام
   })
   .catch(error => {
     console.error('Error:', error);
-    seriesList.innerHTML = '<li>فشل في تحميل الأفلام قم بتحديث الصفحة</li>';
+    seriesList.innerHTML = '<li>فشل في تحميل الأفلام. حاول تحديث الصفحة.</li>';
+  });
+
+// عرض الأفلام
+function displayMovies(movies) {
+  seriesList.innerHTML = ''; // مسح أي محتوى موجود سابقًا
+  movies.forEach(movie => {
+    const listItem = document.createElement('li');
+    listItem.classList.add('movie-item');
+    listItem.innerHTML = `<a href="movie.html?tmdb_id=${movie.id}" rel="noopener noreferrer">${movie.title} (${movie.year})</a>`;
+    seriesList.appendChild(listItem);
   });
 }
-
-// بدء تحميل الأفلام عند فتح الصفحة
-loadBatch();
 
 // إضافة ميزة البحث
 const searchInput = document.getElementById('search-input');
 
 searchInput.addEventListener('input', function() {
   const searchTerm = searchInput.value.trim().toLowerCase();
-  const links = seriesList.getElementsByTagName('a');
-  
-  Array.from(links).forEach(link => {
-    const movieTitle = link.textContent.trim().toLowerCase();
-    if (movieTitle.includes(searchTerm)) {
-      link.parentElement.style.display = 'block';
-    } else {
-      link.parentElement.style.display = 'none';
-    }
-  });
+  const filteredMovies = moviesData.filter(movie =>
+    movie.title.toLowerCase().includes(searchTerm)
+  );
+
+  displayMovies(filteredMovies);
 });
 
 searchInput.addEventListener('keypress', function(event) {
