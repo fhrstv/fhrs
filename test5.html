@@ -93,19 +93,14 @@ h1 {
   background-color: #f0f0f0;
 }
 
-.search-box {
-  position: relative; /* لتحديد موضع القائمة بشكل صحيح */
-  text-align: center;
-  margin-top: 20px;
-}
-
 #search-input {
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid transparent; /* جعل حدود مربع البحث شفافة بشكل افتراضي */
+  border: 1px solid transparent; /* حدود شفافة بشكل افتراضي */
   width: 100%;
   max-width: 300px;
-  transition: transform 0.3s ease, border-color 0.3s ease; /* إضافة انتقال للون الحدود */
+  box-shadow: none; /* إزالة أي ظل قد يظهر أسفل مربع البحث */
+  transition: transform 0.3s ease, border-color 0.3s ease;
   text-align: center;
 }
 
@@ -113,10 +108,7 @@ h1 {
   transform: scale(1.1);
   outline: none;
   border-color: #ccc; /* تغيير لون الحدود عند التركيز */
-}
-
-#search-input::placeholder {
-  color: #999; /* لون نص المكان المحجوز */
+  box-shadow: none; /* إزالة أي ظل عند التركيز */
 }
 
 .head-center {
