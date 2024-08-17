@@ -150,25 +150,20 @@ window.onload = displayMovieDetails;
 
 
 
-const axios = require('axios');
-const cheerio = require('cheerio');
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkForError = () => {
+                const container = document.querySelector('.movie-embed-container');
+                if (container) {
+                    const errorElement = container.querySelector('#error');
+                    if (errorElement && errorElement.innerText.includes('This media is unavailable at the moment.')) {
+                        window.location.href = '404.html';
+                    }
+                }
+            };
 
-const url = 'https://fhrs.site/movie.html?tmdb_id=255413'; // استبدل هذا برابط الصفحة الخاصة بك
-
-axios.get(url)
-    .then(response => {
-        const $ = cheerio.load(response.data);
-        const errorMessage = $('#error').text().includes('This media is unavailable at the moment.');
-        
-        if (errorMessage) {
-            // تنفيذ الإجراءات هنا
-            console.log('Redirecting to 404.html');
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching the page:', error);
-    });
-
+            // محاولة فحص المحتوى بعد فترة قصيرة للتأكد من تحميل كل العناصر
+            setTimeout(checkForError, 2000); // يمكنك تعديل وقت الانتظار حسب الحاجة
+        });
     </script>
 
 </body>
