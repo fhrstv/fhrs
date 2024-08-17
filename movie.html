@@ -99,18 +99,15 @@ async function fetchMovieDetails(tmdbId) {
     }
 }
 
-async function fetchMovieVideos(tmdbId) {
-    const url = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}`;
+async function checkMovieAvailability(tmdbId) {
+    const url = `https://vidsrc.xyz/api/check?tmdb=${tmdbId}`; // رابط تخيلي فقط كمثال
     try {
         const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Failed to fetch movie videos.');
-        }
         const data = await response.json();
-        return data.results;
+        return data.available; // نفترض أن هذا الحقل يعود بالقيمة الصحيحة إذا كان الفيلم متاحًا
     } catch (error) {
-        console.error('Error fetching movie videos:', error);
-        return [];
+        console.error('Error checking movie availability:', error);
+        return false;
     }
 }
 
@@ -124,18 +121,6 @@ function displayErrorMessage() {
     document.querySelector('#error-message').style.display = 'block';
 }
 
-function checkIframeContent(iframe) {
-    try {
-        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-        const bodyText = iframeDoc.body.innerText || '';
-        if (bodyText.includes('This media is unavailable at the moment')) {
-            displayErrorMessage();
-        }
-    } catch (error) {
-        console.error('Error accessing iframe content:', error);
-    }
-}
-
 async function displayMovieDetails() {
     const tmdbId = getQueryParameter('tmdb_id');
     if (!tmdbId) {
@@ -143,8 +128,14 @@ async function displayMovieDetails() {
         return;
     }
 
+    const movieAvailable = await checkMovieAvailability(tmdbId);
+    
+    if (!movieAvailable) {
+        displayErrorMessage();
+        return;
+    }
+
     const movieData = await fetchMovieDetails(tmdbId);
-    const movieVideos = await fetchMovieVideos(tmdbId);
 
     if (movieData) {
         document.querySelector('h1').textContent = movieData.title || 'No Title';
@@ -161,9 +152,6 @@ async function displayMovieDetails() {
         const movieEmbedContainer = document.getElementById('movie-embed-container');
         movieEmbedContainer.innerHTML = ''; // Clear previous content
         movieEmbedContainer.appendChild(movieEmbedIframe);
-
-        // Check if the iframe content loads properly
-        movieEmbedIframe.onload = () => checkIframeContent(movieEmbedIframe);
 
         // Check for trailer and display it
         const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
