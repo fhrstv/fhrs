@@ -132,6 +132,34 @@
         }
 
         window.onload = displayMovieDetails;
+        
+        async function checkIframeMessage() {
+  const iframe = document.getElementById('movie-embed-container').querySelector('iframe');
+  iframe.onload = function() {
+    const iframeContent = iframe.contentDocument || iframe.contentWindow.document;
+    const messageElement = iframeContent.querySelector('h4');
+    if (messageElement && messageElement.textContent === 'This media is unavailable at the moment.') {
+      // Close the page and show the return button
+      window.close();
+      // Add code to show the return button
+    }
+  };
+}
+
+// Call the function after displaying the movie details
+async function displayMovieDetails() {
+  // ... (rest of the code remains the same)
+
+  // Embed movie from Vidsrc
+  document.getElementById('movie-embed-container').innerHTML = `
+    <iframe src="https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}" allowfullscreen></iframe>
+  `;
+
+  // Check the iframe message
+  checkIframeMessage();
+
+  // ... (rest of the code remains the same)
+}
     </script>
 
 </body>
