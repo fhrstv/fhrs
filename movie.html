@@ -101,9 +101,8 @@ async function checkIframeMessage() {
     const iframeContent = iframe.contentDocument || iframe.contentWindow.document;
     const messageElement = iframeContent.querySelector('h4');
     if (messageElement && messageElement.textContent === 'This media is unavailable at the moment.') {
-      // Close the page and show the return button
-      window.close();
-      // Add code to show the return button
+      // Redirect to a custom error page or previous page
+      window.location.href = '/error-page.html'; // or '/previous-page.html'
     }
   };
 }
