@@ -151,12 +151,16 @@ input[type="submit"] {
   <header>
     <h1>فهرس</h1>
   </header>
-  <div class="content">
-    <h2>الأفلام الأجنبية والأنمي والعربية</h2>
-    <br> تحديث الأفلام في موقعنا يوميًا
-    <div class="search-box">
-      <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
-    </div>
+  <div class="search-box">
+  <input type="text" id="search-input" placeholder="Search...">
+  <input type="submit" value="Search">
+  <ul class="movie-list">
+    <li><a href="#">Result 1</a></li>
+    <li><a href="#">Result 2</a></li>
+    <li><a href="#">Result 3</a></li>
+    <!-- add more list items here -->
+  </ul>
+</div>
     <div id="movie-list" class="movie-list"></div>
     <ul class="head-center">
       <li class="head-item"><a href="/">رجوع</a></li>
