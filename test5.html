@@ -73,7 +73,10 @@
 
             movies.forEach(movie => {
                 const movieItem = document.createElement('div');
-                movieItem.textContent = movie.title || 'Unnamed Movie';
+                
+                // تجهيز نص الفيلم مع سنة الإصدار
+                const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown Year';
+                movieItem.textContent = `${movie.title || 'Unnamed Movie'} (${releaseYear})`;
                 movieItem.dataset.id = movie.id;
 
                 movieItem.addEventListener('click', () => {
