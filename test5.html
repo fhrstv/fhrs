@@ -122,7 +122,68 @@
   <li id="loading-message">جاري تحميل الأفلام...</li>
 </ul>
 
-<script src="random.js"></script>
-<script src="Movies.js"></script>
+<script>
+  const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+let allMovies = [];
+let displayedMovies = [];
+
+async function searchTMDBMovies(query) {
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to search TMDB');
+        }
+        const data = await response.json();
+        return data.results || [];
+    } catch (error) {
+        console.error('Error searching TMDB', error);
+        return [];
+    }
+}
+
+function updateMovieList() {
+    const movieList = document.getElementById('movie-list');
+    movieList.innerHTML = '';
+
+    displayedMovies.forEach(movie => {
+        const movieBox = document.createElement('div');
+        movieBox.className = 'movie-box';
+
+        const movieLink = document.createElement('a');
+        movieLink.href = `movie.html?tmdb_id=${movie.id}`;
+        movieLink.target = '_blank';
+
+        const movieTitle = document.createElement('span');
+        movieTitle.textContent = movie.title || 'Unnamed Movie';
+        movieLink.appendChild(movieTitle);
+
+        movieBox.appendChild(movieLink);
+        movieList.appendChild(movieBox);
+    });
+}
+
+function filterMovies(query) {
+    if (query.trim() === '') {
+        displayedMovies = allMovies;
+    } else {
+        searchTMDBMovies(query).then(results => {
+            allMovies = results;
+            displayedMovies = results;
+            updateMovieList();
+        });
+    }
+}
+
+document.getElementById('search-box').addEventListener('input', (event) => {
+    filterMovies(event.target.value);
+});
+
+window.onload = () => {
+    // Initial load can be adjusted or removed based on how you want to handle it
+    // Optionally, you can load popular movies or some default set
+};
+</script>
 </body>
 </html>
