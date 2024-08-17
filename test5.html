@@ -22,7 +22,7 @@
     left: 0;
     width: 100%;
     max-height: 300px;
-    overflow-y: scroll; /* تغيير من auto إلى scroll */
+    overflow-y: auto; /* للحفاظ على سلوك شريط التمرير الافتراضي */
     border: 1px solid #ccc;
     background: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -31,18 +31,32 @@
     border-radius: 4px;
 }
 
+#movie-list div {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd; /* للحفاظ على الخط الفاصل بين العناصر */
+}
+
+#movie-list div:last-child {
+    border-bottom: none; /* إزالة الخط الفاصل من العنصر الأخير */
+}
+
+#movie-list div:hover {
+    background-color: #f0f0f0;
+}
+
 /* تخصيص شريط التمرير */
 #movie-list::-webkit-scrollbar {
     width: 8px; /* عرض شريط التمرير */
 }
 
 #movie-list::-webkit-scrollbar-thumb {
-    background-color: #ccc; /* لون شريط التمرير */
-    border-radius: 4px; /* شكل شريط التمرير */
+    background-color: #888; /* لون رمادي لشريط التمرير */
+    border-radius: 4px; /* زوايا مستديرة لشريط التمرير */
 }
 
 #movie-list::-webkit-scrollbar-thumb:hover {
-    background-color: #aaa; /* لون شريط التمرير عند التمرير */
+    background-color: #555; /* لون رمادي أغمق عند التمرير */
 }
     </style>
 </head>
