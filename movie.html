@@ -124,34 +124,6 @@ function displayErrorMessage() {
     document.querySelector('#error-message').style.display = 'block';
 }
 
-function checkIframeContent(iframe, callback) {
-    const checkInterval = 1000; // Check every 1 second
-    const maxAttempts = 10; // Maximum number of attempts
-
-    let attempts = 0;
-
-    const interval = setInterval(() => {
-        attempts++;
-        try {
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            if (iframeDoc) {
-                const bodyText = iframeDoc.body.innerText || '';
-                const errorMessageFound = bodyText.includes('This media is unavailable at the moment.');
-                if (errorMessageFound) {
-                    clearInterval(interval);
-                    callback(); // Call the callback function to handle error
-                }
-            }
-        } catch (error) {
-            // Handle cross-origin errors
-        }
-
-        if (attempts >= maxAttempts) {
-            clearInterval(interval);
-        }
-    }, checkInterval);
-}
-
 async function displayMovieDetails() {
     const tmdbId = getQueryParameter('tmdb_id');
     if (!tmdbId) {
@@ -178,8 +150,22 @@ async function displayMovieDetails() {
         movieEmbedContainer.innerHTML = ''; // Clear previous content
         movieEmbedContainer.appendChild(movieEmbedIframe);
 
-        // Check if the iframe content loads properly
-        checkIframeContent(movieEmbedIframe, displayErrorMessage);
+        // Set up a timeout to check if the content is loaded
+        setTimeout(() => {
+            try {
+                // Check the iframe content
+                const iframeDoc = movieEmbedIframe.contentDocument || movieEmbedIframe.contentWindow.document;
+                if (iframeDoc) {
+                    const errorMessage = iframeDoc.body.innerText.includes('This media is unavailable at the moment');
+                    if (errorMessage) {
+                        displayErrorMessage(); // Display error message if specific text is found
+                    }
+                }
+            } catch (error) {
+                // Handle cross-origin errors or any other issues
+                displayErrorMessage();
+            }
+        }, 5000); // Adjust timeout as needed (5 seconds)
 
         // Check for trailer and display it
         const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
