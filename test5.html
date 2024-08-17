@@ -37,24 +37,16 @@
       text-align: center;
       margin-top: 20px;
       position: relative;
-      width: 100%;
-      max-width: 300px; /* تعيين أقصى عرض */
-      box-sizing: border-box; /* لضمان أن الحشو والحدود لا تؤثر على العرض الإجمالي */
-      margin-left: auto; /* توسيط العنصر أفقيًا */
-      margin-right: auto; /* توسيط العنصر أفقيًا */
     }
 
     #search-input {
       padding: 10px;
-      border-radius: 5px; /* تقوس لجميع الزوايا */
+      border-radius: 5px 5px 0 0;
       border: 1px solid #ccc;
       width: 100%;
-      box-sizing: border-box; /* للتأكد من أن الحشو والحدود لا تؤثر على العرض الإجمالي */
-      z-index: 2; /* لضمان أن مربع البحث يظهر فوق القائمة المنسدلة */
-    }
-
-    #search-input:focus {
-      outline: none;
+      max-width: 300px;
+      text-align: center;
+      box-sizing: border-box;
     }
 
     .movie-list {
@@ -63,16 +55,18 @@
       max-height: 300px;
       overflow-y: auto;
       border: 1px solid #ccc;
-      border-radius: 0 0 5px 5px; /* تقوس فقط في الجزء السفلي */
+      border-top: none;
+      border-radius: 0 0 5px 5px;
       position: absolute;
-      top: 100%; /* تعيينه مباشرة أسفل مربع البحث */
-      left: 0;
       width: 100%;
+      max-width: 300px;
       background-color: #fff;
       z-index: 1;
       display: none;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      margin: 0; /* إزالة أي مسافة افتراضية */
+      left: 0;
+      right: 0;
+      margin: auto;
     }
 
     .movie-list.show {
@@ -89,27 +83,6 @@
       background-color: #f0f0f0;
     }
 
-    .head-center {
-      list-style-type: none;
-      padding: 0;
-      text-align: center;
-    }
-
-    .head-item a {
-      text-decoration: none;
-      color: #333;
-      display: block;
-      padding: 20px;
-      border-radius: 5px;
-      background-color: red;
-      transition: background-color 0.3s;
-      font-size: 25px;
-    }
-
-    .head-item a:hover {
-      background-color: gold;
-    }
-
     @media (max-width: 600px) {
       h2 {
         font-size: 24px;
@@ -118,7 +91,6 @@
         margin-top: 10px;
       }
     }
-
   </style>
 </head>
 <body>
@@ -129,9 +101,7 @@
     <h2>الأفلام الأجنبية والأنمي والعربية</h2>
     <div class="search-box">
       <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
-      <ul class="movie-list">
-        <!-- قائمة العناصر هنا -->
-      </ul>
+      <ul class="movie-list"></ul>
     </div>
   </div>
   <script>
@@ -140,64 +110,64 @@
     let displayedMovies = [];
 
     async function searchMovies(query) {
-      const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}`;
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data.results || [];
-      } catch (error) {
-        console.error('Error fetching data from TMDB', error);
-        return [];
-      }
+        const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}`;
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.results || [];
+        } catch (error) {
+            console.error('Error fetching data from TMDB', error);
+            return [];
+        }
     }
 
     function sortMovies(movies) {
-      return movies.sort((a, b) => {
-        const aTitle = a.title.toLowerCase();
-        const bTitle = b.title.toLowerCase();
+        return movies.sort((a, b) => {
+            const aTitle = a.title.toLowerCase();
+            const bTitle = b.title.toLowerCase();
 
-        const titleComparison = aTitle.localeCompare(bTitle);
-        if (titleComparison !== 0) {
-          return titleComparison;
-        }
+            const titleComparison = aTitle.localeCompare(bTitle);
+            if (titleComparison !== 0) {
+                return titleComparison;
+            }
 
-        const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
-        const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
-        return aYear - bYear;
-      });
+            const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
+            const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
+            return aYear - bYear;
+        });
     }
 
     function updateMovieList(movies) {
-      const sortedMovies = sortMovies(movies);
-      const movieList = document.querySelector('.movie-list');
-      movieList.innerHTML = '';
+        const sortedMovies = sortMovies(movies);
+        const movieList = document.querySelector('.movie-list');
+        movieList.innerHTML = '';
 
-      sortedMovies.forEach(movie => {
-        const movieItem = document.createElement('li');
-        movieItem.className = 'movie-item';
-        
-        const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown Year';
-        movieItem.textContent = `${movie.title || 'Unnamed Movie'} (${releaseYear})`;
-        movieItem.dataset.id = movie.id;
+        sortedMovies.forEach(movie => {
+            const movieItem = document.createElement('li');
+            movieItem.className = 'movie-item';
+            
+            const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown Year';
+            movieItem.textContent = `${movie.title || 'Unnamed Movie'} (${releaseYear})`;
+            movieItem.dataset.id = movie.id;
 
-        movieItem.addEventListener('click', () => {
-          window.location.href = `movie.html?tmdb_id=${movie.id}`;
+            movieItem.addEventListener('click', () => {
+                window.location.href = `movie.html?tmdb_id=${movie.id}`;
+            });
+
+            movieList.appendChild(movieItem);
         });
 
-        movieList.appendChild(movieItem);
-      });
-
-      movieList.style.display = sortedMovies.length ? 'block' : 'none';
+        movieList.style.display = sortedMovies.length ? 'block' : 'none';
     }
 
     document.getElementById('search-input').addEventListener('input', async (event) => {
-      const query = event.target.value.trim();
-      if (query.length > 2) {
-        allMovies = await searchMovies(query);
-        updateMovieList(allMovies);
-      } else {
-        document.querySelector('.movie-list').style.display = 'none';
-      }
+        const query = event.target.value.trim();
+        if (query.length > 2) {
+            allMovies = await searchMovies(query);
+            updateMovieList(allMovies);
+        } else {
+            document.querySelector('.movie-list').style.display = 'none';
+        }
     });
   </script>
 </body>
