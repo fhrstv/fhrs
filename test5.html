@@ -121,25 +121,26 @@
 
 <script>
   const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-let allMovies = [];
 let displayedMovies = [];
 
+// البحث في TMDB
 async function searchTMDBMovies(query) {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&page=1`;
 
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error('Failed to search TMDB');
+            throw new Error('فشل في البحث في TMDB');
         }
         const data = await response.json();
         return data.results || [];
     } catch (error) {
-        console.error('Error searching TMDB', error);
+        console.error('خطأ في البحث في TMDB', error);
         return [];
     }
 }
 
+// تحديث قائمة الأفلام المعروضة
 function updateMovieList() {
     const movieList = document.getElementById('movie-list');
     movieList.innerHTML = '';
@@ -153,7 +154,7 @@ function updateMovieList() {
         movieLink.target = '_blank';
 
         const movieTitle = document.createElement('span');
-        movieTitle.textContent = movie.title || 'Unnamed Movie';
+        movieTitle.textContent = movie.title || 'فيلم بلا اسم';
         movieLink.appendChild(movieTitle);
 
         movieBox.appendChild(movieLink);
@@ -161,26 +162,24 @@ function updateMovieList() {
     });
 }
 
+// تصفية الأفلام بناءً على الاستعلام
 function filterMovies(query) {
     if (query.trim() === '') {
-        displayedMovies = allMovies;
-    } else {
-        searchTMDBMovies(query).then(results => {
-            allMovies = results;
-            displayedMovies = results;
-            updateMovieList();
-        });
+        displayedMovies = [];
+        updateMovieList();
+        return;
     }
+
+    searchTMDBMovies(query).then(results => {
+        displayedMovies = results;
+        updateMovieList();
+    });
 }
 
+// التعامل مع إدخال المستخدم في مربع البحث
 document.getElementById('search-box').addEventListener('input', (event) => {
     filterMovies(event.target.value);
 });
-
-window.onload = () => {
-    // Initial load can be adjusted or removed based on how you want to handle it
-    // Optionally, you can load popular movies or some default set
-};
 </script>
 </body>
 </html>
