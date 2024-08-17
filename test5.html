@@ -12,12 +12,15 @@
     <div id="results"></div>
 
     <script> 
+// الصق هنا مصفوفة المعرفات التي تم إنشاؤها
 const imdbIDs = [
-    'tt0111161', 'tt0068646', 'tt0071562', // أضف المزيد من المعرفات هنا
-    // قم بإدراج جميع المعرفات التي لديك
+    'tt0111161',
+    'tt0068646',
+    'tt0071562',
+    // أضف المزيد من المعرفات هنا
 ];
 
-const tmdbAPIKey = 'cf64a661774f647b7513facb9f1e55e5'; // ضع مفتاح API الخاص بك هنا
+const tmdbAPIKey = 'YOUR_TMDB_API_KEY'; // ضع مفتاح API الخاص بك هنا
 
 async function searchMovie() {
     const query = document.getElementById('searchInput').value;
@@ -49,7 +52,6 @@ async function searchMovie() {
         resultsDiv.textContent = 'لم يتم العثور على نتائج.';
     }
 }
-    
     </script>
 </body>
 </html>
