@@ -37,6 +37,9 @@
             border: none;
             border-radius: 5px;
         }
+        .trailer-container {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -46,7 +49,7 @@
         <img src="" alt="Movie Poster">
         <p><strong>Release Date:</strong> <span id="release-date">N/A</span></p>
         <p><strong>Overview:</strong> <span id="overview">No overview available.</span></p>
-        <iframe id="movie-embed" src="" allowfullscreen></iframe>
+        <div class="trailer-container" id="trailer-container"></div>
     </div>
 
     <script>
@@ -106,12 +109,14 @@
                 document.getElementById('release-date').textContent = movieData.release_date || 'N/A';
                 document.getElementById('overview').textContent = movieData.overview || 'No overview available.';
                 
-                // Find the first trailer and set it as the src of the iframe
+                // Find the first trailer and display it
                 const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
                 if (trailer) {
-                    document.getElementById('movie-embed').src = `https://www.youtube.com/embed/${trailer.key}`;
+                    document.getElementById('trailer-container').innerHTML = `
+                        <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
+                    `;
                 } else {
-                    document.getElementById('movie-embed').src = ''; // No trailer available
+                    document.getElementById('trailer-container').innerHTML = '<p>No trailer available.</p>';
                 }
             } else {
                 document.getElementById('movie-details').innerHTML = '<p>Failed to load movie details.</p>';
