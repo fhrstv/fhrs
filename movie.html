@@ -96,27 +96,31 @@ function getQueryParameter(name) {
 function checkIframeContent() {
     const iframe = document.querySelector('.movie-embed');
     
-    // Polling to check iframe content
-    const interval = setInterval(() => {
+    iframe.onload = function() {
         try {
             const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
             if (iframeDocument) {
                 const errorDiv = iframeDocument.getElementById('error');
                 if (errorDiv) {
-                    clearInterval(interval);
                     displayErrorMessage();
                 }
             }
         } catch (e) {
             console.warn('Could not access iframe content due to cross-origin restrictions.');
         }
-    }, 1000); // تحقق كل ثانية
+    };
 }
 
 function displayErrorMessage() {
     document.querySelector('.movie-details').style.display = 'none';
-    document.querySelector('#error-message').style.display = 'block';
-    window.location.replace('/error.html'); // إعادة التوجيه إلى صفحة الخطأ
+    const errorMessage = document.createElement('div');
+    errorMessage.innerHTML = `
+        <h1>آسف، لم نتمكن من تحميل الفيلم.</h1>
+        <p>عذرًا، يبدو أن الفيلم غير متاح في الوقت الحالي.</p>
+        <button onclick="window.history.back()">رجوع</button>
+    `;
+    document.body.innerHTML = '';
+    document.body.appendChild(errorMessage);
 }
 
 async function displayMovieDetails() {
