@@ -142,7 +142,10 @@ async function displayMovieDetails() {
         const movieEmbedIframe = document.createElement('iframe');
         movieEmbedIframe.src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
         movieEmbedIframe.className = 'movie-embed';
-        movieEmbedIframe.onload = function() {
+        document.getElementById('movie-embed-container').appendChild(movieEmbedIframe);
+
+        // Check for error message
+        setTimeout(function() {
             const iframeContent = movieEmbedIframe.contentDocument || movieEmbedIframe.contentWindow.document;
             const errorMessage = iframeContent.body.textContent.trim();
             if (errorMessage === "This media is unavailable at the moment.") {
@@ -154,8 +157,7 @@ async function displayMovieDetails() {
                     <button onclick="window.history.back()">Go back</button>
                 `;
             }
-        };
-        document.getElementById('movie-embed-container').appendChild(movieEmbedIframe);
+        }, 2000); // Check every 2 seconds
 
         // Check for trailer and display it
         const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
