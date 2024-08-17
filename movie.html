@@ -119,6 +119,23 @@ function getQueryParameter(name) {
     return urlParams.get(name);
 }
 
+function displayErrorMessage() {
+    document.querySelector('.movie-details').style.display = 'none';
+    document.querySelector('#error-message').style.display = 'block';
+}
+
+function checkIframeContent(iframe) {
+    try {
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+        const bodyText = iframeDoc.body.innerText || '';
+        if (bodyText.includes('This media is unavailable at the moment')) {
+            displayErrorMessage();
+        }
+    } catch (error) {
+        console.error('Error accessing iframe content:', error);
+    }
+}
+
 async function displayMovieDetails() {
     const tmdbId = getQueryParameter('tmdb_id');
     if (!tmdbId) {
@@ -145,23 +162,8 @@ async function displayMovieDetails() {
         movieEmbedContainer.innerHTML = ''; // Clear previous content
         movieEmbedContainer.appendChild(movieEmbedIframe);
 
-        // Set up a timeout to check if the content is loaded
-        setTimeout(() => {
-            try {
-                // Check the iframe content
-                const iframeDoc = movieEmbedIframe.contentDocument || movieEmbedIframe.contentWindow.document;
-                if (iframeDoc) {
-                    const errorMessage = iframeDoc.body.innerText.includes('This media is unavailable at the moment');
-                    if (errorMessage) {
-                        document.querySelector('.block-msg').style.display = 'block'; // Show block message
-                        document.querySelector('.movie-embed').style.display = 'none'; // Hide iframe
-                    }
-                }
-            } catch (error) {
-                // Handle cross-origin errors or any other issues
-                console.error(error);
-            }
-        }, 1000); // Adjust timeout as needed (5 seconds)
+        // Check if the iframe content loads properly
+        movieEmbedIframe.onload = () => checkIframeContent(movieEmbedIframe);
 
         // Check for trailer and display it
         const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
@@ -178,7 +180,6 @@ async function displayMovieDetails() {
 }
 
 window.onload = displayMovieDetails;
-            
                     </script>
 
 </body>
