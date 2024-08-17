@@ -23,72 +23,39 @@
     <input type="text" id="search-box" placeholder="Search for movies...">
     <div id="movie-list"></div>
     <script>
-        const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // Note: Not used in this implementation
-        const totalMovies = 100000;
         let allMovies = [];
-        let displayedMovies = [];
+let displayedMovies = [];
+const totalMovies = 100000;
+let pageNumber = 1;
+let hasMorePages = true;
 
-        async function fetchMoviesFromPage(pageNumber) {
-            const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
+async function fetchMoviesFromPage(pageNumber) {
+    const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
 
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Failed to load page ' + pageNumber);
-                }
-                const data = await response.json();
-                return data.result || [];
-            } catch (error) {
-                console.error('Error fetching movies from page', pageNumber, error);
-                return [];
-            }
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to load page ' + pageNumber);
         }
+        const data = await response.json();
+        return data.result || [];
+    } catch (error) {
+        console.error('Error fetching movies from page', pageNumber, error);
+        return [];
+    }
+}
 
-        async function fetchAllMovies() {
-            let pageNumber = 1;
-            const movieList = document.getElementById('movie-list');
-            movieList.innerHTML = '';
+async function fetchAllMovies() {
+    const movieList = document.getElementById('movie-list');
+    movieList.innerHTML = '';
 
-            while (allMovies.length < totalMovies) {
-                const pageData = await fetchMoviesFromPage(pageNumber);
+    while (allMovies.length < totalMovies && hasMorePages) {
+        const pageData = await fetchMoviesFromPage(pageNumber);
 
-                if (pageData && pageData.length > 0) {
-                    allMovies.push(...pageData);
+        if (pageData && pageData.length > 0) {
+            allMovies.push(...pageData);
 
-                    pageData.forEach(movie => {
-                        const movieBox = document.createElement('div');
-                        movieBox.className = 'movie-box';
-
-                        const movieLink = document.createElement('a');
-                        movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
-                        movieLink.target = '_blank';
-
-                        const movieTitle = document.createElement('span');
-                        movieTitle.textContent = movie.title || 'Unnamed Movie';
-                        movieLink.appendChild(movieTitle);
-
-                        movieBox.appendChild(movieLink);
-                        movieList.appendChild(movieBox);
-                    });
-
-                    pageNumber++;
-                } else {
-                    break; // No more pages available
-                }
-            }
-
-            // ترتيب الأفلام أبجديًا
-            allMovies.sort((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }));
-
-            displayedMovies = [...allMovies];
-            updateMovieList();
-        }
-
-        function updateMovieList() {
-            const movieList = document.getElementById('movie-list');
-            movieList.innerHTML = '';
-
-            displayedMovies.forEach(movie => {
+            pageData.forEach(movie => {
                 const movieBox = document.createElement('div');
                 movieBox.className = 'movie-box';
 
@@ -103,19 +70,53 @@
                 movieBox.appendChild(movieLink);
                 movieList.appendChild(movieBox);
             });
+
+            pageNumber++;
+        } else {
+            hasMorePages = false;
         }
+    }
 
-        function filterMovies(query) {
-            const regex = new RegExp(`^${query.trim()}`, 'i');
-            displayedMovies = allMovies.filter(movie => regex.test(movie.title));
-            updateMovieList();
-        }
+    // ترتيب الأفلام أبجديًا
+    allMovies.sort((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }));
+    displayedMovies = [...allMovies];
+    updateMovieList();
+}
 
-        document.getElementById('search-box').addEventListener('input', (event) => {
-            filterMovies(event.target.value);
-        });
+function updateMovieList() {
+    const movieList = document.getElementById('movie-list');
+    movieList.innerHTML = '';
 
-        window.onload = fetchAllMovies;
+    displayedMovies.forEach(movie => {
+        const movieBox = document.createElement('div');
+        movieBox.className = 'movie-box';
+
+        const movieLink = document.createElement('a');
+        movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
+        movieLink.target = '_blank';
+
+        const movieTitle = document.createElement('span');
+        movieTitle.textContent = movie.title || 'Unnamed Movie';
+        movieLink.appendChild(movieTitle);
+
+        movieBox.appendChild(movieLink);
+        movieList.appendChild(movieBox);
+    });
+}
+
+function filterMovies(query) {
+    const searchQuery = query.trim().toLowerCase();
+    displayedMovies = allMovies.filter(movie => 
+        movie.title.toLowerCase().includes(searchQuery)
+    );
+    updateMovieList();
+}
+
+document.getElementById('search-box').addEventListener('input', (event) => {
+    filterMovies(event.target.value);
+});
+
+window.onload = fetchAllMovies;
     </script>
 </body>
 </html>
