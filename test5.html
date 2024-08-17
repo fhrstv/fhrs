@@ -151,7 +151,7 @@
                 movieItem.dataset.id = movie.id;
 
                 movieItem.addEventListener('click', () => {
-                    window.location.href = `watch.html?tmdb_id=${movie.id}`;
+                    window.location.href = `watch?tmdb_id=${movie.id}`;
                 });
 
                 movieList.appendChild(movieItem);
