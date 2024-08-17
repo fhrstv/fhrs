@@ -31,11 +31,29 @@ h1 {
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  position: relative; /* لضبط موضع القائمة المنسدلة */
+}
+
+#search-input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc; /* حدود رصاصية فاتحة */
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* إضافة ظل خفيف لمربع البحث */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+#search-input:focus {
+  border-color: #666; /* تغيير لون الحدود عند التركيز */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* زيادة ظل مربع البحث عند التركيز */
+  outline: none;
 }
 
 #movie-list {
   width: 50%; /* نصف عرض مربع البحث */
-  max-width: 150px; /* عرض ثابت للقائمة */
+  max-width: 300px; /* عرض ثابت للقائمة */
   max-height: 300px; /* تحديد الارتفاع الأقصى للقائمة */
   margin-top: 5px; /* فاصل بسيط بين مربع البحث والقائمة المنسدلة */
   border: 1px solid #ccc; /* لون حدود القائمة */
@@ -45,71 +63,44 @@ h1 {
   left: 50%; /* موضع القائمة في المنتصف أفقيًا */
   transform: translateX(-50%); /* لضمان مركزية القائمة بالضبط */
   overflow-y: auto; /* إظهار شريط تمرير عمودي عند الحاجة */
-  box-shadow: none; /* إزالة أي ظل يمكن أن يظهر أسفل القائمة */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* ظل للقائمة المنسدلة */
+  z-index: 1000; /* تأكد من أن القائمة فوق العناصر الأخرى */
 }
 
 /* تخصيص شريط التمرير للمتصفحات WebKit (Chrome, Safari) */
 #movie-list::-webkit-scrollbar {
-  width: 12px !important; /* عرض شريط التمرير */
+  width: 12px; /* عرض شريط التمرير */
 }
 
 #movie-list::-webkit-scrollbar-track {
-  background: #f0f0f0 !important; /* لون خلفية شريط التمرير */
+  background: #f0f0f0; /* لون خلفية شريط التمرير */
 }
 
 #movie-list::-webkit-scrollbar-thumb {
-  background: #000 !important; /* لون مقبض شريط التمرير */
-  border-radius: 10px !important; /* انحناء مقبض التمرير */
+  background: #000; /* لون مقبض شريط التمرير */
+  border-radius: 10px; /* انحناء مقبض التمرير */
 }
 
 /* تخصيص شريط التمرير لـ Firefox */
 #movie-list {
-  scrollbar-width: thin !important; /* عرض شريط التمرير */
-  scrollbar-color: #000 #f0f0f0 !important; /* اللون الأول هو لون مقبض التمرير، واللون الثاني هو لون الخلفية */
+  scrollbar-width: thin; /* عرض شريط التمرير */
+  scrollbar-color: #000 #f0f0f0; /* اللون الأول هو لون مقبض التمرير، واللون الثاني هو لون الخلفية */
 }
-
 
 .movie-item {
   padding: 10px;
-  border-bottom: 1px solid #ccc; /* الخط بين العناصر */
+  border-bottom: 1px solid #ddd; /* الخط بين العناصر بلون رمادي فاتح */
   cursor: pointer;
   position: relative;
+  transition: background-color 0.3s ease; /* إضافة تأثير ناعم لتغيير الخلفية */
 }
 
 .movie-item:last-child {
   border-bottom: none; /* إزالة الخط الأخير */
 }
 
-.movie-item::after {
-  content: "";
-  display: block;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  border-bottom: 1px solid #ccc; /* الخط بين العناصر */
-}
-
 .movie-item:hover {
-  background-color: #f0f0f0;
-}
-
-#search-input {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid transparent; /* حدود شفافة بشكل افتراضي */
-  width: 100%;
-  max-width: 300px;
-  box-shadow: none; /* إزالة أي ظل قد يظهر أسفل مربع البحث */
-  transition: transform 0.3s ease, border-color 0.3s ease;
-  text-align: center;
-}
-
-#search-input:focus {
-  transform: scale(1.1);
-  outline: none;
-  border-color: #ccc; /* تغيير لون الحدود عند التركيز */
-  box-shadow: none; /* إزالة أي ظل عند التركيز */
+  background-color: #eee; /* تغيير الخلفية عند التمرير فوق العنصر */
 }
 
 .head-center {
@@ -153,10 +144,6 @@ h1 {
     <div class="search-box">
       <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
     </div>
-    <div id="movie-list" class="movie-list"></div>
-    <ul class="head-center">
-      <li class="head-item"><a href="/">رجوع</a></li>
-    </ul>
   </div>
   <script>
     const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
