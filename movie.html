@@ -99,21 +99,53 @@ async function fetchMovieDetails(tmdbId) {
     }
 }
 
-async function checkMovieAvailability(tmdbId) {
-    const url = `https://vidsrc.xyz/api/check?tmdb=${tmdbId}`; // رابط تخيلي فقط كمثال
+async function fetchMovieVideos(tmdbId) {
+    const url = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}`;
     try {
         const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to fetch movie videos.');
+        }
         const data = await response.json();
-        return data.available; // نفترض أن هذا الحقل يعود بالقيمة الصحيحة إذا كان الفيلم متاحًا
+        return data.results;
     } catch (error) {
-        console.error('Error checking movie availability:', error);
-        return false;
+        console.error('Error fetching movie videos:', error);
+        return [];
     }
 }
 
 function getQueryParameter(name) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(name);
+}
+
+function checkIframeContent() {
+    const iframe = document.querySelector('.movie-embed');
+    let iframeLoaded = false;
+
+    iframe.onload = function() {
+        iframeLoaded = true;
+
+        setTimeout(() => {
+            try {
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                const bodyText = iframeDocument.body.textContent || iframeDocument.body.innerText;
+
+                if (bodyText.includes("This media is unavailable at the moment.")) {
+                    displayErrorMessage();
+                }
+            } catch (e) {
+                console.warn('Could not access iframe content due to cross-origin restrictions.');
+            }
+        }, 5000); // انتظر 5 ثوان بعد تحميل iframe
+    };
+
+    setTimeout(() => {
+        if (!iframeLoaded) {
+            console.warn('Iframe is taking too long to load or is not accessible.');
+            displayErrorMessage();
+        }
+    }, 10000); // انتظر 10 ثوان كحد أقصى
 }
 
 function displayErrorMessage() {
@@ -123,37 +155,23 @@ function displayErrorMessage() {
 
 async function displayMovieDetails() {
     const tmdbId = getQueryParameter('tmdb_id');
+
     if (!tmdbId) {
         document.getElementById('movie-details').innerHTML = '<p>No movie ID provided.</p>';
         return;
     }
 
-    const movieAvailable = await checkMovieAvailability(tmdbId);
-    
-    if (!movieAvailable) {
-        displayErrorMessage();
-        return;
-    }
-
     const movieData = await fetchMovieDetails(tmdbId);
+    const movieVideos = await fetchMovieVideos(tmdbId);
 
     if (movieData) {
         document.querySelector('h1').textContent = movieData.title || 'No Title';
         document.querySelector('img').src = `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`;
         document.getElementById('release-date').textContent = movieData.release_date || 'N/A';
         document.getElementById('overview').textContent = movieData.overview || 'No overview available.';
-
-        // Embed movie from Vidsrc
-        const movieEmbedIframe = document.createElement('iframe');
-        movieEmbedIframe.src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
-        movieEmbedIframe.className = 'movie-embed';
-
-        // Add the iframe to the container
-        const movieEmbedContainer = document.getElementById('movie-embed-container');
-        movieEmbedContainer.innerHTML = ''; // Clear previous content
-        movieEmbedContainer.appendChild(movieEmbedIframe);
-
-        // Check for trailer and display it
+        document.getElementById('movie-embed').src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
+        
+        // Find the first trailer and display it
         const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
         if (trailer) {
             document.getElementById('trailer-container').innerHTML = `
@@ -162,12 +180,17 @@ async function displayMovieDetails() {
         } else {
             document.getElementById('trailer-container').innerHTML = '<p>No trailer available.</p>';
         }
+        
+        // تحقق من محتوى iframe بعد فترة زمنية محددة
+        checkIframeContent();
     } else {
         document.getElementById('movie-details').innerHTML = '<p>Failed to load movie details.</p>';
     }
 }
 
-window.onload = displayMovieDetails;
+window.onload = function() {
+    displayMovieDetails();
+};
                     </script>
 
 </body>
