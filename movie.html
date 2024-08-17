@@ -42,6 +42,27 @@
             width: 100%;
             height: 400px; /* Adjust height as needed */
         }
+        .error-message {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .error-message p {
+            font-size: 1.2em;
+            color: red;
+        }
+        .error-message button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .error-message button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -53,6 +74,11 @@
         <p><strong>Overview:</strong> <span id="overview">No overview available.</span></p>
         <div class="movie-embed-container" id="movie-embed-container"></div>
         <div class="trailer-container" id="trailer-container"></div>
+    </div>
+
+    <div class="error-message" id="error-message">
+        <p>عذرًا، لم يتم تنزيل هذا الفيلم في موقعنا.</p>
+        <button onclick="window.history.back()">رجوع</button>
     </div>
 
     <script>
@@ -95,6 +121,14 @@
             return urlParams.get(name);
         }
 
+        function checkIframeContent(iframe, callback) {
+            iframe.onload = function() {
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                const textContent = iframeDocument.body.textContent || iframeDocument.body.innerText;
+                callback(textContent);
+            };
+        }
+
         async function displayMovieDetails() {
             const tmdbId = getQueryParameter('tmdb_id');
 
@@ -113,9 +147,18 @@
                 document.getElementById('overview').textContent = movieData.overview || 'No overview available.';
 
                 // Embed movie from Vidsrc
-                document.getElementById('movie-embed-container').innerHTML = `
-                    <iframe src="https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}" allowfullscreen></iframe>
-                `;
+                const movieEmbedIframe = document.createElement('iframe');
+                movieEmbedIframe.src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
+                movieEmbedIframe.className = 'movie-embed';
+                document.getElementById('movie-embed-container').appendChild(movieEmbedIframe);
+
+                // Check for "This media is unavailable" text
+                checkIframeContent(movieEmbedIframe, function(textContent) {
+                    if (textContent.includes('This media is unavailable at the moment')) {
+                        document.querySelector('.movie-details').style.display = 'none';
+                        document.querySelector('#error-message').style.display = 'block';
+                    }
+                });
 
                 // Find and display the first trailer
                 const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
