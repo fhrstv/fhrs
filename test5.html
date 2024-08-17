@@ -9,158 +9,111 @@
   <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
   <style>
     body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  margin: 0;
-  padding: 0;
-  color: #000;
-}
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      color: #000;
+    }
 
-header {
-  background-color: #333;
-  color: hsl(0, 94%, 46%);
-  text-align: center;
-  padding: 10px;
-}
+    header {
+      background-color: #333;
+      color: hsl(0, 94%, 46%);
+      text-align: center;
+      padding: 10px;
+    }
 
-h1 {
-  margin: 0;
-}
+    h1 {
+      margin: 0;
+    }
 
-.content {
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
+    .content {
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
 
-.movie-list {
-  list-style-type: none;
-  padding: 0;
-  text-align: center;
-  display: none; /* hide the list by default */
-  position: absolute;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  width: 300px; /* adjust the width to match the search box */
-  z-index: 1; /* make sure the list is on top of other elements */
-}
+    .movie-list {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-.movie-list li {
-  margin-bottom: 10px; /* add some space between each result */
-  border-bottom: 1px solid #ccc; /* add a separator between each result */
-}
+    .movie-item {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      cursor: pointer;
+    }
 
-.movie-list li:last-child {
-  border-bottom: none; /* remove the separator from the last result */
-}
+    .movie-item:hover {
+      background-color: #f0f0f0;
+    }
 
-.movie-item {
-  margin: 10px;
-}
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+    }
 
-a {
-  text-decoration: none;
-  color: #333;
-  display: block;
-  padding: 20px;
-  border-radius: 5px;
-  background-color: red;
-  transition: background-color 0.3s;
-  font-size: 25px;
-}
+    #search-input {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 300px;
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
 
-a:hover {
-  background-color: gold;
-}
+    #search-input:focus {
+      transform: scale(1.1);
+      outline: none;
+    }
 
-h2 {
-  text-align: center;
-}
+    .head-center {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
 
-.search-box {
-  text-align: center;
-  margin-top: 20px;
-  position: relative; /* make the search box a relative container */
-}
+    .head-item a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: red;
+      transition: background-color 0.3s;
+      font-size: 25px;
+    }
 
-input[type="text"] {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 100%;
-  max-width: 300px;
-}
+    .head-item a:hover {
+      background-color: gold;
+    }
 
-input[type="submit"] {
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#search-input {
-  touch-action: none;
-}
-
-.search-box input[type="text"]:focus + .movie-list {
-  display: block; /* show the list when the input is focused */
-}
-
-@media (max-width: 600px) {
-  h2 {
-    font-size: 24px;
-  }
-  .search-box {
-    margin-top: 10px;
-  }
-}
-
-/* add some styles to make the search box look nicer */
-.search-box {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  padding: 10px;
-  background-color: #fff;
-}
-
-.search-box input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  font-size: 18px;
-  border: none;
-  border-radius: 5px;
-}
-
-.search-box input[type="submit"] {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 10px 20px;
-  font-size: 18px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 24px;
+      }
+      .search-box {
+        margin-top: 10px;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>فهرس</h1>
   </header>
-  <div class="search-box">
-  <input type="text" id="search-input" placeholder="Search...">
-  <input type="submit" value="Search">
-  <ul class="movie-list">
-    <li><a href="#">Result 1</a></li>
-    <li><a href="#">Result 2</a></li>
-    <li><a href="#">Result 3</a></li>
-    <!-- add more list items here -->
-  </ul>
-</div>
+  <div class="content">
+    <h2>الأفلام الأجنبية والأنمي والعربية</h2>
+    <br> تحديث الأفلام في موقعنا يوميًا
+    <div class="search-box">
+      <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
+    </div>
     <div id="movie-list" class="movie-list"></div>
     <ul class="head-center">
       <li class="head-item"><a href="/">رجوع</a></li>
