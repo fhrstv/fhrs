@@ -23,11 +23,7 @@
     <input type="text" id="search-box" placeholder="Search for movies...">
     <div id="movie-list"></div>
     <script>
-        let allMovies = [];
-let displayedMovies = [];
-const totalMovies = 1000000;
-let pageNumber = 1;
-let hasMorePages = true;
+        const totalPages = 1543; // عدد الصفحات الكلي
 
 async function fetchMoviesFromPage(pageNumber) {
     const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
@@ -45,49 +41,35 @@ async function fetchMoviesFromPage(pageNumber) {
     }
 }
 
-async function fetchAllMovies() {
-    const movieList = document.getElementById('movie-list');
-    movieList.innerHTML = '';
+async function searchMovies(query) {
+    const searchQuery = query.trim().toLowerCase();
+    let results = [];
+    let pageNumber = 1;
 
-    while (allMovies.length < totalMovies && hasMorePages) {
+    while (pageNumber <= totalPages) {
         const pageData = await fetchMoviesFromPage(pageNumber);
 
-        if (pageData && pageData.length > 0) {
-            allMovies.push(...pageData);
-
-            pageData.forEach(movie => {
-                const movieBox = document.createElement('div');
-                movieBox.className = 'movie-box';
-
-                const movieLink = document.createElement('a');
-                movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
-                movieLink.target = '_blank';
-
-                const movieTitle = document.createElement('span');
-                movieTitle.textContent = movie.title || 'Unnamed Movie';
-                movieLink.appendChild(movieTitle);
-
-                movieBox.appendChild(movieLink);
-                movieList.appendChild(movieBox);
-            });
-
-            pageNumber++;
-        } else {
-            hasMorePages = false;
+        if (pageData.length === 0) {
+            break; // انتهت الصفحات المتاحة
         }
+
+        const filteredMovies = pageData.filter(movie =>
+            movie.title.toLowerCase().includes(searchQuery)
+        );
+
+        results.push(...filteredMovies);
+
+        pageNumber++;
     }
 
-    // ترتيب الأفلام أبجديًا
-    allMovies.sort((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }));
-    displayedMovies = [...allMovies];
-    updateMovieList();
+    updateMovieList(results);
 }
 
-function updateMovieList() {
+function updateMovieList(movies) {
     const movieList = document.getElementById('movie-list');
     movieList.innerHTML = '';
 
-    displayedMovies.forEach(movie => {
+    movies.forEach(movie => {
         const movieBox = document.createElement('div');
         movieBox.className = 'movie-box';
 
@@ -104,19 +86,14 @@ function updateMovieList() {
     });
 }
 
-function filterMovies(query) {
-    const searchQuery = query.trim().toLowerCase();
-    displayedMovies = allMovies.filter(movie => 
-        movie.title.toLowerCase().includes(searchQuery)
-    );
-    updateMovieList();
-}
-
 document.getElementById('search-box').addEventListener('input', (event) => {
-    filterMovies(event.target.value);
+    const query = event.target.value;
+    if (query.length > 2) { // بدء البحث بعد إدخال 3 أحرف لتقليل الطلبات
+        searchMovies(query);
+    } else {
+        updateMovieList([]); // مسح النتائج إذا كان النص قصيرًا جدًا
+    }
 });
-
-window.onload = fetchAllMovies;
     </script>
 </body>
 </html>
