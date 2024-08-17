@@ -137,8 +137,10 @@ Promise.all(tmdbIds.map(id =>
   fetch(`${tmdbApiUrl}${id}?api_key=${tmdbApiKey}&language=en-US`)
     .then(response => response.json())
     .then(data => {
+      const year = data.release_date ? new Date(data.release_date).getFullYear() : 'Unknown Year';
       return {
         title: data.title || 'Unknown Title',
+        year: year,
         id: data.id, // الاحتفاظ بالمعرّف
       };
     })
@@ -150,7 +152,7 @@ Promise.all(tmdbIds.map(id =>
   const links = movies.filter(Boolean).map(movie => {
     const listItem = document.createElement('li');
     listItem.classList.add('movie-item');
-    listItem.innerHTML = `<a href="movie.html?tmdb_id=${movie.id}" rel="noopener noreferrer">${movie.title}</a>`;
+    listItem.innerHTML = `<a href="movie.html?tmdb_id=${movie.id}" rel="noopener noreferrer">${movie.title} ${movie.year}</a>`;
     seriesList.appendChild(listItem);
     return listItem.querySelector('a');
   });
@@ -171,7 +173,7 @@ Promise.all(tmdbIds.map(id =>
       }
     });
   });
-  
+
   const listItems = Array.from(seriesList.getElementsByClassName('movie-item'));
   listItems.sort((a, b) => a.textContent.localeCompare(b.textContent));
   listItems.forEach(item => seriesList.appendChild(item));
@@ -186,8 +188,6 @@ Promise.all(tmdbIds.map(id =>
       }
     }
   });
-
-
 
   searchInput.addEventListener('keypress', function(event) {
     if (event.keyCode === 13) {
