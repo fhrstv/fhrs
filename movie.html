@@ -57,6 +57,7 @@
 
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+        const messageToFind = "This media is unavailable at the moment.";
 
         async function fetchMovieDetails(tmdbId) {
             const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}`;
@@ -126,17 +127,14 @@
                 } else {
                     document.getElementById('trailer-container').innerHTML = '<p>No trailer available.</p>';
                 }
+
+                // بعد تحميل التفاصيل، تحقق من النصوص
+                checkForMessage();
             } else {
                 document.getElementById('movie-details').innerHTML = '<p>Failed to load movie details.</p>';
             }
         }
 
-        window.onload = displayMovieDetails;
-        
-        
-            const messageToFind = "This media is unavailable at the moment.";
-
-        // دالة للتحقق من النصوص
         function checkForMessage() {
             // الحصول على كل العناصر النصية في الصفحة
             const elements = document.body.getElementsByTagName('*');
@@ -150,8 +148,8 @@
             }
         }
 
-        // تنفيذ الفحص بعد تحميل الصفحة
-        window.onload = checkForMessage;
+        // تنفيذ عرض تفاصيل الفيلم بعد تحميل الصفحة
+        window.onload = displayMovieDetails;
     </script>
 
 </body>
