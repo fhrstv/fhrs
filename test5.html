@@ -128,7 +128,7 @@ const totalPages = 1543;
 let movieTitles = [];
 
 function fetchMoviesFromPage(pageNumber) {
-    const fileUrl = `${folderPath}/page-${pageNumber}.json`;
+    const fileUrl = `https://vidsrc.xyz/${folderPath}/page-${pageNumber}.json`; // استبدل الرابط بالمسار الصحيح
 
     return fetch(fileUrl)
         .then(response => {
@@ -156,7 +156,6 @@ async function loadAllMovies() {
         await fetchMoviesFromPage(page);
     }
 
-    // ترتيب عناوين الأفلام أبجديًا
     movieTitles.sort((a, b) => a.localeCompare(b));
 
     const movieList = document.getElementById('movie-list');
