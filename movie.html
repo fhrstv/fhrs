@@ -42,27 +42,6 @@
             width: 100%;
             height: 400px; /* Adjust height as needed */
         }
-        .error-message {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .error-message p {
-            font-size: 1.2em;
-            color: red;
-        }
-        .error-message button {
-            padding: 10px 20px;
-            font-size: 1em;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .error-message button:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
@@ -76,122 +55,84 @@
         <div class="trailer-container" id="trailer-container"></div>
     </div>
 
-    <div class="error-message" id="error-message">
-        <p>عذرًا، لم يتم تنزيل هذا الفيلم في موقعنا.</p>
-        <button onclick="window.history.back()">رجوع</button>
-    </div>
-
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
 
-async function fetchMovieDetails(tmdbId) {
-    const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Failed to fetch movie details.');
-        }
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching movie details:', error);
-        return null;
-    }
-}
+        async function fetchMovieDetails(tmdbId) {
+            const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}`;
 
-async function fetchMovieVideos(tmdbId) {
-    const url = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Failed to fetch movie videos.');
-        }
-        const data = await response.json();
-        return data.results;
-    } catch (error) {
-        console.error('Error fetching movie videos:', error);
-        return [];
-    }
-}
-
-function getQueryParameter(name) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(name);
-}
-
-function checkIframeContent() {
-    const iframe = document.querySelector('.movie-embed');
-    let iframeLoaded = false;
-
-    iframe.onload = function() {
-        iframeLoaded = true;
-
-        setTimeout(() => {
             try {
-                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-                const bodyText = iframeDocument.body.textContent || iframeDocument.body.innerText;
-
-                if (bodyText.includes("This media is unavailable at the moment.")) {
-                    displayErrorMessage();
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch movie details.');
                 }
-            } catch (e) {
-                console.warn('Could not access iframe content due to cross-origin restrictions.');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching movie details:', error);
+                return null;
             }
-        }, 3000); // انتظر 3 ثوان بعد تحميل iframe
-    };
-
-    setTimeout(() => {
-        if (!iframeLoaded) {
-            console.warn('Iframe is taking too long to load or is not accessible.');
-            displayErrorMessage();
         }
-    }, 10000); // انتظر 10 ثوان كحد أقصى
-}
 
-function displayErrorMessage() {
-    document.querySelector('.movie-details').style.display = 'none';
-    document.querySelector('#error-message').style.display = 'block';
-}
+        async function fetchMovieVideos(tmdbId) {
+            const url = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}`;
 
-async function displayMovieDetails() {
-    const tmdbId = getQueryParameter('tmdb_id');
-
-    if (!tmdbId) {
-        document.getElementById('movie-details').innerHTML = '<p>No movie ID provided.</p>';
-        return;
-    }
-
-    const movieData = await fetchMovieDetails(tmdbId);
-    const movieVideos = await fetchMovieVideos(tmdbId);
-
-    if (movieData) {
-        document.querySelector('h1').textContent = movieData.title || 'No Title';
-        document.querySelector('img').src = `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`;
-        document.getElementById('release-date').textContent = movieData.release_date || 'N/A';
-        document.getElementById('overview').textContent = movieData.overview || 'No overview available.';
-        document.querySelector('.movie-embed').src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
-        
-        // Find the first trailer and display it
-        const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
-        if (trailer) {
-            document.getElementById('trailer-container').innerHTML = `
-                <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
-            `;
-        } else {
-            document.getElementById('trailer-container').innerHTML = '<p>No trailer available.</p>';
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch movie videos.');
+                }
+                const data = await response.json();
+                return data.results;
+            } catch (error) {
+                console.error('Error fetching movie videos:', error);
+                return [];
+            }
         }
-        
-        // تحقق من محتوى iframe بعد فترة زمنية محددة
-        checkIframeContent();
-    } else {
-        document.getElementById('movie-details').innerHTML = '<p>Failed to load movie details.</p>';
-    }
-}
 
-window.onload = function() {
-    displayMovieDetails();
-};
-                    </script>
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        async function displayMovieDetails() {
+            const tmdbId = getQueryParameter('tmdb_id');
+
+            if (!tmdbId) {
+                document.getElementById('movie-details').innerHTML = '<p>No movie ID provided.</p>';
+                return;
+            }
+
+            const movieData = await fetchMovieDetails(tmdbId);
+            const movieVideos = await fetchMovieVideos(tmdbId);
+
+            if (movieData) {
+                document.querySelector('h1').textContent = movieData.title || 'No Title';
+                document.querySelector('img').src = `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`;
+                document.getElementById('release-date').textContent = movieData.release_date || 'N/A';
+                document.getElementById('overview').textContent = movieData.overview || 'No overview available.';
+
+                // Embed movie from Vidsrc
+                document.getElementById('movie-embed-container').innerHTML = `
+                    <iframe src="https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}" allowfullscreen></iframe>
+                `;
+
+                // Find and display the first trailer
+                const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+                if (trailer) {
+                    document.getElementById('trailer-container').innerHTML = `
+                        <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
+                    `;
+                } else {
+                    document.getElementById('trailer-container').innerHTML = '<p>No trailer available.</p>';
+                }
+            } else {
+                document.getElementById('movie-details').innerHTML = '<p>Failed to load movie details.</p>';
+            }
+        }
+
+        window.onload = displayMovieDetails;
+    </script>
 
 </body>
 </html>
