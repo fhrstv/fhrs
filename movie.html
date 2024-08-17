@@ -95,20 +95,21 @@ function getQueryParameter(name) {
 
 function checkIframeContent() {
     const iframe = document.querySelector('.movie-embed');
-    
-    iframe.onload = function() {
-        try {
-            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-            if (iframeDocument) {
-                const errorDiv = iframeDocument.getElementById('error');
-                if (errorDiv) {
-                    displayErrorMessage();
+    if (iframe) {
+        iframe.onload = function() {
+            try {
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                if (iframeDocument) {
+                    const errorDiv = iframeDocument.getElementById('error');
+                    if (errorDiv) {
+                        displayErrorMessage();
+                    }
                 }
+            } catch (e) {
+                console.warn('Could not access iframe content due to cross-origin restrictions.');
             }
-        } catch (e) {
-            console.warn('Could not access iframe content due to cross-origin restrictions.');
-        }
-    };
+        };
+    }
 }
 
 function displayErrorMessage() {
@@ -140,7 +141,7 @@ async function displayMovieDetails() {
         document.getElementById('release-date').textContent = movieData.release_date || 'N/A';
         document.getElementById('overview').textContent = movieData.overview || 'No overview available.';
         document.querySelector('.movie-embed').src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
-        
+
         // Find the first trailer and display it
         const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
         if (trailer) {
@@ -150,17 +151,15 @@ async function displayMovieDetails() {
         } else {
             document.getElementById('trailer-container').innerHTML = '<p>No trailer available.</p>';
         }
-        
-        // تحقق من محتوى iframe فوراً
+
+        // Check iframe content immediately
         checkIframeContent();
     } else {
         document.getElementById('movie-details').innerHTML = '<p>Failed to load movie details.</p>';
     }
 }
 
-window.onload = function() {
-    displayMovieDetails();
-};
+window.onload = displayMovieDetails;
     </script>
 
 </body>
