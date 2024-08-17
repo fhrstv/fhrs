@@ -139,7 +139,8 @@ function updateMovieList() {
 }
 
 function filterMovies(query) {
-    displayedMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
+    const regex = new RegExp(`^${query.trim()}`, 'i'); // تطابق دقيق تجاه الحافة بدءًا من النص المدخل
+    displayedMovies = allMovies.filter(movie => regex.test(movie.title));
     updateMovieList();
 }
 
