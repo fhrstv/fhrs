@@ -1,181 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Details</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-        }
-        .movie-details {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-        .movie-details img {
-            width: 300px;
-            height: auto;
-            border-radius: 5px;
-        }
-        .movie-details h1 {
-            margin: 0;
-        }
-        .movie-details p {
-            margin: 10px 0;
-        }
-        iframe {
-            border: none;
-            border-radius: 5px;
-        }
-        .trailer-container, .movie-embed-container {
-            margin-top: 20px;
-        }
-        .trailer-container iframe, .movie-embed-container iframe {
-            width: 100%;
-            height: 400px; /* Adjust height as needed */
-        }
-        .error-message {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .error-message p {
-            font-size: 1.2em;
-            color: red;
-        }
-        .error-message button {
-            padding: 10px 20px;
-            font-size: 1em;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .error-message button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>فهرس</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="اكبر موقع فهرسة للافلام والمسلسلات">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      color: #000;
+    }
+
+    header {
+      background-color: #333;
+      color: hsl(0, 94%, 46%);
+      text-align: center;
+      padding: 10px;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .content {
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .movie-list {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .movie-item {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    .movie-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #search-input {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 300px;
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    #search-input:focus {
+      transform: scale(1.1);
+      outline: none;
+    }
+
+    .head-center {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
+
+    .head-item a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: red;
+      transition: background-color 0.3s;
+      font-size: 25px;
+    }
+
+    .head-item a:hover {
+      background-color: gold;
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 24px;
+      }
+      .search-box {
+        margin-top: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-
-    <div class="movie-details" id="movie-details">
-        <h1>Movie Title</h1>
-        <img src="" alt="Movie Poster">
-        <p><strong>Release Date:</strong> <span id="release-date">N/A</span></p>
-        <p><strong>Overview:</strong> <span id="overview">No overview available.</span></p>
-        <div class="movie-embed-container" id="movie-embed-container"></div>
-        <div class="trailer-container" id="trailer-container"></div>
+  <header>
+    <h1>فهرس</h1>
+  </header>
+  <div class="content">
+    <h2>الأفلام الأجنبية والأنمي والعربية</h2>
+    <br> تحديث الأفلام في موقعنا يوميًا
+    <div class="search-box">
+      <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
     </div>
+    <div id="movie-list" class="movie-list"></div>
+    <ul class="head-center">
+      <li class="head-item"><a href="/">رجوع</a></li>
+    </ul>
+  </div>
+  <script>
+    const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+    let allMovies = [];
+    let displayedMovies = [];
 
-    <div class="error-message" id="error-message">
-        <p>عذرًا، لم يتم تنزيل هذا الفيلم في موقعنا.</p>
-        <button onclick="window.history.back()">رجوع</button>
-    </div>
-
-    <script>
-        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-
-        async function fetchMovieDetails(tmdbId) {
-            const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}`;
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch movie details.');
-                }
-                const data = await response.json();
-                return data;
-            } catch (error) {
-                console.error('Error fetching movie details:', error);
-                return null;
-            }
+    async function searchMovies(query) {
+        const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}`;
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.results || [];
+        } catch (error) {
+            console.error('Error fetching data from TMDB', error);
+            return [];
         }
+    }
 
-        async function fetchMovieVideos(tmdbId) {
-            const url = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}`;
+    function sortMovies(movies) {
+        return movies.sort((a, b) => {
+            const aTitle = a.title.toLowerCase();
+            const bTitle = b.title.toLowerCase();
 
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch movie videos.');
-                }
-                const data = await response.json();
-                return data.results;
-            } catch (error) {
-                console.error('Error fetching movie videos:', error);
-                return [];
-            }
-        }
-
-        function getQueryParameter(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
-
-        function checkIframeContent(iframe, callback) {
-            iframe.onload = function() {
-                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-                const textContent = iframeDocument.body.textContent || iframeDocument.body.innerText;
-                callback(textContent);
-            };
-        }
-
-        async function displayMovieDetails() {
-            const tmdbId = getQueryParameter('tmdb_id');
-
-            if (!tmdbId) {
-                document.getElementById('movie-details').innerHTML = '<p>No movie ID provided.</p>';
-                return;
+            // الترتيب الأبجدي A to Z
+            const titleComparison = aTitle.localeCompare(bTitle);
+            if (titleComparison !== 0) {
+                return titleComparison;
             }
 
-            const movieData = await fetchMovieDetails(tmdbId);
-            const movieVideos = await fetchMovieVideos(tmdbId);
+            // ترتيب بناءً على تاريخ الإصدار من الأقدم إلى الأحدث
+            const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
+            const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
+            return aYear - bYear;
+        });
+    }
 
-            if (movieData) {
-                document.querySelector('h1').textContent = movieData.title || 'No Title';
-                document.querySelector('img').src = `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`;
-                document.getElementById('release-date').textContent = movieData.release_date || 'N/A';
-                document.getElementById('overview').textContent = movieData.overview || 'No overview available.';
+    function updateMovieList(movies) {
+        const sortedMovies = sortMovies(movies);
+        const movieList = document.getElementById('movie-list');
+        movieList.innerHTML = '';
 
-                // Embed movie from Vidsrc
-                const movieEmbedIframe = document.createElement('iframe');
-                movieEmbedIframe.src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
-                movieEmbedIframe.className = 'movie-embed';
-                document.getElementById('movie-embed-container').appendChild(movieEmbedIframe);
+        sortedMovies.forEach(movie => {
+            const movieItem = document.createElement('div');
+            movieItem.className = 'movie-item';
+            
+            const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown Year';
+            movieItem.textContent = `${movie.title || 'Unnamed Movie'} (${releaseYear})`;
+            movieItem.dataset.id = movie.id;
 
-                // Check for "This media is unavailable" text
-                checkIframeContent(movieEmbedIframe, function(textContent) {
-                    if (textContent.includes('This media is unavailable at the moment')) {
-                        document.querySelector('.movie-details').style.display = 'none';
-                        document.querySelector('#error-message').style.display = 'block';
-                    }
-                });
+            movieItem.addEventListener('click', () => {
+                window.location.href = `movie.html?tmdb_id=${movie.id}`;
+            });
 
-                // Find and display the first trailer
-                const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
-                if (trailer) {
-                    document.getElementById('trailer-container').innerHTML = `
-                        <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
-                    `;
-                } else {
-                    document.getElementById('trailer-container').innerHTML = '<p>No trailer available.</p>';
-                }
-            } else {
-                document.getElementById('movie-details').innerHTML = '<p>Failed to load movie details.</p>';
-            }
+            movieList.appendChild(movieItem);
+        });
+
+        movieList.style.display = sortedMovies.length ? 'block' : 'none';
+    }
+
+    document.getElementById('search-input').addEventListener('input', async (event) => {
+        const query = event.target.value.trim();
+        if (query.length > 2) {
+            allMovies = await searchMovies(query);
+            updateMovieList(allMovies);
+        } else {
+            document.getElementById('movie-list').style.display = 'none';
         }
-
-        window.onload = displayMovieDetails;
-    </script>
-
+    });
+  </script>
 </body>
 </html>
