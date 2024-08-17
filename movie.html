@@ -86,7 +86,6 @@
 
 async function fetchMovieDetails(tmdbId) {
     const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}`;
-
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -102,7 +101,6 @@ async function fetchMovieDetails(tmdbId) {
 
 async function fetchMovieVideos(tmdbId) {
     const url = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}`;
-
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -121,14 +119,13 @@ function getQueryParameter(name) {
     return urlParams.get(name);
 }
 
-function handleIframeError() {
+function displayErrorMessage() {
     document.querySelector('.movie-details').style.display = 'none';
     document.querySelector('#error-message').style.display = 'block';
 }
 
 async function displayMovieDetails() {
     const tmdbId = getQueryParameter('tmdb_id');
-
     if (!tmdbId) {
         document.getElementById('movie-details').innerHTML = '<p>No movie ID provided.</p>';
         return;
@@ -147,19 +144,28 @@ async function displayMovieDetails() {
         const movieEmbedIframe = document.createElement('iframe');
         movieEmbedIframe.src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
         movieEmbedIframe.className = 'movie-embed';
+        
+        // Add the iframe to the container
+        const movieEmbedContainer = document.getElementById('movie-embed-container');
+        movieEmbedContainer.innerHTML = ''; // Clear previous content
+        movieEmbedContainer.appendChild(movieEmbedIframe);
 
         // Set up a timeout to check if the content is loaded
         setTimeout(() => {
-            if (!movieEmbedIframe.contentWindow || movieEmbedIframe.contentWindow.location.href === 'about:blank') {
-                handleIframeError(); // Handle the case where content could not be loaded
+            try {
+                // Check the iframe content
+                const iframeDoc = movieEmbedIframe.contentDocument || movieEmbedIframe.contentWindow.document;
+                if (iframeDoc) {
+                    const errorMessage = iframeDoc.body.innerText.includes('This media is unavailable at the moment');
+                    if (errorMessage) {
+                        displayErrorMessage(); // Display error message if specific text is found
+                    }
+                }
+            } catch (error) {
+                // Handle cross-origin errors or any other issues
+                displayErrorMessage();
             }
-        }, 5000); // Adjust timeout as needed
-
-        movieEmbedIframe.onload = () => {
-            // Add additional logic if needed when iframe loads successfully
-        };
-        
-        document.getElementById('movie-embed-container').appendChild(movieEmbedIframe);
+        }, 5000); // Adjust timeout as needed (5 seconds)
 
         // Check for trailer and display it
         const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
