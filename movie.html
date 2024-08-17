@@ -121,10 +121,6 @@ function getQueryParameter(name) {
     return urlParams.get(name);
 }
 
-function handleIframeLoad() {
-    // Placeholder function if needed
-}
-
 function handleIframeError() {
     document.querySelector('.movie-details').style.display = 'none';
     document.querySelector('#error-message').style.display = 'block';
@@ -151,8 +147,18 @@ async function displayMovieDetails() {
         const movieEmbedIframe = document.createElement('iframe');
         movieEmbedIframe.src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
         movieEmbedIframe.className = 'movie-embed';
-        movieEmbedIframe.onload = handleIframeLoad; // Add load handler if needed
-        movieEmbedIframe.onerror = handleIframeError; // Add error handler
+
+        // Set up a timeout to check if the content is loaded
+        setTimeout(() => {
+            if (!movieEmbedIframe.contentWindow || movieEmbedIframe.contentWindow.location.href === 'about:blank') {
+                handleIframeError(); // Handle the case where content could not be loaded
+            }
+        }, 5000); // Adjust timeout as needed
+
+        movieEmbedIframe.onload = () => {
+            // Add additional logic if needed when iframe loads successfully
+        };
+        
         document.getElementById('movie-embed-container').appendChild(movieEmbedIframe);
 
         // Check for trailer and display it
