@@ -52,33 +52,23 @@ h1 {
 }
 
 #movie-list {
-  list-style-type: disc; /* or circle, square, etc. */
-  padding: 20px; /* add some padding to make it look like a list */
-  text-align: left; /* align the text to the left */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  max-height: 300px; /* adjust the height to your liking */
 }
 
 #movie-list li {
-  margin-bottom: 10px; /* add some space between list items */
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
 }
 
-/* تخصيص شريط التمرير للمتصفحات WebKit (Chrome, Safari) */
-#movie-list::-webkit-scrollbar {
-  width: 12px; /* عرض شريط التمرير */
-}
-
-#movie-list::-webkit-scrollbar-track {
-  background: #f0f0f0; /* لون خلفية شريط التمرير */
-}
-
-#movie-list::-webkit-scrollbar-thumb {
-  background: #000; /* لون مقبض شريط التمرير */
-  border-radius: 10px; /* انحناء مقبض التمرير */
-}
-
-/* تخصيص شريط التمرير لـ Firefox */
-#movie-list {
-  scrollbar-width: thin; /* عرض شريط التمرير */
-  scrollbar-color: #000 #f0f0f0; /* اللون الأول هو لون مقبض التمرير، واللون الثاني هو لون الخلفية */
+#movie-list li:last-child {
+  border-bottom: none;
 }
 
 .movie-item {
