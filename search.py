@@ -1,3 +1,4 @@
+import os
 import requests
 
 # تحميل محتوى الملف من الرابط
@@ -12,10 +13,13 @@ if response.status_code == 200:
     # تحويل كل سطر إلى عدد صحيح وإضافته إلى قائمة
     tmdb_ids = [int(line.strip()) for line in lines]
     
-    # فتح ملف tmdb.js وكتابة النتيجة فيه
-    with open('tmdb.js', 'w') as js_file:
+    # تحديد المسار لسطح المكتب
+    desktop_path = os.path.join(os.path.expanduser("~"), "Desktop", "tmdb.js")
+    
+    # فتح ملف tmdb.js على سطح المكتب وكتابة النتيجة فيه
+    with open(desktop_path, 'w') as js_file:
         js_file.write(f"const tmdbids = {tmdb_ids};")
 
-    print("تم حفظ القائمة في ملف tmdb.js")
+    print(f"تم حفظ القائمة في ملف {desktop_path}")
 else:
     print("فشل في تحميل الملف.")
