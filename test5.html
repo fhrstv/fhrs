@@ -31,7 +31,7 @@ h1 {
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  position: relative; /* لضبط موضع القائمة المنسدلة */
+  position: relative; /* لجعل القائمة المنسدلة مرتبطة بمربع البحث */
 }
 
 #search-input {
@@ -53,7 +53,7 @@ h1 {
 
 #movie-list {
   position: absolute;
-  top: calc(100% + 5px); /* يظهر أسفل مربع البحث مع فاصل صغير */
+  top: 100%; /* يظهر أسفل مربع البحث مباشرة */
   left: 0; /* يربط القائمة بالجانب الأيسر لمربع البحث */
   width: 100%; /* يجعل عرض القائمة مساويًا لعرض مربع البحث */
   max-width: 300px;
@@ -112,14 +112,6 @@ h1 {
 .head-item a:hover {
   background-color: gold;
 }
-@media (max-width: 600px) {
-  h2 {
-    font-size: 24px;
-  }
-  .search-box {
-    margin-top: 10px;
-  }
-}
   </style>
 </head>
 <body>
@@ -129,9 +121,11 @@ h1 {
   <div class="content">
     <h2>الأفلام الأجنبية والأنمي والعربية</h2>
     <br> تحديث الأفلام في موقعنا يوميًا
-    <div class="search-container">
   <input type="text" id="search-input" placeholder="ابحث...">
-  <div id="movie-list" class="hidden">
+  <div id="movie-list">
+    <!-- سيتم إدراج نتائج البحث هنا -->
+  </div>
+</div>
     <!-- سيتم إدراج نتائج البحث هنا -->
   </div>
 </div>
