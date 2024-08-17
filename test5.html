@@ -122,7 +122,69 @@
   <li id="loading-message">جاري تحميل الأفلام...</li>
 </ul>
     <script>
+const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
+const tmdbSearchUrl = 'https://api.themoviedb.org/3/search/movie';
 
+const seriesList = document.getElementById('movie-list');
+const loadingMessage = document.getElementById('loading-message');
+
+// إزالة رسالة التحميل إذا كانت موجودة
+if (loadingMessage) {
+  seriesList.removeChild(loadingMessage);
+}
+
+// عرض الأفلام في القائمة
+function displayMovies(movies) {
+  seriesList.innerHTML = ''; // مسح أي محتوى موجود سابقًا
+  movies.forEach(movie => {
+    const listItem = document.createElement('li');
+    listItem.classList.add('movie-item');
+    listItem.innerHTML = `<a href="movie.html?tmdb_id=${movie.id}" rel="noopener noreferrer">${movie.title} (${movie.year})</a>`;
+    seriesList.appendChild(listItem);
+  });
+}
+
+// إجراء البحث في TMDB
+function searchMovies(query) {
+  fetch(`${tmdbSearchUrl}?api_key=${tmdbApiKey}&query=${encodeURIComponent(query)}&language=en-US`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      const movies = data.results.map(movie => ({
+        title: movie.title || 'Unknown Title',
+        year: movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown Year',
+        id: movie.id,
+      }));
+      displayMovies(movies); // عرض الأفلام
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      seriesList.innerHTML = '<li>فشل في تحميل الأفلام. حاول تحديث الصفحة.</li>';
+    });
+}
+
+// إضافة ميزة البحث
+const searchInput = document.getElementById('search-input');
+
+searchInput.addEventListener('input', function() {
+  const searchTerm = searchInput.value.trim();
+  if (searchTerm.length > 2) { // بدء البحث بعد إدخال 3 أحرف
+    searchMovies(searchTerm);
+  } else {
+    seriesList.innerHTML = ''; // مسح النتائج إذا كان النص المدخل أقل من 3 أحرف
+  }
+});
+
+searchInput.addEventListener('keypress', function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    searchInput.blur();
+  }
+});
     </script>
 </body>
 </html>
