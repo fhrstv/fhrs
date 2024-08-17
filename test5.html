@@ -147,20 +147,31 @@ Promise.all(tmdbIds.map(id =>
     })
 ))
 .then(movies => {
-  movies.filter(Boolean).forEach(movie => {
+  const links = movies.filter(Boolean).map(movie => {
     const listItem = document.createElement('li');
     listItem.classList.add('movie-item');
-    listItem.textContent = movie.title;
-    listItem.dataset.tmdbId = movie.id; // تخزين معرّف TMDB في خاصية البيانات
+    listItem.innerHTML = `<a href="movie.html?tmdb_id=${movie.id}" rel="noopener noreferrer">${movie.title}</a>`;
     seriesList.appendChild(listItem);
+    return listItem.querySelector('a');
   });
 
-  // ترتيب العناصر في القائمة
-  const listItems = Array.from(seriesList.getElementsByClassName('movie-item'));
-  listItems.sort((a, b) => a.textContent.localeCompare(b.textContent));
-  listItems.forEach(item => seriesList.appendChild(item));
+  links.sort((a, b) => a.textContent.localeCompare(b.textContent));
+  links.forEach(link => seriesList.appendChild(link.parentElement));
 
-  // إضافة مستمع الحدث لكل عنصر في القائمة
+  const searchInput = document.getElementById('search-input');
+
+  searchInput.addEventListener('input', function() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    links.forEach(link => {
+      const movieTitle = link.textContent.trim().toLowerCase();
+      if (movieTitle.includes(searchTerm)) {
+        link.parentElement.style.display = 'block';
+      } else {
+        link.parentElement.style.display = 'none';
+      }
+    });
+  });
+  
   seriesList.addEventListener('click', function(event) {
     const target = event.target;
     if (target && target.classList.contains('movie-item')) {
@@ -171,19 +182,6 @@ Promise.all(tmdbIds.map(id =>
     }
   });
 
-  const searchInput = document.getElementById('search-input');
-
-  searchInput.addEventListener('input', function() {
-    const searchTerm = searchInput.value.trim().toLowerCase();
-    listItems.forEach(item => {
-      const movieTitle = item.textContent.trim().toLowerCase();
-      if (movieTitle.includes(searchTerm)) {
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-  });
 
   searchInput.addEventListener('keypress', function(event) {
     if (event.keyCode === 13) {
@@ -195,9 +193,8 @@ Promise.all(tmdbIds.map(id =>
 })
 .catch(error => {
   console.error('Error:', error);
-  seriesList.innerHTML = '<li>فشل في تحميل الأفلام قم بتحديث الصفحة</li>';
+  seriesList.innerHTML = '<li>فشل في تحميل الافلام قم بتحديث الصفحة</li>';
 });
-
     </script>
 </body>
 </html>
