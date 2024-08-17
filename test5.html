@@ -130,18 +130,27 @@ const tmdbids = [119953, 775, 20105, 297445, 53759, 206603, 411445, 70512, 46758
 
 const seriesList = document.getElementById('movie-list');
 const loadingMessage = document.getElementById('loading-message');
+const searchInput = document.getElementById('search-input');
 
-// إزالة رسالة التحميل
+let moviesData = {}; // Use an object to store the data
+let currentPage = 0;
+const pageSize = 100; // Adjust this value to control the number of requests
+
+// Remove the loading message
 if (loadingMessage) {
   seriesList.removeChild(loadingMessage);
 }
 
-let moviesData = []; // لتخزين بيانات الأفلام
-
-// جلب بيانات الأفلام من TMDB بناءً على المعرفات
+// Fetch movies in chunks
 function loadMoviesByIds(ids) {
-  return Promise.all(ids.map(id =>
-    fetch(`${tmdbApiUrl}${id}?api_key=${tmdbApiKey}&language=en-US`)
+  const chunkSize = pageSize;
+  const chunks = [];
+  for (let i = 0; i < ids.length; i += chunkSize) {
+    chunks.push(ids.slice(i, i + chunkSize));
+  }
+
+  return Promise.all(chunks.map(chunk => {
+    return fetch(`${tmdbApiUrl}${chunk.join(',')}?api_key=${tmdbApiKey}&language=en-US`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -149,33 +158,33 @@ function loadMoviesByIds(ids) {
         return response.json();
       })
       .then(data => {
-        const year = data.release_date ? new Date(data.release_date).getFullYear() : 'Unknown Year';
-        return {
-          title: data.title || 'Unknown Title',
-          year: year,
-          id: data.id,
-        };
+        data.results.forEach(movie => {
+          const year = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown Year';
+          moviesData[movie.id] = {
+            title: movie.title || 'Unknown Title',
+            year: year,
+          };
+        });
       })
       .catch(error => {
-        console.error(`Error fetching data for TMDB ID ${id}:`, error);
-      })
-  ));
+        console.error(`Error fetching data for TMDB IDs ${chunk.join(',')}:`, error);
+      });
+  }));
 }
 
-// تحميل الأفلام وتخزينها في البيانات
+// Load the movies in chunks
 loadMoviesByIds(tmdbIds)
-  .then(movies => {
-    moviesData = movies.filter(Boolean); // تخزين البيانات
-    displayMovies(moviesData); // عرض الأفلام
+  .then(() => {
+    displayMovies(Object.values(moviesData)); // Display the movies
   })
   .catch(error => {
     console.error('Error:', error);
-    seriesList.innerHTML = '<li>فشل في تحميل الأفلام. حاول تحديث الصفحة.</li>';
+    seriesList.innerHTML = '<li>Failed to load movies. Try refreshing the page.</li>';
   });
 
-// عرض الأفلام
+// Display the movies
 function displayMovies(movies) {
-  seriesList.innerHTML = ''; // مسح أي محتوى موجود سابقًا
+  seriesList.innerHTML = ''; // Clear the list
   movies.forEach(movie => {
     const listItem = document.createElement('li');
     listItem.classList.add('movie-item');
@@ -184,12 +193,10 @@ function displayMovies(movies) {
   });
 }
 
-// إضافة ميزة البحث
-const searchInput = document.getElementById('search-input');
-
+// Add search functionality
 searchInput.addEventListener('input', function() {
   const searchTerm = searchInput.value.trim().toLowerCase();
-  const filteredMovies = moviesData.filter(movie =>
+  const filteredMovies = Object.values(moviesData).filter(movie =>
     movie.title.toLowerCase().includes(searchTerm)
   );
 
