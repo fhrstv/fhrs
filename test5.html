@@ -53,16 +53,18 @@ h1 {
 
 #movie-list {
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: 100%; /* يظهر أسفل مربع البحث */
+  left: 50%; /* يضع القائمة في وسط العنصر الأب */
+  transform: translateX(-50%); /* لضبط مركز القائمة بالنسبة لمربع البحث */
   width: 100%;
   max-width: 300px;
-  margin: 0 auto;
-  background-color: #fff; /* add a background color to the list */
-  border: 1px solid #ccc; /* add a border to the list */
-  border-radius: 5px; /* add a border radius to the list */
-  padding: 10px; /* add some padding to the list */
-  z-index: 1; /* make sure the list is on top of other elements */
+  background-color: #fff; /* إضافة لون خلفية للقائمة */
+  border: 1px solid #ccc; /* إضافة إطار للقائمة */
+  border-radius: 5px; /* إضافة حواف مستديرة للقائمة */
+  padding: 10px; /* إضافة بعض الحشو للقائمة */
+  z-index: 1; /* التأكد من أن القائمة فوق العناصر الأخرى */
+  max-height: 300px; /* تحديد أقصى ارتفاع للقائمة */
+  overflow-y: auto; /* السماح بالتمرير إذا كانت القائمة طويلة */
 }
 
 #movie-list li {
