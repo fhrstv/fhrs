@@ -34,14 +34,25 @@
     }
 
     .movie-list {
-      list-style-type: none;
-      padding: 0;
-      text-align: center;
-      max-height: 300px;
-      overflow-y: auto;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: black transparent; /* Firefox */
+}
+
+.movie-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.movie-list::-webkit-scrollbar-thumb {
+  background-color: black; /* لون الشريط */
+  border-radius: 10px;
+}
 
     .movie-item {
       padding: 10px;
