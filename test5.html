@@ -53,10 +53,9 @@ h1 {
 
 #movie-list {
   position: absolute;
-  top: 100%; /* يظهر أسفل مربع البحث */
-  left: 50%; /* يضع القائمة في وسط العنصر الأب */
-  transform: translateX(-50%); /* لضبط مركز القائمة بالنسبة لمربع البحث */
-  width: 100%;
+  top: calc(100% + 5px); /* يظهر أسفل مربع البحث مع فاصل صغير */
+  left: 0; /* يربط القائمة بالجانب الأيسر لمربع البحث */
+  width: 100%; /* يجعل عرض القائمة مساويًا لعرض مربع البحث */
   max-width: 300px;
   background-color: #fff; /* إضافة لون خلفية للقائمة */
   border: 1px solid #ccc; /* إضافة إطار للقائمة */
@@ -65,6 +64,7 @@ h1 {
   z-index: 1; /* التأكد من أن القائمة فوق العناصر الأخرى */
   max-height: 300px; /* تحديد أقصى ارتفاع للقائمة */
   overflow-y: auto; /* السماح بالتمرير إذا كانت القائمة طويلة */
+  display: none; /* إخفاء القائمة افتراضيًا */
 }
 
 #movie-list li {
@@ -75,8 +75,6 @@ h1 {
 #movie-list li:last-child {
   border-bottom: none;
 }
-
-
 
 .movie-item {
   padding: 10px;
@@ -114,7 +112,6 @@ h1 {
 .head-item a:hover {
   background-color: gold;
 }
-
 @media (max-width: 600px) {
   h2 {
     font-size: 24px;
@@ -132,11 +129,12 @@ h1 {
   <div class="content">
     <h2>الأفلام الأجنبية والأنمي والعربية</h2>
     <br> تحديث الأفلام في موقعنا يوميًا
-    <div class="search-box">
-      <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
-    </div>
-    <div id="movie-list" class="movie-list"></div>
+    <div class="search-container">
+  <input type="text" id="search-input" placeholder="ابحث...">
+  <div id="movie-list" class="hidden">
+    <!-- سيتم إدراج نتائج البحث هنا -->
   </div>
+</div>
   <script>
     const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
     let allMovies = [];
