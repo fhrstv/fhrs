@@ -1,183 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>فهرس</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js" defer></script>
-    <script src=".htaccess" defer></script>
-<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      margin: 0;
-      padding: 0;
-      color: #000;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search</title>
+    <style>
+        #search-container {
+            position: relative;
+            width: 300px;
+        }
 
-    header {
-      background-color: #333;
-      color: hsl(0, 94%, 46%);
-      text-align: center;
-      padding: 10px;
-    }
+        #search-box {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
 
-    h1 {
-      margin: 0;
-    }
+        #movie-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+        }
 
-    .content {
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
+        #movie-list div {
+            padding: 10px;
+            cursor: pointer;
+        }
 
-    .movie-list {
-      list-style-type: none;
-      padding: 0;
-      text-align: center;
-    }
-
-    .head-center {
-      list-style-type: none;
-      padding: 0;
-      text-align: center;
-    }
-
-    .movie-item {
-      margin: 10px;
-    }
-
-    a {
-      text-decoration: none;
-      color: #333;
-      display: block;
-      padding: 20px;
-      border-radius: 5px;
-      background-color: red;
-      transition: background-color 0.3s;
-      font-size: 25px;
-    }
-
-    a:hover {
-      background-color: gold;
-    }
-
-    h2 {
-      text-align: center;
-    }
-
-    .search-box {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    input[type="text"] {
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      width: 100%;
-      max-width: 300px;
-    }
-
-    input[type="submit"] {
-      background-color: #333;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #search-input {
-      touch-action: none;
-    }
-
-    @media (max-width: 600px) {
-      h2 {
-        font-size: 24px;
-      }
-      .search-box {
-        margin-top: 10px;
-      }
-    }
-  </style>
+        #movie-list div:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>فهرس</h1>
-  </header>
-  <div class="content">
-    <h2>الافلام الاجنبية و الانمي و العربية</h2>
-<br> تحديث الافلام في موقعنا يوميا
-   <input type="text" id="search-box" placeholder="Search for movies...">
-    <div id="movie-list"></div>
-    
+    <div id="search-container">
+        <input type="text" id="search-box" placeholder="Search for movies...">
+        <div id="movie-list"></div>
+    </div>
 
-<script>
-  const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-let allMovies = [];
-let displayedMovies = [];
+    <script>
+        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
 
-async function searchTMDBMovies(query) {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
+        // البحث في TMDB
+        async function searchTMDBMovies(query) {
+            const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&page=1`;
 
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Failed to search TMDB');
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data from TMDB');
+                }
+                const data = await response.json();
+                return data.results || [];
+            } catch (error) {
+                console.error('Error searching TMDB', error);
+                return [];
+            }
         }
-        const data = await response.json();
-        return data.results || [];
-    } catch (error) {
-        console.error('Error searching TMDB', error);
-        return [];
-    }
-}
 
-function updateMovieList() {
-    const movieList = document.getElementById('movie-list');
-    movieList.innerHTML = '';
+        // تحديث قائمة الأفلام المعروضة
+        function updateMovieList(movies) {
+            const movieList = document.getElementById('movie-list');
+            movieList.innerHTML = '';
 
-    displayedMovies.forEach(movie => {
-        const movieBox = document.createElement('div');
-        movieBox.className = 'movie-box';
+            movies.forEach(movie => {
+                const movieItem = document.createElement('div');
+                movieItem.textContent = movie.title || 'Unnamed Movie';
+                movieItem.dataset.id = movie.id;
 
-        const movieLink = document.createElement('a');
-        movieLink.href = `movie.html?tmdb_id=${movie.id}`;
-        movieLink.target = '_blank';
+                movieItem.addEventListener('click', () => {
+                    window.location.href = `https://www.themoviedb.org/movie/${movie.id}`;
+                });
 
-        const movieTitle = document.createElement('span');
-        movieTitle.textContent = movie.title || 'Unnamed Movie';
-        movieLink.appendChild(movieTitle);
+                movieList.appendChild(movieItem);
+            });
 
-        movieBox.appendChild(movieLink);
-        movieList.appendChild(movieBox);
-    });
-}
+            movieList.style.display = movies.length ? 'block' : 'none';
+        }
 
-function filterMovies(query) {
-    if (query.trim() === '') {
-        displayedMovies = allMovies;
-    } else {
-        searchTMDBMovies(query).then(results => {
-            allMovies = results;
-            displayedMovies = results;
-            updateMovieList();
+        // تصفية الأفلام بناءً على الاستعلام
+        function filterMovies(query) {
+            if (query.trim() === '') {
+                document.getElementById('movie-list').style.display = 'none';
+                return;
+            }
+
+            searchTMDBMovies(query).then(results => {
+                updateMovieList(results);
+            });
+        }
+
+        // التعامل مع إدخال المستخدم في مربع البحث
+        document.getElementById('search-box').addEventListener('input', (event) => {
+            filterMovies(event.target.value);
         });
-    }
-}
 
-document.getElementById('search-box').addEventListener('input', (event) => {
-    filterMovies(event.target.value);
-});
-
-window.onload = () => {
-    // Initial load can be adjusted or removed based on how you want to handle it
-    // Optionally, you can load popular movies or some default set
-};
-</script>
+        // إغلاق قائمة الأفلام عند النقر خارجها
+        document.addEventListener('click', (event) => {
+            const searchContainer = document.getElementById('search-container');
+            const movieList = document.getElementById('movie-list');
+            if (!searchContainer.contains(event.target)) {
+                movieList.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
