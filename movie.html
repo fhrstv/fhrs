@@ -149,7 +149,12 @@ async function displayMovieDetails() {
             const iframeContent = movieEmbedIframe.contentDocument || movieEmbedIframe.contentWindow.document;
             const errorMessage = iframeContent.body.textContent.trim();
             if (errorMessage === "This media is unavailable at the moment.") {
+                // Hide all movie details
                 document.querySelector('.movie-details').style.display = 'none';
+                document.querySelector('#movie-embed-container').style.display = 'none';
+                document.querySelector('#trailer-container').style.display = 'none';
+
+                // Display error message
                 document.querySelector('#error-message').style.display = 'block';
                 document.getElementById('error-message').innerHTML = `
                     <h2>This film is not available for download.</h2>
@@ -173,8 +178,7 @@ async function displayMovieDetails() {
     }
 }
 
-window.onload = displayMovieDetails;
-    </script>
+window.onload = displayMovieDetails;    </script>
 
 </body>
 </html>
