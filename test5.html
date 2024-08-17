@@ -8,12 +8,23 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
   <style>
-    body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+    *{
+  box-sizing: border-box;
+}
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
   margin: 0;
   padding: 0;
-  color: #000;
+  background-color: white;
+  font-family: 'Knewave', cursive;
+}
+
+label{
+  width: 100%;
+  max-width: 300px;
 }
 
 .content {
@@ -126,6 +137,17 @@ h1 {
     <h2>الأفلام الأجنبية والأنمي والعربية</h2>
     <br> تحديث الأفلام في موقعنا يوميًا
   <input type="text" id="search-input" placeholder="ابحث...">
+    <label>
+  <input type="text" required>
+  <ul>
+    <li s>s</li>
+    <li e>e</li>
+    <li a>a</li>
+    <li r>r</li>
+    <li c>c</li>
+    <li h>h</li>
+  </ul>
+</label>
   <div id="movie-list">
     <!-- سيتم إدراج نتائج البحث هنا -->
   </div>
