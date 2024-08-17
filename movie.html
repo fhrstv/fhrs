@@ -165,7 +165,7 @@ async function displayMovieDetails() {
                 // Handle cross-origin errors or any other issues
                 displayErrorMessage();
             }
-        }, 5000); // Adjust timeout as needed (5 seconds)
+        }, 1000); // Adjust timeout as needed (5 seconds)
 
         // Check for trailer and display it
         const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
