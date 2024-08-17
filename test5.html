@@ -1,101 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Search</title>
-    <style>
-        .movie-box {
-            margin: 10px;
-            padding: 5px;
-            border: 1px solid #ddd;
-            display: inline-block;
-            width: 200px;
-        }
-    </style>
+    <title>بحث في IMDb</title>
 </head>
 <body>
-    <input type="text" id="search-box" placeholder="Search for movies...">
-    <div id="movie-list"></div>
+    <h1>بحث في IMDb</h1>
+    <input type="text" id="searchInput" placeholder="أدخل معرف الفيلم">
+    <button onclick="searchMovie()">بحث</button>
+    <div id="results"></div>
 
-    <script>
-        const TOTAL_PAGES = 1543; // عدد الصفحات
-        const allMovies = []; // لتخزين الأفلام
+    <script> 
+const imdbIDs = [
+    'tt0111161', 'tt0068646', 'tt0071562', // أضف المزيد من المعرفات هنا
+    // قم بإدراج جميع المعرفات التي لديك
+];
 
-        // تحميل الأفلام من صفحة معينة
-        async function fetchMoviesFromPage(pageNumber) {
-            const url = `https://vidsrc.xyz/movies/latest/page-${pageNumber}.json`;
+const tmdbAPIKey = 'YOUR_TMDB_API_KEY'; // ضع مفتاح API الخاص بك هنا
+
+async function searchMovie() {
+    const query = document.getElementById('searchInput').value;
+    const resultsDiv = document.getElementById('results');
+    
+    // تنظيف النتائج السابقة
+    resultsDiv.innerHTML = '';
+    
+    // العثور على جميع المعرفات التي تحتوي على النص المدخل
+    const matchingIDs = imdbIDs.filter(id => id.includes(query));
+
+    if (matchingIDs.length > 0) {
+        for (const id of matchingIDs) {
             try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Failed to load page ' + pageNumber);
-                }
+                const response = await fetch(`https://api.themoviedb.org/3/find/${id}?api_key=${tmdbAPIKey}&external_source=imdb_id`);
                 const data = await response.json();
-                return data.result || [];
-            } catch (error) {
-                console.error('Error fetching page', pageNumber, error);
-                return [];
-            }
-        }
-
-        // تحميل جميع الأفلام من الصفحات
-        async function loadAllMovies() {
-            for (let pageNumber = 1; pageNumber <= TOTAL_PAGES; pageNumber++) {
-                const movies = await fetchMoviesFromPage(pageNumber);
-                if (movies.length > 0) {
-                    allMovies.push(...movies);
-                    console.log(`Loaded page ${pageNumber}, total movies: ${allMovies.length}`);
-                } else {
-                    break; // إذا لم تكن هناك أفلام في الصفحة، توقف عن التحميل
+                
+                if (data.movie_results && data.movie_results.length > 0) {
+                    const movie = data.movie_results[0];
+                    const resultElement = document.createElement('div');
+                    resultElement.textContent = `Title: ${movie.title}, IMDb ID: ${id}`;
+                    resultsDiv.appendChild(resultElement);
                 }
-            }
-            console.log('All movies loaded');
-        }
-
-        // البحث في الأفلام
-        function searchMovies(query) {
-            query = query.toLowerCase();
-            const results = allMovies.filter(movie => movie.title.toLowerCase().includes(query));
-            updateMovieList(results);
-        }
-
-        // تحديث قائمة الأفلام في الصفحة
-        function updateMovieList(movies) {
-            const movieList = document.getElementById('movie-list');
-            movieList.innerHTML = '';
-
-            if (movies.length === 0) {
-                movieList.innerHTML = '<p>No movies found</p>';
-            } else {
-                movies.forEach(movie => {
-                    const movieBox = document.createElement('div');
-                    movieBox.className = 'movie-box';
-
-                    const movieLink = document.createElement('a');
-                    movieLink.href = `movie.html?tmdb_id=${movie.tmdb_id}`;
-                    movieLink.target = '_blank';
-
-                    const movieTitle = document.createElement('span');
-                    movieTitle.textContent = movie.title || 'Unnamed Movie';
-                    movieLink.appendChild(movieTitle);
-
-                    movieBox.appendChild(movieLink);
-                    movieList.appendChild(movieBox);
-                });
+            } catch (error) {
+                console.error('Error fetching movie data:', error);
             }
         }
-
-        document.getElementById('search-box').addEventListener('input', (event) => {
-            const query = event.target.value;
-            if (query.length > 2) { // بدء البحث بعد إدخال 3 أحرف
-                searchMovies(query);
-            } else {
-                updateMovieList([]); // مسح النتائج إذا كان النص قصيرًا جدًا
-            }
-        });
-
-        // تحميل الأفلام عند تحميل الصفحة
-        window.onload = loadAllMovies;
+    } else {
+        resultsDiv.textContent = 'لم يتم العثور على نتائج.';
+    }
+}
+    
     </script>
 </body>
 </html>
