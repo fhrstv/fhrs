@@ -126,7 +126,7 @@ function displayErrorMessage() {
 
 function checkIframeContent(iframe, callback) {
     const checkInterval = 1000; // Check every 1 second
-    const maxAttempts = 10; // Maximum number of attempts
+    const maxAttempts = 5; // Maximum number of attempts
 
     let attempts = 0;
 
@@ -135,8 +135,9 @@ function checkIframeContent(iframe, callback) {
         try {
             const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
             if (iframeDoc) {
-                const errorMessage = iframeDoc.body.innerText.includes('This media is unavailable at the moment');
-                if (errorMessage) {
+                const bodyText = iframeDoc.body.innerText || '';
+                const errorMessageFound = bodyText.includes('This media is unavailable at the moment');
+                if (errorMessageFound) {
                     clearInterval(interval);
                     callback(); // Call the callback function to handle error
                 }
