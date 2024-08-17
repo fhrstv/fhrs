@@ -158,13 +158,8 @@ Promise.all(tmdbIds.map(id =>
   links.sort((a, b) => a.textContent.localeCompare(b.textContent));
   links.forEach(link => seriesList.appendChild(link.parentElement));
 
-  // تعيين قيمة مربع البحث ليعكس اسم الفيلم الأول في القائمة
   const searchInput = document.getElementById('search-input');
-  if (links.length > 0) {
-    searchInput.value = links[0].textContent.trim();
-  }
 
-  // إضافة ميزة البحث في الأفلام بناءً على اسم الفيلم
   searchInput.addEventListener('input', function() {
     const searchTerm = searchInput.value.trim().toLowerCase();
     links.forEach(link => {
@@ -189,6 +184,11 @@ Promise.all(tmdbIds.map(id =>
   console.error('Error:', error);
   seriesList.innerHTML = '<li>فشل في تحميل الافلام قم بتحديث الصفحة</li>';
 });
+
     </script>
 </body>
 </html>
+
+
+
+
