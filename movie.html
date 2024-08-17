@@ -147,23 +147,6 @@ async function displayMovieDetails() {
 }
 
 window.onload = displayMovieDetails;
-
-
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const checkForError = () => {
-                const container = document.querySelector('.movie-embed-container');
-                if (container) {
-                    const errorElement = container.querySelector('#error');
-                    if (errorElement && errorElement.innerText.includes('This media is unavailable at the moment.')) {
-                        window.location.href = '404.html';
-                    }
-                }
-            };
-
-            // محاولة فحص المحتوى بعد فترة قصيرة للتأكد من تحميل كل العناصر
-            setTimeout(checkForError, 2000); // يمكنك تعديل وقت الانتظار حسب الحاجة
-        });
     </script>
 
 </body>
