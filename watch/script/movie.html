@@ -37,6 +37,9 @@
             border: none;
             border-radius: 5px;
         }
+        .trailer-container {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -46,7 +49,7 @@
         <img src="" alt="Movie Poster">
         <p><strong>Release Date:</strong> <span id="release-date">N/A</span></p>
         <p><strong>Overview:</strong> <span id="overview">No overview available.</span></p>
-        <iframe id="movie-embed" src="" allowfullscreen></iframe>
+        <div class="trailer-container" id="trailer-container"></div>
     </div>
 
     <script>
@@ -68,6 +71,22 @@
             }
         }
 
+        async function fetchMovieVideos(tmdbId) {
+            const url = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch movie videos.');
+                }
+                const data = await response.json();
+                return data.results;
+            } catch (error) {
+                console.error('Error fetching movie videos:', error);
+                return [];
+            }
+        }
+
         function getQueryParameter(name) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(name);
@@ -82,13 +101,23 @@
             }
 
             const movieData = await fetchMovieDetails(tmdbId);
+            const movieVideos = await fetchMovieVideos(tmdbId);
 
             if (movieData) {
                 document.querySelector('h1').textContent = movieData.title || 'No Title';
                 document.querySelector('img').src = `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`;
                 document.getElementById('release-date').textContent = movieData.release_date || 'N/A';
                 document.getElementById('overview').textContent = movieData.overview || 'No overview available.';
-                document.getElementById('movie-embed').src = `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`;
+                
+                // Find the first trailer and display it
+                const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+                if (trailer) {
+                    document.getElementById('trailer-container').innerHTML = `
+                        <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
+                    `;
+                } else {
+                    document.getElementById('trailer-container').innerHTML = '<p>No trailer available.</p>';
+                }
             } else {
                 document.getElementById('movie-details').innerHTML = '<p>Failed to load movie details.</p>';
             }
