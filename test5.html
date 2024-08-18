@@ -151,7 +151,7 @@
         let allMovies = [];
         let displayedMovies = [];
 
-         async function searchMovies(query) {
+          async function searchMovies(query) {
         const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
         try {
             const response = await fetch(url);
@@ -187,23 +187,25 @@
         sortedMovies.forEach(movie => {
             const movieItem = document.createElement('li');
             movieItem.className = 'movie-item';
-            movieItem.style.display = 'flex'; // لتصفيتها أفقياً
-            movieItem.style.justifyContent = 'space-between'; // لجعل النص والصورة على الأطراف
-
-            // إنشاء عنصر النص (اسم الفيلم والسنة)
-            const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown Year';
-            const movieText = document.createElement('span');
-            movieText.textContent = `${movie.title || 'Unnamed Movie'} (${releaseYear})`;
-
-            // إنشاء عنصر صورة البوستر
+            movieItem.style.display = 'flex';
+            movieItem.style.alignItems = 'center'; // لتوسيط النص عموديًا
+            movieItem.style.justifyContent = 'space-between';
+            
+            // إنشاء عنصر الصورة (البوستر)
             const poster = document.createElement('img');
             poster.src = movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : 'default_poster.png';
             poster.alt = `${movie.title} Poster`;
-            poster.style.width = '50px'; // تحديد عرض الصورة
-            poster.style.height = '75px'; // تحديد ارتفاع الصورة
-            poster.style.marginLeft = '10px'; // إضافة مسافة بين النص والصورة
+            poster.style.width = '50px';
+            poster.style.height = '75px';
+            poster.style.marginLeft = '10px'; 
 
-            // إضافة النص والصورة إلى عنصر القائمة
+            // إنشاء عنصر النص (اسم الفيلم)
+            const movieText = document.createElement('span');
+            movieText.textContent = `${movie.title || 'Unnamed Movie'} (${new Date(movie.release_date).getFullYear() || ''})`;
+            movieText.style.flexGrow = '1'; // يسمح بتوسيع النص لملء المساحة المتاحة
+            movieText.style.textAlign = 'center'; // توسيط النص
+
+            // إضافة الصورة والنص إلى عنصر القائمة
             movieItem.appendChild(movieText);
             movieItem.appendChild(poster);
             movieItem.dataset.id = movie.id;
