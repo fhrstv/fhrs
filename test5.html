@@ -163,72 +163,70 @@
         }
     }
 
-    function sortMovies(movies) {
-        return movies.sort((a, b) => {
-            const aTitle = a.title.toLowerCase();
-            const bTitle = b.title.toLowerCase();
+    function sortMovies(movies, query) {
+    const lowerCaseQuery = query.toLowerCase();
 
-            const titleComparison = aTitle.localeCompare(bTitle);
-            if (titleComparison !== 0) {
-                return titleComparison;
-            }
+    return movies.sort((a, b) => {
+        const aTitle = a.title.toLowerCase();
+        const bTitle = b.title.toLowerCase();
 
-            const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
-            const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
-            return aYear - bYear;
-        });
-    }
+        const aExactMatch = aTitle === lowerCaseQuery;
+        const bExactMatch = bTitle === lowerCaseQuery;
 
-    function updateMovieList(movies) {
-        const sortedMovies = sortMovies(movies);
-        const movieList = document.querySelector('.movie-list');
-        movieList.innerHTML = '';
+        if (aExactMatch && !bExactMatch) return -1;
+        if (!aExactMatch && bExactMatch) return 1;
 
-        sortedMovies.forEach(movie => {
-            const movieItem = document.createElement('li');
-            movieItem.className = 'movie-item';
-            movieItem.style.display = 'flex';
-            movieItem.style.alignItems = 'center'; // لتوسيط النص عموديًا
-            movieItem.style.justifyContent = 'space-between';
-            
-            // إنشاء عنصر الصورة (البوستر)
-            const poster = document.createElement('img');
-            poster.src = movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : 'default_poster.png';
-            poster.alt = `${movie.title} Poster`;
-            poster.style.width = '50px';
-            poster.style.height = '75px';
-            poster.style.marginLeft = '10px'; 
-
-            // إنشاء عنصر النص (اسم الفيلم)
-            const movieText = document.createElement('span');
-            movieText.textContent = `${movie.title || 'Unnamed Movie'} (${new Date(movie.release_date).getFullYear() || ''})`;
-            movieText.style.flexGrow = '1'; // يسمح بتوسيع النص لملء المساحة المتاحة
-            movieText.style.textAlign = 'center'; // توسيط النص
-
-            // إضافة الصورة والنص إلى عنصر القائمة
-            movieItem.appendChild(movieText);
-            movieItem.appendChild(poster);
-            movieItem.dataset.id = movie.id;
-
-            movieItem.addEventListener('click', () => {
-                window.location.href = `watch.html?tmdb_id=${movie.id}`;
-            });
-
-            movieList.appendChild(movieItem);
-        });
-
-        movieList.style.display = sortedMovies.length ? 'block' : 'none';
-    }
-
-    document.getElementById('search-input').addEventListener('input', async (event) => {
-        const query = event.target.value.trim();
-        if (query.length > 2) {
-            allMovies = await searchMovies(query);
-            updateMovieList(allMovies);
-        } else {
-            document.querySelector('.movie-list').style.display = 'none';
-        }
+        return aTitle.localeCompare(bTitle);
     });
+}
+
+function updateMovieList(movies, query) {
+    const sortedMovies = sortMovies(movies, query);
+    const movieList = document.querySelector('.movie-list');
+    movieList.innerHTML = '';
+
+    sortedMovies.forEach(movie => {
+        const movieItem = document.createElement('li');
+        movieItem.className = 'movie-item';
+        movieItem.style.display = 'flex';
+        movieItem.style.alignItems = 'center';
+        movieItem.style.justifyContent = 'space-between';
+
+        const poster = document.createElement('img');
+        poster.src = movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : 'default_poster.png';
+        poster.alt = `${movie.title} Poster`;
+        poster.style.width = '50px';
+        poster.style.height = '75px';
+        poster.style.marginLeft = '10px';
+
+        const movieText = document.createElement('span');
+        movieText.textContent = `${movie.title || 'Unnamed Movie'} (${new Date(movie.release_date).getFullYear() || ''})`;
+        movieText.style.flexGrow = '1';
+        movieText.style.textAlign = 'center';
+
+        movieItem.appendChild(movieText);
+        movieItem.appendChild(poster);
+        movieItem.dataset.id = movie.id;
+
+        movieItem.addEventListener('click', () => {
+            window.location.href = `watch.html?tmdb_id=${movie.id}`;
+        });
+
+        movieList.appendChild(movieItem);
+    });
+
+    movieList.style.display = sortedMovies.length ? 'block' : 'none';
+}
+
+document.getElementById('search-input').addEventListener('input', async (event) => {
+    const query = event.target.value.trim();
+    if (query.length > 2) {
+        allMovies = await searchMovies(query);
+        updateMovieList(allMovies, query);
+    } else {
+        document.querySelector('.movie-list').style.display = 'none';
+    }
+});
 
     async function fetchNowPlayingMovies() {
         const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`;
