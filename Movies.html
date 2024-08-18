@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
+  <meta charset="UTF-8">
   <title>فهرس</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js" defer></script>
@@ -34,65 +35,54 @@
       text-align: center;
     }
 
-    .movie-list {
-      list-style-type: none;
-      padding: 0;
-      text-align: center;
-    }
-
-    .head-center {
-      list-style-type: none;
-      padding: 0;
-      text-align: center;
-    }
-
-    .movie-item {
-      margin: 10px;
-    }
-
-    a {
-      text-decoration: none;
-      color: #333;
-      display: block;
-      padding: 20px;
-      border-radius: 5px;
-      background-color: red;
-      transition: background-color 0.3s;
-      font-size: 25px;
-    }
-
-    a:hover {
-      background-color: gold;
-    }
-
-    h2 {
-      text-align: center;
-    }
-
     .search-box {
       text-align: center;
       margin-top: 20px;
-    }
-
-    input[type="text"] {
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      width: 100%;
-      max-width: 300px;
-    }
-
-    input[type="submit"] {
-      background-color: #333;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+      position: relative;
     }
 
     #search-input {
-      touch-action: none;
+      padding: 10px;
+      border-radius: 5px 5px 0 0;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 300px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .movie-list {
+      list-style-type: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-top: none;
+      border-radius: 0 0 5px 5px;
+      position: absolute;
+      width: 100%;
+      max-width: 300px;
+      background-color: #fff;
+      z-index: 1;
+      display: none;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    .movie-list.show {
+      display: block;
+    }
+
+    .movie-item {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    .movie-item:hover {
+      background-color: #f0f0f0;
     }
 
     @media (max-width: 600px) {
@@ -103,6 +93,61 @@
         margin-top: 10px;
       }
     }
+
+
+
+    .film-container {
+    display: flex;
+    flex-direction: column; /* لتصفية العناصر عموديًا */
+    align-items: center; /* توسيط العناصر أفقيًا */
+    padding: 20px;
+}
+
+.film-box {
+    background-color: red;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 200px; /* عرض ثابت للمربعات */
+    margin-bottom: 20px; /* مسافة بين المربعات */
+    display: flex;
+    flex-direction: column; /* لتصفية النصوص عموديًا */
+    align-items: center; /* توسيط النصوص داخل المربع */
+    justify-content: center; /* توسيط النصوص عموديًا داخل المربع */
+    text-align: center; /* توسيط النصوص داخل المربع */
+    cursor: pointer;
+}
+
+.film-box span {
+    font-size: 18px; /* حجم الخط */
+    line-height: 1.4; /* تحسين التباعد بين الأسطر */
+}
+
+
+
+
+
+.film-box:hover {
+    background-color: gold; /* لون خلفية ذهبي عند التفاعل */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التفاعل */
+}
+
+
+.head-center {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
+    
+    .head-item a {
+    color: white; /* لون النص أبيض */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.head-item a:hover {
+    background-color: gold; /* لون خلفية ذهبي عند التمرير */
+}
   </style>
 </head>
 <body>
@@ -110,19 +155,17 @@
     <h1>فهرس</h1>
   </header>
   <div class="content">
-    <h2>الافلام الاجنبية و الانمي و العربية</h2>
-<br> تحديث الافلام في موقعنا يوميا
+    <h2>البحث عن الفلم يكون فقط عن طريق مربع البحث وليس هناك صفحات اخرى</h2>
     <div class="search-box">
-      <input type="text" id="search-input" dir="auto" style="text-align: center;" placeholder="اكتب اسم فلمك هنا">
-    </div>
-    <ul class="head-center">
-      <li class="head-item"><a href="/">رجوع</a></li>
+      <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
+      <ul class="movie-list"></ul>
+      <h2>أحدث الافلام الاجنبية المضافة</h2>
+      <ul class="head-center">
+      <li class="head-item"><a href="/">رجوع للصفحة الرئيسية</a></li>
         </ul>
-            <ul class="movie-list" id="movie-list">
-  <li id="loading-message">جاري تحميل الأفلام...</li>
-</ul>
-
-<script src="random.js"></script>
-<script src="Movies.js"></script>
+      <div id="film-container" class="film-container"></div>
+    </div>
+  </div>
+  <script src="Movies.js"></script>
 </body>
 </html>
