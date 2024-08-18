@@ -173,9 +173,10 @@
       <ul class="head-center">
         <li class="head-item"><a href="/">رجوع للصفحة الرئيسية</a></li>
       </ul>
-      <ul class="movie-list" id="movie-list">
+      <ul class="movie-list" id="series-list">
         <li id="loading-message">جاري تحميل المسلسلات...</li>
-      </ul>
+    </ul>
+    
     </div>
   </div>
   <script>
@@ -301,7 +302,7 @@ fetch(apiUrl)
   .then(response => response.json())
   .then(data => {
     const files = data.tree.filter(file => file.path.startsWith(folderPath) && file.path.endsWith('.html'));
-    const seriesList = document.getElementById('movie-list');
+    const seriesList = document.getElementById('series-list'); // تغيير الاسم هنا
     const loadingMessage = document.getElementById('loading-message');
     
     // إزالة رسالة التحميل
@@ -331,9 +332,8 @@ fetch(apiUrl)
   })
   .catch(error => {
     console.error('Error:', error);
-    document.getElementById('movie-list').innerHTML = '<li>فشل في تحميل المسلسلات قم بتحديث الصفحة</li>';
+    document.getElementById('series-list').innerHTML = '<li>فشل في تحميل المسلسلات قم بتحديث الصفحة</li>'; // تغيير الاسم هنا أيضًا
   });
-
 
   </script>
 </body>
