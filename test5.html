@@ -176,7 +176,16 @@
         if (aExactMatch && !bExactMatch) return -1;
         if (!aExactMatch && bExactMatch) return 1;
 
-        return aTitle.localeCompare(bTitle);
+        // ترتيب أبجدي أولاً
+        const titleComparison = aTitle.localeCompare(bTitle);
+        if (titleComparison !== 0) {
+            return titleComparison;
+        }
+
+        // ترتيب حسب السنة إذا كانت العناوين متساوية
+        const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
+        const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
+        return aYear - bYear;
     });
 }
 
