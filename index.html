@@ -105,16 +105,19 @@
 
         /* المربعات الحمراء */
         a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            font-size: 25px; /* تكبير حجم الخط داخل المربعات الحمراء */
-        }
-
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 20px;
+    border-radius: 10px; /* تكبير حواف المربعات */
+    background-color: red;
+    transition: background-color 0.3s, transform 0.3s; /* إضافة تأثير تحريك عند التمرير */
+    font-size: 25px; /* تكبير حجم الخط داخل المربعات */
+    text-align: center; /* محاذاة النص في وسط المربع */
+    margin: 20px auto; /* إضافة مسافة حول المربعات وتوسيعها */
+    width: 60%; /* تحديد عرض المربعات كنسبة مئوية */
+    max-width: 600px; /* تحديد الحد الأقصى للعرض */
+}
         a:hover {
             background-color: gold;
         }
@@ -209,139 +212,61 @@ h5{
 
 
 
-
-@media screen and (min-width:320px) and (max-width:463px) {
-    h2 {
-font-size: 25px;
+@media (min-width: 250px) and (max-width: 320px) {
+    .container {
+        margin: 5px;
+        padding: 5px;
+        font-size: 14px;
     }
 
-h3
- {
-    font-size: 18px;
- }
-
-h5 {
-    font-size: 25px;
-}
-
-h4.telegram-link {
-    font-size: 14px;
-}
-
-h4.telegram-link img {
-    width: 14px;
-    height: 14px;
-}
-
-#randomButton {
-    font-family: Arial, sans-serif;
-    text-decoration: none;
-    color: #333;
-    display: block;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: red;
-    transition: background-color 0.3s;
-    font-size: 19.4px; /* تكبير حجم الخط داخل المربع */
-    text-align: center; /* لتوسيط النص أفقيًا */
-    width: 243px; /* تعيين العرض ليكون مطابقًا لعرض المربعات الحمراء */
-    margin: 20px auto 10px; /* توسيط الزر */
-    box-sizing: border-box; /* تضمين padding و border في حساب العرض */
-}
-
-}
-
-
-
-@media screen and (min-width:464px) and (max-width:768px) {
-    h2 {
-font-size: 40px;
+    iframe {
+        height: 180px;
     }
 
-h3
- {
-    font-size: 25px;
- }
-
-h5 {
-    font-size: 35px;
-}
-
-h4.telegram-link {
-    font-size: 20px;
-}
-
-h4.telegram-link img {
-    width: 18px;
-    height: 18px;
-}
-a {
-    padding: 30px;
-    font-size: 35px;
-}
-
-#randomButton {
-    font-family: Arial, sans-serif;
-    text-decoration: none;
-    color: #333;
-    display: block;
-    padding: 30px;
-    border-radius: 5px;
-    background-color: red;
-    transition: background-color 0.3s;
-    font-size: 21.57px; /* تكبير حجم الخط داخل المربع */
-    text-align: center; /* لتوسيط النص أفقيًا */
-    width: 260px; /* تعيين العرض ليكون مطابقًا لعرض المربعات الحمراء */
-    margin: 20px auto 10px; /* توسيط الزر */
-    box-sizing: border-box; /* تضمين padding و border في حساب العرض */
-}
-}
-
-@media screen and (min-width:769px) and (max-width:1024px)  {
-    h2 {
-font-size: 40px;
+    a {
+        padding: 10px;
+        font-size: 16px;
     }
 
-h3
- {
-    font-size: 25px;
- }
+    h1 {
+        font-size: 20px;
+    }
 
-h5 {
-    font-size: 35px;
-}
+    .movie-item {
+        margin: 5px;
+    }
 
-h4.telegram-link {
-    font-size: 20px;
-}
+    .search-box {
+        margin-top: 5px;
+    }
 
-h4.telegram-link img {
-    width: 18px;
-    height: 18px;
-}
-a {
-    padding: 30px;
-    font-size: 35px;
-}
+    input[type="text"] {
+        padding: 6px;
+        max-width: 240px;
+    }
 
-#randomButton {
-    font-family: Arial, sans-serif;
-    text-decoration: none;
-    color: #333;
-    display: block;
-    padding: 30px;
-    border-radius: 5px;
-    background-color: red;
-    transition: background-color 0.3s;
-    font-size: 21.57px; /* تكبير حجم الخط داخل المربع */
-    text-align: center; /* لتوسيط النص أفقيًا */
-    width: 260px; /* تعيين العرض ليكون مطابقًا لعرض المربعات الحمراء */
-    margin: 20px auto 10px; /* توسيط الزر */
-    box-sizing: border-box; /* تضمين padding و border في حساب العرض */
-}
-}
+    input[type="submit"] {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
 
+    #randomButton {
+        padding: 12px;
+        font-size: 16px;
+    }
 
+    h4.telegram-link {
+        font-size: 12px;
+    }
+
+    h3 {
+        font-size: 12px;
+    }
+
+    h5 {
+        font-size: 16px;
+    }
+}
 
     </style>
     <!-- تضمين الخط العربي Tajawal -->
