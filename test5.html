@@ -147,7 +147,11 @@
     </div>
   </div>
   <script>
-    async function searchMovies(query) {
+     const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+        let allMovies = [];
+        let displayedMovies = [];
+
+         async function searchMovies(query) {
         const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
         try {
             const response = await fetch(url);
@@ -262,6 +266,6 @@
     }
 
     window.onload = displayMovies;
-</script>
+  </script>
 </body>
 </html>
