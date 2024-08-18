@@ -146,6 +146,22 @@
     margin-right: 10px; /* إزالة المسافة الزائدة بعد الرمز الأخير */
 }
 
+#downloadButton {
+        background-color: #00BFFF; /* لون سماوي */
+        color: white; /* لون النص أبيض */
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 5px; /* لجعل الزر مربعًا */
+        width: 100%; /* اجعل الزر يمتد ليأخذ عرض الحاوية */
+        max-width: Auto; /* حدد الحد الأقصى للعرض */
+        margin-top: 20px;
+    }
+
+    #downloadButton:hover {
+        background-color: #008CBA; /* لون أغمق عند التمرير عليه */
+    }
     </style> 
 </head> 
 <body> 
@@ -186,6 +202,11 @@
      <option value="https://vk.com/video_ext.php?oid=760598098&id=456248178&hash=&hd=2">الموسم 2 : الحلقة 7</option>
     <option value="https://vk.com/video_ext.php?oid=760598098&id=456248179&hash=&hd=2">الموسم 2 : الحلقة 8</option>
 </select> 
+
+<button id="downloadButton">تحميل الحلقة ( اختر رقم الحلقة اولا )</button>
+
+
+
     
     
     <h2>
@@ -253,6 +274,40 @@
       function changeEpisode(url) {
             document.getElementById('movieIframe').src = url;
         }
+
+
+        function getOidAndIdFromIframe() {
+            const iframe = document.getElementById('movieIframe');
+            const src = iframe.src;
+            const regex = /oid=(\d+)&id=(\d+)/;
+            const match = src.match(regex);
+
+            if (match) {
+                return { oid: match[1], id: match[2] };
+            } else {
+                return { oid: null, id: null };
+            }
+        }
+
+        // دالة لتحويل الرابط
+        function convertUrl(oid, id) {
+            if (oid && id) {
+                return `sfrom.net/https://m.vk.com/video${oid}_${id}`;
+            } else {
+                return 'قيمة oid أو id غير صحيحة';
+            }
+        }
+
+        // عند الضغط على الزر، توجيه المستخدم لتحميل الفيديو
+        document.getElementById('downloadButton').addEventListener('click', () => {
+            const { oid, id } = getOidAndIdFromIframe();
+            const downloadUrl = convertUrl(oid, id);
+            if (downloadUrl.startsWith('sfrom.net')) {
+                window.location.href = `https://${downloadUrl}`;
+            } else {
+                alert(downloadUrl); // يعرض رسالة إذا كانت القيم غير صحيحة
+            }
+        });
 
 </script>
 </body>
