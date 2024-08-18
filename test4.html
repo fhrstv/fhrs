@@ -1,284 +1,285 @@
 <!DOCTYPE html>
-<html>
-  
-  <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ES7T4P1E1T"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ES7T4P1E1T');
-</script>
-</head>
-  
-  
-  
+<html lang="ar">
 <head>
-    <title>فهرس</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-<script src=".htaccess" defer></script>
-<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
-<link rel="stylesheet" type="text/css" href="style.css">
-    <script src="scripit.js" defer></script>
-    
-    
+  <meta charset="UTF-8">
+  <title>فهرس</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="اكبر موقع فهرسة للافلام والمسلسلات">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      color: #000;
+    }
 
-    <style>
-      :root {
-  --font-family: Arial, sans-serif;
-  --font-size: 16px;
-  --line-height: 1.5;
-  --spacing: 20px;
-  --background-color: #f0f0f0;
-  --text-color: #000;
-  --header-background-color: #333;
-  --header-text-color: hsl(0, 94%, 46%);
-  --accent-color: red;
-  --hover-color: gold;
+    header {
+      background-color: #333;
+      color: hsl(0, 94%, 46%);
+      text-align: center;
+      padding: 10px;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .content {
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+      position: relative;
+    }
+
+    #search-input {
+      padding: 10px;
+      border-radius: 5px 5px 0 0;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 300px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .movie-list {
+      list-style-type: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-top: none;
+      border-radius: 0 0 5px 5px;
+      position: absolute;
+      width: 100%;
+      max-width: 300px;
+      background-color: #fff;
+      z-index: 1;
+      display: none;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    .movie-list.show {
+      display: block;
+    }
+
+    .movie-item {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    .movie-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 24px;
+      }
+      .search-box {
+        margin-top: 10px;
+      }
+    }
+
+
+
+    .film-container {
+    display: flex;
+    flex-direction: column; /* لتصفية العناصر عموديًا */
+    align-items: center; /* توسيط العناصر أفقيًا */
+    padding: 20px;
 }
 
-body {
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  line-height: var(--line-height);
-  background-color: var(--background-color);
-  color: var(--text-color);
-  margin: 0;
-  padding: 0;
+.film-box {
+    background-color: red;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 200px; /* عرض ثابت للمربعات */
+    margin-bottom: 20px; /* مسافة بين المربعات */
+    display: flex;
+    flex-direction: column; /* لتصفية النصوص عموديًا */
+    align-items: center; /* توسيط النصوص داخل المربع */
+    justify-content: center; /* توسيط النصوص عموديًا داخل المربع */
+    text-align: center; /* توسيط النصوص داخل المربع */
+    cursor: pointer;
 }
 
-header {
-  background-color: var(--header-background-color);
-  color: var(--header-text-color);
-  text-align: center;
-  padding: var(--spacing);
+.film-box span {
+    font-size: 18px; /* حجم الخط */
+    line-height: 1.4; /* تحسين التباعد بين الأسطر */
 }
 
-.container {
-  max-width: 90%;
-  margin: var(--spacing) auto;
-  padding: var(--spacing);
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  border-radius: 10px;
-  overflow: hidden;
+
+
+
+
+.film-box:hover {
+    background-color: gold; /* لون خلفية ذهبي عند التفاعل */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التفاعل */
 }
 
-iframe {
-  width: 100%;
-  height: auto; /* Adjusted height to be responsive */
-}
-
-a {
-  text-decoration: none;
-  color: var(--accent-color);
-  display: block;
-  padding: var(--spacing);
-  border-radius: 5px;
-  background-color: var(--accent-color);
-  transition: background-color 0.3s;
-  margin-top: var(--spacing);
-}
-
-a:hover {
-  background-color: var(--hover-color);
-}
-
-p {
-  text-align: justify;
-  margin-bottom: var(--spacing);
-}
-
-h1, h2, h3, h4, h5 {
-  margin: 0;
-  font-weight: bold;
-  color: var(--text-color);
-}
-
-h2 {
-  font-size: 1.5em;
-}
-
-h3 {
-  font-size: 1.2em;
-}
-
-h4 {
-  font-size: 1em;
-}
-
-h5 {
-  font-size: 1.8em;
-}
-
-.movie-list {
-  list-style-type: none;
-  padding: 0;
-  text-align: center;
-}
-
-.movie-item {
-  margin: var(--spacing);
-}
-
-.search-box {
-  text-align: center;
-  margin-top: var(--spacing);
-}
-
-input[type="text"] {
-  padding: var(--spacing);
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 100%;
-  max-width: 300px;
-}
-
-input[type="submit"] {
-  background-color: var(--header-background-color);
-  color: #fff;
-  padding: var(--spacing);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#randomButton {
-  font-family: var(--font-family);
-  text-decoration: none;
-  color: var(--accent-color);
-  display: block;
-  padding: var(--spacing);
-  border-radius: 5px;
-  background-color: var(--accent-color);
-  transition: background-color 0.3s;
-  font-size: 1.2em;
-  text-align: center;
-  width: 100%;
-  max-width: 300px;
-  margin: var(--spacing) auto;
-  box-sizing: border-box;
-}
-
-#randomButton:hover {
-  background-color: var(--hover-color);
-}
-
-.telegram-link {
-  background: none;
-  padding: 0;
-  border: none;
-  display: inline-block;
-  font-size: 0.8em;
-  color: blue;
-}
-
-.telegram-link a {
-  text-decoration: none;
-  color: blue;
-}
-
-.telegram-link img {
-  width: 14px;
-  height: 14px;
-  margin-left: 5px;
-  vertical-align: middle;
-}
-
-h4.telegram-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Media Queries */
-@media (max-width: 1200px) {
-  .container {
-    max-width: 95%;
-  }
-}
-
-@media (max-width: 992px) {
-  h2 {
-    font-size: 1.4em;
-  }
-}
-
-@media (max-width: 768px) {
-  h2 {
-    font-size: 1.2em;
-  }
-
-  h5 {
-    font-size: 1.6em;
-  }
-
-  .search-box {
-    margin-top: 10px;
-  }
-}
-
-@media (max-width: 576px) {
-  h2 {
-    font-size: 1.1em;
-  }
-
-  .container {
-    padding: 10px;
-  }
-
-  input[type="text"], input[type="submit"], #randomButton {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  iframe {
-    height: 200px; /* Adjusted for smaller screens */
-  }
-}
-
-    </style>
-    <!-- تضمين الخط العربي Tajawal -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap">
+  </style>
 </head>
 <body>
-    <header>
-        <h1>فهرس</h1>
-    </header>
-    <div class="content">
-        <h2>اكبر موقع فهرسه بالوطن العربي</h2>
-        <h5>فهرس هي قائمتك للمشاهدة</h5>
-        
-<h3>جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين<br>نحن لا نخزن و لا نرفع و لا ننشر <br>فقط نعرض اسهل طريقة للمشاهدة </h3>
-
-<h4 class="telegram-link">
-  <span onclick="window.open('https://t.me/fhrs_updates', '_blank');">
-    <img src="https://telegram.org/img/t_logo.png" alt="تليجرام">
-انضموا إلى قناتنا في التيليجرام لمعرفة آخر تحديثات موقعنا
-  </span>
-</h4>
-        <!-- نتائج البحث -->
-        <div class="search-results" id="searchResults">
-            <!-- هنا سيتم عرض نتائج البحث -->
-        </div>
-        <!-- قائمة الأفلام والمسلسلات الأخرى -->
-        <ul class="movie-list">
-            <!-- إضافة العناصر هنا -->
-           <button id="randomButton">اختيار فيلم / مسلسل عشوائي</button>
-          <li class="movie-item"><a href="Movies">الافلام</a></li>
-                    <li class="movie-item"><a href="Series">المسلسلات</a></li>
-                    <li class="movie-item"><a href="Stories">قصص حقيقية</a></li>
-            <li class="movie-item"><a href="Faq">الاسئلة الشائعة</a></li>
-            <li class="movie-item"><a href="Call">اتصل بنا<br>(للطلب أو الابلاغ)</a></li>
-            
-            <!-- يمكنك إضافة المزيد من الأفلام والمسلسلات هنا -->
-        </ul>
+  <header>
+    <h1>فهرس</h1>
+  </header>
+  <div class="content">
+    <h2>البحث عن الفلم يكون فقط عن طريق مربع البحث وليس هناك صفحات اخرى</h2>
+    <div class="search-box">
+      <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
+      <ul class="movie-list"></ul>
+      <h2>أحدث الافلام الاجنبية</h2>
+      <div id="film-container" class="film-container"></div>
     </div>
-<script src="scripit.js"></script>
-<script src="random.js"></script>
+  </div>
+  <script>
+     const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+        let allMovies = [];
+        let displayedMovies = [];
+
+          async function searchMovies(query) {
+        const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.results || [];
+        } catch (error) {
+            console.error('Error fetching data from TMDB', error);
+            return [];
+        }
+    }
+
+    function sortMovies(movies, query) {
+    const lowerCaseQuery = query.toLowerCase();
+
+    return movies.sort((a, b) => {
+        const aTitle = a.title.toLowerCase();
+        const bTitle = b.title.toLowerCase();
+
+        const aExactMatch = aTitle === lowerCaseQuery;
+        const bExactMatch = bTitle === lowerCaseQuery;
+
+        if (aExactMatch && !bExactMatch) return -1;
+        if (!aExactMatch && bExactMatch) return 1;
+
+        // ترتيب أبجدي أولاً
+        const titleComparison = aTitle.localeCompare(bTitle);
+        if (titleComparison !== 0) {
+            return titleComparison;
+        }
+
+        // ترتيب حسب السنة إذا كانت العناوين متساوية
+        const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
+        const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
+        return aYear - bYear;
+    });
+}
+
+function updateMovieList(movies, query) {
+    const sortedMovies = sortMovies(movies, query);
+    const movieList = document.querySelector('.movie-list');
+    movieList.innerHTML = '';
+
+    sortedMovies.forEach(movie => {
+        const movieItem = document.createElement('li');
+        movieItem.className = 'movie-item';
+        movieItem.style.display = 'flex';
+        movieItem.style.alignItems = 'center';
+        movieItem.style.justifyContent = 'space-between';
+
+        const poster = document.createElement('img');
+        poster.src = movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : 'default_poster.png';
+        poster.alt = `${movie.title} Poster`;
+        poster.style.width = '50px';
+        poster.style.height = '75px';
+        poster.style.marginLeft = '10px';
+
+        const movieText = document.createElement('span');
+        movieText.textContent = `${movie.title || 'Unnamed Movie'} (${new Date(movie.release_date).getFullYear() || ''})`;
+        movieText.style.flexGrow = '1';
+        movieText.style.textAlign = 'center';
+
+        movieItem.appendChild(movieText);
+        movieItem.appendChild(poster);
+        movieItem.dataset.id = movie.id;
+
+        movieItem.addEventListener('click', () => {
+            window.location.href = `watch.html?tmdb_id=${movie.id}`;
+        });
+
+        movieList.appendChild(movieItem);
+    });
+
+    movieList.style.display = sortedMovies.length ? 'block' : 'none';
+
+    // ارجاع موضع التمرير الى الاعلى بعد تحديث القائمة
+    movieList.scrollTop = 0;
+}
+
+document.getElementById('search-input').addEventListener('input', async (event) => {
+    const query = event.target.value.trim();
+    if (query.length > 2) {
+        allMovies = await searchMovies(query);
+        updateMovieList(allMovies, query);
+    } else {
+        document.querySelector('.movie-list').style.display = 'none';
+    }
+});
+
+    async function fetchNowPlayingMovies() {
+        const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Failed to load now playing movies');
+            }
+            const data = await response.json();
+            return data.results || [];
+        } catch (error) {
+            console.error('Error fetching now playing movies', error);
+            return [];
+        }
+    }
+
+    async function displayMovies() {
+        const movies = await fetchNowPlayingMovies();
+        const filmContainer = document.getElementById('film-container');
+        filmContainer.innerHTML = '';
+
+        for (const movie of movies) {
+            const filmBox = document.createElement('div');
+            filmBox.className = 'film-box';
+            filmBox.dataset.tmdbId = movie.id;
+
+            const releaseYear = new Date(movie.release_date).getFullYear();
+            const filmTitle = document.createElement('span');
+            filmTitle.textContent = `${movie.title || 'Unnamed Movie'} ${releaseYear || ''}`;
+            filmBox.appendChild(filmTitle);
+
+            filmBox.addEventListener('click', () => {
+                window.location.href = `watch.html?tmdb_id=${movie.id}`;
+            });
+
+            filmContainer.appendChild(filmBox);
+        }
+    }
+
+    window.onload = displayMovies;
+  </script>
 </body>
 </html>
