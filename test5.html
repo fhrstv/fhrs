@@ -225,6 +225,9 @@ function updateMovieList(movies, query) {
     });
 
     movieList.style.display = sortedMovies.length ? 'block' : 'none';
+
+    // ارجاع موضع التمرير الى الاعلى بعد تحديث القائمة
+    movieList.scrollTop = 0;
 }
 
 document.getElementById('search-input').addEventListener('input', async (event) => {
