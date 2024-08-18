@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Show Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: transparent; /* لجعل الخلفية شفافة */
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .tv-show-details {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .tv-show-details img {
+            width: 300px;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .tv-show-details h1 {
+            margin: 0;
+            color: red;
+        }
+
+        .tv-show-details p {
+            margin: 10px 0;
+        }
+
+        .tv-show-details p span {
+            color: #000; /* تعيين اللون الأسود للـ <span> */
+        }
+
+        iframe {
+            border: none;
+            border-radius: 5px;
+        }
+
+        .trailer-container, .tv-show-embed-container {
+            margin-top: 20px;
+        }
+
+        .trailer-container iframe, .tv-show-embed-container iframe {
+            width: 100%;
+            height: 400px;
+        }
+
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+
+        h2, h3, a {
+            color: #000;
+        }
+
+        h4 {
+            font-size: 40px;
+            margin: 0;
+        }
+
+        .tv-show-details strong {
+            color: #000; /* تعيين اللون الأسود */
+        }
+
+        .tv-show-details span {
+            color: #000; /* تعيين اللون الأسود */
+        }
+
+    </style>
+</head>
+<header>
+    <h4>فهرس</h4>
+<body>
+    <div class="container">
+        <div class="tv-show-details" id="tv-show-details">
+            <img src="" alt="TV Show Poster">
+            <h1>TV Show Title</h1>
+            <p><strong>تاريخ الاصدار : </strong> <span id="release-date">N/A</span></p>
+            <p><strong>القصة : </strong> <span id="overview">No overview available.</span></p>
+            <p><strong>النوع : </strong> <span id="genre">N/A</span></p>
+            <p><strong>التقييم : </strong> <span id="rating">N/A</span></p>
+            <h2>التريلر</h2>
+            <div class="trailer-container" id="trailer-container"></div>
+            <h2>مشاهدة المسلسل</h2>
+            <div class="tv-show-embed-container" id="tv-show-embed-container"></div>
+            <a href="../../TVShows">رجوع</a>
+        </div>
+    </div>
+</header>
+
+    <script>
+        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+
+        async function fetchTVShowDetails(tmdbId) {
+            const url = `https://api.themoviedb.org/3/tv/${tmdbId}?api_key=${apiKey}&language=ar`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('فشل في جلب تفاصيل المسلسل.');
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('خطأ في جلب تفاصيل المسلسل:', error);
+                return null;
+            }
+        }
+
+        async function fetchTVShowVideos(tmdbId) {
+            const url = `https://api.themoviedb.org/3/tv/${tmdbId}/videos?api_key=${apiKey}&language=en`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('فشل في جلب فيديوهات المسلسل.');
+                }
+                const data = await response.json();
+                return data.results;
+            } catch (error) {
+                console.error('خطأ في جلب فيديوهات المسلسل:', error);
+                return [];
+            }
+        }
+
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        async function checkIframeMessage() {
+            const iframe = document.getElementById('tv-show-embed-container').querySelector('iframe');
+            iframe.onload = function() {
+                const iframeContent = iframe.contentDocument || iframe.contentWindow.document;
+                const messageElement = iframeContent.querySelector('h4');
+                if (messageElement && messageElement.textContent === 'This media is unavailable at the moment.') {
+                    // Redirect to a custom error page or previous page
+                    window.location.href = '/error-page.html'; // or '/previous-page.html'
+                }
+            };
+        }
+
+        async function displayTVShowDetails() {
+            const tmdbId = getQueryParameter('tmdb_id');
+
+            if (!tmdbId) {
+                document.getElementById('tv-show-details').innerHTML = '<p>لم يتم توفير معرّف المسلسل.</p>';
+                return;
+            }
+
+            const tvShowData = await fetchTVShowDetails(tmdbId);
+            const tvShowVideos = await fetchTVShowVideos(tmdbId);
+
+            if (tvShowData) {
+                document.querySelector('h1').textContent = tvShowData.name || 'لا يوجد عنوان';
+                document.querySelector('img').src = tvShowData.poster_path ? `https://image.tmdb.org/t/p/w500/${tvShowData.poster_path}` : '';
+                document.getElementById('release-date').textContent = tvShowData.first_air_date || 'غير متوفر';
+                document.getElementById('overview').textContent = tvShowData.overview || 'لا يوجد ملخص متاح.';
+
+                // Display genre
+                const genres = tvShowData.genres.map(genre => genre.name).join(', ');
+                document.getElementById('genre').textContent = genres || 'غير متوفر';
+
+                // Display rating (formatted to 1 decimal place)
+                const rating = tvShowData.vote_average ? tvShowData.vote_average.toFixed(1) : 'غير متوفر';
+                document.getElementById('rating').textContent = `${rating} / 10`;
+
+                // Embed TV show from Vidsrc
+                document.getElementById('tv-show-embed-container').innerHTML = `
+                    <iframe src="https://vidsrc.xyz/embed/tv?tmdb=${tmdbId}" allowfullscreen></iframe>
+                `;
+
+                // Check the iframe message
+                checkIframeMessage();
+
+                // Find and display the first trailer
+                const trailer = tvShowVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+                if (trailer) {
+                    document.getElementById('trailer-container').innerHTML = `
+                        <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
+                    `;
+                } else {
+                    document.getElementById('trailer-container').innerHTML = '<p>لا يوجد تريلر متاح.</p>';
+                }
+            } else {
+                document.getElementById('tv-show-details').innerHTML = '<p>فشل في تحميل تفاصيل المسلسل.</p>';
+            }
+        }
+
+        window.onload = displayTVShowDetails;
+
+    </script>
+
+</body>
+</html>

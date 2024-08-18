@@ -69,7 +69,7 @@ movieItem.appendChild(poster);
 movieItem.dataset.id = movie.id;
 
 movieItem.addEventListener('click', () => {
-    window.location.href = `watch?tmdb_id=${movie.id}`;
+    window.location.href = `watch_movie?tmdb_id=${movie.id}`;
 });
 
 movieList.appendChild(movieItem);
@@ -133,7 +133,7 @@ for (const movie of movies) {
     filmBox.appendChild(filmTitle);
 
     filmBox.addEventListener('click', () => {
-        window.location.href = `watch?tmdb_id=${movie.id}`;
+        window.location.href = `watch_movie?tmdb_id=${movie.id}`;
     });
 
     filmContainer.appendChild(filmBox);
