@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
   <style>
-    body {
+  body {
       font-family: Arial, sans-serif;
       background-color: #f0f0f0;
       margin: 0;
@@ -92,53 +92,72 @@
       }
     }
 
+
+
     .film-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
+    display: flex;
+    flex-direction: column; /* لتصفية العناصر عموديًا */
+    align-items: center; /* توسيط العناصر أفقيًا */
+    padding: 20px;
+}
 
-    .film-box {
-      background-color: red;
-      color: white;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      width: 200px;
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      cursor: pointer;
-    }
+.film-box {
+    background-color: red;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 200px; /* عرض ثابت للمربعات */
+    margin-bottom: 20px; /* مسافة بين المربعات */
+    display: flex;
+    flex-direction: column; /* لتصفية النصوص عموديًا */
+    align-items: center; /* توسيط النصوص داخل المربع */
+    justify-content: center; /* توسيط النصوص عموديًا داخل المربع */
+    text-align: center; /* توسيط النصوص داخل المربع */
+    cursor: pointer;
+}
 
-    .film-box span {
-      font-size: 18px;
-      line-height: 1.4;
-    }
+.film-box span {
+    font-size: 18px; /* حجم الخط */
+    line-height: 1.4; /* تحسين التباعد بين الأسطر */
+}
 
-    .film-box:hover {
-      background-color: gold;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    }
 
-    .head-center {
+
+
+
+.film-box:hover {
+    background-color: gold; /* لون خلفية ذهبي عند التفاعل */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التفاعل */
+}
+
+
+.head-center {
       list-style-type: none;
       padding: 0;
       text-align: center;
     }
-
+    
     .head-item a {
-      color: white;
-      transition: background-color 0.3s, color 0.3s;
+      display: block; /* عرض العنصر ككتلة */
+    width: 200px; /* نفس عرض مربعات المسلسلات */
+    height: 30px; /* ارتفاع المربع الجديد */
+    color: white;
+    background-color: red;
+    padding: 20px; /* إزالة الحشو الداخلي */
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    text-align: center;
+    line-height: 30px; /* محاذاة النص عموديًا */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0 auto; /* لتوسيط العنصر في الصفحة */
     }
 
-    .head-item a:hover {
-      background-color: gold;
-    }
+.head-item a:hover {
+    background-color: gold; /* لون خلفية داكن عند التمرير */
+}
   </style>
 </head>
 <body>
