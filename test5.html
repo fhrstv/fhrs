@@ -187,6 +187,13 @@
         sortedMovies.forEach(movie => {
             const movieItem = document.createElement('li');
             movieItem.className = 'movie-item';
+            movieItem.style.display = 'flex'; // لتصفيتها أفقياً
+            movieItem.style.justifyContent = 'space-between'; // لجعل النص والصورة على الأطراف
+
+            // إنشاء عنصر النص (اسم الفيلم والسنة)
+            const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown Year';
+            const movieText = document.createElement('span');
+            movieText.textContent = `${movie.title || 'Unnamed Movie'} (${releaseYear})`;
 
             // إنشاء عنصر صورة البوستر
             const poster = document.createElement('img');
@@ -194,16 +201,11 @@
             poster.alt = `${movie.title} Poster`;
             poster.style.width = '50px'; // تحديد عرض الصورة
             poster.style.height = '75px'; // تحديد ارتفاع الصورة
-            poster.style.marginRight = '10px'; // إضافة مسافة بين الصورة والنص
+            poster.style.marginLeft = '10px'; // إضافة مسافة بين النص والصورة
 
-            // إنشاء عنصر النص (اسم الفيلم والسنة)
-            const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown Year';
-            const movieText = document.createElement('span');
-            movieText.textContent = `${movie.title || 'Unnamed Movie'} (${releaseYear})`;
-
-            // إضافة الصورة والنص إلى عنصر القائمة
-            movieItem.appendChild(poster);
+            // إضافة النص والصورة إلى عنصر القائمة
             movieItem.appendChild(movieText);
+            movieItem.appendChild(poster);
             movieItem.dataset.id = movie.id;
 
             movieItem.addEventListener('click', () => {
