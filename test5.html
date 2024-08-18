@@ -242,7 +242,7 @@ document.addEventListener('click', function(event) {
 
 document.getElementById('search-input').addEventListener('input', async (event) => {
     const query = event.target.value.trim();
-    if (query.length > 1) {
+    if (query.length > 0) {
         allMovies = await searchMovies(query);
         updateMovieList(allMovies, query);
     } else {
