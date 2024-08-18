@@ -204,8 +204,8 @@ function updateMovieList(movies, query) {
         const poster = document.createElement('img');
         poster.src = movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : 'default_poster.png';
         poster.alt = `${movie.title} Poster`;
-        poster.style.width = '50px';
-        poster.style.height = '75px';
+        poster.style.width = '75px';
+        poster.style.height = '100px';
         poster.style.marginLeft = '10px';
 
         const movieText = document.createElement('span');
