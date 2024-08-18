@@ -91,6 +91,46 @@
         margin-top: 10px;
       }
     }
+
+
+
+    .film-container {
+    display: flex;
+    flex-direction: column; /* لتصفية العناصر عموديًا */
+    align-items: center; /* توسيط العناصر أفقيًا */
+    padding: 20px;
+}
+
+.film-box {
+    background-color: red;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 200px; /* عرض ثابت للمربعات */
+    margin-bottom: 20px; /* مسافة بين المربعات */
+    display: flex;
+    flex-direction: column; /* لتصفية النصوص عموديًا */
+    align-items: center; /* توسيط النصوص داخل المربع */
+    justify-content: center; /* توسيط النصوص عموديًا داخل المربع */
+    text-align: center; /* توسيط النصوص داخل المربع */
+    cursor: pointer;
+}
+
+.film-box span {
+    font-size: 18px; /* حجم الخط */
+    line-height: 1.4; /* تحسين التباعد بين الأسطر */
+}
+
+
+
+
+
+.film-box:hover {
+    background-color: gold; /* لون خلفية ذهبي عند التفاعل */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التفاعل */
+}
+
   </style>
 </head>
 <body>
@@ -98,10 +138,12 @@
     <h1>فهرس</h1>
   </header>
   <div class="content">
-    <h2>الأفلام الأجنبية والأنمي والعربية</h2>
+    <h2>البحث عن الفلم يكون فقط عن طريق مربع البحث وليس هناك صفحات اخرى</h2>
     <div class="search-box">
       <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
       <ul class="movie-list"></ul>
+      <h2>أحدث الافلام الاجنبية</h2>
+      <div id="film-container" class="film-container"></div>
     </div>
   </div>
   <script>
@@ -151,7 +193,7 @@
                 movieItem.dataset.id = movie.id;
 
                 movieItem.addEventListener('click', () => {
-                    window.location.href = `watch?tmdb_id=${movie.id}`;
+                    window.location.href = `watch.html?tmdb_id=${movie.id}`;
                 });
 
                 movieList.appendChild(movieItem);
@@ -169,6 +211,60 @@
                 document.querySelector('.movie-list').style.display = 'none';
             }
         });
+
+        
+
+
+
+        
+
+
+
+
+
+
+        
+        async function fetchNowPlayingMovies() {
+    const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to load now playing movies');
+        }
+        const data = await response.json();
+        return data.results || [];
+    } catch (error) {
+        console.error('Error fetching now playing movies', error);
+        return [];
+    }
+}
+
+async function displayMovies() {
+    const movies = await fetchNowPlayingMovies();
+    const filmContainer = document.getElementById('film-container');
+    filmContainer.innerHTML = '';
+
+    for (const movie of movies) {
+        const filmBox = document.createElement('div');
+        filmBox.className = 'film-box';
+        filmBox.dataset.tmdbId = movie.id; // Store TMDB ID in a data attribute
+
+        const releaseYear = new Date(movie.release_date).getFullYear();
+        const filmTitle = document.createElement('span');
+        filmTitle.textContent = `${movie.title || 'Unnamed Movie'} ${releaseYear || ''}`;
+        filmBox.appendChild(filmTitle);
+
+        filmBox.addEventListener('click', () => {
+            window.location.href = `watch.html?tmdb_id=${movie.id}`;
+        });
+
+        filmContainer.appendChild(filmBox);
+    }
+}
+
+window.onload = displayMovies;
+
   </script>
 </body>
 </html>
