@@ -230,9 +230,19 @@ function updateMovieList(movies, query) {
     movieList.scrollTop = 0;
 }
 
+document.addEventListener('click', function(event) {
+    const searchInput = document.getElementById('search-input');
+    const movieList = document.querySelector('.movie-list');
+
+    // تحقق إذا كان النقر خارج مربع البحث أو القائمة المنسدلة
+    if (!searchInput.contains(event.target) && !movieList.contains(event.target)) {
+        movieList.style.display = 'none';
+    }
+});
+
 document.getElementById('search-input').addEventListener('input', async (event) => {
     const query = event.target.value.trim();
-    if (query.length > 2) {
+    if (query.length > 0) {
         allMovies = await searchMovies(query);
         updateMovieList(allMovies, query);
     } else {
