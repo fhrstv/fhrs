@@ -1,207 +1,126 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>فهرس</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>فهرس</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js" defer></script>
-    <style>
-      /* الأسلوب العام للصفحة */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #000
-        }
+    <script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      color: #000;
+    }
 
-        header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
-            text-align: center;
-            padding: 10px;
-        }
+    header {
+      background-color: #333;
+      color: hsl(0, 94%, 46%);
+      text-align: center;
+      padding: 10px;
+    }
 
-        /* عنوان الصفحة */
-        h1 {
-            margin: 0;
-        }
+    h1 {
+      margin: 0;
+    }
 
-        /* منطقة العرض للأفلام والمسلسلات */
-        .content {
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center; /* توسيط المحتوى */
-        }
+    .content {
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
 
-        /* قائمة لعرض الأفلام والمسلسلات */
-        .movie-list {
-            list-style-type: none;
-            padding: 0;
-            text-align: center; /* توسيط العناصر */
-        }
+    .movie-list {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
 
-        .head-center {
-            list-style-type: none;
-            padding: 0;
-            text-align: center;
-        }
+    .head-center {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
 
-        .movie-item {
-            margin: 10px;
-        }
+    .movie-item {
+      margin: 10px;
+    }
 
-        /* المربعات الحمراء */
-        a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            font-size: 25px; /* تكبير حجم الخط داخل المربعات الحمراء */
-        }
+    a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: red;
+      transition: background-color 0.3s;
+      font-size: 25px;
+    }
 
-        a:hover {
-            background-color: gold;
-        }
+    a:hover {
+      background-color: gold;
+    }
 
-        /* توسيط عنوان الأفلام والمسلسلات والانمي */
-        h2 {
-            text-align: center;
-        }
+    h2 {
+      text-align: center;
+    }
 
-        /* مربع البحث */
-        .search-box {
-            text-align: center;
-            margin-top: 20px;
-        }
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+    }
 
-        input[type="text"] {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 100%; /* يمتلئ عرض الشاشة بالكامل */
-            max-width: 300px; /* حد أقصى لعرض المربع */
-        }
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 300px;
+    }
 
-        input[type="submit"] {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-        /* تعديل للشاشات الصغيرة (تقنية التجاوب) */
-        @media (max-width: 600px) {
-            h2 {
-                font-size: 24px; /* تصغير حجم العنوان للهواتف الصغيرة */
-            }
-            .search-box {
-                margin-top: 10px;
-            }
-        }
-    </style>
-    <!-- تضمين الخط العربي Tajawal -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap">
+    #search-input {
+      touch-action: none;
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 24px;
+      }
+      .search-box {
+        margin-top: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>فهرس</h1>
-    </header>
-    <div class="content">
-        <h2>الانمي</h2>
-<h3>تحديث المسلسلات و المواسم و الحلقات في موقعنا يوميا
+  <header>
+    <h1>فهرس</h1>
+  </header>
+  <div class="content">
+    <h2>الافلام و المسلسلات الانمي</h2>
 
-</h3>
-<h4>تجد هنا الافلام و المسلسلات للانمي فقط</h4>
-        <!-- مربع البحث -->
         <div class="search-box">
-            <form action="#" method="get" id="searchForm">
-                <input type="text" name="search" id="searchInput" placeholder="           ابحث عن الانمي هنا ( اسمه بالانجليزي فقط )">
-            </form>
-        </div>
-        <!-- نتائج البحث -->
-        <div class="search-results" id="searchResults">
-            <!-- هنا سيتم عرض نتائج البحث -->
-        </div>
-        <!-- قائمة الأفلام والمسلسلات الأخرى -->
-        <ul class="head-center">
-            <li class="head-item"><a href="/">رجوع</a></li>
-
-        </ul>
-        <ul class="movie-list">
-            <!-- إضافة العناصر هنا -->
-            
-     <li class="movie-item"><a href="watch/series/d-p-2021">D.P. (2021)</a></li>
-             <li class="movie-item"><a href="watch/series/jiok-2021">Jiok 2021</a></li>
-            <li class="movie-item"><a href="watch/series/Kingdom 2019">Kingdom 2019</a></li>
-          <!--   class="movie-item"><a href=""></a></li> -->
-
-
-      <!-- يمكنك إضافة المزيد من الأفلام والمسلسلات هنا -->
-        </ul>
+      <input type="text" id="search-input" dir="auto" style="text-align: center;" placeholder="اكتب اسم الفيلم او المسلسل هنا">
     </div>
-<script src="scripit.js"></script>
-<script>
-    // احصل على العناصر داخل القائمة
-    var movieList = document.querySelector(".movie-list");
-
-    // احصل على الروابط داخل القائمة وقم بتحويلها إلى مصفوفة
-    var links = Array.from(movieList.querySelectorAll("a"));
-
-    // قم بفرز المصفوفة بالترتيب الأبجدي
-    links.sort(function(a, b) {
-        return a.textContent.localeCompare(b.textContent);
-    });
-
-    // قم بإعادة ترتيب الروابط داخل القائمة
-    links.forEach(function(link) {
-        movieList.appendChild(link.parentElement);
-    });
-    
-    
-    
-   function detectMobileView() {
-  // Check if the user agent is a mobile device
-  if (navigator.userAgent.match(/Android/i)
-    || navigator.userAgent.match(/webOS/i)
-    || navigator.userAgent.match(/iPhone/i)
-    || navigator.userAgent.match(/iPad/i)
-    || navigator.userAgent.match(/iPod/i)
-    || navigator.userAgent.match(/BlackBerry/i)
-    || navigator.userAgent.match(/Windows Phone/i)) {
-    return true;
-  }
-
-  // Check if the screen size is small enough to be a mobile device
-  if (window.screen.width < 768 || window.screen.height < 1024) {
-    return true;
-  }
-
-  // Check if the device supports touch events
-  if ('ontouchstart' in document.documentElement) {
-    return true;
-  }
-
-  // If none of the above conditions are true, assume it's a desktop device
-  return false;
-}
-
-if (detectMobileView()) {
-  // This is a mobile device, so let's force the mobile view
-  document.body.classList.add('mobile-view');
-} else {
-  // This is a desktop device, so let's force the desktop view
-  document.body.classList.add('desktop-view');
-}
-</script>
+    <ul class="head-center">
+      <li class="head-item"><a href="/">رجوع</a></li>
+        </ul>
+            <ul class="movie-list" id="movie-list">
+  <li id="loading-message">جاري تحميل...</li>
+</ul>
+<script src="Anime.js"></script>
 </body>
 </html>
-</body>
-</head>
-    </html>
