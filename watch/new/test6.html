@@ -92,45 +92,53 @@
       }
     }
 
-
-
     .film-container {
-    display: flex;
-    flex-direction: column; /* لتصفية العناصر عموديًا */
-    align-items: center; /* توسيط العناصر أفقيًا */
-    padding: 20px;
-}
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
 
-.film-box {
-    background-color: red;
-    color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 200px; /* عرض ثابت للمربعات */
-    margin-bottom: 20px; /* مسافة بين المربعات */
-    display: flex;
-    flex-direction: column; /* لتصفية النصوص عموديًا */
-    align-items: center; /* توسيط النصوص داخل المربع */
-    justify-content: center; /* توسيط النصوص عموديًا داخل المربع */
-    text-align: center; /* توسيط النصوص داخل المربع */
-    cursor: pointer;
-}
+    .film-box {
+      background-color: red;
+      color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 200px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+    }
 
-.film-box span {
-    font-size: 18px; /* حجم الخط */
-    line-height: 1.4; /* تحسين التباعد بين الأسطر */
-}
+    .film-box span {
+      font-size: 18px;
+      line-height: 1.4;
+    }
 
+    .film-box:hover {
+      background-color: gold;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
 
+    .head-center {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
 
+    .head-item a {
+      color: white;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-
-.film-box:hover {
-    background-color: gold; /* لون خلفية ذهبي عند التفاعل */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التفاعل */
-}
-
+    .head-item a:hover {
+      background-color: gold;
+    }
   </style>
 </head>
 <body>
@@ -138,199 +146,170 @@
     <h1>فهرس</h1>
   </header>
   <div class="content">
-    <h2>البحث عن المسلسلات يكون فقط عن طريق مربع البحث وليس هناك صفحات اخرى</h2>
+    <h2>البحث عن المسلسل يكون فقط عن طريق مربع البحث وليس هناك صفحات اخرى</h2>
     <div class="search-box">
       <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم مسلسلك هنا">
       <ul class="movie-list"></ul>
-      <h2>أحدث المسلسلات لاجنبية</h2>
+      <h2>أحدث المسلسلات الأجنبية المضافة</h2>
+      <ul class="head-center">
+        <li class="head-item"><a href="/">رجوع للصفحة الرئيسية</a></li>
+      </ul>
       <div id="film-container" class="film-container"></div>
     </div>
   </div>
   <script>
-   const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-const currentYear = new Date().getFullYear();
-const currentMonth = new Date().getMonth() + 1;
+ const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+let allTVShows = [];
+let displayedTVShows = [];
+let debounceTimer;
 
-// تنسيق الشهر ليتناسب مع الشكل المطلوب في API
-const formattedMonth = currentMonth < 10 ? `0${currentMonth}` : currentMonth;
-
-// حساب تاريخ البداية والنهاية للشهر الحالي
-const startDate = `${currentYear}-${formattedMonth}-01`;
-const endDate = new Date(currentYear, currentMonth, 0).toISOString().split('T')[0];
-
-// قائمة الدول واللغات المستبعدة
-const excludedCountries = ['CN', 'KR', 'AR', 'IN', 'JP'];
-const excludedLanguages = ['العربية', 'हिन्दी', '中文', '한국어', '日本語'];
-
-// دالة لتصفية العناوين المستبعدة
-function filterByLanguage(title) {
-    return !excludedLanguages.some(lang => title.includes(lang));
-}
-
-// دالة لجلب المسلسلات للشهر الحالي
-async function fetchShowsThisMonth() {
-    const url = `https://api.themoviedb.org/3/discover/tv?api_key=${apiKey}&first_air_date.gte=${startDate}&first_air_date.lte=${endDate}&with_original_language=en`;
-
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Failed to load shows for this month');
-        }
-        const data = await response.json();
-        return data.results.filter(show => filterByLanguage(show.name)) || [];
-    } catch (error) {
-        console.error('Error fetching shows for this month', error);
-        return [];
-    }
-}
-
-// دالة للبحث عن المسلسلات
-async function searchShows(query) {
-    const url = `https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&query=${encodeURIComponent(query)}&with_original_language=en`;
+async function searchTVShows(query) {
+    const url = `https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
     try {
         const response = await fetch(url);
         const data = await response.json();
-        return data.results.filter(show => filterByLanguage(show.name)) || [];
+        return data.results || [];
     } catch (error) {
         console.error('Error fetching data from TMDB', error);
         return [];
     }
 }
 
-// دالة لترتيب المسلسلات حسب العنوان
-function sortShows(shows) {
-    return shows.sort((a, b) => {
+function sortTVShows(tvShows, query) {
+    const lowerCaseQuery = query.toLowerCase();
+
+    return tvShows.sort((a, b) => {
         const aTitle = a.name.toLowerCase();
         const bTitle = b.name.toLowerCase();
 
+        const aExactMatch = aTitle === lowerCaseQuery;
+        const bExactMatch = bTitle === lowerCaseQuery;
+
+        if (aExactMatch && !bExactMatch) return -1;
+        if (!aExactMatch && bExactMatch) return 1;
+
+        // Sorting alphabetically first
         const titleComparison = aTitle.localeCompare(bTitle);
         if (titleComparison !== 0) {
             return titleComparison;
         }
 
+        // Sorting by year if titles are the same
         const aYear = a.first_air_date ? new Date(a.first_air_date).getFullYear() : 0;
         const bYear = b.first_air_date ? new Date(b.first_air_date).getFullYear() : 0;
         return aYear - bYear;
     });
 }
 
-// دالة لتحديث قائمة المسلسلات
-function updateShowList(shows) {
-    const sortedShows = sortShows(shows);
-    const showList = document.querySelector('.movie-list');
-    showList.innerHTML = '';
+function updateTVShowList(tvShows, query) {
+    const sortedTVShows = sortTVShows(tvShows, query);
+    const tvShowList = document.querySelector('.movie-list');
+    tvShowList.innerHTML = '';
 
-    sortedShows.forEach(show => {
-        const showItem = document.createElement('li');
-        showItem.className = 'movie-item';
+    sortedTVShows.forEach(show => {
+        const tvShowItem = document.createElement('li');
+        tvShowItem.className = 'movie-item';
+        tvShowItem.style.display = 'flex';
+        tvShowItem.style.alignItems = 'center';
+        tvShowItem.style.justifyContent = 'flex-start'; // Align items to the start
 
-        const releaseYear = show.first_air_date ? new Date(show.first_air_date).getFullYear() : 'Unknown Year';
-        showItem.textContent = `${show.name || 'Unnamed Show'} (${releaseYear})`;
-        showItem.dataset.id = show.id;
+        const poster = document.createElement('img');
+        poster.src = show.poster_path ? `https://image.tmdb.org/t/p/w92${show.poster_path}` : 'default_poster.png';
+        poster.alt = `${show.name} Poster`;
+        poster.style.width = '75px';
+        poster.style.height = '100px';
+        poster.style.marginLeft = '10px'; // Margin between text and poster
 
-        showItem.addEventListener('click', () => {
+        const showText = document.createElement('span');
+        showText.textContent = `${show.name || 'Unnamed Show'} (${new Date(show.first_air_date).getFullYear() || ''})`;
+        showText.style.flexGrow = '1';
+        showText.style.textAlign = 'center';
+
+        tvShowItem.appendChild(showText);
+        tvShowItem.appendChild(poster); // Append poster last to align it to the right
+        tvShowItem.dataset.id = show.id;
+
+        tvShowItem.addEventListener('click', () => {
             window.location.href = `watchS.html?tmdb_id=${show.id}`;
         });
 
-        showList.appendChild(showItem);
+        tvShowList.appendChild(tvShowItem);
     });
 
-    showList.style.display = sortedShows.length ? 'block' : 'none';
+    tvShowList.style.display = sortedTVShows.length ? 'block' : 'none';
+    tvShowList.scrollTop = 0;
 }
 
-// التعامل مع مدخلات البحث
-document.getElementById('search-input').addEventListener('input', async (event) => {
+function debounce(func, delay) {
+    return function(...args) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+document.getElementById('search-input').addEventListener('input', debounce(async (event) => {
     const query = event.target.value.trim();
-    if (query.length > 2) {
-        const shows = await searchShows(query);
-        updateShowList(shows);
+    const tvShowList = document.querySelector('.movie-list');
+
+    if (query.length > 0) {
+        allTVShows = await searchTVShows(query);
+        updateTVShowList(allTVShows, query);
+        tvShowList.style.display = 'block'; // Show dropdown list when text is entered
     } else {
-        document.querySelector('.movie-list').style.display = 'none';
+        tvShowList.style.display = 'none'; // Hide dropdown list when text is cleared
+    }
+}, 300)); // Adjust debounce delay if necessary
+
+document.addEventListener('click', function(event) {
+    const searchInput = document.getElementById('search-input');
+    const tvShowList = document.querySelector('.movie-list');
+
+    // Check if click is outside search input or dropdown list
+    if (!searchInput.contains(event.target) && !tvShowList.contains(event.target)) {
+        tvShowList.style.display = 'none';
     }
 });
 
+async function fetchLatestTVShows() {
+    const url = `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=en-US&page=1`;
 
-
-
-
-
-const apiUrl = 'https://vidsrc.xyz/tvshows/latest/page-321.json'; // رابط بيانات المسلسلات
-const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5'; // مفتاح API لـ TMDB
-
-// دالة لجلب بيانات المسلسلات من API
-async function fetchShowsFromPage() {
-  try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error('فشل في تحميل البيانات');
-    }
-    const data = await response.json();
-    console.log('البيانات التي تم جلبها من API:', data);
-    return data.result || []; // افترض أن المسلسلات تكون في مفتاح 'result'
-  } catch (error) {
-    console.error('خطأ في جلب المسلسلات:', error);
-    return [];
-  }
-}
-
-// دالة لجلب معرّف TMDB لمسلسل معين
-async function fetchTmdbId(showTitle) {
-  const url = `https://api.themoviedb.org/3/search/tv?api_key=${tmdbApiKey}&query=${encodeURIComponent(showTitle)}`;
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('فشل في جلب البيانات من TMDB');
-    }
-    const data = await response.json();
-    console.log('البيانات التي تم جلبها من TMDB:', data);
-    return data.results[0]?.id || null; // إرجاع معرّف TMDB للمسلسل الأول في النتائج
-  } catch (error) {
-    console.error('خطأ في جلب بيانات TMDB:', error);
-    return null;
-  }
-}
-
-// دالة لعرض المسلسلات في الحاوية المحددة
-async function displayShows() {
-  const shows = await fetchShowsFromPage(); // جلب بيانات المسلسلات
-  const filmContainer = document.getElementById('film-container');
-  filmContainer.innerHTML = '';
-
-  if (shows.length === 0) {
-    console.log('لم يتم العثور على مسلسلات.');
-  } else {
-    for (const show of shows) {
-      const filmBox = document.createElement('div');
-      filmBox.className = 'film-box';
-      filmBox.dataset.tmdbId = show.id; // تخزين معرّف TMDB في سمة البيانات
-
-      const releaseYear = new Date(show.release_date).getFullYear();
-      const filmTitle = document.createElement('span');
-      filmTitle.textContent = `${show.title || 'مسلسل بدون اسم'} ${releaseYear || ''}`;
-      filmBox.appendChild(filmTitle);
-
-      filmBox.addEventListener('click', async (event) => {
-        event.stopPropagation(); // Stop the propagation of the click event
-        console.log('تم النقر على المسلسل:', show.title || 'مسلسل بدون اسم');
-        const tmdbId = await fetchTmdbId(show.title || ''); // جلب معرّف TMDB
-        console.log('معرّف TMDB:', tmdbId); // التحقق من معرّف TMDB
-        if (tmdbId) {
-          console.log(`التحويل إلى watch.html?tmdb_id=${tmdbId}`); // تحقق من الرابط
-          await new Promise(resolve => setTimeout(resolve, 0)); // add this line
-          window.location.href = `watchS.html?tmdb_id=${tmdbId}`;
-        } else {
-          console.error('لم يتم العثور على معرّف TMDB للمسلسل:', show.title);
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to load latest TV shows');
         }
-      });
-
-      filmContainer.appendChild(filmBox);
+        const data = await response.json();
+        return data.results || [];
+    } catch (error) {
+        console.error('Error fetching latest TV shows', error);
+        return [];
     }
-  }
 }
 
-// تنفيذ عند تحميل الصفحة
-window.onload = displayShows;
+async function displayLatestTVShows() {
+    const tvShows = await fetchLatestTVShows();
+    const filmContainer = document.getElementById('film-container');
+    filmContainer.innerHTML = '';
+
+    for (const show of tvShows) {
+        const filmBox = document.createElement('div');
+        filmBox.className = 'film-box';
+        filmBox.dataset.tmdbId = show.id;
+
+        const releaseYear = new Date(show.first_air_date).getFullYear();
+        const filmTitle = document.createElement('span');
+        filmTitle.textContent = `${show.name || 'Unnamed Show'} ${releaseYear || ''}`;
+        filmBox.appendChild(filmTitle);
+
+        filmBox.addEventListener('click', () => {
+            window.location.href = `watchS.html?tmdb_id=${show.id}`;
+        });
+
+        filmContainer.appendChild(filmBox);
+    }
+}
+
+window.onload = displayLatestTVShows;
 
   </script>
 </body>
