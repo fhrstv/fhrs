@@ -1,0 +1,612 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>فهرس</title> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon"> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 200px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        .movie-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .movie-poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .movie-info {
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .movie-info p {
+            margin-bottom: 10px;
+        }
+
+        .movie-title {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+       .story-title {
+            font-weight: bold;
+            margin-right: 10px; /* مسافة بين العنوان والنص */
+        }
+
+.story {
+    font-family: "Arial", sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: right;
+    direction: rtl;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    text-align-last: right; /* لضمان محاذاة النص في النهاية لليمين */
+    display: block; /* لجعل النص يظهر ككتلة مستقلة */
+}
+        h2, h3, a {
+            color: #000; /* تغيير اللون إلى الأسود */
+        }
+
+        .episode-box {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+#episodes {
+    width: 100%;
+    font-size: 18px;
+    padding: 10px;
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    direction: rtl;
+    text-align: center;
+    flex-direction: row-reverse;
+}
+
+
+        
+        /* تعديل iframe لجعل الفيديو من اليوتيوب أصغر */
+
+/* تعديل حجم مشغل الفيديو */
+video {
+    width: 100%;
+    max-height: 400px; /* ضبط الارتفاع الأقصى */
+    background-color: black;
+}
+
+    </style>
+</head> 
+<body> 
+    <header> 
+        <h1>فهرس</h1> 
+    </header> 
+    <div class="container">
+        <div id="movieInfo"></div>
+        <div id="trailerContainer"></div>
+        <h2>شاهد الآن</h2>
+        <video id="videoPlayer" controls>
+            <source src="https://server.sanime.net/Video2/530/1.mp4" type="video/mp4">
+        </video>
+        <h2></h2> 
+        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
+
+        <div class="episode-box">
+            <select id="episodes" onchange="changeEpisode(this.value)">
+                <option value="https://server.sanime.net/Video2/530/1.mp4">الحلقة 1</option>
+                <option value="https://server.sanime.net/Video2/530/2.mp4">الحلقة 2</option>
+                <option value="https://server.sanime.net/Video2/530/3.mp4">الحلقة 3</option>
+                <option value="https://server.sanime.net/Video2/530/4.mp4">الحلقة 4</option>
+                <option value="https://server.sanime.net/Video2/530/5.mp4">الحلقة 5</option>
+                <option value="https://server.sanime.net/Video2/530/6.mp4">الحلقة 6</option>
+                <option value="https://server.sanime.net/Video2/530/7.mp4">الحلقة 7</option>
+                <option value="https://server.sanime.net/Video2/530/8.mp4">الحلقة 8</option>
+                <option value="https://server.sanime.net/Video2/530/9.mp4">الحلقة 9</option>
+                <option value="https://server.sanime.net/Video2/530/10.mp4">الحلقة 10</option>
+                <option value="https://server.sanime.net/Video2/530/11.mp4">الحلقة 11</option>
+                <option value="https://server.sanime.net/Video2/530/12.mp4">الحلقة 12</option>
+                <option value="https://server.sanime.net/Video2/530/13.mp4">الحلقة 13</option>
+                <option value="https://server.sanime.net/Video2/530/14.mp4">الحلقة 14</option>
+                <option value="https://server.sanime.net/Video2/530/15.mp4">الحلقة 15</option>
+                <option value="https://server.sanime.net/Video2/530/16.mp4">الحلقة 16</option>
+                <option value="https://server.sanime.net/Video2/530/17.mp4">الحلقة 17</option>
+                <option value="https://server.sanime.net/Video2/530/18.mp4">الحلقة 18</option>
+                <option value="https://server.sanime.net/Video2/530/19.mp4">الحلقة 19</option>
+                <option value="https://server.sanime.net/Video2/530/20.mp4">الحلقة 20</option>
+                <option value="https://server.sanime.net/Video2/530/21.mp4">الحلقة 21</option>
+                <option value="https://server.sanime.net/Video2/530/22.mp4">الحلقة 22</option>
+                <option value="https://server.sanime.net/Video2/530/23.mp4">الحلقة 23</option>
+                <option value="https://server.sanime.net/Video2/530/24.mp4">الحلقة 24</option>
+                <option value="https://server.sanime.net/Video2/530/25.mp4">الحلقة 25</option>
+                <option value="https://server.sanime.net/Video2/530/26.mp4">الحلقة 26</option>
+                 <option value="https://server.sanime.net/Video2/530/27.mp4">الحلقة 27</option>
+                <option value="https://server.sanime.net/Video2/530/28.mp4">الحلقة 28</option>
+                <option value="https://server.sanime.net/Video2/530/29.mp4">الحلقة 29</option>
+                <option value="https://server.sanime.net/Video2/530/30.mp4">الحلقة 30</option>
+                <option value="https://server.sanime.net/Video2/530/31.mp4">الحلقة 31</option>
+                <option value="https://server.sanime.net/Video2/530/32.mp4">الحلقة 32</option>
+                <option value="https://server.sanime.net/Video2/530/33.mp4">الحلقة 33</option>
+                <option value="https://server.sanime.net/Video2/530/34.mp4">الحلقة 34</option>
+                <option value="https://server.sanime.net/Video2/530/35.mp4">الحلقة 35</option>
+                <option value="https://server.sanime.net/Video2/530/36.mp4">الحلقة 36</option>
+                <option value="https://server.sanime.net/Video2/530/37.mp4">الحلقة 37</option>
+                <option value="https://server.sanime.net/Video2/530/38.mp4">الحلقة 38</option>
+                <option value="https://server.sanime.net/Video2/530/39.mp4">الحلقة 39</option>
+                 <option value="https://server.sanime.net/Video2/530/40.mp4">الحلقة 40</option>
+                <option value="https://server.sanime.net/Video2/530/41.mp4">الحلقة 41</option>
+                <option value="https://server.sanime.net/Video2/530/42.mp4">الحلقة 42</option>
+                <option value="https://server.sanime.net/Video2/530/43.mp4">الحلقة 43</option>
+                <option value="https://server.sanime.net/Video2/530/44.mp4">الحلقة 44</option>
+                <option value="https://server.sanime.net/Video2/530/45.mp4">الحلقة 45</option>
+                <option value="https://server.sanime.net/Video2/530/46.mp4">الحلقة 46</option>
+                <option value="https://server.sanime.net/Video2/530/47.mp4">الحلقة 47</option>
+                <option value="https://server.sanime.net/Video2/530/48.mp4">الحلقة 48</option>
+                <option value="https://server.sanime.net/Video2/530/49.mp4">الحلقة 49</option>
+                <option value="https://server.sanime.net/Video2/530/50.mp4">الحلقة 50</option>
+                <option value="https://server.sanime.net/Video2/530/51.mp4">الحلقة 51</option>
+                <option value="https://server.sanime.net/Video2/530/52.mp4">الحلقة 52</option>
+                 <option value="https://server.sanime.net/Video2/530/53.mp4">الحلقة 53</option>
+                <option value="https://server.sanime.net/Video2/530/54.mp4">الحلقة 54</option>
+                <option value="https://server.sanime.net/Video2/530/55.mp4">الحلقة 55</option>
+                <option value="https://server.sanime.net/Video2/530/56.mp4">الحلقة 56</option>
+                <option value="https://server.sanime.net/Video2/530/57.mp4">الحلقة 57</option>
+                <option value="https://server.sanime.net/Video2/530/58.mp4">الحلقة 58</option>
+                <option value="https://server.sanime.net/Video2/530/59.mp4">الحلقة 59</option>
+                <option value="https://server.sanime.net/Video2/530/60.mp4">الحلقة 60</option>
+                <option value="https://server.sanime.net/Video2/530/61.mp4">الحلقة 61</option>
+                <option value="https://server.sanime.net/Video2/530/62.mp4">الحلقة 62</option>
+                <option value="https://server.sanime.net/Video2/530/63.mp4">الحلقة 63</option>
+                <option value="https://server.sanime.net/Video2/530/64.mp4">الحلقة 64</option>
+                <option value="https://server.sanime.net/Video2/530/65.mp4">الحلقة 65</option>
+                 <option value="https://server.sanime.net/Video2/530/66.mp4">الحلقة 66</option>
+                <option value="https://server.sanime.net/Video2/530/67.mp4">الحلقة 67</option>
+                <option value="https://server.sanime.net/Video2/530/68.mp4">الحلقة 68</option>
+                <option value="https://server.sanime.net/Video2/530/69.mp4">الحلقة 69</option>
+                <option value="https://server.sanime.net/Video2/530/70.mp4">الحلقة 70</option>
+                <option value="https://server.sanime.net/Video2/530/71.mp4">الحلقة 71</option>
+                <option value="https://server.sanime.net/Video2/530/72.mp4">الحلقة 72</option>
+                <option value="https://server.sanime.net/Video2/530/73.mp4">الحلقة 73</option>
+                <option value="https://server.sanime.net/Video2/530/74.mp4">الحلقة 74</option>
+                <option value="https://server.sanime.net/Video2/530/75.mp4">الحلقة 75</option>
+                <option value="https://server.sanime.net/Video2/530/76.mp4">الحلقة 76</option>
+                <option value="https://server.sanime.net/Video2/530/77.mp4">الحلقة 77</option>
+                <option value="https://server.sanime.net/Video2/530/78.mp4">الحلقة 78</option>
+                 <option value="https://server.sanime.net/Video2/530/79.mp4">الحلقة 79</option>
+                <option value="https://server.sanime.net/Video2/530/80.mp4">الحلقة 80</option>
+                <option value="https://server.sanime.net/Video2/530/81.mp4">الحلقة 81</option>
+                <option value="https://server.sanime.net/Video2/530/82.mp4">الحلقة 82</option>
+                <option value="https://server.sanime.net/Video2/530/83.mp4">الحلقة 83</option>
+                <option value="https://server.sanime.net/Video2/530/84.mp4">الحلقة 84</option>
+                <option value="https://server.sanime.net/Video2/530/85.mp4">الحلقة 85</option>
+                <option value="https://server.sanime.net/Video2/530/86.mp4">الحلقة 86</option>
+                <option value="https://server.sanime.net/Video2/530/87.mp4">الحلقة 87</option>
+                <option value="https://server.sanime.net/Video2/530/88.mp4">الحلقة 88</option>
+                <option value="https://server.sanime.net/Video2/530/89.mp4">الحلقة 89</option>
+                <option value="https://server.sanime.net/Video2/530/90.mp4">الحلقة 90</option>
+                <option value="https://server.sanime.net/Video2/530/91.mp4">الحلقة 91</option>
+                <option value="https://server.sanime.net/Video2/530/92.mp4">الحلقة 92</option>
+                <option value="https://server.sanime.net/Video2/530/93.mp4">الحلقة 93</option>
+                <option value="https://server.sanime.net/Video2/530/94.mp4">الحلقة 94</option>
+                <option value="https://server.sanime.net/Video2/530/95.mp4">الحلقة 95</option>
+                <option value="https://server.sanime.net/Video2/530/96.mp4">الحلقة 96</option>
+                <option value="https://server.sanime.net/Video2/530/97.mp4">الحلقة 97</option>
+                <option value="https://server.sanime.net/Video2/530/98.mp4">الحلقة 98</option>
+                <option value="https://server.sanime.net/Video2/530/99.mp4">الحلقة 99</option>
+                <option value="https://server.sanime.net/Video2/530/100.mp4">الحلقة 100</option>
+                <option value="https://server.sanime.net/Video2/530/101.mp4">الحلقة 101</option>
+                <option value="https://server.sanime.net/Video2/530/102.mp4">الحلقة 102</option>
+                <option value="https://server.sanime.net/Video2/530/103.mp4">الحلقة 103</option>
+                <option value="https://server.sanime.net/Video2/530/104.mp4">الحلقة 104</option>
+                 <option value="https://server.sanime.net/Video2/530/105.mp4">الحلقة 105</option>
+                <option value="https://server.sanime.net/Video2/530/106.mp4">الحلقة 106</option>
+                <option value="https://server.sanime.net/Video2/530/107.mp4">الحلقة 107</option>
+                <option value="https://server.sanime.net/Video2/530/108.mp4">الحلقة 108</option>
+                <option value="https://server.sanime.net/Video2/530/109.mp4">الحلقة 109</option>
+                <option value="https://server.sanime.net/Video2/530/110.mp4">الحلقة 110</option>
+                <option value="https://server.sanime.net/Video2/530/111.mp4">الحلقة 111</option>
+                <option value="https://server.sanime.net/Video2/530/112.mp4">الحلقة 112</option>
+                <option value="https://server.sanime.net/Video2/530/113.mp4">الحلقة 113</option>
+                <option value="https://server.sanime.net/Video2/530/114.mp4">الحلقة 114</option>
+                <option value="https://server.sanime.net/Video2/530/115.mp4">الحلقة 115</option>
+                <option value="https://server.sanime.net/Video2/530/116.mp4">الحلقة 116</option>
+                <option value="https://server.sanime.net/Video2/530/117.mp4">الحلقة 117</option>
+                 <option value="https://server.sanime.net/Video2/530/118.mp4">الحلقة 118</option>
+                <option value="https://server.sanime.net/Video2/530/119.mp4">الحلقة 119</option>
+                <option value="https://server.sanime.net/Video2/530/120.mp4">الحلقة 120</option>
+                <option value="https://server.sanime.net/Video2/530/121.mp4">الحلقة 121</option>
+                <option value="https://server.sanime.net/Video2/530/122.mp4">الحلقة 122</option>
+                <option value="https://server.sanime.net/Video2/530/123.mp4">الحلقة 123</option>
+                <option value="https://server.sanime.net/Video2/530/124.mp4">الحلقة 124</option>
+                <option value="https://server.sanime.net/Video2/530/125.mp4">الحلقة 125</option>
+                <option value="https://server.sanime.net/Video2/530/126.mp4">الحلقة 126</option>
+                <option value="https://server.sanime.net/Video2/530/127.mp4">الحلقة 127</option>
+                <option value="https://server.sanime.net/Video2/530/128.mp4">الحلقة 128</option>
+                <option value="https://server.sanime.net/Video2/530/129.mp4">الحلقة 129</option>
+                <option value="https://server.sanime.net/Video2/530/130.mp4">الحلقة 130</option>
+                 <option value="https://server.sanime.net/Video2/530/131.mp4">الحلقة 131</option>
+                <option value="https://server.sanime.net/Video2/530/132.mp4">الحلقة 132</option>
+                <option value="https://server.sanime.net/Video2/530/133.mp4">الحلقة 133</option>
+                <option value="https://server.sanime.net/Video2/530/134.mp4">الحلقة 134</option>
+                <option value="https://server.sanime.net/Video2/530/135.mp4">الحلقة 135</option>
+                <option value="https://server.sanime.net/Video2/530/136.mp4">الحلقة 136</option>
+                <option value="https://server.sanime.net/Video2/530/137.mp4">الحلقة 137</option>
+                <option value="https://server.sanime.net/Video2/530/138.mp4">الحلقة 138</option>
+                <option value="https://server.sanime.net/Video2/530/139.mp4">الحلقة 139</option>
+                <option value="https://server.sanime.net/Video2/530/140.mp4">الحلقة 140</option>
+                <option value="https://server.sanime.net/Video2/530/141.mp4">الحلقة 141</option>
+                <option value="https://server.sanime.net/Video2/530/142.mp4">الحلقة 142</option>
+                <option value="https://server.sanime.net/Video2/530/143.mp4">الحلقة 143</option>
+                 <option value="https://server.sanime.net/Video2/530/144.mp4">الحلقة 144</option>
+                <option value="https://server.sanime.net/Video2/530/145.mp4">الحلقة 145</option>
+                <option value="https://server.sanime.net/Video2/530/146.mp4">الحلقة 146</option>
+                <option value="https://server.sanime.net/Video2/530/147.mp4">الحلقة 147</option>
+                <option value="https://server.sanime.net/Video2/530/148.mp4">الحلقة 148</option>
+                <option value="https://server.sanime.net/Video2/530/149.mp4">الحلقة 149</option>
+                <option value="https://server.sanime.net/Video2/530/150.mp4">الحلقة 150</option>
+                <option value="https://server.sanime.net/Video2/530/151.mp4">الحلقة 151</option>
+                <option value="https://server.sanime.net/Video2/530/152.mp4">الحلقة 152</option>
+                <option value="https://server.sanime.net/Video2/530/153.mp4">الحلقة 153</option>
+                <option value="https://server.sanime.net/Video2/530/154.mp4">الحلقة 154</option>
+                <option value="https://server.sanime.net/Video2/530/155.mp4">الحلقة 155</option>
+                <option value="https://server.sanime.net/Video2/530/156.mp4">الحلقة 156</option>
+                <option value="https://server.sanime.net/Video2/530/157.mp4">الحلقة 157</option>
+                <option value="https://server.sanime.net/Video2/530/158.mp4">الحلقة 158</option>
+                <option value="https://server.sanime.net/Video2/530/159.mp4">الحلقة 159</option>
+                <option value="https://server.sanime.net/Video2/530/160.mp4">الحلقة 160</option>
+                <option value="https://server.sanime.net/Video2/530/161.mp4">الحلقة 161</option>
+                <option value="https://server.sanime.net/Video2/530/162.mp4">الحلقة 162</option>
+                <option value="https://server.sanime.net/Video2/530/163.mp4">الحلقة 163</option>
+                <option value="https://server.sanime.net/Video2/530/164.mp4">الحلقة 164</option>
+                <option value="https://server.sanime.net/Video2/530/165.mp4">الحلقة 165</option>
+                <option value="https://server.sanime.net/Video2/530/166.mp4">الحلقة 166</option>
+                <option value="https://server.sanime.net/Video2/530/167.mp4">الحلقة 167</option>
+                <option value="https://server.sanime.net/Video2/530/168.mp4">الحلقة 168</option>
+                <option value="https://server.sanime.net/Video2/530/169.mp4">الحلقة 169</option>
+                <option value="https://server.sanime.net/Video2/530/170.mp4">الحلقة 170</option>
+                <option value="https://server.sanime.net/Video2/530/171.mp4">الحلقة 171</option>
+                <option value="https://server.sanime.net/Video2/530/172.mp4">الحلقة 172</option>
+                <option value="https://server.sanime.net/Video2/530/173.mp4">الحلقة 173</option>
+                <option value="https://server.sanime.net/Video2/530/174.mp4">الحلقة 174</option>
+                <option value="https://server.sanime.net/Video2/530/175.mp4">الحلقة 175</option>
+                <option value="https://server.sanime.net/Video2/530/176.mp4">الحلقة 176</option>
+                <option value="https://server.sanime.net/Video2/530/177.mp4">الحلقة 177</option>
+                <option value="https://server.sanime.net/Video2/530/178.mp4">الحلقة 178</option>
+                <option value="https://server.sanime.net/Video2/530/179.mp4">الحلقة 179</option>
+                <option value="https://server.sanime.net/Video2/530/180.mp4">الحلقة 180</option>
+                <option value="https://server.sanime.net/Video2/530/181.mp4">الحلقة 181</option>
+                <option value="https://server.sanime.net/Video2/530/182.mp4">الحلقة 182</option>
+                <option value="https://server.sanime.net/Video2/530/183.mp4">الحلقة 183</option>
+                <option value="https://server.sanime.net/Video2/530/184.mp4">الحلقة 184</option>
+                <option value="https://server.sanime.net/Video2/530/185.mp4">الحلقة 185</option>
+                <option value="https://server.sanime.net/Video2/530/186.mp4">الحلقة 186</option>
+                <option value="https://server.sanime.net/Video2/530/187.mp4">الحلقة 187</option>
+                <option value="https://server.sanime.net/Video2/530/188.mp4">الحلقة 188</option>
+                <option value="https://server.sanime.net/Video2/530/189.mp4">الحلقة 189</option>
+                <option value="https://server.sanime.net/Video2/530/190.mp4">الحلقة 190</option>
+                <option value="https://server.sanime.net/Video2/530/191.mp4">الحلقة 191</option>
+                <option value="https://server.sanime.net/Video2/530/192.mp4">الحلقة 192</option>
+                <option value="https://server.sanime.net/Video2/530/193.mp4">الحلقة 193</option>
+                <option value="https://server.sanime.net/Video2/530/194.mp4">الحلقة 194</option>
+                <option value="https://server.sanime.net/Video2/530/195.mp4">الحلقة 195</option>
+                <option value="https://server.sanime.net/Video2/530/196.mp4">الحلقة 196</option>
+                <option value="https://server.sanime.net/Video2/530/197.mp4">الحلقة 197</option>
+                <option value="https://server.sanime.net/Video2/530/198.mp4">الحلقة 198</option>
+                <option value="https://server.sanime.net/Video2/530/199.mp4">الحلقة 199</option>
+                <option value="https://server.sanime.net/Video2/530/200.mp4">الحلقة 200</option>
+                <option value="https://server.sanime.net/Video2/530/201.mp4">الحلقة 201</option>
+                <option value="https://server.sanime.net/Video2/530/202.mp4">الحلقة 202</option>
+                <option value="https://server.sanime.net/Video2/530/203.mp4">الحلقة 203</option>
+                <option value="https://server.sanime.net/Video2/530/204.mp4">الحلقة 204</option>
+                <option value="https://server.sanime.net/Video2/530/205.mp4">الحلقة 205</option>
+                <option value="https://server.sanime.net/Video2/530/206.mp4">الحلقة 206</option>
+                <option value="https://server.sanime.net/Video2/530/207.mp4">الحلقة 207</option>
+                <option value="https://server.sanime.net/Video2/530/208.mp4">الحلقة 208</option>
+                <option value="https://server.sanime.net/Video2/530/209.mp4">الحلقة 209</option>
+                <option value="https://server.sanime.net/Video2/530/210.mp4">الحلقة 210</option>
+                <option value="https://server.sanime.net/Video2/530/211.mp4">الحلقة 211</option>
+                <option value="https://server.sanime.net/Video2/530/212.mp4">الحلقة 212</option>
+                <option value="https://server.sanime.net/Video2/530/213.mp4">الحلقة 213</option>
+                <option value="https://server.sanime.net/Video2/530/214.mp4">الحلقة 214</option>
+                <option value="https://server.sanime.net/Video2/530/215.mp4">الحلقة 215</option>
+                <option value="https://server.sanime.net/Video2/530/216.mp4">الحلقة 216</option>
+                <option value="https://server.sanime.net/Video2/530/217.mp4">الحلقة 217</option>
+                <option value="https://server.sanime.net/Video2/530/218.mp4">الحلقة 218</option>
+                <option value="https://server.sanime.net/Video2/530/219.mp4">الحلقة 219</option>
+                <option value="https://server.sanime.net/Video2/530/220.mp4">الحلقة 220</option>
+                <option value="https://server.sanime.net/Video2/530/221.mp4">الحلقة 221</option>
+                <option value="https://server.sanime.net/Video2/530/222.mp4">الحلقة 222</option>
+                <option value="https://server.sanime.net/Video2/530/223.mp4">الحلقة 223</option>
+                <option value="https://server.sanime.net/Video2/530/224.mp4">الحلقة 224</option>
+                <option value="https://server.sanime.net/Video2/530/225.mp4">الحلقة 225</option>
+                <option value="https://server.sanime.net/Video2/530/226.mp4">الحلقة 226</option>
+                <option value="https://server.sanime.net/Video2/530/227.mp4">الحلقة 227</option>
+                <option value="https://server.sanime.net/Video2/530/228.mp4">الحلقة 228</option>
+                <option value="https://server.sanime.net/Video2/530/229.mp4">الحلقة 229</option>
+                <option value="https://server.sanime.net/Video2/530/230.mp4">الحلقة 230</option>
+                <option value="https://server.sanime.net/Video2/530/231.mp4">الحلقة 231</option>
+                <option value="https://server.sanime.net/Video2/530/232.mp4">الحلقة 232</option>
+                <option value="https://server.sanime.net/Video2/530/233.mp4">الحلقة 233</option>
+                <option value="https://server.sanime.net/Video2/530/234.mp4">الحلقة 234</option>
+                <option value="https://server.sanime.net/Video2/530/235.mp4">الحلقة 235</option>
+                <option value="https://server.sanime.net/Video2/530/236.mp4">الحلقة 236</option>
+                <option value="https://server.sanime.net/Video2/530/237.mp4">الحلقة 237</option>
+                <option value="https://server.sanime.net/Video2/530/238.mp4">الحلقة 238</option>
+                <option value="https://server.sanime.net/Video2/530/239.mp4">الحلقة 239</option>
+                <option value="https://server.sanime.net/Video2/530/240.mp4">الحلقة 240</option>
+                <option value="https://server.sanime.net/Video2/530/241.mp4">الحلقة 241</option>
+                <option value="https://server.sanime.net/Video2/530/242.mp4">الحلقة 242</option>
+                <option value="https://server.sanime.net/Video2/530/243.mp4">الحلقة 243</option>
+                <option value="https://server.sanime.net/Video2/530/244.mp4">الحلقة 244</option>
+                <option value="https://server.sanime.net/Video2/530/245.mp4">الحلقة 245</option>
+                <option value="https://server.sanime.net/Video2/530/246.mp4">الحلقة 246</option>
+                <option value="https://server.sanime.net/Video2/530/247.mp4">الحلقة 247</option>
+                <option value="https://server.sanime.net/Video2/530/248.mp4">الحلقة 248</option>
+                <option value="https://server.sanime.net/Video2/530/249.mp4">الحلقة 249</option>
+                <option value="https://server.sanime.net/Video2/530/250.mp4">الحلقة 250</option>
+                <option value="https://server.sanime.net/Video2/530/251.mp4">الحلقة 251</option>
+                <option value="https://server.sanime.net/Video2/530/252.mp4">الحلقة 252</option>
+                <option value="https://server.sanime.net/Video2/530/253.mp4">الحلقة 253</option>
+                <option value="https://server.sanime.net/Video2/530/254.mp4">الحلقة 254</option>
+                <option value="https://server.sanime.net/Video2/530/255.mp4">الحلقة 255</option>
+                <option value="https://server.sanime.net/Video2/530/256.mp4">الحلقة 256</option>
+                <option value="https://server.sanime.net/Video2/530/257.mp4">الحلقة 257</option>
+                <option value="https://server.sanime.net/Video2/530/258.mp4">الحلقة 258</option>
+                <option value="https://server.sanime.net/Video2/530/259.mp4">الحلقة 259</option>
+                <option value="https://server.sanime.net/Video2/530/260.mp4">الحلقة 260</option>
+                <option value="https://server.sanime.net/Video2/530/261.mp4">الحلقة 261</option>
+                <option value="https://server.sanime.net/Video2/530/262.mp4">الحلقة 262</option>
+                <option value="https://server.sanime.net/Video2/530/263.mp4">الحلقة 263</option>
+                <option value="https://server.sanime.net/Video2/530/264.mp4">الحلقة 264</option>
+                <option value="https://server.sanime.net/Video2/530/265.mp4">الحلقة 265</option>
+                <option value="https://server.sanime.net/Video2/530/266.mp4">الحلقة 266</option>
+                <option value="https://server.sanime.net/Video2/530/267.mp4">الحلقة 267</option>
+                <option value="https://server.sanime.net/Video2/530/268.mp4">الحلقة 268</option>
+                <option value="https://server.sanime.net/Video2/530/269.mp4">الحلقة 269</option>
+                <option value="https://server.sanime.net/Video2/530/270.mp4">الحلقة 270</option>
+                <option value="https://server.sanime.net/Video2/530/271.mp4">الحلقة 271</option>
+                <option value="https://server.sanime.net/Video2/530/272.mp4">الحلقة 272</option>
+                <option value="https://server.sanime.net/Video2/530/273.mp4">الحلقة 273</option>
+                <option value="https://server.sanime.net/Video2/530/274.mp4">الحلقة 274</option>
+                <option value="https://server.sanime.net/Video2/530/275.mp4">الحلقة 275</option>
+                <option value="https://server.sanime.net/Video2/530/276.mp4">الحلقة 276</option>
+                <option value="https://server.sanime.net/Video2/530/277.mp4">الحلقة 277</option>
+                <option value="https://server.sanime.net/Video2/530/278.mp4">الحلقة 278</option>
+                <option value="https://server.sanime.net/Video2/530/279.mp4">الحلقة 279</option>
+                <option value="https://server.sanime.net/Video2/530/280.mp4">الحلقة 280</option>
+                <option value="https://server.sanime.net/Video2/530/281.mp4">الحلقة 281</option>
+                <option value="https://server.sanime.net/Video2/530/282.mp4">الحلقة 282</option>
+                <option value="https://server.sanime.net/Video2/530/283.mp4">الحلقة 283</option>
+                <option value="https://server.sanime.net/Video2/530/284.mp4">الحلقة 284</option>
+                <option value="https://server.sanime.net/Video2/530/285.mp4">الحلقة 285</option>
+                <option value="https://server.sanime.net/Video2/530/286.mp4">الحلقة 286</option>
+                <option value="https://server.sanime.net/Video2/530/287.mp4">الحلقة 287</option>
+                <option value="https://server.sanime.net/Video2/530/288.mp4">الحلقة 288</option>
+                <option value="https://server.sanime.net/Video2/530/289.mp4">الحلقة 289</option>
+                <option value="https://server.sanime.net/Video2/530/290.mp4">الحلقة 290</option>
+                <option value="https://server.sanime.net/Video2/530/291.mp4">الحلقة 291</option>
+                <option value="https://server.sanime.net/Video2/530/292.mp4">الحلقة 292</option>
+                <option value="https://server.sanime.net/Video2/530/293.mp4">الحلقة 293</option>
+                <option value="https://server.sanime.net/Video2/530/294.mp4">الحلقة 294</option>
+                <option value="https://server.sanime.net/Video2/530/295.mp4">الحلقة 295</option>
+                <option value="https://server.sanime.net/Video2/530/296.mp4">الحلقة 296</option>
+                <option value="https://server.sanime.net/Video2/530/297.mp4">الحلقة 297</option>
+                <option value="https://server.sanime.net/Video2/530/298.mp4">الحلقة 298</option>
+                <option value="https://server.sanime.net/Video2/530/299.mp4">الحلقة 299</option>
+                <option value="https://server.sanime.net/Video2/530/300.mp4">الحلقة 300</option>
+                <option value="https://server.sanime.net/Video2/530/301.mp4">الحلقة 301</option>
+                <option value="https://server.sanime.net/Video2/530/302.mp4">الحلقة 302</option>
+                <option value="https://server.sanime.net/Video2/530/303.mp4">الحلقة 303</option>
+                <option value="https://server.sanime.net/Video2/530/304.mp4">الحلقة 304</option>
+                <option value="https://server.sanime.net/Video2/530/305.mp4">الحلقة 305</option>
+                <option value="https://server.sanime.net/Video2/530/306.mp4">الحلقة 306</option>
+                <option value="https://server.sanime.net/Video2/530/307.mp4">الحلقة 307</option>
+                <option value="https://server.sanime.net/Video2/530/308.mp4">الحلقة 308</option>
+                <option value="https://server.sanime.net/Video2/530/309.mp4">الحلقة 309</option>
+                <option value="https://server.sanime.net/Video2/530/310.mp4">الحلقة 310</option>
+                <option value="https://server.sanime.net/Video2/530/311.mp4">الحلقة 311</option>
+                <option value="https://server.sanime.net/Video2/530/312.mp4">الحلقة 312</option>
+                <option value="https://server.sanime.net/Video2/530/313.mp4">الحلقة 313</option>
+                <option value="https://server.sanime.net/Video2/530/314.mp4">الحلقة 314</option>
+                <option value="https://server.sanime.net/Video2/530/315.mp4">الحلقة 315</option>
+                <option value="https://server.sanime.net/Video2/530/316.mp4">الحلقة 316</option>
+                <option value="https://server.sanime.net/Video2/530/317.mp4">الحلقة 317</option>
+                <option value="https://server.sanime.net/Video2/530/318.mp4">الحلقة 318</option>
+                <option value="https://server.sanime.net/Video2/530/319.mp4">الحلقة 319</option>
+                <option value="https://server.sanime.net/Video2/530/320.mp4">الحلقة 320</option>
+                <option value="https://server.sanime.net/Video2/530/321.mp4">الحلقة 321</option>
+                <option value="https://server.sanime.net/Video2/530/322.mp4">الحلقة 322</option>
+                <option value="https://server.sanime.net/Video2/530/323.mp4">الحلقة 323</option>
+                <option value="https://server.sanime.net/Video2/530/324.mp4">الحلقة 324</option>
+                <option value="https://server.sanime.net/Video2/530/325.mp4">الحلقة 325</option>
+                <option value="https://server.sanime.net/Video2/530/326.mp4">الحلقة 326</option>
+                <option value="https://server.sanime.net/Video2/530/327.mp4">الحلقة 327</option>
+                <option value="https://server.sanime.net/Video2/530/328.mp4">الحلقة 328</option>
+                <option value="https://server.sanime.net/Video2/530/329.mp4">الحلقة 329</option>
+                <option value="https://server.sanime.net/Video2/530/330.mp4">الحلقة 330</option>
+                <option value="https://server.sanime.net/Video2/530/331.mp4">الحلقة 331</option>
+                <option value="https://server.sanime.net/Video2/530/332.mp4">الحلقة 332</option>
+                <option value="https://server.sanime.net/Video2/530/333.mp4">الحلقة 333</option>
+                <option value="https://server.sanime.net/Video2/530/334.mp4">الحلقة 334</option>
+                <option value="https://server.sanime.net/Video2/530/335.mp4">الحلقة 335</option>
+                <option value="https://server.sanime.net/Video2/530/336.mp4">الحلقة 336</option>
+                <option value="https://server.sanime.net/Video2/530/337.mp4">الحلقة 337</option>
+                <option value="https://server.sanime.net/Video2/530/338.mp4">الحلقة 338</option>
+                <option value="https://server.sanime.net/Video2/530/339.mp4">الحلقة 339</option>
+                <option value="https://server.sanime.net/Video2/530/340.mp4">الحلقة 340</option>
+                <option value="https://server.sanime.net/Video2/530/341.mp4">الحلقة 341</option>
+                <option value="https://server.sanime.net/Video2/530/342.mp4">الحلقة 342</option>
+                <option value="https://server.sanime.net/Video2/530/343.mp4">الحلقة 343</option>
+                <option value="https://server.sanime.net/Video2/530/344.mp4">الحلقة 344</option>
+                <option value="https://server.sanime.net/Video2/530/345.mp4">الحلقة 345</option>
+                <option value="https://server.sanime.net/Video2/530/346.mp4">الحلقة 346</option>
+                <option value="https://server.sanime.net/Video2/530/347.mp4">الحلقة 347</option>
+                <option value="https://server.sanime.net/Video2/530/348.mp4">الحلقة 348</option>
+                <option value="https://server.sanime.net/Video2/530/349.mp4">الحلقة 349</option>
+                <option value="https://server.sanime.net/Video2/530/350.mp4">الحلقة 350</option>
+                <option value="https://server.sanime.net/Video2/530/351.mp4">الحلقة 351</option>
+                <option value="https://server.sanime.net/Video2/530/352.mp4">الحلقة 352</option>
+                <option value="https://server.sanime.net/Video2/530/353.mp4">الحلقة 353</option>
+                <option value="https://server.sanime.net/Video2/530/354.mp4">الحلقة 354</option>
+                <option value="https://server.sanime.net/Video2/530/355.mp4">الحلقة 355</option>
+                <option value="https://server.sanime.net/Video2/530/356.mp4">الحلقة 356</option>
+                <option value="https://server.sanime.net/Video2/530/357.mp4">الحلقة 357</option>
+                <option value="https://server.sanime.net/Video2/530/358.mp4">الحلقة 358</option>
+                <option value="https://server.sanime.net/Video2/530/359.mp4">الحلقة 359</option>
+                <option value="https://server.sanime.net/Video2/530/360.mp4">الحلقة 360</option>
+                <option value="https://server.sanime.net/Video2/530/361.mp4">الحلقة 361</option>
+                <option value="https://server.sanime.net/Video2/530/362.mp4">الحلقة 362</option>
+                <option value="https://server.sanime.net/Video2/530/363.mp4">الحلقة 363</option>
+                <option value="https://server.sanime.net/Video2/530/364.mp4">الحلقة 364</option>
+                <option value="https://server.sanime.net/Video2/530/365.mp4">الحلقة 365</option>
+                <option value="https://server.sanime.net/Video2/530/366.mp4">الحلقة 366</option>
+                <!-- Add more options for each episode with their respective URLs -->
+            </select>
+        </div>
+
+       <a href="../../Anime">رجوع</a> 
+    </div> 
+
+    <script>
+        const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
+        const mediaIds = ['87701'];
+
+        mediaIds.forEach(mediaId => {
+            const apiUrl = `https://api.themoviedb.org/3/find/${mediaId}?api_key=${tmdbApiKey}&language=ar&external_source=imdb_id`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.movie_results.length > 0) {
+                        const tmdbMovieId = data.movie_results[0].id;
+                        const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=ar`;
+                        displayMediaDetails(tmdbApiUrl, 'movie');
+                    } else if (data.tv_results.length > 0) {
+                        const tmdbTvId = data.tv_results[0].id;
+                        const tmdbApiUrl = `https://api.themoviedb.org/3/tv/${tmdbTvId}?api_key=${tmdbApiKey}&language=ar`;
+                        displayMediaDetails(tmdbApiUrl, 'tv');
+                    } else {
+                        console.error('No data found for media with ID:', mediaId);
+                    }
+                })
+                .catch(error => console.error('Error fetching media details:', error));
+        });
+
+        function displayMediaDetails(apiUrl, type) {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const imdbRating = (Math.round(data.vote_average * 10) / 10).toFixed(1);
+                    const trimmedOverview = data.overview.trim();
+                    const releaseYear = data.release_date ? data.release_date.split('-')[0] : 'غير متوفر';
+                    const mediaInfo = `
+                        <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
+                        <h2 class="movie-title">${data.title || data.name}</h2>
+                        <div class="movie-details">
+                            <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
+                            <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>التقييم:</strong> ${imdbRating}/10</p>
+                            <div class="story-container">
+                            <div class="story-title">: القصة</div>
+                            <div class="story">${trimmedOverview}</div>
+                        </div>
+                        </div>
+                    `;
+                    document.getElementById('movieInfo').innerHTML = mediaInfo;
+
+                    const videoType = type === 'movie' ? 'movie' : 'tv';
+                    const videoUrl = `https://api.themoviedb.org/3/${videoType}/${data.id}?api_key=${tmdbApiKey}&append_to_response=videos`;
+                    fetch(videoUrl)
+                        .then(response => response.json())
+                        .then(videoData => {
+                            if (videoData.videos.results.length > 0) {
+                                const videoKey = videoData.videos.results[0].key;
+                                const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
+                                const trailerContainer = document.getElementById('trailerContainer');
+                                trailerContainer.innerHTML = `
+                                    <h3>التريلر</h3>
+                                    <iframe width="560" height="315" src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
+                                `;
+                            } else {
+                                console.error('No video found for this media.');
+                            }
+                        })
+                        .catch(error => console.error('Error fetching media video:', error));
+                })
+                .catch(error => console.error('Error fetching media details:', error));
+        }
+
+        function changeEpisode(videoUrl) {
+            var videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.src = videoUrl;
+        }
+    </script>
+</body> 
+</html>
