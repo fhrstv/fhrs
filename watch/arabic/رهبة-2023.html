@@ -195,7 +195,7 @@
     const mediaType = "movie"; // أو "tv" إذا كان المسلسل
 
     // جلب بيانات الفيلم أو المسلسل
-    fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
+   fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}?api_key=${apiKey}&language=ar`)
       .then(response => response.json())
       .then(data => {
         console.log(data);
@@ -231,6 +231,40 @@
         }
       })
       .catch(error => console.error(error));
+
+
+      function getOidAndIdFromIframe() {
+            const iframe = document.getElementById('movieIframe');
+            const src = iframe.src;
+            const regex = /oid=(\d+)&id=(\d+)/;
+            const match = src.match(regex);
+
+            if (match) {
+                return { oid: match[1], id: match[2] };
+            } else {
+                return { oid: null, id: null };
+            }
+        }
+
+        // دالة لتحويل الرابط
+        function convertUrl(oid, id) {
+            if (oid && id) {
+                return `sfrom.net/https://m.vk.com/video${oid}_${id}`;
+            } else {
+                return 'قيمة oid أو id غير صحيحة';
+            }
+        }
+
+        // عند الضغط على الزر، توجيه المستخدم لتحميل الفيديو
+        document.getElementById('downloadButton').addEventListener('click', () => {
+            const { oid, id } = getOidAndIdFromIframe();
+            const downloadUrl = convertUrl(oid, id);
+            if (downloadUrl.startsWith('sfrom.net')) {
+                window.location.href = `https://${downloadUrl}`;
+            } else {
+                alert(downloadUrl); // يعرض رسالة إذا كانت القيم غير صحيحة
+            }
+        });
 </script>
 </body>
 </html>
