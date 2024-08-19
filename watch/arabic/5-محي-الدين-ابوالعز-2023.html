@@ -21,17 +21,19 @@
 }
 
 header {
-    background-color: #333;
-    color: hsl(0, 94%, 46%);
-    padding: 10px;
-}
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
 
-#poster {
-    max-width: 300px;
-    height: auto;
-    margin: 20px auto;
-    display: block;
-}
+        #poster {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
 
 h1, p {
     margin: 10px 0;
@@ -51,34 +53,33 @@ h1, p {
 }
 
 #downloadButton {
-    background-color: #00BFFF;
-    color: white;
-    border: none;
-    padding: 1vw 1vw; /* استخدام vw لضبط التباعد */
-    font-size: 2vw; /* استخدام vw لضبط حجم الخط */
-    cursor: pointer;
-    border-radius: 5px;
-    margin: 20px auto;
-    display: block;
-    width: 70vw; /* عرض المربع يساوي 70% من عرض الشاشة */
-}
+        background-color: #00BFFF; /* لون سماوي */
+        color: white; /* لون النص أبيض */
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 5px; /* لجعل الزر مربعًا */
+        width: 100%; /* اجعل الزر يمتد ليأخذ عرض الحاوية */
+        max-width: Auto; /* حدد الحد الأقصى للعرض */
+        margin-top: 20px;
+    }
+
 
 #downloadButton:hover {
     background-color: #008CBA;
 }
 
 a {
-    text-decoration: none;
-    color: #333;
-    display: block;
-    padding: 1vw 1vw; /* استخدام vw لضبط التباعد */
-    border-radius: 5px;
-    background-color: red;
-    transition: background-color 0.3s;
-    margin: 10px auto;
-    font-size: 2vw; /* استخدام vw لضبط حجم الخط */
-    width: 70vw; /* عرض المربع يساوي 70% من عرض الشاشة */
-}
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
 
 a:hover {
     background-color: gold;
@@ -95,476 +96,28 @@ h3 {
 }
 
 #title {
-    color: red;
-    font-size: 50px;
-}
+            color: red; /* لون عنوان الفيلم أحمر */
+            margin-bottom: 10px;
+            text-align: center;
+        }
 
-#overview,
 #genres,
+#overview,
 #release-date,
 #rating {
-    font-size: 27px; /* يمكنك تعديل القيمة حسب الحجم المطلوب */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000; /* لون النصوص الأسود */
+    font-size: 20px; /* حجم الخط */
+    margin-bottom: 10px; /* المسافة بين العناصر */
+    text-align: center; /* تمركز النص في الوسط */
+    font-weight: bold;
+    direction: rtl; /* اتجاه النصوص من اليمين لليسار */
 }
 
 
 
-
-
-/* شاشات أصغر من 50px */
-@media (max-width: 50px) {
-    body {
-        font-size: 1vw;
-    }
-
-    header {
-        padding: 1px;
-        font-size: 1.5vw;
-    }
-
-    #poster {
-        max-width: 50vw;
-    }
-
-    h1, p {
-        font-size: 1.5vw;
-    }
-
-    #trailer iframe,
-    #movieIframe {
-        max-width: 50vw;
-        height: 20vh;
-    }
-
-    #downloadButton {
-        padding: 0.5vw;
-        font-size: 1.2vw;
-        width: 60vw;
-    }
-
-    a {
-        padding: 0.5vw;
-        font-size: 1.2vw;
-        width: 60vw;
-    }
-
-    h2 {
-        font-size: 2vw;
-    }
-
-    h3 {
-        font-size: 1.5vw;
-    }
-
-    #title {
-        font-size: 2vw;
-    }
-
-    #overview,
-    #genres,
-    #release-date,
-    #rating {
-        font-size: 1.5vw;
-    }
-}
-
-/* شاشات من 51px إلى 75px */
-@media (min-width: 51px) and (max-width: 75px) {
-    body {
-        font-size: 1.5vw;
-    }
-
-    header {
-        padding: 2px;
-        font-size: 2vw;
-    }
-
-    #poster {
-        max-width: 60vw;
-    }
-
-    h1, p {
-        font-size: 2vw;
-    }
-
-    #trailer iframe,
-    #movieIframe {
-        max-width: 60vw;
-        height: 25vh;
-    }
-
-    #downloadButton {
-        padding: 0.7vw;
-        font-size: 1.5vw;
-        width: 65vw;
-    }
-
-    a {
-        padding: 0.7vw;
-        font-size: 1.5vw;
-        width: 65vw;
-    }
-
-    h2 {
-        font-size: 3vw;
-    }
-
-    h3 {
-        font-size: 2vw;
-    }
-
-    #title {
-        font-size: 3vw;
-    }
-
-    #overview,
-    #genres,
-    #release-date,
-    #rating {
-        font-size: 2vw;
-    }
-}
-
-/* شاشات من 76px إلى 100px */
-@media (min-width: 76px) and (max-width: 100px) {
-    body {
-        font-size: 1.8vw;
-    }
-
-    header {
-        padding: 4px;
-        font-size: 2.5vw;
-    }
-
-    #poster {
-        max-width: 70vw;
-    }
-
-    h1, p {
-        font-size: 2.5vw;
-    }
-
-    #trailer iframe,
-    #movieIframe {
-        max-width: 70vw;
-        height: 30vh;
-    }
-
-    #downloadButton {
-        padding: 0.8vw;
-        font-size: 1.8vw;
-        width: 70vw;
-    }
-
-    a {
-        padding: 0.8vw;
-        font-size: 1.8vw;
-        width: 70vw;
-    }
-
-    h2 {
-        font-size: 4vw;
-    }
-
-    h3 {
-        font-size: 2.5vw;
-    }
-
-    #title {
-        font-size: 4vw;
-    }
-
-    #overview,
-    #genres,
-    #release-date,
-    #rating {
-        font-size: 2.5vw;
-    }
-}
-
-/* شاشات من 101px إلى 150px */
-@media (min-width: 101px) and (max-width: 150px) {
-    body {
-        font-size: 2vw;
-    }
-
-    header {
-        padding: 6px;
-        font-size: 3vw;
-    }
-
-    #poster {
-        max-width: 80vw;
-    }
-
-    h1, p {
-        font-size: 3vw;
-    }
-
-    #trailer iframe,
-    #movieIframe {
-        max-width: 80vw;
-        height: 35vh;
-    }
-
-    #downloadButton {
-        padding: 1vw;
-        font-size: 2vw;
-        width: 75vw;
-    }
-
-    a {
-        padding: 1vw;
-        font-size: 2vw;
-        width: 75vw;
-    }
-
-    h2 {
-        font-size: 5vw;
-    }
-
-    h3 {
-        font-size: 3vw;
-    }
-
-    #title {
-        font-size: 5vw;
-    }
-
-    #overview,
-    #genres,
-    #release-date,
-    #rating {
-        font-size: 3vw;
-    }
-}
-
-/* شاشات من 151px إلى 200px */
-@media (min-width: 151px) and (max-width: 200px) {
-    body {
-        font-size: 2.2vw;
-    }
-
-    header {
-        padding: 8px;
-        font-size: 3.5vw;
-    }
-
-    #poster {
-        max-width: 85vw;
-    }
-
-    h1, p {
-        font-size: 3.5vw;
-    }
-
-    #trailer iframe,
-    #movieIframe {
-        max-width: 85vw;
-        height: 40vh;
-    }
-
-    #downloadButton {
-        padding: 1.2vw;
-        font-size: 2.2vw;
-        width: 80vw;
-    }
-
-    a {
-        padding: 1.2vw;
-        font-size: 2.2vw;
-        width: 80vw;
-    }
-
-    h2 {
-        font-size: 5.5vw;
-    }
-
-    h3 {
-        font-size: 3.2vw;
-    }
-
-    #title {
-        font-size: 5.5vw;
-    }
-
-    #overview,
-    #genres,
-    #release-date,
-    #rating {
-        font-size: 3.2vw;
-    }
-}
-
-/* شاشات من 201px إلى 260px */
-@media (min-width: 201px) and (max-width: 260px) {
-    body {
-        font-size: 2.5vw;
-    }
-
-    header {
-        padding: 10px;
-        font-size: 4vw;
-    }
-
-    #poster {
-        max-width: 90vw;
-    }
-
-    h1, p {
-        font-size: 4vw;
-    }
-
-    #trailer iframe,
-    #movieIframe {
-        max-width: 90vw;
-        height: 45vh;
-    }
-
-    #downloadButton {
-        padding: 1.5vw;
-        font-size: 2.5vw;
-        width: 85vw;
-    }
-
-    a {
-        padding: 1.5vw;
-        font-size: 2.5vw;
-        width: 85vw;
-    }
-
-    h2 {
-        font-size: 6vw;
-    }
-
-    h3 {
-        font-size: 3.5vw;
-    }
-
-    #title {
-        font-size: 6vw;
-    }
-
-    #overview,
-    #genres,
-    #release-date,
-    #rating {
-        font-size: 3.5vw;
-    }
-}
-
-/* شاشات من 261px إلى 320px */
-@media (min-width: 261px) and (max-width: 320px) {
-    body {
-        font-size: 2.8vw;
-    }
-
-    header {
-        padding: 12px;
-        font-size: 4.5vw;
-    }
-
-    #poster {
-        max-width: 95vw;
-    }
-
-    h1, p {
-        font-size: 4.5vw;
-    }
-
-    #trailer iframe,
-    #movieIframe {
-        max-width: 95vw;
-        height: 50vh;
-    }
-
-    #downloadButton {
-        padding: 1.7vw;
-        font-size: 2.8vw;
-        width: 90vw;
-    }
-
-    a {
-        padding: 1.7vw;
-        font-size: 2.8vw;
-        width: 90vw;
-    }
-
-    h2 {
-        font-size: 6.5vw;
-    }
-
-    h3 {
-        font-size: 3.8vw;
-    }
-
-    #title {
-        font-size: 6.5vw;
-    }
-
-    #overview,
-    #genres,
-    #release-date,
-    #rating {
-        font-size: 3.8vw;
-    }
-}
-
-/* شاشات من 321px إلى 375px */
-@media (min-width: 321px) and (max-width: 375px) {
-    body {
-        font-size: 3vw;
-    }
-
-    header {
-        padding: 14px;
-        font-size: 5vw;
-    }
-
-    #poster {
-        max-width: 100vw;
-    }
-
-    h1, p {
-        font-size: 5vw;
-    }
-
-    #trailer iframe,
-    #movieIframe {
-        max-width: 100vw;
-        height: 55vh;
-    }
-
-    #downloadButton {
-        padding: 2vw;
-        font-size: 3vw;
-        width: 95vw;
-    }
-
-    a {
-        padding: 2vw;
-        font-size: 3vw;
-        width: 95vw;
-    }
-
-    h2 {
-        font-size: 7vw;
-    }
-
-    h3 {
-        font-size: 4vw;
-    }
-
-    #title {
-        font-size: 7vw;
-    }
-
-    #overview,
-    #genres,
-    #release-date,
-    #rating {
-        font-size: 4vw;
-    }
-}
 
     </style> 
 </head> 
