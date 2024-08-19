@@ -195,47 +195,10 @@ h2, h3, a {
     }
 }
 
-@media (min-width: 321px) and (max-width: 360px) {
-    .container {
-        padding: 15px;
-        font-size: 13px;
-    }
-
-    iframe {
-        height: 225px;
-    }
-
-    a {
-        padding: 12px;
-        font-size: 13px;
-    }
-
-    #poster {
-        max-width: 230px;
-    }
-
-    #title {
-        font-size: 15px;
-    }
-
-    #genres,
-    #overview,
-    #release-date,
-    #rating {
-        font-size: 15px;
-    }
-
-    #trailer {
-        max-width: 300px;
-    }
-
-    #downloadButton {
-        padding: 7px 14px;
-        font-size: 13px;
-    }
-
+/* تحسين عرض الفيديو لمراعاة ظهور زر الإعدادات */
+@media (max-width: 320px) {
     #movieIframe {
-        height: 175px; /* تقليل حجم iframe للفيديو على الشاشات بين 321px و 360px */
+        height: 180px; /* تقليل حجم iframe للفيديو على الشاشات الصغيرة لتحسين ظهور زر الإعدادات */
     }
 }
 
