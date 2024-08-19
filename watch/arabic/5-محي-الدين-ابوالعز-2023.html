@@ -36,8 +36,10 @@ body {
     font-size: 18px;
     border-radius: 10px;
     overflow: hidden;
+    transform: scale(0.8); /* تصغير المحتوى بنسبة 20% */
 }
 
+/* التأثير على iframe */
 iframe {
     width: 100%; /* توسيع العرض ليأخذ كامل عرض الحاوية */
     height: 400px; /* إبقاء الارتفاع كما هو */
@@ -45,6 +47,7 @@ iframe {
     border: none;
     border-radius: 10px;
     margin: 0 auto;
+    transform: scale(1.1); /* تكبير iframe بنسبة 10% للتعويض عن تصغير الجسم */
 }
 
 
@@ -60,12 +63,12 @@ a {
     text-decoration: none;
     color: #333;
     display: block;
-    padding: 20px;
+    padding: 15px;
     border-radius: 5px;
     background-color: red;
     transition: background-color 0.3s;
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 a:hover {
@@ -78,17 +81,15 @@ p {
 }
 
 #poster {
-    width: 100%;
-    max-width: 300px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    max-width: 300px; /* تحديد أقصى عرض للصور */
+    height: auto;
 }
 
 #title {
     color: red;
     margin-bottom: 10px;
     text-align: center;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 #genres,
@@ -99,7 +100,7 @@ p {
     flex-direction: column;
     align-items: center;
     color: #000;
-    font-size: 20px;
+    font-size: 16px;
     margin-bottom: 10px;
     text-align: center;
     font-weight: bold;
