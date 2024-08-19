@@ -10,7 +10,7 @@
 <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style> 
-  html, body {
+ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -21,10 +21,12 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     color: #000;
+    transform-origin: top left; /* تعيين نقطة الأصل للتكبير/التصغير */
 }
 
+/* الحاوية */
 .container {
-    width: 100%; /* توسيع عرض الحاوية ليأخذ العرض الكامل للعرض المتاح */
+    width: 100%; /* تأكيد عرض الحاوية ليكون مناسباً مع عرض الشاشة */
     max-width: 1200px; /* تحديد عرض أقصى للحاوية لتجنب التمدد المفرط */
     margin: 0 auto; /* توسيط الحاوية */
     padding: 20px;
@@ -163,20 +165,20 @@ h2, h3, a {
 
 
 @media (max-width: 320px) {
+    body {
+        transform: scale(0.5); /* تصغير المحتوى بنسبة 50% */
+    }
+
     .container {
         padding: 10px; /* تقليل الهوامش الداخلية */
     }
 
     iframe {
-        height: 200px; /* تقليل الارتفاع لتناسب الشاشات الصغيرة */
+        height: 200px; /* تقليل الارتفاع ليتناسب مع الشاشات الصغيرة */
     }
 
     body {
         font-size: 14px; /* تقليل حجم الخط ليتناسب مع الشاشات الصغيرة */
-    }
-
-    .container, iframe {
-        width: 100%; /* التأكد من أن العرض يتناسب مع عرض الشاشة */
     }
 }
     </style> 
