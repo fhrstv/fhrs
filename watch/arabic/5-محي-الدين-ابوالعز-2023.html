@@ -11,15 +11,18 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style> 
       /* الأساسيات */
-body {
+      body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
     color: #000;
-    width: 1500%; /* تأكيد عرض الجسم الكامل */
     overflow-x: hidden; /* منع التمرير الأفقي غير المرغوب فيه */
+    transform: scale(0.5); /* تكبير/تصغير المحتوى بنسبة 50% */
+    transform-origin: top left; /* تعيين نقطة الأصل للتكبير/التصغير */
+    width: 200%; /* التأكد من تغطية العرض الكامل للعرض */
 }
+
 
 header {
     background-color: #333;
@@ -42,7 +45,7 @@ header {
 }
 
 iframe {
-    width: 1500%; /* توسيع العرض ليأخذ كامل عرض الحاوية */
+    width: 100%; /* توسيع العرض ليأخذ كامل عرض الحاوية */
     height: 400px; /* إبقاء الارتفاع كما هو */
     max-width: 100%; /* تأكيد أن العرض يتناسب مع عرض الحاوية */
     border: none;
