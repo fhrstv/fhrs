@@ -29,18 +29,19 @@ header {
 .container {
     max-width: 100%;
     margin: 10px;
-    padding: 15px;
+    padding: 20px;
     background-color: #fff;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     font-size: 14px;
     border-radius: 8px;
     overflow: hidden;
+    /* زيادة العرض لتتناسب مع iframe الأكبر */
 }
 
 iframe {
     width: 100%;
-    height: 250px;
+    height: 400px; /* زيادة الارتفاع لجعل الفيديو أكبر */
 }
 
 a {
@@ -145,7 +146,7 @@ h2, h3, a {
 
 #movieIframe {
     width: 100%;
-    height: 200px;
+    height: 500px; /* زيادة الارتفاع لمزيد من التناسب مع الشاشة */
     border: none;
     border-radius: 8px;
 }
@@ -153,12 +154,12 @@ h2, h3, a {
 /* Media Queries for devices between 250px and 320px */
 @media (max-width: 320px) {
     .container {
-        padding: 10px;
+        padding: 15px;
         font-size: 12px;
     }
 
     iframe {
-        height: 200px;
+        height: 400px; /* إبقاء ارتفاع iframe أكبر للتناسب مع الشاشات الصغيرة */
     }
 
     a {
@@ -191,14 +192,7 @@ h2, h3, a {
     }
 
     #movieIframe {
-        height: 150px; /* تقليل حجم iframe للفيديو أكثر على الشاشات الصغيرة */
-    }
-}
-
-/* تحسين عرض الفيديو لمراعاة ظهور زر الإعدادات */
-@media (max-width: 320px) {
-    #movieIframe {
-        height: 180px; /* تقليل حجم iframe للفيديو على الشاشات الصغيرة لتحسين ظهور زر الإعدادات */
+        height: 400px; /* ضبط ارتفاع iframe ليكون مناسبًا للأجهزة الصغيرة */
     }
 }
 
