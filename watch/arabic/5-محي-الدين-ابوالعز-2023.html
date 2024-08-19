@@ -39,13 +39,16 @@
 
         #trailer iframe,
         #movieIframe {
-            width: 100%;
-            max-width: 1080px;
-            height: 607.5px; /* نسبة العرض إلى الارتفاع 16:9 */
-            margin: 20px auto;
-            border: none;
-            border-radius: 10px;
-            display: block;
+            width: 95%; /* تقليص العرض إلى 95% لتجنب ملامسة حواف الشاشة */
+    max-width: 1080px;
+    height: 400px; /* تقليل الطول لجعل الفيديو أكثر توازنًا */
+    margin: 20px auto;
+    border: none;
+    border-radius: 15px; /* تكبير الحواف المدورة لإضافة لمسة فنية */
+    display: block;
+    padding: 10px; /* إضافة تباعد داخلي بين الفيديو والحواف المدورة */
+    box-sizing: border-box; /* لضمان أن padding لا يؤثر على العرض الكلي */
+
         }
 
         #downloadButton {
