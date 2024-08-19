@@ -10,7 +10,7 @@
 <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style> 
-   html, body {
+  html, body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -44,6 +44,7 @@ iframe {
     border-radius: 10px;
     margin: 0 auto;
 }
+
 
 
 header {
@@ -160,6 +161,24 @@ h2, h3, a {
     border-radius: 10px;
 }
 
+
+@media (max-width: 320px) {
+    .container {
+        padding: 10px; /* تقليل الهوامش الداخلية */
+    }
+
+    iframe {
+        height: 200px; /* تقليل الارتفاع لتناسب الشاشات الصغيرة */
+    }
+
+    body {
+        font-size: 14px; /* تقليل حجم الخط ليتناسب مع الشاشات الصغيرة */
+    }
+
+    .container, iframe {
+        width: 100%; /* التأكد من أن العرض يتناسب مع عرض الشاشة */
+    }
+}
     </style> 
 </head> 
 <body> 
