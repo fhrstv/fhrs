@@ -10,32 +10,21 @@
 <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style> 
-    html, body {
+   html, body {
     margin: 0;
     padding: 0;
-    height: 100%; /* تأكيد ارتفاع الصفحة الكامل */
+    height: 100%;
+    overflow-x: hidden; /* إخفاء التمرير الأفقي */
 }
-      /* الأساسيات */
-      body {
+
+body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     color: #000;
-    transform: scale(0.5); /* تكبير/تصغير المحتوى بنسبة 50% */
-    transform-origin: top left; /* تعيين نقطة الأصل للتكبير/التصغير */
-    width: 200%; /* التأكد من تغطية العرض الكامل للعرض */
-    height: 200%; /* التأكد من تغطية الارتفاع الكامل للعرض */
-}
-
-
-header {
-    background-color: #333;
-    color: hsl(0, 94%, 46%);
-    text-align: center;
-    padding: 10px;
 }
 
 .container {
-    width: 100%; /* توسيع عرض الحاوية ليكون متناسباً مع عرض الشاشة */
+    width: 100%; /* توسيع عرض الحاوية ليأخذ العرض الكامل للعرض المتاح */
     max-width: 1200px; /* تحديد عرض أقصى للحاوية لتجنب التمدد المفرط */
     margin: 0 auto; /* توسيط الحاوية */
     padding: 20px;
@@ -54,6 +43,14 @@ iframe {
     border: none;
     border-radius: 10px;
     margin: 0 auto;
+}
+
+
+header {
+    background-color: #333;
+    color: hsl(0, 94%, 46%);
+    text-align: center;
+    padding: 10px;
 }
 
 a {
