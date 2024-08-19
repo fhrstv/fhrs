@@ -39,16 +39,15 @@
 
         #trailer iframe,
         #movieIframe {
-            width: 95%; /* تقليص العرض إلى 95% لتجنب ملامسة حواف الشاشة */
+            width: 100%;
     max-width: 1080px;
-    height: 400px; /* تقليل الطول لجعل الفيديو أكثر توازنًا */
+    height: 450px; /* تقليل الطول لتوفير مظهر أكثر توازناً */
     margin: 20px auto;
     border: none;
-    border-radius: 15px; /* تكبير الحواف المدورة لإضافة لمسة فنية */
+    border-radius: 10px;
     display: block;
-    padding: 10px; /* إضافة تباعد داخلي بين الفيديو والحواف المدورة */
-    box-sizing: border-box; /* لضمان أن padding لا يؤثر على العرض الكلي */
-
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل خفيف لإعطاء عمق */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* تأثيرات انتقالية عند التفاعل */
         }
 
         #downloadButton {
