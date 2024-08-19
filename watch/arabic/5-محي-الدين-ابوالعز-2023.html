@@ -10,156 +10,82 @@
 <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style> 
- html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    position: relative; /* تعيين موضع النسبية للـ body */
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #000;
-    transform-origin: top left; /* تعيين نقطة الأصل للتكبير/التصغير */
-}
-
- .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #000;
             text-align: center;
-            font-size: 18px;
-            border-radius: 10px;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
         }
 
-/* التأثير على iframe */
-iframe {
-    width: 100%; /* توسيع العرض ليأخذ كامل عرض الحاوية */
-    height: 400px; /* إبقاء الارتفاع كما هو */
-    max-width: 100%; /* تأكيد أن العرض يتناسب مع عرض الحاوية */
-    border: none;
-    border-radius: 10px;
-    margin: 0 auto;
-    transform: scale(1.1); /* تكبير iframe بنسبة 10% للتعويض عن تصغير الجسم */
-}
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            padding: 10px;
+        }
 
+        #poster {
+            max-width: 300px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
 
+        h1, p {
+            margin: 10px 0;
+        }
 
-header {
-    background-color: #333;
-    color: hsl(0, 94%, 46%);
-    text-align: center;
-    padding: 10px;
-}
+        #trailer iframe,
+        #movieIframe {
+            width: 100%;
+            max-width: 1080px;
+            height: 607.5px; /* نسبة العرض إلى الارتفاع 16:9 */
+            margin: 20px auto;
+            border: none;
+            border-radius: 10px;
+            display: block;
+        }
 
-a {
-    text-decoration: none;
-    color: #333;
-    display: block;
-    padding: 15px;
-    border-radius: 5px;
-    background-color: red;
-    transition: background-color 0.3s;
-    margin-top: 20px;
-    font-size: 16px;
-}
+        #downloadButton {
+            background-color: #00BFFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 20px auto;
+            display: block;
+            max-width: 300px;
+        }
 
-a:hover {
-    background-color: gold;
-}
+        #downloadButton:hover {
+            background-color: #008CBA;
+        }
 
-p {
-    text-align: justify;
-    margin-bottom: 10px;
-}
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin: 20px auto;
+            font-size: 16px;
+            max-width: 200px;
+        }
 
-#poster {
-    max-width: 300px; /* تحديد أقصى عرض للصور */
-    height: auto;
-}
+        a:hover {
+            background-color: gold;
+        }
 
-#title {
-    color: red;
-    margin-bottom: 10px;
-    text-align: center;
-    font-size: 16px;
-}
-
-#genres,
-#overview,
-#release-date,
-#rating {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #000;
-    font-size: 16px;
-    margin-bottom: 10px;
-    text-align: center;
-    font-weight: bold;
-    direction: rtl;
-}
-
-#trailer {
-    margin: 20px auto;
-    width: 100%;
-    max-width: 100%; /* تأكيد أن العرض يتناسب مع العرض المتاح */
-}
-
-#trailer iframe {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    border: none;
-}
-
-h2, h3, a {
-    color: #000;
-    direction: rtl;
-}
-
-.fa-solid.fa-gear {
-    color: black;
-    font-size: 1em;
-    margin-right: 10px;
-}
-
-.icon-container {
-    display: inline-flex;
-    align-items: center;
-}
-
-.expand-icon {
-    margin-right: 10px;
-}
-
-#downloadButton {
-    background-color: #00BFFF;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 300px;
-    margin-top: 20px;
-}
-
-#downloadButton:hover {
-    background-color: #008CBA;
-}
-
-#movieIframe {
-    width: 100%; /* توسيع العرض ليأخذ كامل عرض الحاوية */
-    height: 400px; /* إبقاء الارتفاع كما هو */
-    border: none;
-    border-radius: 10px;
-}
-
+        h2 {
+            color: #000;
+            font-size: 16px;
+        }
     </style> 
 </head> 
 <body> 
@@ -168,7 +94,6 @@ h2, h3, a {
     </header> 
 
    
-        <div class="container">
     <img id="poster" src="">
         <h1 id="title"></h1>
         <p id="release-date"></p>
