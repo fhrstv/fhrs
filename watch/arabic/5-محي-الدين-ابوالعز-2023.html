@@ -202,6 +202,39 @@ h2, h3, a {
     }
 }
 
+/* الميديا كيوري للشاشات من 50px إلى 100px */
+@media (min-width: 50px) and (max-width: 100px) {
+    body {
+        transform: scale(0.3); /* تصغير المحتوى بنسبة 30% */
+        transform-origin: top left; /* تعيين نقطة الأصل للتكبير/التصغير */
+        font-size: 12px; /* تقليل حجم الخط بشكل كبير */
+    }
+
+    .container {
+        padding: 10px; /* تقليل الهوامش الداخلية */
+        font-size: 14px; /* تقليل حجم الخط داخل الحاوية */
+    }
+
+    iframe {
+        height: 150px; /* تقليل الارتفاع ليتناسب مع الشاشات الصغيرة جدًا */
+    }
+    
+    /* تصغير الصور */
+    #poster {
+        max-width: 100px; /* تحديد أقصى عرض للصور */
+        height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+    }
+    
+    #title, #genres, #overview, #release-date, #rating {
+        font-size: 12px; /* تقليل حجم الخط لهذه العناصر */
+    }
+    
+    a {
+        font-size: 14px; /* تقليل حجم الخط للروابط */
+        padding: 10px; /* تقليل الحشو */
+    }
+}
+
     </style> 
 </head> 
 <body> 
