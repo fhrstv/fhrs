@@ -29,9 +29,9 @@ header {
 }
 
 .container {
-    width: 100vw; /* تأكيد عرض الحاوية الكامل للعرض المتاح */
-    max-width: 100%; /* تأكيد أن العرض لا يتجاوز حجم الشاشة */
-    margin: 0; /* إزالة الهوامش */
+    width: 100%; /* توسيع عرض الحاوية ليكون متناسباً مع عرض الشاشة */
+    max-width: 1200px; /* تحديد عرض أقصى للحاوية لتجنب التمدد المفرط */
+    margin: 0 auto; /* توسيط الحاوية */
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -42,7 +42,7 @@ header {
 }
 
 iframe {
-    width: 100%;
+    width: 100%; /* توسيع العرض ليأخذ كامل عرض الحاوية */
     height: 400px; /* إبقاء الارتفاع كما هو */
     max-width: 100%; /* تأكيد أن العرض يتناسب مع عرض الحاوية */
     border: none;
@@ -151,61 +151,10 @@ h2, h3, a {
 }
 
 #movieIframe {
-    width: 100%;
-    height: 400px;
+    width: 100%; /* توسيع العرض ليأخذ كامل عرض الحاوية */
+    height: 400px; /* إبقاء الارتفاع كما هو */
     border: none;
     border-radius: 10px;
-}
-
-/* Media Queries for devices between 250px and 320px */
-@media (max-width: 320px) {
-    body {
-        width: 100%; /* تأكيد عرض الجسم الكامل */
-        overflow-x: hidden; /* منع التمرير الأفقي غير المرغوب فيه */
-    }
-
-    .container {
-        width: 100vw; /* توسيع عرض الحاوية ليملأ العرض الكامل */
-        padding: 10px; /* تقليل الحشو */
-    }
-
-    iframe {
-        width: 100%;
-        height: 300px; /* تعديل الارتفاع حسب الحاجة */
-    }
-
-    a {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    #poster {
-        max-width: 200px;
-    }
-
-    #title {
-        font-size: 16px;
-    }
-
-    #genres,
-    #overview,
-    #release-date,
-    #rating {
-        font-size: 16px;
-    }
-
-    #trailer {
-        max-width: 100%; /* تأكيد أن العرض يتناسب مع العرض المتاح */
-    }
-
-    #downloadButton {
-        padding: 8px 15px;
-        font-size: 14px;
-    }
-
-    #movieIframe {
-        height: 300px; /* تعديل الارتفاع حسب الحاجة */
-    }
 }
 
     </style> 
