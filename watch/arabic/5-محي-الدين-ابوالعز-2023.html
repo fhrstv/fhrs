@@ -14,7 +14,7 @@
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow-x: hidden; /* إخفاء التمرير الأفقي */
+    position: relative; /* تعيين موضع النسبية للـ body */
 }
 
 body {
@@ -24,20 +24,16 @@ body {
     transform-origin: top left; /* تعيين نقطة الأصل للتكبير/التصغير */
 }
 
-/* الحاوية */
-.container {
-    width: 100%; /* تأكيد عرض الحاوية ليكون مناسباً مع عرض الشاشة */
-    max-width: 1200px; /* تحديد عرض أقصى للحاوية لتجنب التمدد المفرط */
-    margin: 0 auto; /* توسيط الحاوية */
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-size: 18px;
-    border-radius: 10px;
-    overflow: hidden;
-    transform: scale(0.8); /* تصغير المحتوى بنسبة 20% */
-}
+ .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+        }
 
 /* التأثير على iframe */
 iframe {
@@ -162,78 +158,6 @@ h2, h3, a {
     height: 400px; /* إبقاء الارتفاع كما هو */
     border: none;
     border-radius: 10px;
-}
-
-
-@media (max-width: 320px) {
-    body {
-        transform: scale(0.5); /* تصغير المحتوى بنسبة 50% */
-    }
-
-    .container {
-        padding: 10px; /* تقليل الهوامش الداخلية */
-    }
-
-    iframe {
-        height: 200px; /* تقليل الارتفاع ليتناسب مع الشاشات الصغيرة */
-    }
-
-    body {
-        font-size: 14px; /* تقليل حجم الخط ليتناسب مع الشاشات الصغيرة */
-    }
-}
-
-/* الميديا كيوري للشاشات من 200px إلى 300px */
-@media (min-width: 200px) and (max-width: 300px) {
-    body {
-        transform: scale(0.6); /* تصغير المحتوى بنسبة 60% */
-        transform-origin: top left; /* تعيين نقطة الأصل للتكبير/التصغير */
-    }
-
-    .container {
-        padding: 15px; /* تقليل الهوامش الداخلية */
-    }
-
-    iframe {
-        height: 250px; /* تقليل الارتفاع ليتناسب مع الشاشات الصغيرة */
-    }
-
-    body {
-        font-size: 16px; /* تقليل حجم الخط ليتناسب مع الشاشات الصغيرة */
-    }
-}
-
-/* الميديا كيوري للشاشات من 50px إلى 100px */
-@media (min-width: 50px) and (max-width: 100px) {
-    body {
-        transform: scale(0.3); /* تصغير المحتوى بنسبة 30% */
-        transform-origin: top left; /* تعيين نقطة الأصل للتكبير/التصغير */
-        font-size: 12px; /* تقليل حجم الخط بشكل كبير */
-    }
-
-    .container {
-        padding: 10px; /* تقليل الهوامش الداخلية */
-        font-size: 14px; /* تقليل حجم الخط داخل الحاوية */
-    }
-
-    iframe {
-        height: 150px; /* تقليل الارتفاع ليتناسب مع الشاشات الصغيرة جدًا */
-    }
-    
-    /* تصغير الصور */
-    #poster {
-        max-width: 100px; /* تحديد أقصى عرض للصور */
-        height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
-    }
-    
-    #title, #genres, #overview, #release-date, #rating {
-        font-size: 12px; /* تقليل حجم الخط لهذه العناصر */
-    }
-    
-    a {
-        font-size: 14px; /* تقليل حجم الخط للروابط */
-        padding: 10px; /* تقليل الحشو */
-    }
 }
 
     </style> 
