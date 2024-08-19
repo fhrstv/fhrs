@@ -56,12 +56,12 @@
             color: white;
             border: none;
             padding: 10px 20px;
-            font-size: 18px;
+            font-size: 50px;
             cursor: pointer;
             border-radius: 5px;
             margin: 20px auto;
             display: block;
-            max-width: 300px;
+            width: 900px;
         }
 
         #downloadButton:hover {
@@ -77,8 +77,8 @@
             background-color: red;
             transition: background-color 0.3s;
             margin: 20px auto;
-            font-size: 16px;
-            max-width: 200px;
+            font-size: 50px;
+            width: 900px;
         }
 
         a:hover {
@@ -87,19 +87,417 @@
 
         h2 {
             color: #000;
+            font-size: 50px;
+        }
+
+        h3 {
+            color: #000;
             font-size: 30px;
         }
 
+
         #title {
     color: red;
+    font-size: 50px;
 }
 
 #overview,
 #genres,
 #release-date,
 #rating {
-    font-size: 35px; /* يمكنك تعديل القيمة حسب الحجم المطلوب */
+    font-size: 27px; /* يمكنك تعديل القيمة حسب الحجم المطلوب */
 }
+
+
+
+
+
+
+
+/* للشاشات الصغيرة جدًا (من 50px إلى 100px) */
+@media (max-width: 100px) {
+    body {
+        font-size: 8px;
+    }
+
+    header {
+        padding: 5px;
+        font-size: 10px;
+    }
+
+    #poster {
+        max-width: 80px;
+        margin: 10px auto;
+    }
+
+    h1, p {
+        margin: 5px 0;
+    }
+
+    #trailer iframe,
+    #movieIframe {
+        width: 100%;
+        height: 100px; /* تقليل الطول بشكل أكبر */
+        margin: 10px auto;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* تخفيف الظل */
+    }
+
+    #downloadButton, a {
+        font-size: 12px;
+        padding: 5px 10px;
+        width: 90px;
+        margin: 10px auto;
+    }
+
+    h2 {
+        font-size: 12px;
+    }
+
+    h3 {
+        font-size: 10px;
+    }
+
+    #title {
+        font-size: 15px;
+    }
+
+    #overview,
+    #genres,
+    #release-date,
+    #rating {
+        font-size: 10px;
+    }
+}
+
+/* للشاشات الصغيرة جدًا (من 50px إلى 75px) */
+@media (max-width: 75px) {
+    body {
+        font-size: 6px;
+    }
+
+    header {
+        padding: 4px;
+        font-size: 8px;
+    }
+
+    #poster {
+        max-width: 50px;
+        margin: 5px auto;
+    }
+
+    h1, p {
+        margin: 3px 0;
+    }
+
+    #trailer iframe,
+    #movieIframe {
+        height: 75px; /* تقليل الطول بشكل أكبر */
+        border-radius: 3px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    #downloadButton, a {
+        font-size: 8px;
+        padding: 3px 5px;
+        width: 70px;
+        margin: 5px auto;
+    }
+
+    h2 {
+        font-size: 10px;
+    }
+
+    h3 {
+        font-size: 8px;
+    }
+
+    #title {
+        font-size: 12px;
+    }
+
+    #overview,
+    #genres,
+    #release-date,
+    #rating {
+        font-size: 8px;
+    }
+}
+
+/* للشاشات الصغيرة جدًا (أقل من 50px) */
+@media (max-width: 50px) {
+    body {
+        font-size: 4px;
+    }
+
+    header {
+        padding: 2px;
+        font-size: 6px;
+    }
+
+    #poster {
+        max-width: 30px;
+        margin: 2px auto;
+    }
+
+    h1, p {
+        margin: 2px 0;
+    }
+
+    #trailer iframe,
+    #movieIframe {
+        height: 50px;
+        border-radius: 2px;
+        box-shadow: none;
+    }
+
+    #downloadButton, a {
+        font-size: 6px;
+        padding: 2px 4px;
+        width: 50px;
+        margin: 2px auto;
+    }
+
+    h2 {
+        font-size: 8px;
+    }
+
+    h3 {
+        font-size: 6px;
+    }
+
+    #title {
+        font-size: 10px;
+    }
+
+    #overview,
+    #genres,
+    #release-date,
+    #rating {
+        font-size: 6px;
+    }
+}
+
+/* للشاشات من 101px إلى 150px */
+@media (min-width: 101px) and (max-width: 150px) {
+    body {
+        font-size: 10px;
+    }
+
+    header {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    #poster {
+        max-width: 120px;
+        margin: 10px auto;
+    }
+
+    h1, p {
+        margin: 8px 0;
+    }
+
+    #trailer iframe,
+    #movieIframe {
+        height: 180px;
+        margin: 15px auto;
+        border-radius: 8px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    #downloadButton, a {
+        font-size: 14px;
+        padding: 6px 12px;
+        width: 130px;
+        margin: 15px auto;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    h3 {
+        font-size: 12px;
+    }
+
+    #title {
+        font-size: 18px;
+    }
+
+    #overview,
+    #genres,
+    #release-date,
+    #rating {
+        font-size: 12px;
+    }
+}
+
+/* للشاشات من 151px إلى 200px */
+@media (min-width: 151px) and (max-width: 200px) {
+    body {
+        font-size: 12px;
+    }
+
+    header {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    #poster {
+        max-width: 150px;
+        margin: 15px auto;
+    }
+
+    h1, p {
+        margin: 10px 0;
+    }
+
+    #trailer iframe,
+    #movieIframe {
+        height: 200px;
+        margin: 20px auto;
+        border-radius: 8px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    #downloadButton, a {
+        font-size: 16px;
+        padding: 8px 16px;
+        width: 150px;
+        margin: 20px auto;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+
+    #title {
+        font-size: 20px;
+    }
+
+    #overview,
+    #genres,
+    #release-date,
+    #rating {
+        font-size: 14px;
+    }
+}
+
+/* للشاشات من 201px إلى 260px */
+@media (min-width: 201px) and (max-width: 260px) {
+    body {
+        font-size: 14px;
+    }
+
+    header {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    #poster {
+        max-width: 180px;
+        margin: 20px auto;
+    }
+
+    h1, p {
+        margin: 12px 0;
+    }
+
+    #trailer iframe,
+    #movieIframe {
+        height: 220px;
+        margin: 25px auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #downloadButton, a {
+        font-size: 18px;
+        padding: 10px 18px;
+        width: 180px;
+        margin: 25px auto;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+
+    #title {
+        font-size: 22px;
+    }
+
+    #overview,
+    #genres,
+    #release-date,
+    #rating {
+        font-size: 16px;
+    }
+}
+
+/* للشاشات من 261px إلى 320px */
+@media (min-width: 261px) and (max-width: 320px) {
+    body {
+        font-size: 16px;
+    }
+
+    header {
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    #poster {
+        max-width: 220px;
+        margin: 25px auto;
+    }
+
+    h1, p {
+        margin: 15px 0;
+    }
+
+    #trailer iframe,
+    #movieIframe {
+        height: 240px;
+        margin: 30px auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #downloadButton, a {
+        font-size: 20px;
+        padding: 12px 20px;
+        width: 200px;
+        margin: 30px auto;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    #title {
+        font-size: 24px;
+    }
+
+    #overview,
+    #genres,
+    #release-date,
+    #rating {
+        font-size: 18px;
+    }
+}
+
     </style> 
 </head> 
 <body> 
@@ -122,7 +520,7 @@
     <h2>شاهد الآن</h2>
     <iframe id="movieIframe" src="https://vk.com/video_ext.php?oid=760447746&id=456239342&hash=&hd=2s" frameborder="0" allowfullscreen></iframe> 
     <button id="downloadButton">تحميل الفيلم</button>
-    <h2>
+    <h3>
         إذا لم يظهر مفتاح الإعدادات او مفتاح تكبير الشاشة
             <i class="fa-solid fa-gear settings-icon"></i>
             <i class="fa-solid fa-up-right-and-down-left-from-center expand-icon"></i> 
@@ -135,7 +533,7 @@
         <br> وستجد مفتاح الإعدادات و تكبير الشاشة و منها تستطيع أن تقوم بتغيير الجودة
         <br> إذا لم تعمل الحلقة او الفيلم ، الرجاء نسخ الرابط
         <br> و إرساله لنا من خلال صفحة اتصل بنا
-    </h2>
+    </h3>
     
 
 
