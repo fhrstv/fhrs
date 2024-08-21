@@ -7,17 +7,23 @@
     <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
 </head>
 <body>
-    <video id="video" controls></video>
-
+    <video id="video" controls autoplay></video>
+    
     <script>
         const client = new WebTorrent();
 
         // Replace this magnet link with your own
-        const magnetURI = 'magnet:?xt=urn:btih:eb1779e24406f2a3943bb7d80b50b65dd9cbbffd&dn=Oddity+(2024)+%5B720p%5D+%5BWEBRip%5D+%5BYTS.MX%5D" data-path="Oddity (2024) [720p] [WEBRip] [YTS.MX]/Oddity.2024.720p.WEBRip.x264.AAC-[YTS.MX].mp4';
+        const magnetURI = 'magnet:?xt=urn:btih:eb1779e24406f2a3943bb7d80b50b65dd9cbbffd&dn=Oddity+(2024)+%5B720p%5D+%5BWEBRip%5D+%5BYTS.MX%5D';
 
-        client.add(magnetURI, torrent => {
+        client.add(magnetURI, { path: 'file' }, torrent => {
+            console.log('Torrent added:', torrent);
+
             const file = torrent.files.find(file => file.name.endsWith('.mp4'));
-            file.renderTo('video');
+            if (file) {
+                file.renderTo('video');
+            } else {
+                console.error('No suitable file found');
+            }
         });
     </script>
 </body>
