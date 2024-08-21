@@ -1,81 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+    
+  <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ES7T4P1E1T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ES7T4P1E1T');
+</script>
+</head>
+  
+  
+  
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Details</title>
+    <title>فهرس</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="style.css">
+    <script src="scripit.js" defer></script>
+    
+    
+
     <style>
-       /* القواعد العامة */
-body {
+        /* الأسلوب العام للصفحة */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #000
+        }
+
+        header {
+            background-color: #333;
+            color: hsl(0, 94%, 46%);
+            text-align: center;
+            padding: 10px;
+        }
+      
+      .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: red;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: gold;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        /* عنوان الصفحة */
+        h1 {
+            margin: 0;
+        }
+
+        /* منطقة العرض للأفلام والمسلسلات */
+        .content {
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; /* توسيط المحتوى */
+        }
+
+        /* قائمة لعرض الأفلام والمسلسلات */
+        .movie-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: center; /* توسيط العناصر */
+        }
+
+        .movie-item {
+            margin: 10px;
+        }
+
+        /* المربعات الحمراء */
+        a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 20px;
+    border-radius: 10px; /* تكبير حواف المربعات */
+    background-color: red;
+    transition: background-color 0.3s, transform 0.3s; /* إضافة تأثير تحريك عند التمرير */
+    font-size: 25px; /* تكبير حجم الخط داخل المربعات */
+    text-align: center; /* محاذاة النص في وسط المربع */
+    margin: 20px auto; /* إضافة مسافة حول المربعات وتوسيعها */
+    width: 60%; /* تحديد عرض المربعات كنسبة مئوية */
+    max-width: 600px; /* تحديد الحد الأقصى للعرض */
+}
+        a:hover {
+            background-color: gold;
+        }
+
+        /* توسيط عنوان الأفلام والمسلسلات والالانمي */
+        h2 {
+            text-align: center;
+        }
+
+        /* مربع البحث */
+        .search-box {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%; /* يمتلئ عرض الشاشة بالكامل */
+            max-width: 300px; /* حد أقصى لعرض المربع */
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+/* خصائص الزر العشوائي */
+#randomButton {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    color: #000;
-}
-
-.container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: transparent; /* لجعل الخلفية شفافة */
-    text-align: center;
-    font-size: 18px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.movie-details {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
-
-.movie-details img {
-    width: 300px;
-    height: auto;
-    border-radius: 5px;
-}
-
-.movie-details h1 {
-    margin: 0;
-    color: red;
-}
-
-.movie-details p {
-    margin: 10px 0;
-}
-
-.movie-details p span {
-    color: #000; /* تعيين اللون الأسود للـ <span> */
-}
-
-iframe {
-    border: none;
-    border-radius: 5px;
-}
-
-.trailer-container, .movie-embed-container {
-    margin-top: 20px;
-}
-
-.trailer-container iframe, .movie-embed-container iframe {
-    width: 100%;
-    height: 400px;
-}
-
-header {
-    background-color: #333;
-    color: hsl(0, 94%, 46%);
-    text-align: center;
-    padding: 10px;
-}
-
-a {
     text-decoration: none;
     color: #333;
     display: block;
@@ -83,154 +161,739 @@ a {
     border-radius: 5px;
     background-color: red;
     transition: background-color 0.3s;
-    margin-top: 20px;
+    font-size: 19.4px; /* تكبير حجم الخط داخل المربع */
+    text-align: center; /* لتوسيط النص أفقيًا */
+    width: 243px; /* تعيين العرض ليكون مطابقًا لعرض المربعات الحمراء */
+    margin: 20px auto 10px; /* توسيط الزر */
+    box-sizing: border-box; /* تضمين padding و border في حساب العرض */
 }
 
-a:hover {
+#randomButton:hover {
     background-color: gold;
 }
-
-h2, h3, a {
-    color: #000;
+        
+        
+            h4.telegram-link {
+  background: none;
+  padding: 0;
+  border: none;
+  display: inline-block;
+  font-size: 14px;
+  color: blue;
 }
 
-h4 {
-    font-size: 40px;
-    margin: 0;
+h4.telegram-link a {
+  text-decoration: none;
+  color: blue;
 }
 
-.movie-details strong {
-    color: #000; /* تعيين اللون الأسود */
+h4.telegram-link img {
+  width: 14px;
+  height: 14px;
+  margin-left: 5px;
+  vertical-align: middle;
 }
 
-.movie-details span {
-    color: #000; /* تعيين اللون الأسود */
+h4.telegram-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h3{
+  
+  font-size: 15px;
+}
+
+h5{
+  font-size: 20px;
+}
+
+
+
+
+@media (min-width: 250px) and (max-width: 320px) {
+    .container {
+        margin: 5px;
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    iframe {
+        height: 180px;
+    }
+
+    a {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .movie-item {
+        margin: 5px;
+    }
+
+    .search-box {
+        margin-top: 5px;
+    }
+
+    input[type="text"] {
+        padding: 6px;
+        max-width: 240px;
+    }
+
+    input[type="submit"] {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    #randomButton {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    h4.telegram-link {
+        font-size: 12px;
+    }
+
+    h3 {
+        font-size: 12px;
+    }
+
+    h5 {
+        font-size: 16px;
+    }
+}
+
+
+/* الميديا كويري للأجهزة من 321px إلى 375px */
+@media (min-width: 321px) and (max-width: 375px) {
+    body {
+        font-size: 16px; /* تكبير الخط قليلاً ليتناسب مع حجم الشاشة */
+    }
+
+    header {
+        padding: 8px;
+    }
+
+    .container {
+        max-width: 90%; /* تقليل العرض ليتناسب مع الشاشات الصغيرة */
+        padding: 15px;
+        font-size: 16px; /* تكبير النصوص داخل الحاوية */
+    }
+
+    iframe {
+        height: 300px; /* تقليل ارتفاع iframe ليتناسب مع الشاشات الصغيرة */
+    }
+
+    a {
+        padding: 15px;
+        border-radius: 8px; /* تقليل حواف المربعات لتناسب الشاشات الصغيرة */
+        font-size: 20px; /* تقليل حجم الخط داخل المربعات */
+        width: 80%; /* زيادة عرض المربعات ليتناسب مع الشاشات الصغيرة */
+        max-width: 90%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    p {
+        font-size: 14px; /* تكبير الخط ليتناسب مع حجم الشاشة */
+    }
+
+    h1 {
+        font-size: 24px; /* تكبير حجم العنوان */
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    .movie-list {
+        font-size: 16px; /* تكبير حجم النصوص داخل قائمة الأفلام */
+    }
+
+    .movie-item {
+        margin: 5px; /* تقليل المسافة حول العناصر */
+    }
+
+    h2 {
+        font-size: 18px; /* تكبير حجم العناوين */
+    }
+
+    .search-box {
+        margin-top: 15px;
+    }
+
+    input[type="text"] {
+        padding: 8px;
+        max-width: 90%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    input[type="submit"] {
+        padding: 8px 15px;
+    }
+
+    #randomButton {
+        font-size: 18px; /* تقليل حجم الخط داخل الزر العشوائي */
+        width: 200px; /* تقليل عرض الزر العشوائي ليتناسب مع الشاشات الصغيرة */
+    }
+
+    h4.telegram-link {
+        font-size: 12px; /* تقليل حجم الخط لرابط التليجرام */
+    }
+
+    h3 {
+        font-size: 14px; /* تقليل حجم خط العنوان H3 */
+    }
+
+    h5 {
+        font-size: 18px; /* تقليل حجم خط العنوان H5 */
+    }
+}
+
+
+/* الميديا كويري للأجهزة من 376px إلى 425px */
+@media (min-width: 376px) and (max-width: 425px) {
+    body {
+        font-size: 18px; /* تكبير الخط ليتناسب مع حجم الشاشة */
+    }
+
+    header {
+        padding: 12px;
+    }
+
+    .container {
+        max-width: 90%; /* تقليل العرض ليتناسب مع الشاشات الصغيرة */
+        padding: 20px;
+        font-size: 18px; /* تكبير النصوص داخل الحاوية */
+    }
+
+    iframe {
+        height: 350px; /* تقليل ارتفاع iframe ليتناسب مع الشاشات الصغيرة */
+    }
+
+    a {
+        padding: 20px;
+        border-radius: 10px; /* تكبير حواف المربعات لتناسب الشاشات الصغيرة */
+        font-size: 22px; /* تكبير حجم الخط داخل المربعات */
+        width: 75%; /* زيادة عرض المربعات ليتناسب مع الشاشات الصغيرة */
+        max-width: 90%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    p {
+        font-size: 16px; /* تكبير الخط ليتناسب مع حجم الشاشة */
+    }
+
+    h1 {
+        font-size: 26px; /* تكبير حجم العنوان */
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .movie-list {
+        font-size: 18px; /* تكبير حجم النصوص داخل قائمة الأفلام */
+    }
+
+    .movie-item {
+        margin: 10px; /* زيادة المسافة حول العناصر */
+    }
+
+    h2 {
+        font-size: 20px; /* تكبير حجم العناوين */
+    }
+
+    .search-box {
+        margin-top: 20px;
+    }
+
+    input[type="text"] {
+        padding: 12px;
+        max-width: 95%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    input[type="submit"] {
+        padding: 10px 20px;
+    }
+
+    #randomButton {
+        font-size: 20px; /* تكبير حجم الخط داخل الزر العشوائي */
+        width: 250px; /* زيادة عرض الزر العشوائي ليتناسب مع الشاشات الصغيرة */
+    }
+
+    h4.telegram-link {
+        font-size: 16px; /* تكبير حجم الخط لرابط التليجرام */
+    }
+
+    h3 {
+        font-size: 16px; /* تكبير حجم خط العنوان H3 */
+    }
+
+    h5 {
+        font-size: 22px; /* تكبير حجم خط العنوان H5 */
+    }
+}
+
+
+/* الميديا كويري للأجهزة من 426px إلى 768px */
+@media (min-width: 426px) and (max-width: 768px) {
+    body {
+        font-size: 20px; /* تكبير الخط ليتناسب مع حجم الشاشة */
+    }
+
+    header {
+        padding: 15px;
+    }
+
+    .container {
+        max-width: 80%; /* تقليل العرض ليتناسب مع الشاشات الصغيرة */
+        padding: 25px;
+        font-size: 20px; /* تكبير النصوص داخل الحاوية */
+    }
+
+    iframe {
+        height: 400px; /* تعديل ارتفاع iframe ليكون مناسباً للشاشات المتوسطة */
+    }
+
+    a {
+        padding: 25px;
+        border-radius: 12px; /* تكبير حواف المربعات لتناسب الشاشات المتوسطة */
+        font-size: 24px; /* تكبير حجم الخط داخل المربعات */
+        width: 70%; /* زيادة عرض المربعات ليتناسب مع الشاشات المتوسطة */
+        max-width: 80%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    p {
+        font-size: 18px; /* تكبير الخط ليتناسب مع حجم الشاشة */
+    }
+
+    h1 {
+        font-size: 28px; /* تكبير حجم العنوان */
+    }
+
+    .content {
+        padding: 25px;
+    }
+
+    .movie-list {
+        font-size: 20px; /* تكبير حجم النصوص داخل قائمة الأفلام */
+    }
+
+    .movie-item {
+        margin: 15px; /* زيادة المسافة حول العناصر */
+    }
+
+    h2 {
+        font-size: 22px; /* تكبير حجم العناوين */
+    }
+
+    .search-box {
+        margin-top: 25px;
+    }
+
+    input[type="text"] {
+        padding: 12px;
+        max-width: 95%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    input[type="submit"] {
+        padding: 12px 25px;
+    }
+
+    #randomButton {
+        font-size: 22px; /* تكبير حجم الخط داخل الزر العشوائي */
+        width: 270px; /* زيادة عرض الزر العشوائي ليتناسب مع الشاشات المتوسطة */
+    }
+
+    h4.telegram-link {
+        font-size: 18px; /* تكبير حجم الخط لرابط التليجرام */
+    }
+
+    h3 {
+        font-size: 18px; /* تكبير حجم خط العنوان H3 */
+    }
+
+    h5 {
+        font-size: 24px; /* تكبير حجم خط العنوان H5 */
+    }
+}
+
+/* الميديا كويري للأجهزة من 769px إلى 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+    body {
+        font-size: 22px; /* تكبير الخط ليتناسب مع حجم الشاشة الأكبر */
+    }
+
+    header {
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 85%; /* تقليل العرض ليكون مناسباً للشاشات الكبيرة */
+        padding: 30px;
+        font-size: 22px; /* تكبير النصوص داخل الحاوية */
+    }
+
+    iframe {
+        height: 450px; /* تعديل ارتفاع iframe ليكون مناسباً للشاشات الأكبر */
+    }
+
+    a {
+        padding: 30px;
+        border-radius: 15px; /* تكبير حواف المربعات لتناسب الشاشات الكبيرة */
+        font-size: 26px; /* تكبير حجم الخط داخل المربعات */
+        width: 75%; /* زيادة عرض المربعات ليتناسب مع الشاشات الأكبر */
+        max-width: 90%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    p {
+        font-size: 20px; /* تكبير الخط ليتناسب مع حجم الشاشة */
+    }
+
+    h1 {
+        font-size: 32px; /* تكبير حجم العنوان */
+    }
+
+    .content {
+        padding: 30px;
+    }
+
+    .movie-list {
+        font-size: 22px; /* تكبير حجم النصوص داخل قائمة الأفلام */
+    }
+
+    .movie-item {
+        margin: 20px; /* زيادة المسافة حول العناصر */
+    }
+
+    h2 {
+        font-size: 26px; /* تكبير حجم العناوين */
+    }
+
+    .search-box {
+        margin-top: 30px;
+    }
+
+    input[type="text"] {
+        padding: 14px;
+        max-width: 95%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    input[type="submit"] {
+        padding: 14px 30px;
+    }
+
+    #randomButton {
+        font-size: 24px; /* تكبير حجم الخط داخل الزر العشوائي */
+        width: 300px; /* زيادة عرض الزر العشوائي ليتناسب مع الشاشات الكبيرة */
+    }
+
+    h4.telegram-link {
+        font-size: 20px; /* تكبير حجم الخط لرابط التليجرام */
+    }
+
+    h3 {
+        font-size: 20px; /* تكبير حجم خط العنوان H3 */
+    }
+
+    h5 {
+        font-size: 26px; /* تكبير حجم خط العنوان H5 */
+    }
+}
+
+/* الميديا كويري للأجهزة من 1025px إلى 1440px */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    body {
+        font-size: 24px; /* تكبير الخط ليتناسب مع الشاشات الأكبر */
+    }
+
+    header {
+        padding: 30px;
+    }
+
+    .container {
+        max-width: 80%; /* تقليل العرض ليكون مناسباً للشاشات الكبيرة */
+        padding: 40px;
+        font-size: 24px; /* تكبير النصوص داخل الحاوية */
+    }
+
+    iframe {
+        height: 500px; /* تعديل ارتفاع iframe ليكون مناسباً للشاشات الأكبر */
+    }
+
+    a {
+        padding: 35px;
+        border-radius: 20px; /* تكبير حواف المربعات لتناسب الشاشات الكبيرة */
+        font-size: 28px; /* تكبير حجم الخط داخل المربعات */
+        width: 70%; /* زيادة عرض المربعات ليتناسب مع الشاشات الكبيرة */
+        max-width: 80%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    p {
+        font-size: 22px; /* تكبير الخط ليتناسب مع حجم الشاشة */
+    }
+
+    h1 {
+        font-size: 36px; /* تكبير حجم العنوان */
+    }
+
+    .content {
+        padding: 40px;
+    }
+
+    .movie-list {
+        font-size: 24px; /* تكبير حجم النصوص داخل قائمة الأفلام */
+    }
+
+    .movie-item {
+        margin: 25px; /* زيادة المسافة حول العناصر */
+    }
+
+    h2 {
+        font-size: 28px; /* تكبير حجم العناوين */
+    }
+
+    .search-box {
+        margin-top: 30px;
+    }
+
+    input[type="text"] {
+        padding: 16px;
+        max-width: 90%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    input[type="submit"] {
+        padding: 16px 35px;
+    }
+
+    #randomButton {
+        font-size: 26px; /* تكبير حجم الخط داخل الزر العشوائي */
+        width: 320px; /* زيادة عرض الزر العشوائي ليتناسب مع الشاشات الكبيرة */
+    }
+
+    h4.telegram-link {
+        font-size: 22px; /* تكبير حجم الخط لرابط التليجرام */
+    }
+
+    h3 {
+        font-size: 22px; /* تكبير حجم خط العنوان H3 */
+    }
+
+    h5 {
+        font-size: 28px; /* تكبير حجم خط العنوان H5 */
+    }
+}
+
+/* الميديا كويري للأجهزة من 1441px إلى 2560px */
+@media (min-width: 1441px) and (max-width: 2560px) {
+    body {
+        font-size: 26px; /* تكبير حجم الخط ليتناسب مع الشاشات الكبيرة جداً */
+    }
+
+    header {
+        padding: 40px;
+    }
+
+    .container {
+        max-width: 75%; /* تقليل العرض ليكون مناسباً للشاشات الكبيرة */
+        padding: 50px;
+        font-size: 26px; /* تكبير النصوص داخل الحاوية */
+    }
+
+    iframe {
+        height: 600px; /* تعديل ارتفاع iframe ليكون مناسباً للشاشات الكبيرة جداً */
+    }
+
+    a {
+        padding: 40px;
+        border-radius: 25px; /* تكبير حواف المربعات لتناسب الشاشات الكبيرة جداً */
+        font-size: 30px; /* تكبير حجم الخط داخل المربعات */
+        width: 80%; /* زيادة عرض المربعات ليتناسب مع الشاشات الكبيرة جداً */
+        max-width: 90%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    p {
+        font-size: 24px; /* تكبير الخط ليتناسب مع حجم الشاشة الكبير */
+    }
+
+    h1 {
+        font-size: 40px; /* تكبير حجم العنوان */
+    }
+
+    .content {
+        padding: 50px;
+    }
+
+    .movie-list {
+        font-size: 26px; /* تكبير حجم النصوص داخل قائمة الأفلام */
+    }
+
+    .movie-item {
+        margin: 30px; /* زيادة المسافة حول العناصر */
+    }
+
+    h2 {
+        font-size: 32px; /* تكبير حجم العناوين */
+    }
+
+    .search-box {
+        margin-top: 40px;
+    }
+
+    input[type="text"] {
+        padding: 20px;
+        max-width: 95%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    input[type="submit"] {
+        padding: 20px 40px;
+    }
+
+    #randomButton {
+        font-size: 30px; /* تكبير حجم الخط داخل الزر العشوائي */
+        width: 350px; /* زيادة عرض الزر العشوائي ليتناسب مع الشاشات الكبيرة جداً */
+    }
+
+    h4.telegram-link {
+        font-size: 24px; /* تكبير حجم الخط لرابط التليجرام */
+    }
+
+    h3 {
+        font-size: 24px; /* تكبير حجم خط العنوان H3 */
+    }
+
+    h5 {
+        font-size: 32px; /* تكبير حجم خط العنوان H5 */
+    }
+}
+
+/* الميديا كويري للأجهزة من 2561px وما فوق */
+@media (min-width: 2561px) {
+    body {
+        font-size: 32px; /* تكبير حجم الخط ليتناسب مع الشاشات الكبيرة جداً */
+        line-height: 1.6; /* زيادة تباعد الأسطر لتحسين readability */
+    }
+
+    header {
+        padding: 50px;
+    }
+
+    .container {
+        max-width: 70%; /* تقليل العرض ليكون مناسباً للشاشات الكبيرة جداً */
+        padding: 60px;
+        font-size: 32px; /* تكبير النصوص داخل الحاوية */
+    }
+
+    iframe {
+        height: 800px; /* تعديل ارتفاع iframe ليكون مناسباً للشاشات الكبيرة جداً */
+    }
+
+    a {
+        padding: 50px;
+        border-radius: 30px; /* تكبير حواف المربعات لتناسب الشاشات الكبيرة جداً */
+        font-size: 36px; /* تكبير حجم الخط داخل المربعات */
+        width: 70%; /* زيادة عرض المربعات ليتناسب مع الشاشات الكبيرة جداً */
+        max-width: 90%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    p {
+        font-size: 28px; /* تكبير الخط ليتناسب مع حجم الشاشة الكبير */
+    }
+
+    h1 {
+        font-size: 50px; /* تكبير حجم العنوان */
+    }
+
+    .content {
+        padding: 60px;
+    }
+
+    .movie-list {
+        font-size: 32px; /* تكبير حجم النصوص داخل قائمة الأفلام */
+    }
+
+    .movie-item {
+        margin: 40px; /* زيادة المسافة حول العناصر */
+    }
+
+    h2 {
+        font-size: 40px; /* تكبير حجم العناوين */
+    }
+
+    .search-box {
+        margin-top: 50px;
+    }
+
+    input[type="text"] {
+        padding: 25px;
+        max-width: 95%; /* تعديل الحد الأقصى للعرض */
+    }
+
+    input[type="submit"] {
+        padding: 25px 50px;
+    }
+
+    #randomButton {
+        font-size: 36px; /* تكبير حجم الخط داخل الزر العشوائي */
+        width: 400px; /* زيادة عرض الزر العشوائي ليتناسب مع الشاشات الكبيرة جداً */
+    }
+
+    h4.telegram-link {
+        font-size: 28px; /* تكبير حجم الخط لرابط التليجرام */
+    }
+
+    h3 {
+        font-size: 28px; /* تكبير حجم خط العنوان H3 */
+    }
+
+    h5 {
+        font-size: 40px; /* تكبير حجم خط العنوان H5 */
+    }
 }
 
     </style>
+    <!-- تضمين الخط العربي Tajawal -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap">
 </head>
-<header>
-    <h4>فهرس</h4>
 <body>
-    <div class="container">
-    <div class="movie-details" id="movie-details">
-        <img src="" alt="Movie Poster">
-        <h1>Movie Title</h1>
-        <p><strong>تاريخ الاصدار : </strong> <span id="release-date">N/A</span></p>
-        <p><strong>القصة : </strong> <span id="overview">No overview available.</span></p>
-        <p><strong>النوع : </strong> <span id="genre">N/A</span></p>
-        <p><strong>التقييم : </strong> <span id="rating">N/A</span></p>
-        <h2>التريلر</h2>
-        <div class="trailer-container" id="trailer-container"></div>
-        <h2>مشاهدة الفيلم</h2>
-        <div class="movie-embed-container" id="movie-embed-container"></div>
-        <a href="../../Movies">رجوع</a>
+    <header>
+        <h1>فهرس</h1>
+    </header>
+    <div class="content">
+        <h2>اكبر موقع فهرسه بالوطن العربي</h2>
+        <h5>فهرس هي قائمتك للمشاهدة</h5>
+        
+<h3>جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين<br>نحن لا نخزن و لا نرفع و لا ننشر <br>فقط نعرض اسهل طريقة للمشاهدة </h3>
+
+<h4 class="telegram-link">
+  <span onclick="window.open('https://t.me/fhrs_updates', '_blank');">
+    <img src="https://telegram.org/img/t_logo.png" alt="تليجرام">
+انضموا إلى قناتنا في التيليجرام لمعرفة آخر تحديثات موقعنا
+  </span>
+</h4>
+        <!-- نتائج البحث -->
+        <div class="search-results" id="searchResults">
+            <!-- هنا سيتم عرض نتائج البحث -->
+        </div>
+        <!-- قائمة الأفلام والمسلسلات الأخرى -->
+        <ul class="movie-list">
+            <!-- إضافة العناصر هنا -->
+
+          <li class="movie-item"><a href="Movies">الافلام الاجنبية</a></li>
+                    <li class="movie-item"><a href="Series">المسلسلات الاجنبية</a></li>
+                    <li class="movie-item"><a href="Arabic">الافلام و المسلسلات العربية</a></li>
+                    <li class="movie-item"><a href="Anime">الافلام و المسلسلات الانمي</a></li>
+                    <li class="movie-item"><a href="Stories">قصص حقيقية</a></li>
+            <li class="movie-item"><a href="Faq">الاسئلة الشائعة</a></li>
+            <li class="movie-item"><a href="Call">اتصل بنا<br>(للطلب أو الابلاغ)</a></li>
+            
+            <!-- يمكنك إضافة المزيد من الأفلام والمسلسلات هنا -->
+        </ul>
     </div>
-</header>
-    
-
-    <script>
-        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-
-async function fetchMovieDetails(tmdbId) {
-  const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=ar`;
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('فشل في جلب تفاصيل الفيلم.');
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('خطأ في جلب تفاصيل الفيلم:', error);
-    return null;
-  }
-}
-
-async function fetchMovieVideos(tmdbId) {
-  const url = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}&language=en`;
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('فشل في جلب فيديوهات الفيلم.');
-    }
-    const data = await response.json();
-    return data.results;
-  } catch (error) {
-    console.error('خطأ في جلب فيديوهات الفيلم:', error);
-    return [];
-  }
-}
-
-function getQueryParameter(name) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(name);
-}
-
-async function checkIframeMessage() {
-  const iframe = document.getElementById('movie-embed-container').querySelector('iframe');
-  iframe.onload = function() {
-    const iframeContent = iframe.contentDocument || iframe.contentWindow.document;
-    const messageElement = iframeContent.querySelector('h4');
-    if (messageElement && messageElement.textContent === 'This media is unavailable at the moment.') {
-      // Redirect to a custom error page or previous page
-      window.location.href = '/error-page.html'; // or '/previous-page.html'
-    }
-  };
-}
-
-async function displayMovieDetails() {
-  const tmdbId = getQueryParameter('tmdb_id');
-
-  if (!tmdbId) {
-    document.getElementById('movie-details').innerHTML = '<p>لم يتم توفير معرّف الفيلم.</p>';
-    return;
-  }
-
-  const movieData = await fetchMovieDetails(tmdbId);
-  const movieVideos = await fetchMovieVideos(tmdbId);
-
-  if (movieData) {
-    document.querySelector('h1').textContent = movieData.title || 'لا يوجد عنوان';
-    document.querySelector('img').src = movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : '';
-    document.getElementById('release-date').textContent = movieData.release_date || 'غير متوفر';
-    document.getElementById('overview').textContent = movieData.overview || 'لا يوجد ملخص متاح.';
-
-    // Display genre
-    const genres = movieData.genres.map(genre => genre.name).join(', ');
-    document.getElementById('genre').textContent = genres || 'غير متوفر';
-
-    // Display rating (formatted to 1 decimal place)
-    const rating = movieData.vote_average ? movieData.vote_average.toFixed(1) : 'غير متوفر';
-    document.getElementById('rating').textContent = `${rating} / 10`;
-
-    // Embed movie from Vidsrc
-    document.getElementById('movie-embed-container').innerHTML = `
-      <iframe src="https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}" allowfullscreen></iframe>
-    `;
-
-    // Check the iframe message
-    checkIframeMessage();
-
-    // Find and display the first trailer
-    const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
-    if (trailer) {
-      document.getElementById('trailer-container').innerHTML = `
-        <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
-      `;
-    } else {
-      document.getElementById('trailer-container').innerHTML = '<p>لا يوجد تريلر متاح.</p>';
-    }
-  } else {
-    document.getElementById('movie-details').innerHTML = '<p>فشل في تحميل تفاصيل الفيلم.</p>';
-  }
-}
-
-window.onload = displayMovieDetails;
-
-    </script>
+<script src="scripit.js"></script>
+<script src="random.js"></script>
 
 </body>
 </html>
