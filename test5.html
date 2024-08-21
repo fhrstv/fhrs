@@ -4,27 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch Torrent</title>
-    <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
+    <style>
+        .webtor {
+            width: 100%;
+            height: 100vh;
+            background: #000;
+        }
+    </style>
 </head>
 <body>
-    <video id="video" controls autoplay></video>
-    
+    <div id="player" class="webtor"></div>
+
     <script>
-        const client = new WebTorrent();
-
-        // Replace this magnet link with your own
-        const magnetURI = 'magnet:?xt=urn:btih:eb1779e24406f2a3943bb7d80b50b65dd9cbbffd&dn=Oddity+(2024)+%5B720p%5D+%5BWEBRip%5D+%5BYTS.MX%5D';
-
-        client.add(magnetURI, { path: 'file' }, torrent => {
-            console.log('Torrent added:', torrent);
-
-            const file = torrent.files.find(file => file.name.endsWith('.mp4'));
-            if (file) {
-                file.renderTo('video');
-            } else {
-                console.error('No suitable file found');
-            }
+        window.webtor = window.webtor || [];
+        window.webtor.push({
+            id: 'player',
+            magnet: 'magnet:?xt=urn:btih:eb1779e24406f2a3943bb7d80b50b65dd9cbbffd&dn=Oddity+(2024)+%5B720p%5D+%5BWEBRip%5D+%5BYTS.MX%5D',
+            poster: 'https://via.placeholder.com/150/0000FF/808080',
+            subtitles: [
+                {
+                    srclang: 'en',
+                    label: 'English',
+                    src: 'https://raw.githubusercontent.com/andreyvit/subtitle-tools/master/sample.srt',
+                    default: true,
+                }
+            ],
+            lang: 'en',
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js" charset="utf-8" async></script>
 </body>
 </html>
