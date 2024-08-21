@@ -133,89 +133,105 @@
 </div>
 
 <script>
-    const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
+    const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
 
-    // استخراج معرف الفيلم من iframe
-    function extractImdbIdFromIframe() {
-        const iframe = document.getElementById('movieIframe');
-        const src = iframe.src;
-        const match = src.match(/imdb=(tt\d+)/);
-        return match ? match[1] : null;
+async function fetchMovieDetails(tmdbId) {
+  const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=ar`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('فشل في جلب تفاصيل الفيلم.');
     }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('خطأ في جلب تفاصيل الفيلم:', error);
+    return null;
+  }
+}
 
-    const imdbId = extractImdbIdFromIframe();
-    if (imdbId) {
-        const apiUrl = `https://api.themoviedb.org/3/find/${imdbId}?api_key=${tmdbApiKey}&language=en&external_source=imdb_id`;
+async function fetchMovieVideos(tmdbId) {
+  const url = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}&language=en`;
 
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                if (data.movie_results.length > 0) { 
-                    const tmdbMovieId = data.movie_results[0].id;
-                    const tmdbApiUrl = `https://api.themoviedb.org/3/movie/${tmdbMovieId}?api_key=${tmdbApiKey}&language=ar`;
-                    displayMediaDetails(tmdbApiUrl, 'movie');
-                } else if (data.tv_results.length > 0) { 
-                    const tmdbTvId = data.tv_results[0].id;
-                    const tmdbApiUrl = `https://api.themoviedb.org/3/tv/${tmdbTvId}?api_key=${tmdbApiKey}&language=ar`;
-                    displayMediaDetails(tmdbApiUrl, 'tv');
-                } else {
-                    console.error('No data found for media with ID:', imdbId);
-                }
-            })
-            .catch(error => console.error('Error fetching media details:', error));
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('فشل في جلب فيديوهات الفيلم.');
+    }
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error('خطأ في جلب فيديوهات الفيلم:', error);
+    return [];
+  }
+}
+
+function getQueryParameter(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+async function checkIframeMessage() {
+  const iframe = document.getElementById('movie-embed-container').querySelector('iframe');
+  iframe.onload = function() {
+    const iframeContent = iframe.contentDocument || iframe.contentWindow.document;
+    const messageElement = iframeContent.querySelector('h4');
+    if (messageElement && messageElement.textContent === 'This media is unavailable at the moment.') {
+      // Redirect to a custom error page or previous page
+      window.location.href = '/error-page.html'; // or '/previous-page.html'
+    }
+  };
+}
+
+async function displayMovieDetails() {
+  const tmdbId = getQueryParameter('tmdb_id');
+
+  if (!tmdbId) {
+    document.getElementById('movie-details').innerHTML = '<p>لم يتم توفير معرّف الفيلم.</p>';
+    return;
+  }
+
+  const movieData = await fetchMovieDetails(tmdbId);
+  const movieVideos = await fetchMovieVideos(tmdbId);
+
+  if (movieData) {
+    document.querySelector('h1').textContent = movieData.title || 'لا يوجد عنوان';
+    document.querySelector('img').src = movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : '';
+    document.getElementById('release-date').textContent = movieData.release_date || 'غير متوفر';
+    document.getElementById('overview').textContent = movieData.overview || 'لا يوجد ملخص متاح.';
+
+    // Display genre
+    const genres = movieData.genres.map(genre => genre.name).join(', ');
+    document.getElementById('genre').textContent = genres || 'غير متوفر';
+
+    // Display rating (formatted to 1 decimal place)
+    const rating = movieData.vote_average ? movieData.vote_average.toFixed(1) : 'غير متوفر';
+    document.getElementById('rating').textContent = `${rating} / 10`;
+
+    // Embed movie from Vidsrc
+    document.getElementById('movie-embed-container').innerHTML = `
+      <iframe src="https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}" allowfullscreen></iframe>
+    `;
+
+    // Check the iframe message
+    checkIframeMessage();
+
+    // Find and display the first trailer
+    const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+    if (trailer) {
+      document.getElementById('trailer-container').innerHTML = `
+        <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
+      `;
     } else {
-        console.error('No IMDb ID found in the iframe src.');
+      document.getElementById('trailer-container').innerHTML = '<p>لا يوجد تريلر متاح.</p>';
     }
+  } else {
+    document.getElementById('movie-details').innerHTML = '<p>فشل في تحميل تفاصيل الفيلم.</p>';
+  }
+}
 
-    function displayMediaDetails(apiUrl, type) {
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                const imdbRating = (Math.round(data.vote_average * 10) / 10).toFixed(1);
-                const trimmedOverview = data.overview ? data.overview.trim() : 'لا توجد تفاصيل.';
-                const releaseYear = data.release_date ? data.release_date.split('-')[0] : 'غير متوفر';
-                const mediaInfo = `
-                    <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
-                    <h2 class="movie-title">${data.title || data.name}</h2>
-                    <div class="movie-details">
-                        <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
-                        <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
-                        <p><strong>التقييم:</strong> ${imdbRating}/10</p>
-                        <div class="story-container">
-                            <div class="story-title">: القصة</div>
-                            <div class="story">${trimmedOverview}</div>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('movieInfo').innerHTML = mediaInfo;
-
-                const videoType = type === 'movie' ? 'movie' : 'tv';
-                const videoUrl = `https://api.themoviedb.org/3/${videoType}/${data.id}?api_key=${tmdbApiKey}&append_to_response=videos`;
-                fetch(videoUrl)
-                    .then(response => response.json())
-                    .then(videoData => {
-                        if (videoData.videos.results.length > 0) {
-                            const videoKey = videoData.videos.results[0].key;
-                            const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
-                            const trailerContainer = document.getElementById('trailerContainer');
-                            trailerContainer.innerHTML = `
-                                <h3>التريلر</h3>
-                                <iframe src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
-                            `;
-                        } else {
-                            console.error('No video found for this media.');
-                            const trailerContainer = document.getElementById('trailerContainer');
-                            trailerContainer.innerHTML = '<p>لا يوجد إعلان متوفر لهذا الفيلم.</p>';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching media video:', error);
-                        const trailerContainer = document.getElementById('trailerContainer');
-                        trailerContainer.innerHTML = '<p>حدث خطأ في تحميل الإعلان.</p>';
-                    });
-            })
-            .catch(error => console.error('Error fetching media details:', error));
-    }
+window.onload = displayMovieDetails;
 </script>
 </body>
 </html>
