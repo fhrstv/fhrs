@@ -1,208 +1,310 @@
 <!DOCTYPE html>
-
-
-  
-  
-  
+<html lang="ar">
 <head>
-    <title>فهرس</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-<script src=".htaccess" defer></script>
-<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
-<link rel="stylesheet" type="text/css" href="style.css">
-    <script src="scripit.js" defer></script>
-    
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فهرس الأفلام</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #141414;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
 
-    <style>
-        body {
-    font-family: 'Tajawal', Arial, sans-serif;
-    background-color: #1C1C1E; /* Darker background for a more immersive experience */
-    color: #E5E5E5; /* Softer white for readability */
-    margin: 0;
-    padding: 0;
-}
+    header {
+      background-color: #000;
+      color: #e50914;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
 
-header {
-    background-color: transparent; /* Keep background transparent */
-    color: #E50914; /* Netflix-inspired red for the header text */
-    text-align: center;
-    padding: 15px;
-    font-size: 24px;
-    font-weight: 700;
-}
+    h1 {
+      margin: 0;
+      font-size: 36px;
+    }
 
-header a {
-    color: #E50914;
-    text-decoration: none; /* No underline */
-}
+    .content {
+      padding: 20px;
+      text-align: center;
+    }
 
-header a:hover {
-    text-decoration: underline; /* Underline on hover for emphasis */
-}
+    .search-container {
+      position: relative;
+      margin: 20px auto;
+      max-width: 600px;
+      margin-bottom: 330px;
+    }
 
-a {
-    text-decoration: none;
-    color: #ffffff;
-    display: block;
-    padding: 15px;
-    border-radius: 10px;
-    background-color: #444; /* Neutral dark background for buttons */
-    transition: background-color 0.3s, transform 0.3s;
-    font-size: 20px;
-    text-align: center;
-    margin: 20px auto;
-    width: 60%;
-    max-width: 600px;
-}
+    #search-input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid #444;
+      background-color: #333;
+      color: #fff;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
 
-a:hover {
-    background-color: #E50914; /* Consistent red color on hover */
-    transform: scale(1.05);
-}
+    .movie-list {
+      list-style: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-top: none;
+      margin: 0;
+      border-radius: 0 0 5px 5px;
+      background-color: #333;
+      border: 1px solid #444;
+      position: absolute;
+      width: 100%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 1;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
 
-.content {
-    padding: 20px;
-    background-color: #2C2C2C; /* Slightly lighter background for content */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
-    border-radius: 10px;
-    text-align: center;
-}
+    .movie-list.show {
+      display: block;
+    }
 
-h1, h2, h3, h5 {
-    color: #ffffff;
-}
+    .movie-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #444;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      color: #fff;
+    }
 
-p, .movie-item {
-    color: #D1D1D1; /* Lighter text color for readability */
-}
+    .movie-item:hover {
+      background-color: #555;
+    }
 
-.movie-list {
-    list-style-type: none;
-    padding: 0;
-}
+    .movie-item img {
+      width: 75px;
+      height: 100px;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
 
-.movie-item {
-    margin: 10px;
-}
+    .movie-item span {
+      flex: 1;
+      text-align: left;
+    }
 
-input[type="text"] {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #333;
-    background-color: #444;
-    color: #ffffff;
-    width: 100%;
-    max-width: 300px;
-    font-size: 16px;
-}
+    .poster-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+    }
 
-input[type="submit"] {
-    background-color: #E50914;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
+    #poster-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      width: 100%;
+    }
 
-#randomButton {
-    background-color: #E50914;
-    color: #ffffff;
-    padding: 15px;
-    border-radius: 10px;
-    transition: background-color 0.3s, transform 0.3s;
-    font-size: 20px;
-    text-align: center;
-    margin: 20px auto;
-    width: 60%;
-    max-width: 600px;
-}
+    .posters {
+      display: flex;
+      transition: transform 0.3s ease-in-out;
+      margin: 0;
+      padding: 0;
+    }
 
-#randomButton:hover {
-    background-color: #ff9500;
-    transform: scale(1.05);
-}
+    .poster {
+      margin: 0 10px;
+      flex: 0 0 300px;
+      border: 5px solid #444;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
 
-        h4.telegram-link {
-            font-size: 14px;
-            color: #1da1f2;
-        }
+    .poster.selected {
+      border-color: #e50914; /* اللون الأحمر للإطار حول البوستر المحدد */
+      border-width: 7px; /* سمك الإطار */
+    }
 
-        h4.telegram-link a {
-            color: #1da1f2;
-            text-decoration: none;
-        }
+    .poster:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+    }
 
-        h4.telegram-link img {
-            width: 14px;
-            height: 14px;
-            margin-left: 5px;
-            vertical-align: middle;
-        }
+    .poster img {
+      width: 100%;
+      height: auto;
+    }
 
-        h4.telegram-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    #movie-details {
+      text-align: center;
+      margin-top: 20px;
+    }
 
-        h3 {
-            font-size: 15px;
-        }
+    #movie-title {
+      font-size: 28px;
+      margin: 10px 0;
+    }
 
-        h5 {
-            font-size: 20px;
-        }
+    #movie-year {
+      font-size: 18px;
+      color: #aaa;
+    }
 
-        
+    .nav-button {
+      background-color: #e50914;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 24px;
+      padding: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      margin: 0 10px;
+    }
 
+    .nav-button:hover {
+      background-color: #f40612;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+    }
 
-
-
-    </style>
-    <!-- تضمين الخط العربي Tajawal -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap">
+    .nav-button:disabled {
+      background-color: #666;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
-    <header>
-    <div onclick="window.location.href='/'" style="cursor: pointer;">فهرس</div>
-    </header>
-    <div class="content">
-        <h2>اكبر موقع فهرسه بالوطن العربي</h2>
-        <h5>فهرس هي قائمتك للمشاهدة</h5>
-        
-<h3>جميع ما يعرض هنا تم رفعه من قبل اشخاص اخرين<br>نحن لا نخزن و لا نرفع و لا ننشر <br>فقط نعرض اسهل طريقة للمشاهدة </h3>
-
-<h4 class="telegram-link">
-  <span onclick="window.open('https://t.me/fhrs_updates', '_blank');">
-    <img src="https://telegram.org/img/t_logo.png" alt="تليجرام">
-انضموا إلى قناتنا في التيليجرام لمعرفة آخر تحديثات موقعنا
-  </span>
-</h4>
-        <!-- نتائج البحث -->
-        <div class="search-results" id="searchResults">
-            <!-- هنا سيتم عرض نتائج البحث -->
-        </div>
-        <!-- قائمة الأفلام والمسلسلات الأخرى -->
-        <ul class="movie-list">
-            <!-- إضافة العناصر هنا -->
-
-          <li class="movie-item"><a href="Movies">الافلام الاجنبية</a></li>
-                    <li class="movie-item"><a href="Series">المسلسلات الاجنبية</a></li>
-                    <li class="movie-item"><a href="Arabic">الافلام و المسلسلات العربية</a></li>
-                    <li class="movie-item"><a href="Anime">الافلام و المسلسلات الانمي</a></li>
-                    <li class="movie-item"><a href="Stories">قصص حقيقية</a></li>
-            <li class="movie-item"><a href="Faq">الاسئلة الشائعة</a></li>
-            <li class="movie-item"><a href="Call">اتصل بنا<br>(للطلب أو الابلاغ)</a></li>
-            
-            <!-- يمكنك إضافة المزيد من الأفلام والمسلسلات هنا -->
-        </ul>
+  <header>
+    <h1>فهرس الأفلام</h1>
+  </header>
+  <div class="content">
+    <div class="search-container">
+      <input type="text" id="search-input" placeholder="ابحث عن فيلم...">
+      <ul class="movie-list"></ul>
     </div>
-<script src="scripit.js"></script>
-<script src="random.js"></script>
 
+    <div class="poster-container">
+      <button id="prev-button" class="nav-button" disabled>&#10094;</button>
+      <div id="poster-wrapper">
+        <div class="posters">
+          <!-- posters will be added here -->
+        </div>
+      </div>
+      <button id="next-button" class="nav-button" disabled>&#10095;</button>
+    </div>
+
+    <div id="movie-details">
+      <h2 id="movie-title">عنوان الفيلم</h2>
+      <p id="movie-year">سنة الإصدار</p>
+    </div>
+  </div>
+  <script>
+   const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+let movies = [];
+let currentIndex = 0;
+
+// تحديث حالة الأزرار
+function updateButtonStates() {
+  document.getElementById('prev-button').disabled = currentIndex === 0;
+  document.getElementById('next-button').disabled = currentIndex === movies.length - 1;
+}
+
+// الانتقال إلى اليسار
+document.getElementById('prev-button').addEventListener('click', () => {
+  if (movies.length > 0 && currentIndex > 0) {
+    currentIndex--;
+    updatePoster(movies[currentIndex]);
+    updatePosters();
+    updateButtonStates();
+  }
+});
+
+// الانتقال إلى اليمين
+document.getElementById('next-button').addEventListener('click', () => {
+  if (movies.length > 0 && currentIndex < movies.length - 1) {
+    currentIndex++;
+    updatePoster(movies[currentIndex]);
+    updatePosters();
+    updateButtonStates();
+  }
+});
+
+// تحديث البوستر
+function updatePoster(movie) {
+  document.getElementById('movie-title').textContent = movie.title || 'عنوان الفيلم';
+  document.getElementById('movie-year').textContent = new Date(movie.release_date).getFullYear() || 'سنة الإصدار';
+}
+
+// تحديث البوسترات
+function updatePosters() {
+  const posters = document.querySelectorAll('.poster');
+  posters.forEach(poster => poster.classList.remove('selected')); // إزالة الإطار الأحمر من جميع البوسترات
+  if (posters[currentIndex]) {
+    posters[currentIndex].classList.add('selected'); // إضافة الإطار الأحمر إلى البوستر المحدد
+  }
+  const postersContainer = document.querySelector('.posters');
+  const offset = -currentIndex * 320; // 320px هو عرض البوستر + مسافة بين البوسترات
+  postersContainer.style.transform = `translateX(${offset}px)`;
+}
+
+// جلب الأفلام التي تعرض الآن
+async function fetchNowPlayingMovies() {
+  const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('فشل في تحميل الأفلام التي تعرض الآن');
+    }
+    const data = await response.json();
+    return data.results || [];
+  } catch (error) {
+    console.error('خطأ في جلب الأفلام التي تعرض الآن', error);
+    return [];
+  }
+}
+
+async function initialize() {
+  movies = await fetchNowPlayingMovies();
+  const postersContainer = document.querySelector('.posters');
+
+  movies.forEach((movie, index) => {
+    const posterDiv = document.createElement('div');
+    posterDiv.classList.add('poster');
+    posterDiv.innerHTML = `
+      <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title}">
+    `;
+    posterDiv.addEventListener('click', () => {
+      currentIndex = index;
+      updatePoster(movie);
+      updatePosters();
+      updateButtonStates();
+    });
+    postersContainer.appendChild(posterDiv);
+  });
+
+  if (movies.length > 0) {
+    updatePoster(movies[currentIndex]);
+    updatePosters();
+    updateButtonStates();
+  }
+}
+
+initialize();
+  </script>
 </body>
 </html>
