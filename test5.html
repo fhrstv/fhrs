@@ -36,13 +36,23 @@
         }
 
         header {
-            background-color: none;
-            color: #e50914;
-            text-align: center;
-            padding: 15px;
-            font-size: 24px;
-            font-weight: 700;
-        }
+    background-color: transparent; /* إزالة الخلفية */
+    color: #e50914;
+    text-align: center;
+    padding: 15px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* تنسيق الرابط داخل الهيدر */
+header a {
+    color: #e50914;
+    text-decoration: none; /* إزالة الخط تحت النص */
+}
+
+header a:hover {
+    text-decoration: underline; /* إضافة خط تحت النص عند المرور */
+}
 
         .container {
             max-width: 800px;
@@ -194,8 +204,8 @@
 </head>
 <body>
     <header>
-        <h1>فهرس</h1>
-    </header>
+    <a href="/">فهرس</a> <!-- الرابط يؤدي إلى الصفحة الرئيسية -->
+</header>
     <div class="content">
         <h2>اكبر موقع فهرسه بالوطن العربي</h2>
         <h5>فهرس هي قائمتك للمشاهدة</h5>
