@@ -242,3 +242,4 @@ function updateMovieList(movies, query) {
     movieList.style.display = sortedMovies.length ? 'block' : 'none';
     movieList.scrollTop = 0;
 }
+
