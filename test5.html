@@ -16,10 +16,10 @@
     color: #fff;
     margin: 0;
     padding: 0;
-
     overflow-x: hidden;
-    touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+    touch-action: manipulation;
 }
+
 
 
 header {
@@ -27,7 +27,16 @@ header {
     color: hsl(0, 94%, 46%);
     text-align: center;
     padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
+    height: 100px; /* يمكنك تعديل الارتفاع حسب الحاجة */
+    margin-top: -20px; /* هذا السطر لضبط الهيدر فوق شريط الإشعارات */
 }
+
 
 
 
@@ -36,6 +45,8 @@ header {
 
 h1 {
     margin: 0;
+    padding-top: 30px; /* لإزاحة النص إلى الأسفل قليلاً داخل الهيدر */
+    font-size: 24px;
 }
 
 .content {
