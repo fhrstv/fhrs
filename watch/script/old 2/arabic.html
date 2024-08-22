@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>فهرس</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="script.js" defer></script>
+    <script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  color: #000;
+}
+
+header {
+  background-color: #333;
+  color: hsl(0, 94%, 46%);
+  text-align: center;
+  padding: 10px;
+}
+
+h1 {
+  margin: 0;
+}
+
+.content {
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.movie-list {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+.head-center {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+.movie-item {
+  margin: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: red;
+  transition: background-color 0.3s;
+  font-size: 25px;
+}
+
+a:hover {
+  background-color: gold;
+}
+
+h2 {
+  text-align: center;
+}
+
+.search-box {
+  text-align: center;
+  margin-top: 20px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 300px;
+}
+
+input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#search-input {
+  touch-action: none;
+}
+
+/* Media Queries */
+
+/* 50px to 375px (small screens) */
+@media (max-width: 375px) {
+  header {
+    padding: 5px;
+  }
+
+  a {
+    font-size: 20px;
+    padding: 15px;
+  }
+
+  .search-box {
+    margin-top: 15px;
+  }
+
+  input[type="text"], input[type="submit"] {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* 376px to 425px */
+@media (min-width: 376px) and (max-width: 425px) {
+  a {
+    font-size: 22px;
+    padding: 18px;
+  }
+
+  .search-box {
+    margin-top: 18px;
+  }
+
+  input[type="text"], input[type="submit"] {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+/* 426px to 768px (tablets and small desktops) */
+@media (min-width: 426px) and (max-width: 768px) {
+  header {
+    padding: 10px 20px;
+  }
+
+  a {
+    font-size: 24px;
+    padding: 20px;
+  }
+
+  .search-box {
+    margin-top: 20px;
+  }
+
+  input[type="text"], input[type="submit"] {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+/* 769px to 1024px (small desktops and large tablets) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .content {
+    padding: 30px;
+  }
+
+  a {
+    font-size: 26px;
+    padding: 22px;
+  }
+
+  .search-box {
+    margin-top: 25px;
+  }
+
+  input[type="text"], input[type="submit"] {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+/* 1025px to 1440px (desktops and larger screens) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .content {
+    padding: 40px;
+  }
+
+  a {
+    font-size: 28px;
+    padding: 24px;
+  }
+
+  .search-box {
+    margin-top: 30px;
+  }
+
+  input[type="text"], input[type="submit"] {
+    width: 100%;
+    max-width: 450px;
+  }
+}
+
+/* 1441px to 2560px (large desktops and screens) */
+@media (min-width: 1441px) and (max-width: 2560px) {
+  .content {
+    padding: 50px;
+  }
+
+  a {
+    font-size: 30px;
+    padding: 26px;
+  }
+
+  .search-box {
+    margin-top: 35px;
+  }
+
+  input[type="text"], input[type="submit"] {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+/* 2561px and above (extra-large screens) */
+@media (min-width: 2561px) {
+  .content {
+    padding: 60px;
+  }
+
+  a {
+    font-size: 32px;
+    padding: 28px;
+  }
+
+  .search-box {
+    margin-top: 40px;
+  }
+
+  input[type="text"], input[type="submit"] {
+    width: 100%;
+    max-width: 600px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>فهرس</h1>
+  </header>
+  <div class="content">
+    <h2>الافلام و المسلسلات العربية</h2>
+
+        <div class="search-box">
+      <input type="text" id="search-input" dir="auto" style="text-align: center;" placeholder="اكتب اسم الفيلم او المسلسل هنا">
+    </div>
+    <ul class="head-center">
+      <li class="head-item"><a href="/">رجوع</a></li>
+        </ul>
+            <ul class="movie-list" id="movie-list">
+  <li id="loading-message">جاري تحميل...</li>
+</ul>
+<script src="Arabic.js"></script>
+</body>
+</html>
