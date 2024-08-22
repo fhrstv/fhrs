@@ -271,12 +271,13 @@ h1 {
         </div>
     </div>
     <script>
-        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+          const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
         let movies = [];
         let currentIndex = 0;
         let hideTimeout;
 
-        // تحديث حالة الأزرارfunction updateButtonStates() {
+        // تحديث حالة الأزرار
+        function updateButtonStates() {
             document.getElementById('prev-button').disabled = currentIndex === 0;
             document.getElementById('next-button').disabled = movies.length <= 1;
         }
@@ -304,6 +305,7 @@ h1 {
                 updateButtonStates();
             }
         });
+
         // تحديث البوستر
         function updatePoster(movie) {
             document.getElementById('current-poster').src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
