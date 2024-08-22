@@ -154,7 +154,7 @@ function updatePoster(movie) {
 
     document.getElementById('current-poster').addEventListener('click', () => {
         const tmdbId = movie.id;
-        const url = `watch.html?tmdbId=${tmdbId}`;
+        const url = `watch_movie?tmdb_id=${tmdbId}`;
         window.location.href = url;
     });
 }
