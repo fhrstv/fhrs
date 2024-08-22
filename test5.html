@@ -10,197 +10,217 @@
     <script src=".htaccess" defer></script>
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #141414;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+     body {
+    font-family: 'Arial', sans-serif;
+    background-color: #141414;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
 
-        header {
-            background-color: #000;
-            color: #e50914;
-            text-align: center;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            cursor: pointer; /* اجعل المؤشر يظهر كيد اليد عند المرور فوق الهيدر */
-        }
+header {
+    background-color: #000;
+    color: #e50914;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    cursor: pointer; /* اجعل المؤشر يظهر كيد اليد عند المرور فوق الهيدر */
+}
 
-        h1 {
-            margin: 0;
-            font-size: 36px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
+h1 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
 
-        .content {
-            padding: 20px;
-            text-align: center;
-        }
+.content {
+    padding: 20px;
+    text-align: center;
+}
 
-        .search-container {
-            position: relative;
-            margin: 20px auto;
-            max-width: 600px;
-            margin-bottom: 330px;
-        }
+.search-container {
+    position: relative;
+    margin: 20px auto;
+    max-width: 600px;
+    margin-bottom: 100px; /* قم بتعديل المسافة حسب الحاجة */
+}
 
-        #search-input {
-            width: 100%;
-            padding: 15px;
-            border-radius: 5px;
-            border: 1px solid #444;
-            background-color: #333;
-            color: #fff;
-            font-size: 16px;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-        }
+#search-input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
 
-        #search-input:focus {
-            outline: none;
-            border-color: #e50914;
-            box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
-        }
+#search-input:focus {
+    outline: none;
+    border-color: #e50914;
+    box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
+}
 
-        .movie-list {
-            list-style: none;
-            padding: 0;
-            max-height: 300px;
-            overflow-y: auto;
-            margin: 0;
-            border-radius: 0 0 5px 5px;
-            background-color: #333;
-            border: 1px solid #444;
-            position: absolute;
-            width: 100%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            display: none;
-            z-index: 1;
-        }
+.movie-list {
+    list-style: none;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    margin: 0;
+    border-radius: 0 0 5px 5px;
+    background-color: #333;
+    border: 1px solid #444;
+    position: absolute;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1;
+}
 
-        .movie-list.show {
-            display: block;
-        }
+.movie-list.show {
+    display: block;
+}
 
-        .movie-item {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #444;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            color: #fff;
-        }
+.movie-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #fff;
+}
 
-        .movie-item:hover {
-            background-color: #555;
-        }
+.movie-item:hover {
+    background-color: #555;
+}
 
-        .movie-item img {
-            width: 75px;
-            height: 100px;
-            border-radius: 5px;
-            margin-right: 10px;
-            transition: transform 0.3s ease;
-        }
+.movie-item img {
+    width: 75px;
+    height: 100px;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
 
-        .movie-item img:hover {
-            transform: scale(1.1);
-        }
+.movie-item img:hover {
+    transform: scale(1.1);
+}
 
-        .movie-item span {
-            flex: 1;
-            text-align: left;
-        }
+.movie-item span {
+    flex: 1;
+    text-align: left;
+}
 
-        .poster-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px 0;
-        }
+.poster-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
 
-        #poster-wrapper {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            max-width: 500px; /* أقصى عرض للبستر */
-        }
+#poster-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px; /* أقصى عرض للبستر */
+}
 
-        .poster {
-            border: 5px solid #444;
-            border-radius: 10px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-            flex: 0 0 300px; /* عرض البوستر */
-            height: auto; /* الارتفاع التلقائي للبوستر */
-        }
+.poster {
+    border: 5px solid #444;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    flex: 0 0 300px; /* عرض البوستر */
+    height: auto; /* الارتفاع التلقائي للبوستر */
+}
 
-        .poster.selected {
-            border-color: #e50914;
-            border-width: 7px;
-        }
+.poster.selected {
+    border-color: #e50914;
+    border-width: 7px;
+}
 
-        .poster:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
-        }
+.poster:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+}
 
-        .poster img {
-            width: 100%;
-            height: auto;
-        }
+.poster img {
+    width: 100%;
+    height: auto;
+}
 
-        #movie-details {
-            text-align: center;
-            margin-top: 20px;
-        }
+#movie-details {
+    text-align: center;
+    margin-top: 20px;
+}
 
-        #movie-title {
-            font-size: 28px;
-            margin: 10px 0;
-            font-weight: bold;
-            color: #e50914;
-        }
+.details-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding: 0 20px;
+    justify-content: center; /* لتوسيط العناصر داخل الحاوية */
+    gap: 15px; /* لضبط المسافة بين العناصر */
+}
 
-        #movie-year {
-            font-size: 18px;
-            color: #aaa;
-            margin-top: -5px;
-        }
+#movie-title {
+    font-size: 28px;
+    margin: 0;
+    font-weight: bold;
+    color: #e50914;
+    text-align: center;
+}
 
-        .nav-button {
-            background-color: #e50914;
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            font-size: 24px;
-            padding: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            margin: 0 5px; /* تقليل المسافة بين الأزرار والبوستر */
-        }
+#movie-year {
+    font-size: 18px;
+    color: #aaa;
+    margin: 0;
+}
 
-        .nav-button:hover {
-            background-color: #f40612;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
-        }
+.nav-buttons {
+    position: fixed; /* اجعل الأزرار ثابتة */
+    bottom: 20px; /* المسافة من أسفل الصفحة */
+    left: 50%;
+    transform: translateX(-50%); /* لتوسيط الأزرار بشكل أفقي */
+    display: flex;
+    gap: 10px; /* لضبط المسافة بين الأزرار */
+    z-index: 1000; /* تأكد من ظهور الأزرار فوق العناصر الأخرى */
+}
 
-        .nav-button:disabled {
-            background-color: #666;
-            cursor: not-allowed;
-        }
+.nav-button {
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    user-select: none;
+    margin: 0; /* إزالة المسافة بين الأزرار */
+}
+
+.nav-button:hover {
+    background-color: #f40612;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+}
+
+.nav-button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+}
+
     </style>
 </head>
 <body>
@@ -214,19 +234,23 @@
         </div>
 
         <div class="poster-container">
-            <button id="prev-button" class="nav-button" disabled>&#10094;</button>
             <div id="poster-wrapper">
                 <div class="poster">
                     <!-- البوستر الحالي سيتم إضافته هنا -->
                     <img id="current-poster" src="" alt="بوستر الفيلم">
                 </div>
             </div>
-            <button id="next-button" class="nav-button" disabled>&#10095;</button>
         </div>
 
         <div id="movie-details">
-            <h2 id="movie-title">عنوان الفيلم</h2>
-            <p id="movie-year">سنة الإصدار</p>
+            <div class="details-container">
+                <button id="prev-button" class="nav-button" disabled>&#10094;</button>
+                <div>
+                    <h2 id="movie-title">عنوان الفيلم</h2>
+                    <p id="movie-year">سنة الإصدار</p>
+                </div>
+                <button id="next-button" class="nav-button" disabled>&#10095;</button>
+            </div>
         </div>
     </div>
     <script>
@@ -267,9 +291,9 @@
 
         // تحديث البوستر
         function updatePoster(movie) {
-            document.getElementById('movie-title').textContent = movie.title || 'عنوان الفيلم';
-            document.getElementById('movie-year').textContent = new Date(movie.release_date).getFullYear() || 'سنة الإصدار';
             document.getElementById('current-poster').src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+            document.getElementById('movie-title').textContent = movie.title;
+            document.getElementById('movie-year').textContent = movie.release_date ? movie.release_date.split('-')[0] : 'غير متوفر';
         }
 
         // جلب الأفلام المتاحة حاليًا
