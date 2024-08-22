@@ -3,455 +3,335 @@
 <head>
     <meta charset="UTF-8">
     <title>فهرس</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">      <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-      <link rel="stylesheet" type="text/css" href="style.css">
-      <script src="script.js" defer></script>
-      <script src=".htaccess" defer></script>
-  <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
-  <style>
-   body {
-    font-family: 'Arial', sans-serif;
-    background-color: #141414;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    overflow-x: hidden;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="اكبر موقع فهرسة للأفلام والمسلسلات">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="script.js" defer></script>
+    <script src=".htaccess" defer></script>
+    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #141414;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-header {
-    background-color: #000;
-    color: #e50914;
-    text-align: center;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    cursor: pointer; /* اجعل المؤشر يظهر كيد اليد عند المرور فوق الهيدر */
+        header {
+            background-color: #000;
+            color: #e50914;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            cursor: pointer; /* اجعل المؤشر يظهر كيد اليد عند المرور فوق الهيدر */
+        }
 
-}
+        h1 {
+            margin: 0;
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
 
-h1 {
-    margin: 0;
-    font-size: 36px;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
 
-.content {
-    padding: 20px;
-    text-align: center;
-}
+        .search-container {
+            position: relative;
+            margin: 20px auto;
+            max-width: 600px;
+            margin-bottom: 330px;
+        }
 
-.search-container {
-    position: relative;
-    margin: 20px auto;
-    max-width: 600px;
-    margin-bottom: 330px;
-}
+        #search-input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
 
-#search-input {
-    width: 100%;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid #444;
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-}
+        #search-input:focus {
+            outline: none;
+            border-color: #e50914;
+            box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
+        }
 
-#search-input:focus {
-    outline: none;
-    border-color: #e50914;
-    box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
-}
+        .movie-list {
+            list-style: none;
+            padding: 0;
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 0;
+            border-radius: 0 0 5px 5px;
+            background-color: #333;
+            border: 1px solid #444;
+            position: absolute;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1;
+        }
 
-.movie-list {
-    list-style: none;
-    padding: 0;
-    max-height: 300px;
-    overflow-y: auto;
-    margin: 0;
-    border-radius: 0 0 5px 5px;
-    background-color: #333;
-    border: 1px solid #444;
-    position: absolute;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    display: none;
-    z-index: 1;
-}
+        .movie-list.show {
+            display: block;
+        }
 
-.movie-list.show {
-    display: block;
-}
+        .movie-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #444;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: #fff;
+        }
 
-.movie-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #444;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    color: #fff;
-}
+        .movie-item:hover {
+            background-color: #555;
+        }
 
-.movie-item:hover {
-    background-color: #555;
-}
+        .movie-item img {
+            width: 75px;
+            height: 100px;
+            border-radius: 5px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
 
-.movie-item img {
-    width: 75px;
-    height: 100px;
-    border-radius: 5px;
-    margin-right: 10px;
-    transition: transform 0.3s ease;
-}
+        .movie-item img:hover {
+            transform: scale(1.1);
+        }
 
-.movie-item img:hover {
-    transform: scale(1.1);
-}
+        .movie-item span {
+            flex: 1;
+            text-align: left;
+        }
 
-.movie-item span {
-    flex: 1;
-    text-align: left;
-}
+        .poster-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
 
-.poster-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-}
+        #poster-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
 
-#poster-wrapper {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    width: 100%;
-}
+        .poster {
+            border: 5px solid #444;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            flex: 0 0 300px; /* عرض البوستر */
+            height: auto; /* الارتفاع التلقائي للبوستر */
+        }
 
-.posters {
-    display: inline-flex;
-    transition: transform 0.3s ease-in-out;
-    margin: 0;
-    padding: 0;
-    overflow-x: initial;
-}
+        .poster.selected {
+            border-color: #e50914;
+            border-width: 7px;
+        }
 
-.poster {
-    margin: 0 10px;
-    flex: 0 0 300px;
-    border: 5px solid #444;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
-    overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-}
+        .poster:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+        }
 
-.poster.selected {
-    border-color: #e50914;
-    border-width: 7px;
-}
+        .poster img {
+            width: 100%;
+            height: auto;
+        }
 
-.poster:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
-}
+        #movie-details {
+            text-align: center;
+            margin-top: 20px;
+        }
 
-.poster img {
-    width: 100%;
-    height: auto;
-}
+        #movie-title {
+            font-size: 28px;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #e50914;
+        }
 
-#movie-details {
-    text-align: center;
-    margin-top: 20px;
-}
+        #movie-year {
+            font-size: 18px;
+            color: #aaa;
+            margin-top: -5px;
+        }
 
-#movie-title {
-    font-size: 28px;
-    margin: 10px 0;
-    font-weight: bold;
-    color: #e50914;
-}
+        .nav-button {
+            background-color: #e50914;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            margin: 0 10px;
+        }
 
-#movie-year {
-    font-size: 18px;
-    color: #aaa;
-    margin-top: -5px;
-}
+        .nav-button:hover {
+            background-color: #f40612;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+        }
 
-.nav-button {
-    background-color: #e50914;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    font-size: 24px;
-    padding: 15px;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    margin: 0 10px;
-}
-
-.nav-button:hover {
-    background-color: #f40612;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
-}
-
-.nav-button:disabled {
-    background-color: #666;
-    cursor: not-allowed;
-}
-
-
-
-  </style>
+        .nav-button:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 <body>
     <header onclick="window.location.href='/';">
         <h1>فهرس</h1>
     </header>
-  <div class="content">
-    <div class="search-container">
-      <input type="text" id="search-input" placeholder="ابحث عن فيلم...">
-      <ul class="movie-list"></ul>
-    </div>
-
-    <div class="poster-container">
-      <button id="prev-button" class="nav-button" disabled>&#10094;</button>
-      <div id="poster-wrapper">
-        <div class="posters">
-          <!-- posters will be added here -->
+    <div class="content">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="ابحث عن فيلم...">
+            <ul class="movie-list"></ul>
         </div>
-      </div>
-      <button id="next-button" class="nav-button" disabled>&#10095;</button>
+
+        <div class="poster-container">
+            <button id="prev-button" class="nav-button" disabled>&#10094;</button>
+            <div id="poster-wrapper">
+                <div class="poster">
+                    <!-- البوستر الحالي سيتم إضافته هنا -->
+                    <img id="current-poster" src="" alt="بوستر الفيلم">
+                </div>
+            </div>
+            <button id="next-button" class="nav-button" disabled>&#10095;</button>
+        </div>
+
+        <div id="movie-details">
+            <h2 id="movie-title">عنوان الفيلم</h2>
+            <p id="movie-year">سنة الإصدار</p>
+        </div>
     </div>
+    <script>
+        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+        let movies = [];
+        let currentIndex = 0;
+        let hideTimeout;
 
-    <div id="movie-details">
-      <h2 id="movie-title">عنوان الفيلم</h2>
-      <p id="movie-year">سنة الإصدار</p>
-    </div>
-  </div>
-  <script>
-  const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-let allMovies = [];
-let movies = [];
-let currentIndex = 0;
-let hideTimeout;
+        // تحديث حالة الأزرار
+        function updateButtonStates() {
+            document.getElementById('prev-button').disabled = currentIndex === 0;
+            document.getElementById('next-button').disabled = movies.length <= 1;
+        }
 
-// تحديث حالة الأزرار
-function updateButtonStates() {
-  document.getElementById('prev-button').disabled = currentIndex === 0;
-  document.getElementById('next-button').disabled = movies.length === 0;
-}
+        // الانتقال إلى اليسار
+        document.getElementById('prev-button').addEventListener('click', () => {
+            if (movies.length > 1) {
+                currentIndex--;
+                if (currentIndex < 0) {
+                    currentIndex = movies.length - 1; // العودة إلى آخر بوستر إذا كان المؤشر أقل من الصفر
+                }
+                updatePoster(movies[currentIndex]);
+                updateButtonStates();
+            }
+        });
 
-// الانتقال إلى اليسار
-document.getElementById('prev-button').addEventListener('click', () => {
-  if (movies.length > 0) {
-    currentIndex--;
-    if (currentIndex < 0) {
-      currentIndex = movies.length - 1; // العودة إلى آخر بوستر إذا كان المؤشر أقل من الصفر
-    }
-    updatePoster(movies[currentIndex]);
-    updatePosters();
-    updateButtonStates();
-  }
-});
+        // الانتقال إلى اليمين
+        document.getElementById('next-button').addEventListener('click', () => {
+            if (movies.length > 1) {
+                currentIndex++;
+                if (currentIndex >= movies.length) {
+                    currentIndex = 0; // العودة إلى أول بوستر إذا كان المؤشر أكبر من أو يساوي عدد البوسترات
+                }
+                updatePoster(movies[currentIndex]);
+                updateButtonStates();
+            }
+        });
 
-// الانتقال إلى اليمين
-document.getElementById('next-button').addEventListener('click', () => {
-  if (movies.length > 0) {
-    currentIndex++;
-    if (currentIndex >= movies.length) {
-      currentIndex = 0; // العودة إلى أول بوستر إذا كان المؤشر أكبر من أو يساوي عدد البوسترات
-    }
-    updatePoster(movies[currentIndex]);
-    updatePosters();
-    updateButtonStates();
-  }
-});
+        // تحديث البوستر
+        function updatePoster(movie) {
+            document.getElementById('movie-title').textContent = movie.title || 'عنوان الفيلم';
+            document.getElementById('movie-year').textContent = new Date(movie.release_date).getFullYear() || 'سنة الإصدار';
+            document.getElementById('current-poster').src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+        }
 
-// تحديث البوستر
-function updatePoster(movie) {
-  document.getElementById('movie-title').textContent = movie.title || 'عنوان الفيلم';
-  document.getElementById('movie-year').textContent = new Date(movie.release_date).getFullYear() || 'سنة الإصدار';
-}
+        // جلب الأفلام التي تعرض الآن
+        async function fetchNowPlayingMovies() {
+            try {
+                const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=ar`);
+                if (!response.ok) throw new Error('فشل في جلب الأفلام.');
+                const data = await response.json();
+                movies = data.results;
+                if (movies.length > 0) {
+                    updatePoster(movies[0]);
+                    updateButtonStates();
+                }
+            } catch (error) {
+                console.error('خطأ في جلب الأفلام:', error);
+            }
+        }
 
-// تحديث البوسترات
-function updatePosters() {
-  const posters = document.querySelectorAll('.poster');
-  posters.forEach(poster => poster.classList.remove('selected')); // إزالة الإطار الأحمر من جميع البوسترات
-  
-  if (posters[currentIndex]) {
-    posters[currentIndex].classList.add('selected'); // إضافة الإطار الأحمر إلى البوستر المحدد
-  }
-  
-  const postersContainer = document.querySelector('.posters');
-  const offset = -currentIndex * 320; // 320px هو عرض البوستر + مسافة بين البوسترات
-  postersContainer.style.transform = `translateX(${offset}px)`;
-}
+        // تنفيذ البحث وتحديث قائمة الأفلام
+        async function performSearch(query) {
+            if (hideTimeout) clearTimeout(hideTimeout);
+            try {
+                const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=ar&query=${query}`);
+                if (!response.ok) throw new Error('فشل في جلب الأفلام.');
+                const data = await response.json();
+                const movieList = document.querySelector('.movie-list');
+                movieList.innerHTML = ''; // مسح القائمة السابقة
+                data.results.forEach(movie => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'movie-item';
+                    listItem.innerHTML = `
+                        <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title}">
+                        <span>${movie.title}</span>
+                    `;
+                    listItem.addEventListener('click', () => {
+                        currentIndex = movies.findIndex(m => m.id === movie.id);
+                        if (currentIndex !== -1) {
+                            updatePoster(movies[currentIndex]);
+                            updateButtonStates();
+                        }
+                    });
+                    movieList.appendChild(listItem);
+                });
+                if (data.results.length > 0) {
+                    document.querySelector('.movie-list').classList.add('show');
+                }
+            } catch (error) {
+                console.error('خطأ في البحث:', error);
+            }
+        }
 
-// جلب الأفلام التي تعرض الآن
-async function fetchNowPlayingMovies() {
-  const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`;
+        // البحث عند الكتابة في مربع البحث
+        document.getElementById('search-input').addEventListener('input', function () {
+            const query = this.value.trim();
+            if (query.length > 2) {
+                performSearch(query);
+            } else {
+                document.querySelector('.movie-list').classList.remove('show');
+            }
+        });
 
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('فشل في تحميل الأفلام التي تعرض الآن');
-    }
-    const data = await response.json();
-    return data.results || [];
-  } catch (error) {
-    console.error('خطأ في جلب الأفلام التي تعرض الآن', error);
-    return [];
-  }
-}
-
-// وظيفة البحث
-async function searchMovies(query) {
-  const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
-  
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.results || [];
-  } catch (error) {
-    console.error('خطأ في جلب البيانات من TMDB', error);
-    return [];
-  }
-}
-
-function sortMovies(movies, query) {
-  const lowerCaseQuery = query.toLowerCase();
-
-  return movies.sort((a, b) => {
-    const aTitle = a.title.toLowerCase();
-    const bTitle = b.title.toLowerCase();
-
-    const aExactMatch = aTitle === lowerCaseQuery;
-    const bExactMatch = bTitle === lowerCaseQuery;
-
-    if (aExactMatch && !bExactMatch) return -1;
-    if (!aExactMatch && bExactMatch) return 1;
-
-    // ترتيب أبجدي أولاً
-    const titleComparison = aTitle.localeCompare(bTitle);
-    if (titleComparison !== 0) {
-      return titleComparison;
-    }
-
-    // ترتيب حسب السنة إذا كانت العناوين متساوية
-    const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
-    const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
-    return aYear - bYear;
-  });
-}
-
-function updateMovieList(movies, query) {
-  const sortedMovies = sortMovies(movies, query);
-  const movieList = document.querySelector('.movie-list');
-  movieList.innerHTML = '';
-
-  sortedMovies.forEach(movie => {
-    const movieItem = document.createElement('li');
-    movieItem.className = 'movie-item';
-    movieItem.style.display = 'flex';
-    movieItem.style.alignItems = 'center';
-    movieItem.style.justifyContent = 'space-between';
-
-    const poster = document.createElement('img');
-    poster.src = movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : 'default_poster.png';
-    poster.alt = `${movie.title} Poster`;
-    poster.style.width = '75px';
-    poster.style.height = '100px';
-    poster.style.marginLeft = '10px';
-
-    const movieText = document.createElement('span');
-    movieText.textContent = `${movie.title || 'Unnamed Movie'} (${new Date(movie.release_date).getFullYear() || ''})`;
-    movieText.style.flexGrow = '1';
-    movieText.style.textAlign = 'center';
-
-    movieItem.appendChild(movieText);
-    movieItem.appendChild(poster);
-    movieItem.dataset.id = movie.id;
-
-    movieItem.addEventListener('click', () => {
-      window.location.href = `watch_movie?tmdb_id=${movie.id}`;
-    });
-
-    movieList.appendChild(movieItem);
-  });
-
-  movieList.style.display = sortedMovies.length ? 'block' : 'none';
-
-  // ارجاع موضع التمرير الى الاعلى بعد تحديث القائمة
-  movieList.scrollTop = 0;
-}
-
-document.addEventListener('click', function(event) {
-  const searchInput = document.getElementById('search-input');
-  const movieList = document.querySelector('.movie-list');
-
-  // تحقق إذا كان النقر خارج مربع البحث أو القائمة المنسدلة
-  if (!searchInput.contains(event.target) && !movieList.contains(event.target)) {
-    // تأخير لإخفاء القائمة بعد قليل من الوقت، للتأكد من أن الإخفاء يحدث بعد التفاعل الأخير
-    clearTimeout(hideTimeout);
-    hideTimeout = setTimeout(() => {
-      movieList.style.display = 'none';
-    }, 200); // 200 ملي ثانية كمدة التأخير
-  }
-});
-
-document.getElementById('search-input').addEventListener('input', async (event) => {
-  const query = event.target.value.trim();
-  if (query.length > 0) {
-    allMovies = await searchMovies(query);
-    updateMovieList(allMovies, query);
-    document.querySelector('.movie-list').style.display = 'block'; // عرض القائمة عند وجود نص
-  } else {
-    // إخفاء القائمة عند عدم وجود نص بعد تأخير
-    clearTimeout(hideTimeout);
-    hideTimeout = setTimeout(() => {
-      document.querySelector('.movie-list').style.display = 'none';
-    }, 200); // 200 ملي ثانية كمدة التأخير
-  }
-});
-
-async function initialize() {
-  movies = await fetchNowPlayingMovies();
-  const postersContainer = document.querySelector('.posters');
-
-  movies.forEach((movie, index) => {
-    const posterDiv = document.createElement('div');
-    posterDiv.classList.add('poster');
-    posterDiv.innerHTML = `
-      <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title}">
-    `;
-    posterDiv.addEventListener('click', () => {
-      const tmdbId = movie.id;
-      window.location.href = `watch.html?tmdb_id=${tmdbId}`;
-    });
-    postersContainer.appendChild(posterDiv);
-  });
-
-  if (movies.length > 0) {
-    updatePoster(movies[currentIndex]);
-    updatePosters();
-    updateButtonStates();
-  }
-}
-
-window.onload = initialize;
-
-
-  </script>
+        // جلب الأفلام عند تحميل الصفحة
+        window.onload = fetchNowPlayingMovies;
+    </script>
 </body>
 </html>
