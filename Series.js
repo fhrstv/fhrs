@@ -66,7 +66,7 @@ function updateShowList(shows, query) {
         showItem.dataset.id = show.id;
 
         showItem.addEventListener('click', () => {
-            window.location.href = `watch_show?tmdb_id=${show.id}`;
+            window.location.href = `watch_serie?tmdb_id=${show.id}`;
         });
 
         showList.appendChild(showItem);
