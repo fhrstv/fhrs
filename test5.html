@@ -30,8 +30,18 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    cursor: pointer; /* اجعل المؤشر يظهر كيد اليد عند المرور فوق الهيدر */
-      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+    cursor: pointer; /* المؤشر يظهر كيد اليد عند المرور فوق الهيدر */
+    touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+}
+
+header h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5), 
+                 -2px -2px 5px rgba(255, 255, 255, 0.2);
+    perspective: 500px;
+    transform: rotateX(20deg);
 }
 
 h1 {
