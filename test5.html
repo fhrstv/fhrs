@@ -11,30 +11,41 @@
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
     body {
-        font-family: Arial, sans-serif;
-    background-color: #ff0000;
+    font-family: 'Arial', sans-serif;
+    background-color: #141414;
+    color: #fff;
     margin: 0;
     padding: 0;
-    color: #000;
+    line-height: 1.6;
+    overflow-x: hidden;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
-
 
 #header {
-    background-color: #333;
-    color: hsl(0, 0%, 100%);
+    background-color: #000;
+    color: #e50914;
     text-align: center;
-    padding: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: top 0.3s; /* إضافة تأثير الانتقال عند التمرير */
+    font-size: 40px;
 }
-
 
 
 h1 {
     margin: 0;
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .content {
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
@@ -241,6 +252,7 @@ h1 {
     font-size: 14px;
     font-weight: bold;
 }
+
 
 
     </style>
@@ -522,31 +534,6 @@ function updateMovieList(movies, query) {
 
 
 
-
-
-
-let lastScrollTop = 0;
-const header = document.getElementById('header');
-
-// وظيفة التمرير
-window.addEventListener('scroll', function() {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-    if (scrollTop > lastScrollTop) {
-        // المستخدم يقوم بالتمرير لأسفل - إخفاء الهيدر
-        header.style.top = '-100px';
-    } else {
-        // المستخدم يقوم بالتمرير لأعلى - إظهار الهيدر
-        header.style.top = '0';
-    }
-    
-    lastScrollTop = scrollTop;
-});
-
-// وظيفة النقر على الهيدر للانتقال إلى الصفحة الرئيسية
-header.addEventListener('click', function() {
-    window.location.href = '/';
-});
 
 
 
