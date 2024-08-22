@@ -145,7 +145,8 @@ h1 {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-    flex: 0 0 300px; /* عرض البوستر */
+    width: 100%; /* اجعل العرض 100% ليتطابق مع الإطار */
+    max-width: 300px; /* أقصى عرض للبوستر */
     height: auto; /* الارتفاع التلقائي للبوستر */
 }
 
@@ -161,7 +162,8 @@ h1 {
 
 .poster img {
     width: 100%;
-    height: auto;
+    height: 100%; /* اجعل الارتفاع 100% ليتطابق مع الإطار */
+    object-fit: cover; /* لضمان أن الصورة تغطي الإطار بالكامل */
 }
 
 #movie-details {
