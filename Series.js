@@ -167,12 +167,6 @@ async function fetchPopularShows() {
     }
 }
 
-// جلب المسلسلات عند تحميل الصفحة
-window.onload = async () => {
-    fetchPopularShows();
-    displayShows();
-};
-
 window.onload = async () => {
     // قم بإزالة .html من جميع الروابط في الصفحة
     document.querySelectorAll('a').forEach(anchor => {
@@ -182,6 +176,8 @@ window.onload = async () => {
     fetchPopularShows();
     displayShows();
 };
+
+
 
 // وظيفة لتحديث قائمة المسلسلات (تأكد من أنها متوافقة مع المسلسلات)
 function displayShows() {
