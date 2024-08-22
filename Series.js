@@ -35,8 +35,6 @@ function sortShows(shows, query) {
         return b.popularity - a.popularity;
     });
 }
-
-// تحديث قائمة المسلسلات
 function updateShowList(shows, query) {
     const sortedShows = sortShows(shows, query);
     const showList = document.querySelector('.movie-list');
@@ -44,7 +42,7 @@ function updateShowList(shows, query) {
 
     sortedShows.forEach(show => {
         const showItem = document.createElement('li');
-        showItem.className = 'movie-item';
+        showItem.className = 'movie-item'; // يمكن تغيير الاسم إلى 'show-item' إذا كنت تريد التفرقة
         showItem.style.display = 'flex';
         showItem.style.alignItems = 'center';
         showItem.style.justifyContent = 'space-between';
@@ -66,7 +64,7 @@ function updateShowList(shows, query) {
         showItem.dataset.id = show.id;
 
         showItem.addEventListener('click', () => {
-            window.location.href = `watch_serie?tmdb_id=${show.id}`;
+            window.location.href = `watch_show?tmdb_id=${show.id}`;
         });
 
         showList.appendChild(showItem);
@@ -76,19 +74,23 @@ function updateShowList(shows, query) {
     showList.scrollTop = 0;
 }
 
-// البحث عند الكتابة في مربع البحث
+let inputTimeout; // تعريف متغير لتخزين الـ timeout
+
 document.getElementById('search-input').addEventListener('input', async (event) => {
+    clearTimeout(inputTimeout); // إلغاء أي timeout سابق
     const query = event.target.value.trim();
-    if (hideTimeout) clearTimeout(hideTimeout);
-    if (query.length > 0) {
-        allShows = await searchShows(query);
-        updateShowList(allShows, query);
-        document.querySelector('.movie-list').style.display = 'block';
-    } else {
-        hideTimeout = setTimeout(() => {
+    
+    inputTimeout = setTimeout(async () => { // إنشاء timeout جديد
+        if (query.length > 0) {
+            allShows = await searchShows(query); // تغيير "searchMovies" إلى "searchShows"
+            updateShowList(allShows, query); // تغيير "updateMovieList" إلى "updateShowList"
+            document.querySelector('.movie-list').style.display = 'block';
+        } else {
+            // إذا كان مربع البحث فارغًا، إخفاء القائمة المنسدلة
             document.querySelector('.movie-list').style.display = 'none';
-        }, 200);
-    }
+            allShows = [];
+        }
+    }, 300); // تأخير لمدة 300 مللي ثانية (يمكنك تعديلها حسب الحاجة)
 });
 
 // إخفاء القائمة عند النقر خارجها
