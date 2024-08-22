@@ -10,15 +10,16 @@
     <script src=".htaccess" defer></script>
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
-     body {
+    body {
     font-family: 'Arial', sans-serif;
     background-color: #e4dcdc;
     color: #fff;
     margin: 0;
-    padding: 0;
+    padding: 20px; /* إضافة padding داخل البودي */
     line-height: 1.6;
     overflow-x: hidden;
-      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+    touch-action: manipulation;
+    margin-top: 60px; /* مسافة علوية للبودي */
 }
 
 #header {
@@ -32,9 +33,10 @@
     z-index: 1000;
     cursor: pointer;
     touch-action: manipulation;
-    transition: top 0.3s; /* إضافة تأثير الانتقال عند التمرير */
-    
+    transition: top 0.3s;
+    margin-bottom: 20px; /* مسافة سفلية للهيدر */
 }
+
 
 
 h1 {
@@ -255,11 +257,12 @@ h1 {
 
 
     </style>
-</head>
-<body>
-    <header id="header" onclick="window.location.href='/'">
+     <header id="header" onclick="window.location.href='/'">
         <!-- محتوى الهيدر هنا --> فهرس
     </header>
+</head>
+<body>
+   
     
     
     <div class="content">
