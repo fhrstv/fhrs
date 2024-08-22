@@ -214,6 +214,57 @@ h1 {
 
 
 
+
+
+/* For mobile devices with a maximum width of 768px */
+@media only screen and (max-width: 768px) {
+  /* Adjust font sizes and padding */
+  body {
+    font-size: 16px;
+  }
+  header {
+    padding: 10px;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  .content {
+    padding: 10px;
+  }
+  .search-container {
+    margin: 10px auto;
+  }
+  #search-input {
+    padding: 10px;
+    font-size: 14px;
+  }
+  .movie-list {
+    max-height: 200px;
+  }
+  .movie-item {
+    padding: 5px;
+  }
+  .poster-container {
+    margin: 10px 0;
+  }
+  .posters {
+    flex-wrap: wrap;
+  }
+  .poster {
+    margin: 0 5px;
+    flex: 0 0 200px;
+  }
+  #movie-details {
+    margin-top: 10px;
+  }
+  #movie-title {
+    font-size: 20px;
+  }
+  .nav-button {
+    padding: 10px;
+    font-size: 18px;
+  }
+}
   </style>
 </head>
 <body>
@@ -244,7 +295,6 @@ h1 {
   <script>
   const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
 let allMovies = [];
-let displayedMovies = [];
 let movies = [];
 let currentIndex = 0;
 let hideTimeout;
@@ -252,13 +302,16 @@ let hideTimeout;
 // تحديث حالة الأزرار
 function updateButtonStates() {
   document.getElementById('prev-button').disabled = currentIndex === 0;
-  document.getElementById('next-button').disabled = currentIndex >= movies.length - 1;
+  document.getElementById('next-button').disabled = movies.length === 0;
 }
 
 // الانتقال إلى اليسار
 document.getElementById('prev-button').addEventListener('click', () => {
-  if (movies.length > 0 && currentIndex > 0) {
+  if (movies.length > 0) {
     currentIndex--;
+    if (currentIndex < 0) {
+      currentIndex = movies.length - 1; // العودة إلى آخر بوستر إذا كان المؤشر أقل من الصفر
+    }
     updatePoster(movies[currentIndex]);
     updatePosters();
     updateButtonStates();
@@ -267,8 +320,11 @@ document.getElementById('prev-button').addEventListener('click', () => {
 
 // الانتقال إلى اليمين
 document.getElementById('next-button').addEventListener('click', () => {
-  if (movies.length > 0 && currentIndex < movies.length - 1) {
+  if (movies.length > 0) {
     currentIndex++;
+    if (currentIndex >= movies.length) {
+      currentIndex = 0; // العودة إلى أول بوستر إذا كان المؤشر أكبر من أو يساوي عدد البوسترات
+    }
     updatePoster(movies[currentIndex]);
     updatePosters();
     updateButtonStates();
@@ -285,9 +341,11 @@ function updatePoster(movie) {
 function updatePosters() {
   const posters = document.querySelectorAll('.poster');
   posters.forEach(poster => poster.classList.remove('selected')); // إزالة الإطار الأحمر من جميع البوسترات
+  
   if (posters[currentIndex]) {
     posters[currentIndex].classList.add('selected'); // إضافة الإطار الأحمر إلى البوستر المحدد
   }
+  
   const postersContainer = document.querySelector('.posters');
   const offset = -currentIndex * 320; // 320px هو عرض البوستر + مسافة بين البوسترات
   postersContainer.style.transform = `translateX(${offset}px)`;
@@ -313,6 +371,7 @@ async function fetchNowPlayingMovies() {
 // وظيفة البحث
 async function searchMovies(query) {
   const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
+  
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -444,6 +503,7 @@ async function initialize() {
 }
 
 window.onload = initialize;
+
 
   </script>
 </body>
