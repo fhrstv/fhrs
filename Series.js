@@ -64,7 +64,7 @@ function updateShowList(shows, query) {
         showItem.dataset.id = show.id;
 
         showItem.addEventListener('click', () => {
-            window.location.href = `watch_show?tmdb_id=${show.id}`;
+            window.location.href = `watch_serie?tmdb_id=${show.id}`;
         });
 
         showList.appendChild(showItem);
@@ -146,7 +146,7 @@ function updatePoster(show) {
 
     document.getElementById('current-poster').addEventListener('click', () => {
         const tmdbId = show.id;
-        const url = `watch_show?tmdb_id=${tmdbId}`;
+        const url = `watch_serie?tmdb_id=${tmdbId}`;
         window.location.href = url;
     });
 }
