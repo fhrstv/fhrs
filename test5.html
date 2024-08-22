@@ -22,11 +22,31 @@
 }
 
 header {
-    background-color: #333;
-    color: hsl(0, 94%, 46%);
+    color: #e50914;
     text-align: center;
-    padding: 10px;
+    padding: 15px 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    cursor: pointer;
+    touch-action: manipulation;
+    width: 100%;
+    box-sizing: border-box;
+    background: none; /* إزالة الخلفية */
 }
+
+header h1 {
+    font-size: 2em;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5), 
+                 -2px -2px 5px rgba(255, 255, 255, 0.2);
+    perspective: 500px;
+    transform: rotateX(20deg);
+    margin: 0;
+}
+
 
 
     
