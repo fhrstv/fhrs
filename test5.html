@@ -340,7 +340,7 @@ function updatePoster(movie) {
 // جلب الأفلام المتاحة حاليًا
 async function fetchNowPlayingMovies() {
     try {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=ar`);
+        const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en`);
         if (!response.ok) throw new Error('فشل في جلب الأفلام.');
         const data = await response.json();
         movies = data.results;
