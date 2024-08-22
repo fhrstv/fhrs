@@ -11,20 +11,24 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style> 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #000;
-    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: #141414;
+    color: #fff;
     margin: 0;
     padding: 0;
-    direction: rtl;
+    line-height: 1.6;
+    overflow-x: hidden;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+      text-align: center;
 }
 
 header {
-    background-color: #333;
-    color: hsl(0, 94%, 46%);
-    text-align: center;
-    padding: 10px;
+    text-align: center; /* توسيط النص */
+    font-size: 3em; /* حجم الخط الكبير */
+    color: red; /* اللون الأحمر للنص */
+    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
 }
 
 #poster {
@@ -61,45 +65,67 @@ h1, p {
     border-radius: 5px;
     width: 50%;
     margin-top: 20px;
+    align-items: center;
+    text-align: center;
 }
 
 #downloadButton:hover {
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
     background-color: #008CBA;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
+
 }
 
 a {
     text-decoration: none;
-    color: #333;
-    padding: 10px 20px;
-    display: inline-block;
-    border-radius: 5px;
+    color: #ffffff;
+    display: block;
+    padding: 20px;
+    border-radius: 10px;
     background-color: red;
-    transition: background-color 0.3s;
-    width: 50%;
-    margin-top: 20px;
-    cursor: pointer;
-    position: relative;
-    top: -10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 25px;
+    text-align: center;
+    margin: 20px auto;
+    width: 60%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    perspective: 1000px; /* إضافة منظور لتحقيق التأثير ثلاثي الأبعاد */
 }
 
+/* تأثير ثلاثي الأبعاد عند تمرير الفأرة */
 a:hover {
-    background-color: gold;
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
+    background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
 }
 
 h2 {
-    color: #000;
+    color: #ffffff;
     font-size: 30px;
     text-align: center;
+    line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #ff0000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #ff0000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
 }
 
 h3 {
-    color: #000;
+    color: #ffffff; /* لون النص أبيض */
     font-size: 22px;
     margin: 20px auto;
     max-width: 80%;
     text-align: center;
     line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
 }
+
 
 #title {
     color: red;
@@ -114,7 +140,7 @@ h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #000;
+    color: #ffffff;
     font-size: 20px;
     margin-bottom: 10px;
     text-align: center;
@@ -496,9 +522,9 @@ h3 {
     </style> 
 </head> 
 <body> 
-    <header> 
-        <h1>فهرس</h1> 
-    </header> 
+    <b href="/">
+        <header>فهرس</header>
+    </b>
 
    
     <img id="poster" src="">
