@@ -237,6 +237,15 @@
         }
 
         window.onload = displayTVShowDetails;
+        window.onload = async () => {
+    // قم بإزالة .html من جميع الروابط في الصفحة
+    document.querySelectorAll('a').forEach(anchor => {
+        anchor.href = anchor.href.replace('.html', '');
+    });
+
+    fetchPopularShows();
+    displayShows();
+};
 
     </script>
 
