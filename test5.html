@@ -133,6 +133,7 @@
             justify-content: center;
             align-items: center;
             width: 100%;
+            max-width: 500px; /* أقصى عرض للبستر */
         }
 
         .poster {
@@ -188,7 +189,7 @@
             cursor: pointer;
             transition: background-color 0.3s, box-shadow 0.3s;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            margin: 0 10px;
+            margin: 0 5px; /* تقليل المسافة بين الأزرار والبوستر */
         }
 
         .nav-button:hover {
@@ -271,7 +272,7 @@
             document.getElementById('current-poster').src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
         }
 
-        // جلب الأفلام التي تعرض الآن
+        // جلب الأفلام المتاحة حاليًا
         async function fetchNowPlayingMovies() {
             try {
                 const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=ar`);
