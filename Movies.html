@@ -1,74 +1,96 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>فهرس</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <title>فهرس</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="اكبر موقع فهرسة للأفلام والمسلسلات">
     <script src="script.js" defer></script>
     <script src=".htaccess" defer></script>
-<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
-  <style>
-   body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <style>
+     body {
+    font-family: 'Arial', sans-serif;
+    background-color: #141414;
+    color: #fff;
     margin: 0;
     padding: 0;
-    color: #000;
+    line-height: 1.6;
+    overflow-x: hidden;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+}
+
+a {
+    text-decoration: none; /* إزالة التسطير من الرابط */
+    color: inherit; /* استخدام نفس لون النص */
 }
 
 header {
-    background-color: #333;
-    color: hsl(0, 94%, 46%);
-    text-align: center;
-    padding: 10px;
+    text-align: center; /* توسيط النص */
+    font-size: 3em; /* حجم الخط الكبير */
+    color: red; /* اللون الأحمر للنص */
+    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
 }
 
+
+
+
+
 h1 {
-    margin: 0;
+    text-align: center; /* توسيط النص */
+    font-size: 1.5em; /* حجم الخط */
+    color: #fffefe; /* لون النص */
+    text-shadow: 2px 2px 4px rgba(251, 0, 0, 0.5); /* إضافة ظل للنص */
 }
 
 .content {
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-.search-box {
-    text-align: center;
-    margin-top: 20px;
+.search-container {
     position: relative;
+    margin: 20px auto;
+    max-width: 600px;
+    margin-bottom: 330px; /* قم بتعديل المسافة حسب الحاجة */
+    
 }
 
 #search-input {
-    padding: 10px;
-    border-radius: 5px 5px 0 0;
-    border: 1px solid #ccc;
     width: 100%;
-    max-width: 300px;
-    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
     box-sizing: border-box;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #e50914;
+    box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
 }
 
 .movie-list {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
     max-height: 300px;
     overflow-y: auto;
-    border: 1px solid #ccc;
-    border-top: none;
+    margin: 0;
     border-radius: 0 0 5px 5px;
+    background-color: #333;
+    border: 1px solid #444;
     position: absolute;
     width: 100%;
-    max-width: 300px;
-    background-color: #fff;
-    z-index: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     display: none;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    left: 0;
-    right: 0;
-    margin: auto;
+    z-index: 1;
 }
 
 .movie-list.show {
@@ -76,362 +98,246 @@ h1 {
 }
 
 .movie-item {
+    display: flex;
+    align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #444;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #fff;
 }
 
 .movie-item:hover {
-    background-color: #f0f0f0;
+    background-color: #555;
 }
 
-.film-container {
-    display: flex;
-    flex-direction: column; /* لتصفية العناصر عموديًا */
-    align-items: center; /* توسيط العناصر أفقيًا */
-    padding: 20px;
-}
-
-.film-box {
-    background-color: red;
-    color: #333;
-    padding: 20px;
+.movie-item img {
+    width: 75px;
+    height: 100px;
     border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 200px; /* عرض ثابت للمربعات */
-    margin-bottom: 20px; /* مسافة بين المربعات */
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.movie-item img:hover {
+    transform: scale(1.1);
+}
+
+.movie-item span {
+    flex: 1;
+    text-align: left;
+}
+
+.poster-container {
     display: flex;
-    flex-direction: column; /* لتصفية النصوص عموديًا */
-    align-items: center; /* توسيط النصوص داخل المربع */
-    justify-content: center; /* توسيط النصوص عموديًا داخل المربع */
-    text-align: center; /* توسيط النصوص داخل المربع */
-    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
 
-.film-box span {
-    font-size: 18px; /* حجم الخط */
-    line-height: 1.4; /* تحسين التباعد بين الأسطر */
+#poster-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 300px; /* أقصى عرض للبستر */
+    height: auto; /* ارتفاع تلقائي للبستر */
 }
 
-.film-box:hover {
-    background-color: gold; /* لون خلفية ذهبي عند التفاعل */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التفاعل */
+.poster {
+    border: 5px solid #444;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    width: 100%; /* اجعل العرض 100% ليتطابق مع الإطار */
+    height: 100%; /* اجعل الارتفاع 100% ليتطابق مع الإطار */
+    display: flex; /* لضمان تساوي حجم البوستر والإطار */
+    justify-content: center;
+    align-items: center;
 }
 
-.head-center {
-    list-style-type: none;
-    padding: 0;
+.poster.selected {
+    border-color: #e50914;
+    border-width: 7px;
+}
+
+.poster:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+}
+
+
+.poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* لضمان أن الصورة تغطي الإطار بالكامل */
+    display: block; /* إزالة أي فراغات ناتجة عن عرض الصورة */
+}
+
+#movie-details {
     text-align: center;
+    margin-top: 20px;
 }
 
-.head-item a {
-    color: #333; /* لون النص أبيض */
-    transition: background-color 0.3s, color 0.3s;
+.details-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* لضمان توزيع الأزرار بشكل متساوي على الأطراف */
+    margin-top: 10px;
+    padding: 0 20px;
+    gap: 15px; /* لضبط المسافة بين الأزرار */
 }
 
-.head-item a:hover {
-    background-color: gold; /* لون خلفية ذهبي عند التمرير */
+
+#movie-title {
+    flex-grow: 1; /* يجعل العنوان يتمدد لملء المساحة المتاحة بين الأزرار */
+    font-size: 28px;
+    margin: 0;
+    font-weight: bold;
+    color: #e50914;
+    text-align: center;
+    white-space: normal; /* يسمح للنص بالانتقال إلى سطر جديد إذا كان طويلًا */
+    word-wrap: break-word; /* يقوم بكسر الكلمات الطويلة جداً لتجنب تمدد النص خارج الصفحة */
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
 
-/* Media Queries */
-@media (max-width: 50px) {
-    /* لا يمكن عرض محتوى على شاشات أقل من 50px، لذا يجب أن تكون هذه الشاشات غير مدعومة */
+#movie-year {
+    font-size: 18px;
+    color: #aaa;
+    margin: 0;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
 
-@media (min-width: 51px) and (max-width: 100px) {
-    .search-box {
-        margin-top: 5px;
-    }
-
-    #search-input {
-        padding: 5px;
-        max-width: 150px;
-    }
-
-    .movie-list {
-        max-width: 150px;
-    }
-
-    .film-box {
-        width: 100px;
-    }
-
-    .film-box span {
-        font-size: 12px;
-    }
+.nav-buttons {
+    position: fixed; /* اجعل الأزرار ثابتة */
+    bottom: 20px; /* المسافة من أسفل الصفحة */
+    left: 50%;
+    transform: translateX(-50%); /* لتوسيط الأزرار بشكل أفقي */
+    display: flex;
+    gap: 10px; /* لضبط المسافة بين الأزرار */
+    z-index: 1000; /* تأكد من ظهور الأزرار فوق العناصر الأخرى */
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
 
-@media (min-width: 101px) and (max-width: 150px) {
-    .search-box {
-        margin-top: 10px;
-    }
-
-    #search-input {
-        padding: 8px;
-        max-width: 200px;
-    }
-
-    .movie-list {
-        max-width: 200px;
-    }
-
-    .film-box {
-        width: 150px;
-    }
-
-    .film-box span {
-        font-size: 14px;
-    }
+.nav-button {
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    user-select: none;
+    margin: 0; /* إزالة المسافة بين الأزرار */
 }
 
-@media (min-width: 151px) and (max-width: 200px) {
-    .search-box {
-        margin-top: 15px;
-    }
-
-    #search-input {
-        padding: 10px;
-        max-width: 250px;
-    }
-
-    .movie-list {
-        max-width: 250px;
-    }
-
-    .film-box {
-        width: 200px;
-    }
-
-    .film-box span {
-        font-size: 16px;
-    }
+.nav-button:hover {
+    background-color: #f40612;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
 }
 
-@media (min-width: 201px) and (max-width: 260px) {
-    .search-box {
-        margin-top: 20px;
-    }
-
-    #search-input {
-        padding: 12px;
-        max-width: 300px;
-    }
-
-    .movie-list {
-        max-width: 300px;
-    }
-
-    .film-box {
-        width: 250px;
-    }
-
-    .film-box span {
-        font-size: 18px;
-    }
+.nav-button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
 }
 
-@media (min-width: 261px) and (max-width: 320px) {
-    .search-box {
-        margin-top: 25px;
-    }
-
-    #search-input {
-        padding: 12px;
-        max-width: 300px;
-    }
-
-    .movie-list {
-        max-width: 300px;
-    }
-
-    .film-box {
-        width: 300px;
-    }
-
-    .film-box span {
-        font-size: 18px;
-    }
+.poster-rank {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
-@media (min-width: 321px) and (max-width: 375px) {
-    .search-box {
-        margin-top: 30px;
-    }
 
-    #search-input {
-        padding: 14px;
-        max-width: 320px;
-    }
-
-    .movie-list {
-        max-width: 320px;
-    }
-
-    .film-box {
-        width: 320px;
-    }
-
-    .film-box span {
-        font-size: 20px;
-    }
+.home-button {
+    display: inline-flex; /* لجعل العنصر يستخدم flexbox */
+    align-items: center; /* توسيط النص عموديًا */
+    justify-content: center; /* توسيط النص أفقيًا */
+    padding: 2vw 4vw; /* إضافة padding كنسبة مئوية من عرض النافذة */
+    background-color: red; /* لون الخلفية الأحمر */
+    color: white; /* لون النص الأبيض */
+    font-size: 5vw; /* حجم الخط نسبة إلى عرض نافذة العرض */
+    text-align: center; /* توسيط النص */
+    border-radius: 0.2em; /* زوايا دائرية للزر */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* إضافة ظل ثلاثي الأبعاد */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الزر */
+    text-decoration: none; /* إزالة التسطير إذا كان هناك نص تحت */
+    margin: 2vw 0; /* إضافة هامش أعلى وأسفل كنسبة مئوية من عرض النافذة */
+    transition: background-color 0.3s, box-shadow 0.3s; /* إضافة تأثيرات الانتقال */
+    width: auto; /* السماح للعرض بالتكيف تلقائيًا */
+    max-width: 90vw; /* الحد الأقصى للعرض لضمان تناسق التصميم */
 }
 
-@media (min-width: 376px) and (max-width: 425px) {
-    .search-box {
-        margin-top: 35px;
-    }
-
-    #search-input {
-        padding: 16px;
-        max-width: 360px;
-    }
-
-    .movie-list {
-        max-width: 360px;
-    }
-
-    .film-box {
-        width: 360px;
-    }
-
-    .film-box span {
-        font-size: 22px;
-    }
-}
-
-@media (min-width: 426px) and (max-width: 768px) {
-    .search-box {
-        margin-top: 40px;
-    }
-
-    #search-input {
-        padding: 18px;
-        max-width: 400px;
-    }
-
-    .movie-list {
-        max-width: 400px;
-    }
-
-    .film-box {
-        width: 400px;
-    }
-
-    .film-box span {
-        font-size: 24px;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .search-box {
-        margin-top: 50px;
-    }
-
-    #search-input {
-        padding: 20px;
-        max-width: 500px;
-    }
-
-    .movie-list {
-        max-width: 500px;
-    }
-
-    .film-box {
-        width: 500px;
-    }
-
-    .film-box span {
-        font-size: 26px;
-    }
+.home-button:hover {
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
+    background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
 }
 
 @media (min-width: 1025px) and (max-width: 1440px) {
-    .search-box {
-        margin-top: 60px;
-    }
-
-    #search-input {
-        padding: 22px;
-        max-width: 600px;
-    }
-
-    .movie-list {
-        max-width: 600px;
-    }
-
-    .film-box {
-        width: 600px;
-    }
-
-    .film-box span {
-        font-size: 28px;
+    .home-button {
+        font-size: 2em; /* حجم الخط أصغر قليلاً */
+        padding: 0.5em 2em; /* تقليل padding */
+        max-width: 80vw; /* تعديل الحد الأقصى للعرض */
     }
 }
 
-@media (min-width: 1441px) and (max-width: 2560px) {
-    .search-box {
-        margin-top: 70px;
-    }
 
-    #search-input {
-        padding: 24px;
-        max-width: 700px;
-    }
 
-    .movie-list {
-        max-width: 700px;
-    }
 
-    .film-box {
-        width: 700px;
-    }
-
-    .film-box span {
-        font-size: 30px;
-    }
-}
-
-@media (min-width: 2561px) {
-    .search-box {
-        margin-top: 80px;
-    }
-
-    #search-input {
-        padding: 26px;
-        max-width: 800px;
-    }
-
-    .movie-list {
-        max-width: 800px;
-    }
-
-    .film-box {
-        width: 800px;
-    }
-
-    .film-box span {
-        font-size: 32px;
-    }
-}
-
-  </style>
+    </style>
 </head>
 <body>
-  <header>
-    <h1>فهرس</h1>
-  </header>
-  <div class="content">
-    <h2>البحث عن الفلم يكون فقط عن طريق مربع البحث وليس هناك صفحات اخرى</h2>
-    <div class="search-box">
-      <input type="text" id="search-input" dir="auto" placeholder="اكتب اسم فيلمك هنا">
-      <ul class="movie-list"></ul>
-      <h2>أحدث الافلام الاجنبية المضافة</h2>
-      <ul class="head-center">
-      <li class="head-item"><a href="/">رجوع للصفحة الرئيسية</a></li>
-        </ul>
-      <div id="film-container" class="film-container"></div>
+    <a href="/">
+        <header>فهرس</header>
+    </a>
+    
+    
+    
+    
+
+        <h1>البحث عن الفلم يكون فقط عن طريق مربع البحث وليس هناك اي صفحات اخرى</h1>
+
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="ابحث عن فلمك هنا">
+            <ul class="movie-list"></ul>
+        </div>
+        
+        
+        <h1>أحدث الافلام الاجنبية</h1>
+        <div class="poster-container">
+            <div id="poster-wrapper">
+                <div class="poster">
+                    <span class="poster-rank" id="poster-rank"></span>
+                    <img id="current-poster" src="" alt="بوستر الفيلم">
+                </div>
+            </div>
+        </div>
+
+        <div id="movie-details">
+            <div class="details-container">
+                <button id="prev-button" class="nav-button" disabled>&#10094;</button>
+                <div>
+                    <h2 id="movie-title">عنوان الفيلم</h2>
+                    <p id="movie-year">سنة الإصدار</p>
+                </div>
+                <button id="next-button" class="nav-button" disabled>&#10095;</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="home-button" onclick="window.location.href = '/'">
+                رجوع للصفحة الرئيسية
+            </div>
     </div>
-  </div>
-  <script src="Movies.js"></script>
+    <script src="Movies.js"></script>
+
 </body>
 </html>
