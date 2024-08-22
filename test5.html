@@ -15,11 +15,11 @@
     background-color: #e4dcdc;
     color: #fff;
     margin: 0;
-    padding: 20px; /* إضافة padding داخل البودي */
+    padding: 20px;
     line-height: 1.6;
     overflow-x: hidden;
     touch-action: manipulation;
-    margin-top: 60px; /* مسافة علوية للبودي */
+    margin-top: 80px; /* مسافة علوية للبودي لتجنب تداخل المحتوى مع الهيدر */
 }
 
 #header {
@@ -28,13 +28,14 @@
     text-align: center;
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    position: sticky;
+    position: fixed; /* ثابت في الأعلى */
     top: 0;
+    width: 100%; /* عرض كامل للهيدر */
     z-index: 1000;
     cursor: pointer;
     touch-action: manipulation;
     transition: top 0.3s;
-    margin-bottom: 20px; /* مسافة سفلية للهيدر */
+    margin-bottom: 20px;
 }
 
 
