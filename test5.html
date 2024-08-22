@@ -211,31 +211,174 @@ h1 {
 }
 
 
-
-
-
-/* For mobile devices with a maximum width of 768px */
 @media only screen and (max-width: 768px) {
-  /* Set the viewport width to the device width */
-  @viewport {
-    width: device-width;
-  }
-  
-  /* Set the body width to the viewport width */
   body {
-    width: 500vw;
-    overflow-x: hidden;
+    font-size: 16px;
   }
   
-  /* Scale down the entire page to fit the mobile screen */
-  html {
-    zoom: 0.5;
-    -moz-transform: scale(0.5);
-    -moz-transform-origin: 0 0;
-    -o-transform: scale(0.5);
-    -o-transform-origin: 0 0;
-    -webkit-transform: scale(0.5);
-    -webkit-transform-origin: 0 0;
+  header {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  .content {
+    padding: 10px;
+  }
+  
+  .search-container {
+    margin: 10px auto;
+    max-width: 100%; /* Use full width for better responsiveness */
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+  }
+  
+  #search-input {
+    padding: 10px;
+    font-size: 14px;
+    width: 100%; /* Make input take full width */
+    box-sizing: border-box;
+  }
+  
+  .movie-list {
+    max-height: 200px;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+  }
+  
+  .movie-item {
+    padding: 5px;
+    display: flex;
+    align-items: center; /* Align items in the center vertically */
+  }
+  
+  .movie-item img {
+    width: 50px;
+    height: 75px;
+    object-fit: cover; /* Ensure images fit within their containers */
+  }
+  
+  .poster-container {
+    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center align posters */
+  }
+  
+  #poster-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .poster {
+    flex: 1 1 200px; /* Flexible width for better responsiveness */
+    margin: 5px;
+    max-width: 200px; /* Ensure posters do not exceed 200px width */
+  }
+  
+  #movie-details {
+    margin-top: 10px;
+  }
+  
+  #movie-title {
+    font-size: 20px;
+  }
+  
+  #movie-year {
+    font-size: 14px;
+  }
+  
+  .nav-button {
+    padding: 10px;
+    font-size: 18px;
+  }
+}
+
+/* For mobile devices with a maximum width of 480px */
+@media only screen and (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+  
+  header {
+    padding: 5px;
+  }
+  
+  h1 {
+    font-size: 18px;
+  }
+  
+  .content {
+    padding: 5px;
+  }
+  
+  .search-container {
+    margin: 5px auto;
+    max-width: 100%; /* Use full width for better responsiveness */
+    box-sizing: border-box;
+  }
+  
+  #search-input {
+    padding: 5px;
+    font-size: 12px;
+    width: 100%; /* Make input take full width */
+    box-sizing: border-box;
+  }
+  
+  .movie-list {
+    max-height: 150px;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+  }
+  
+  .movie-item {
+    padding: 2px;
+    display: flex;
+    align-items: center; /* Align items in the center vertically */
+  }
+  
+  .movie-item img {
+    width: 30px;
+    height: 50px;
+    object-fit: cover; /* Ensure images fit within their containers */
+  }
+  
+  .poster-container {
+    margin: 5px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center align posters */
+  }
+  
+  #poster-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .poster {
+    flex: 1 1 150px; /* Flexible width for better responsiveness */
+    margin: 2px;
+    max-width: 150px; /* Ensure posters do not exceed 150px width */
+  }
+  
+  #movie-details {
+    margin-top: 5px;
+  }
+  
+  #movie-title {
+    font-size: 16px;
+  }
+  
+  #movie-year {
+    font-size: 12px;
+  }
+  
+  .nav-button {
+    padding: 5px;
+    font-size: 14px;
   }
 }
   </style>
