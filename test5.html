@@ -20,11 +20,9 @@
     touch-action: manipulation;
 }
 
-
-
 header {
     background-color: #333;
-    color: hsl(0, 94%, 46%);
+    color: #e50914; /* Netflix's signature red color */
     text-align: center;
     padding: 10px;
     position: fixed;
@@ -33,25 +31,23 @@ header {
     width: 100%;
     z-index: 1000;
     box-sizing: border-box;
-    height: 100px; /* يمكنك تعديل الارتفاع حسب الحاجة */
-    margin-top: -20px; /* هذا السطر لضبط الهيدر فوق شريط الإشعارات */
+    height: 70px; /* adjusted height to match Netflix's header */
+    margin-top: -20px; /* this line is to adjust the header above the notification bar */
+    border-bottom: 1px solid #333; /* added a bottom border to match Netflix's design */
 }
-
-
-
-
-    
-
 
 h1 {
     margin: 0;
-    padding-top: 30px; /* لإزاحة النص إلى الأسفل قليلاً داخل الهيدر */
+    padding-top: 20px; /* adjusted padding to match Netflix's header */
     font-size: 24px;
+    font-weight: bold; /* added bold font weight to match Netflix's title */
 }
 
 .content {
     padding: 20px;
     text-align: center;
+    margin-top: 70px; /* added margin top to push the content below the header */
+    background-color: #141414; /* matched the background color with the body */
 }
 
 .search-container {
