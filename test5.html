@@ -23,37 +23,13 @@
 
 
 header {
-    color: #e50914;
+    background-color: #333;
+    color: hsl(0, 94%, 46%);
     text-align: center;
-    padding: 15px 10px;
-    position: fixed; /* تغيير من sticky إلى fixed */
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    cursor: pointer;
-    background: none; /* إزالة الخلفية */
-    box-sizing: border-box;
-    box-shadow: none; /* إزالة الظل */
-    height: 75px; /* تأكد من تحديد ارتفاع الهيدر */
-}
-
-body::before {
-    content: '';
-    display: block;
-    height: 75px; /* نفس ارتفاع الهيدر */
+    padding: 10px;
 }
 
 
-header h1 {
-    font-size: 2em;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5), 
-                 -2px -2px 5px rgba(255, 255, 255, 0.2);
-    perspective: 500px;
-    transform: rotateX(20deg);
-    margin: 0;
-}
 
     
 
