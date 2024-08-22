@@ -18,6 +18,7 @@
     padding: 0;
     line-height: 1.6;
     overflow-x: hidden;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
 
 header {
@@ -30,6 +31,7 @@ header {
     top: 0;
     z-index: 1000;
     cursor: pointer; /* اجعل المؤشر يظهر كيد اليد عند المرور فوق الهيدر */
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
 
 h1 {
@@ -125,6 +127,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     margin: 20px 0;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
 
 #poster-wrapper {
@@ -185,12 +188,14 @@ h1 {
     text-align: center;
     white-space: normal; /* يسمح للنص بالانتقال إلى سطر جديد إذا كان طويلًا */
     word-wrap: break-word; /* يقوم بكسر الكلمات الطويلة جداً لتجنب تمدد النص خارج الصفحة */
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
 
 #movie-year {
     font-size: 18px;
     color: #aaa;
     margin: 0;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
 
 .nav-buttons {
