@@ -177,14 +177,14 @@ h1 {
 
 
 #movie-title {
+    flex-grow: 1; /* يجعل العنوان يتمدد لملء المساحة المتاحة بين الأزرار */
     font-size: 28px;
     margin: 0;
     font-weight: bold;
     color: #e50914;
     text-align: center;
-    white-space: nowrap; /* يمنع العنوان من التمدد إلى سطر جديد */
-    overflow: hidden; /* يخفي أي نص زائد خارج الحاوية */
-    text-overflow: ellipsis; /* يظهر النص الزائد كنقاط */
+    white-space: normal; /* يسمح للنص بالانتقال إلى سطر جديد إذا كان طويلًا */
+    word-wrap: break-word; /* يقوم بكسر الكلمات الطويلة جداً لتجنب تمدد النص خارج الصفحة */
 }
 
 #movie-year {
