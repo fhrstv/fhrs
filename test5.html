@@ -332,7 +332,7 @@ function updatePoster(movie) {
     // إضافة مستمع للحدث لتحويل المستخدم إلى صفحة watch.html مع تمرير tmdbId عند الضغط على البوستر
     document.getElementById('current-poster').addEventListener('click', () => {
         const tmdbId = movie.id;
-        const url = `watch.html?tmdbId=${tmdbId}`;
+        const url = `watch_movie?tmdbId=${tmdbId}`;
         window.location.href = url;
     });
 }
