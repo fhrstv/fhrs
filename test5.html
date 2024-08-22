@@ -265,7 +265,7 @@ h1 {
     color: white; /* لون النص الأبيض */
     font-size: 5vw; /* حجم الخط نسبة إلى عرض نافذة العرض */
     text-align: center; /* توسيط النص */
-    border-radius: 1em; /* زوايا دائرية للزر */
+    border-radius: 0.2em; /* زوايا دائرية للزر */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* إضافة ظل ثلاثي الأبعاد */
     cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الزر */
     text-decoration: none; /* إزالة التسطير إذا كان هناك نص تحت */
@@ -278,6 +278,14 @@ h1 {
 .home-button:hover {
     background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .home-button {
+        font-size: 2em; /* حجم الخط أصغر قليلاً */
+        padding: 0.5em 2em; /* تقليل padding */
+        max-width: 80vw; /* تعديل الحد الأقصى للعرض */
+    }
 }
 
 
