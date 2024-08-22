@@ -27,188 +27,29 @@
     
 
     <style>
-        /* الأسلوب العام للصفحة */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #000
-        }
-
-        header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
-            text-align: center;
-            padding: 10px;
-        }
-      
-      .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            font-size: 18px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        iframe {
-            width: 100%;
-            height: 400px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
-
-        a:hover {
-            background-color: gold;
-        }
-
-        p {
-            text-align: justify;
-            margin-bottom: 10px;
-        }
-
-        /* عنوان الصفحة */
-        h1 {
-            margin: 0;
-        }
-
-        /* منطقة العرض للأفلام والمسلسلات */
-        .content {
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center; /* توسيط المحتوى */
-        }
-
-        /* قائمة لعرض الأفلام والمسلسلات */
-        .movie-list {
-            list-style-type: none;
-            padding: 0;
-            text-align: center; /* توسيط العناصر */
-        }
-
-        .movie-item {
-            margin: 10px;
-        }
-
-        /* المربعات الحمراء */
         a {
     text-decoration: none;
-    color: #333;
+    color: #ffffff;
     display: block;
     padding: 20px;
-    border-radius: 10px; /* تكبير حواف المربعات */
+    border-radius: 10px;
     background-color: red;
-    transition: background-color 0.3s, transform 0.3s; /* إضافة تأثير تحريك عند التمرير */
-    font-size: 25px; /* تكبير حجم الخط داخل المربعات */
-    text-align: center; /* محاذاة النص في وسط المربع */
-    margin: 20px auto; /* إضافة مسافة حول المربعات وتوسيعها */
-    width: 60%; /* تحديد عرض المربعات كنسبة مئوية */
-    max-width: 600px; /* تحديد الحد الأقصى للعرض */
-}
-        a:hover {
-            background-color: gold;
-        }
-
-        /* توسيط عنوان الأفلام والمسلسلات والالانمي */
-        h2 {
-            text-align: center;
-        }
-
-        /* مربع البحث */
-        .search-box {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        input[type="text"] {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 100%; /* يمتلئ عرض الشاشة بالكامل */
-            max-width: 300px; /* حد أقصى لعرض المربع */
-        }
-
-        input[type="submit"] {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-
-/* خصائص الزر العشوائي */
-#randomButton {
-    font-family: Arial, sans-serif;
-    text-decoration: none;
-    color: #333;
-    display: block;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: red;
-    transition: background-color 0.3s;
-    font-size: 19.4px; /* تكبير حجم الخط داخل المربع */
-    text-align: center; /* لتوسيط النص أفقيًا */
-    width: 243px; /* تعيين العرض ليكون مطابقًا لعرض المربعات الحمراء */
-    margin: 20px auto 10px; /* توسيط الزر */
-    box-sizing: border-box; /* تضمين padding و border في حساب العرض */
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 25px;
+    text-align: center;
+    margin: 20px auto;
+    width: 60%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    perspective: 1000px; /* إضافة منظور لتحقيق التأثير ثلاثي الأبعاد */
 }
 
-#randomButton:hover {
-    background-color: gold;
+/* تأثير ثلاثي الأبعاد عند تمرير الفأرة */
+a:hover {
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
+    background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
 }
-        
-        
-            h4.telegram-link {
-  background: none;
-  padding: 0;
-  border: none;
-  display: inline-block;
-  font-size: 14px;
-  color: blue;
-}
-
-h4.telegram-link a {
-  text-decoration: none;
-  color: blue;
-}
-
-h4.telegram-link img {
-  width: 14px;
-  height: 14px;
-  margin-left: 5px;
-  vertical-align: middle;
-}
-
-h4.telegram-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-h3{
-  
-  font-size: 15px;
-}
-
-h5{
-  font-size: 20px;
-}
-
 
 
 
