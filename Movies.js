@@ -1,6 +1,7 @@
 const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
 let hideTimeout;
 let searchTimeout;
+let popularMovies = [];
 
 async function searchMovies(query) {
     const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=en-US`;
@@ -11,6 +12,18 @@ async function searchMovies(query) {
     } catch (error) {
         console.error('Error fetching data from TMDB', error);
         return [];
+    }
+}
+
+async function fetchPopularMovies() {
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&region=US`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        popularMovies = data.results || [];
+        updateMovieList(popularMovies, '');
+    } catch (error) {
+        console.error('Error fetching popular movies', error);
     }
 }
 
@@ -84,7 +97,7 @@ document.getElementById('search-input').addEventListener('input', debounce(async
         document.querySelector('.movie-list').style.display = 'block';
     } else {
         hideTimeout = setTimeout(() => {
-            document.querySelector('.movie-list').style.display = 'none';
+            updateMovieList(popularMovies, '');  // عرض أحدث الأفلام الشعبية عند عدم وجود استعلام
         }, 200);
     }
 }, 300));
@@ -100,3 +113,8 @@ document.addEventListener('click', function(event) {
         }, 200); 
     }
 });
+
+// جلب الأفلام الشعبية عند تحميل الصفحة
+window.onload = async () => {
+    await fetchPopularMovies();  // جلب الأفلام الشعبية عند التحميل
+};
