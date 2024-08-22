@@ -173,6 +173,16 @@ window.onload = async () => {
     displayShows();
 };
 
+window.onload = async () => {
+    // قم بإزالة .html من جميع الروابط في الصفحة
+    document.querySelectorAll('a').forEach(anchor => {
+        anchor.href = anchor.href.replace('.html', '');
+    });
+
+    fetchPopularShows();
+    displayShows();
+};
+
 // وظيفة لتحديث قائمة المسلسلات (تأكد من أنها متوافقة مع المسلسلات)
 function displayShows() {
     // تأكد من تكامل هذه الوظيفة مع طريقة العرض الحالية
