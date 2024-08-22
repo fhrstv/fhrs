@@ -25,17 +25,14 @@ header {
     color: #e50914;
     text-align: center;
     padding: 15px 10px;
-    position: fixed; /* اجعل الهيدر ثابتًا دائمًا في الأعلى */
+    position: fixed; /* تغيير من sticky إلى fixed */
     top: 0;
-    left: 0;
     width: 100%;
     z-index: 1000;
     cursor: pointer;
-    touch-action: manipulation;
-    box-sizing: border-box;
     background: none; /* إزالة الخلفية */
-    border-bottom: none; /* إزالة أي حدود سفلية للهيدر */
-    margin: 0; /* إزالة أي مسافات خارجية */
+    box-sizing: border-box;
+    box-shadow: none; /* إزالة الظل */
 }
 
 body::before {
