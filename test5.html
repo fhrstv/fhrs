@@ -5,6 +5,7 @@
     <title>فهرس</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="اكبر موقع فهرسة للأفلام والمسلسلات">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js" defer></script>
     <script src=".htaccess" defer></script>
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
@@ -256,6 +257,32 @@ h1 {
 }
 
 
+
+.home-button {
+    display: inline-flex; /* جعل العنصر يستخدم flexbox */
+    align-items: center; /* توسيط النص عموديًا */
+    justify-content: center; /* توسيط النص أفقيًا */
+    padding: 2% 4%; /* إضافة padding كنسبة مئوية من حجم العنصر */
+    background-color: red; /* لون الخلفية الأحمر */
+    color: white; /* لون النص الأبيض */
+    font-size: 2vw; /* حجم الخط نسبة إلى عرض نافذة العرض */
+    text-align: center; /* توسيط النص */
+    border-radius: 0.5em; /* زوايا دائرية للزر */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* إضافة ظل ثلاثي الأبعاد */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الزر */
+    text-decoration: none; /* إزالة التسطير إذا كان هناك نص تحت */
+    margin: 2% 0; /* إضافة هامش أعلى وأسفل كنسبة مئوية من حجم العنصر */
+    transition: background-color 0.3s, box-shadow 0.3s; /* إضافة تأثيرات الانتقال */
+    width: auto; /* السماح للعرض بالتكيف تلقائيًا */
+    max-width: 80vw; /* الحد الأقصى للعرض لضمان تناسق التصميم */
+}
+
+.home-button:hover {
+    background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
+}
+
+
     </style>
 </head>
 <body>
@@ -266,10 +293,15 @@ h1 {
     
     
     <div class="content">
+        <div class="home-button" onclick="window.location.href = '/'">
+            رجوع للصفحة الرئيسية
+        </div>
         <div class="search-container">
             <input type="text" id="search-input" placeholder="ابحث عن فيلم...">
             <ul class="movie-list"></ul>
         </div>
+        
+        
 
         <div class="poster-container">
             <div id="poster-wrapper">
