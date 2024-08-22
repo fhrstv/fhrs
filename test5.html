@@ -1,66 +1,87 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>فهرس الأفلام</title>
+    <meta charset="UTF-8">
+    <title>فهرس</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <script src="script.js" defer></script>
+      <script src=".htaccess" defer></script>
+  <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
   <style>
-       body {
+   body {
     font-family: 'Arial', sans-serif;
     background-color: #141414;
     color: #fff;
     margin: 0;
     padding: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
 }
 
 header {
     background-color: #000;
     color: #e50914;
     text-align: center;
-    padding: 2px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    cursor: pointer; /* اجعل المؤشر يظهر كيد اليد عند المرور فوق الهيدر */
+
 }
 
 h1 {
     margin: 0;
-    font-size: 5px;
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .content {
-    padding: 2px;
+    padding: 20px;
     text-align: center;
 }
 
 .search-container {
     position: relative;
-    margin: 2px auto;
-    max-width: 90%;
+    margin: 20px auto;
+    max-width: 600px;
+    margin-bottom: 330px;
 }
 
 #search-input {
     width: 100%;
-    padding: 2px;
-    border-radius: 2px;
+    padding: 15px;
+    border-radius: 5px;
     border: 1px solid #444;
     background-color: #333;
     color: #fff;
-    font-size: 4px;
+    font-size: 16px;
     box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #e50914;
+    box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
 }
 
 .movie-list {
     list-style: none;
     padding: 0;
-    max-height: 30px;
+    max-height: 300px;
     overflow-y: auto;
-    border: 1px solid #ccc;
-    border-top: none;
     margin: 0;
-    border-radius: 0 0 2px 2px;
+    border-radius: 0 0 5px 5px;
     background-color: #333;
+    border: 1px solid #444;
     position: absolute;
     width: 100%;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     display: none;
     z-index: 1;
 }
@@ -72,10 +93,10 @@ h1 {
 .movie-item {
     display: flex;
     align-items: center;
-    padding: 2px;
+    padding: 10px;
     border-bottom: 1px solid #444;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
     color: #fff;
 }
 
@@ -84,24 +105,27 @@ h1 {
 }
 
 .movie-item img {
-    width: 10px;
-    height: 15px;
-    border-radius: 2px;
-    margin-right: 2px;
+    width: 75px;
+    height: 100px;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.movie-item img:hover {
+    transform: scale(1.1);
 }
 
 .movie-item span {
     flex: 1;
     text-align: left;
-    font-size: 4px;
 }
 
 .poster-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 2px 0;
-    flex-direction: column;
+    margin: 20px 0;
 }
 
 #poster-wrapper {
@@ -114,30 +138,31 @@ h1 {
 }
 
 .posters {
-    display: flex;
+    display: inline-flex;
     transition: transform 0.3s ease-in-out;
     margin: 0;
     padding: 0;
+    overflow-x: initial;
 }
 
 .poster {
-    margin: 2px;
-    flex: 0 0 20px;
-    border: 1px solid #444;
-    border-radius: 2px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    margin: 0 10px;
+    flex: 0 0 300px;
+    border: 5px solid #444;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
 
 .poster.selected {
     border-color: #e50914;
-    border-width: 2px;
+    border-width: 7px;
 }
 
 .poster:hover {
     transform: scale(1.05);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
 }
 
 .poster img {
@@ -147,17 +172,20 @@ h1 {
 
 #movie-details {
     text-align: center;
-    margin-top: 2px;
+    margin-top: 20px;
 }
 
 #movie-title {
-    font-size: 6px;
-    margin: 2px 0;
+    font-size: 28px;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #e50914;
 }
 
 #movie-year {
-    font-size: 4px;
+    font-size: 18px;
     color: #aaa;
+    margin-top: -5px;
 }
 
 .nav-button {
@@ -165,29 +193,84 @@ h1 {
     color: #fff;
     border: none;
     border-radius: 50%;
-    font-size: 8px;
-    padding: 2px;
+    font-size: 24px;
+    padding: 15px;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    margin: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin: 0 10px;
 }
 
 .nav-button:hover {
     background-color: #f40612;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
 }
 
 .nav-button:disabled {
     background-color: #666;
     cursor: not-allowed;
 }
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 320px) {
+    body {
+        transform: scale(0.5);
+        transform-origin: top left;
+        width: 200%; /* لتجنب عرض المحتوى بشكل مقطوع */
+        overflow-x: hidden;
+    }
+}
+
+@media screen and (max-width: 50px) {
+    body {
+        transform: scale(0.3); /* تصغير أكبر للشاشات الصغيرة جداً */
+        transform-origin: top left;
+        width: 333.33%; /* لتجنب عرض المحتوى بشكل مقطوع */
+        overflow-x: hidden;
+    }
+}
+
+@media screen and (min-width: 51px) and (max-width: 75px) {
+    body {
+        transform: scale(0.5); /* تصغير متوسط للشاشات الصغيرة */
+        transform-origin: top left;
+        width: 200%; /* لتجنب عرض المحتوى بشكل مقطوع */
+        overflow-x: hidden;
+    }
+}
+
+@media screen and (min-width: 51px) and (max-width: 75px) {
+    body {
+        transform: scale(0.5); /* تصغير متوسط للشاشات الصغيرة */
+        transform-origin: top left;
+        width: 200%; /* لتجنب عرض المحتوى بشكل مقطوع */
+        overflow-x: hidden;
+    }
+}
+
+@media screen and (min-width: 76px) and (max-width: 100px) {
+    body {
+        transform: scale(0.7); /* تصغير أخف للشاشات المتوسطة */
+        transform-origin: top left;
+        width: 142.86%; /* لتجنب عرض المحتوى بشكل مقطوع */
+        overflow-x: hidden;
+    }
+}
+
+
   </style>
 </head>
 <body>
-  <header>
-    <h1>فهرس الأفلام</h1>
-  </header>
+    <header onclick="window.location.href='/';">
+        <h1>فهرس</h1>
+    </header>
   <div class="content">
     <div class="search-container">
       <input type="text" id="search-input" placeholder="ابحث عن فيلم...">
@@ -210,14 +293,17 @@ h1 {
     </div>
   </div>
   <script>
-   const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+  const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+let allMovies = [];
+let displayedMovies = [];
 let movies = [];
 let currentIndex = 0;
+let hideTimeout;
 
 // تحديث حالة الأزرار
 function updateButtonStates() {
   document.getElementById('prev-button').disabled = currentIndex === 0;
-  document.getElementById('next-button').disabled = currentIndex === movies.length - 1;
+  document.getElementById('next-button').disabled = currentIndex >= movies.length - 1;
 }
 
 // الانتقال إلى اليسار
@@ -275,6 +361,115 @@ async function fetchNowPlayingMovies() {
   }
 }
 
+// وظيفة البحث
+async function searchMovies(query) {
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.results || [];
+  } catch (error) {
+    console.error('خطأ في جلب البيانات من TMDB', error);
+    return [];
+  }
+}
+
+function sortMovies(movies, query) {
+  const lowerCaseQuery = query.toLowerCase();
+
+  return movies.sort((a, b) => {
+    const aTitle = a.title.toLowerCase();
+    const bTitle = b.title.toLowerCase();
+
+    const aExactMatch = aTitle === lowerCaseQuery;
+    const bExactMatch = bTitle === lowerCaseQuery;
+
+    if (aExactMatch && !bExactMatch) return -1;
+    if (!aExactMatch && bExactMatch) return 1;
+
+    // ترتيب أبجدي أولاً
+    const titleComparison = aTitle.localeCompare(bTitle);
+    if (titleComparison !== 0) {
+      return titleComparison;
+    }
+
+    // ترتيب حسب السنة إذا كانت العناوين متساوية
+    const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
+    const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
+    return aYear - bYear;
+  });
+}
+
+function updateMovieList(movies, query) {
+  const sortedMovies = sortMovies(movies, query);
+  const movieList = document.querySelector('.movie-list');
+  movieList.innerHTML = '';
+
+  sortedMovies.forEach(movie => {
+    const movieItem = document.createElement('li');
+    movieItem.className = 'movie-item';
+    movieItem.style.display = 'flex';
+    movieItem.style.alignItems = 'center';
+    movieItem.style.justifyContent = 'space-between';
+
+    const poster = document.createElement('img');
+    poster.src = movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : 'default_poster.png';
+    poster.alt = `${movie.title} Poster`;
+    poster.style.width = '75px';
+    poster.style.height = '100px';
+    poster.style.marginLeft = '10px';
+
+    const movieText = document.createElement('span');
+    movieText.textContent = `${movie.title || 'Unnamed Movie'} (${new Date(movie.release_date).getFullYear() || ''})`;
+    movieText.style.flexGrow = '1';
+    movieText.style.textAlign = 'center';
+
+    movieItem.appendChild(movieText);
+    movieItem.appendChild(poster);
+    movieItem.dataset.id = movie.id;
+
+    movieItem.addEventListener('click', () => {
+      window.location.href = `watch_movie?tmdb_id=${movie.id}`;
+    });
+
+    movieList.appendChild(movieItem);
+  });
+
+  movieList.style.display = sortedMovies.length ? 'block' : 'none';
+
+  // ارجاع موضع التمرير الى الاعلى بعد تحديث القائمة
+  movieList.scrollTop = 0;
+}
+
+document.addEventListener('click', function(event) {
+  const searchInput = document.getElementById('search-input');
+  const movieList = document.querySelector('.movie-list');
+
+  // تحقق إذا كان النقر خارج مربع البحث أو القائمة المنسدلة
+  if (!searchInput.contains(event.target) && !movieList.contains(event.target)) {
+    // تأخير لإخفاء القائمة بعد قليل من الوقت، للتأكد من أن الإخفاء يحدث بعد التفاعل الأخير
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      movieList.style.display = 'none';
+    }, 200); // 200 ملي ثانية كمدة التأخير
+  }
+});
+
+document.getElementById('search-input').addEventListener('input', async (event) => {
+  const query = event.target.value.trim();
+  if (query.length > 0) {
+    allMovies = await searchMovies(query);
+    updateMovieList(allMovies, query);
+    document.querySelector('.movie-list').style.display = 'block'; // عرض القائمة عند وجود نص
+  } else {
+    // إخفاء القائمة عند عدم وجود نص بعد تأخير
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      document.querySelector('.movie-list').style.display = 'none';
+    }, 200); // 200 ملي ثانية كمدة التأخير
+  }
+});
+
 async function initialize() {
   movies = await fetchNowPlayingMovies();
   const postersContainer = document.querySelector('.posters');
@@ -286,10 +481,8 @@ async function initialize() {
       <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title}">
     `;
     posterDiv.addEventListener('click', () => {
-      currentIndex = index;
-      updatePoster(movie);
-      updatePosters();
-      updateButtonStates();
+      const tmdbId = movie.id;
+      window.location.href = `watch.html?tmdb_id=${tmdbId}`;
     });
     postersContainer.appendChild(posterDiv);
   });
@@ -301,7 +494,8 @@ async function initialize() {
   }
 }
 
-initialize();
+window.onload = initialize;
+
   </script>
 </body>
 </html>
