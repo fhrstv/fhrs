@@ -169,18 +169,23 @@ h1 {
 .details-container {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* لضمان توزيع الأزرار بشكل متساوي على الأطراف */
     margin-top: 10px;
     padding: 0 20px;
-    justify-content: center; /* لتوسيط العناصر داخل الحاوية */
-    gap: 15px; /* لضبط المسافة بين العناصر */
+    gap: 15px; /* لضبط المسافة بين الأزرار */
 }
 
+
 #movie-title {
+    flex-grow: 1; /* يجعل العنوان يتمدد لملء المساحة المتاحة بين الأزرار */
     font-size: 28px;
     margin: 0;
     font-weight: bold;
     color: #e50914;
     text-align: center;
+    white-space: nowrap; /* يمنع العنوان من التمدد إلى سطر جديد */
+    overflow: hidden; /* يخفي أي نص زائد خارج الحاوية */
+    text-overflow: ellipsis; /* يظهر النص الزائد كنقاط */
 }
 
 #movie-year {
