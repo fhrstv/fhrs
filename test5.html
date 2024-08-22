@@ -215,54 +215,28 @@ h1 {
 
 
 
-
 /* For mobile devices with a maximum width of 768px */
 @media only screen and (max-width: 768px) {
-  /* Adjust font sizes and padding */
+  /* Set the viewport width to the device width */
+  @viewport {
+    width: device-width;
+  }
+  
+  /* Set the body width to the viewport width */
   body {
-    font-size: 16px;
+    width: 100vw;
+    overflow-x: hidden;
   }
-  header {
-    padding: 10px;
-  }
-  h1 {
-    font-size: 24px;
-  }
-  .content {
-    padding: 10px;
-  }
-  .search-container {
-    margin: 10px auto;
-  }
-  #search-input {
-    padding: 10px;
-    font-size: 14px;
-  }
-  .movie-list {
-    max-height: 200px;
-  }
-  .movie-item {
-    padding: 5px;
-  }
-  .poster-container {
-    margin: 10px 0;
-  }
-  .posters {
-    flex-wrap: wrap;
-  }
-  .poster {
-    margin: 0 5px;
-    flex: 0 0 200px;
-  }
-  #movie-details {
-    margin-top: 10px;
-  }
-  #movie-title {
-    font-size: 20px;
-  }
-  .nav-button {
-    padding: 10px;
-    font-size: 18px;
+  
+  /* Scale down the entire page to fit the mobile screen */
+  html {
+    zoom: 0.5;
+    -moz-transform: scale(0.5);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.5);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
   }
 }
   </style>
