@@ -21,11 +21,21 @@
       touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
 
+a {
+    text-decoration: none; /* إزالة التسطير من الرابط */
+    color: inherit; /* استخدام نفس لون النص */
+}
+
 header {
     text-align: center; /* توسيط النص */
     font-size: 3em; /* حجم الخط الكبير */
+    color: red; /* اللون الأحمر للنص */
     margin: 20px 0; /* إضافة هامش أعلى وأسفل */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
 }
+
+
 
 
 
@@ -250,7 +260,10 @@ h1 {
     </style>
 </head>
 <body>
-    <header>فهرس</header>
+    <a href="/">
+        <header>فهرس</header>
+    </a>
+    
     
     
     <div class="content">
