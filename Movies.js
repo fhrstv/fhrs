@@ -2,6 +2,7 @@ const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
 let hideTimeout;
 let searchTimeout;
 let popularMovies = [];
+let popularShows = [];
 
 async function searchMovies(query) {
     const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=en-US`;
@@ -24,6 +25,18 @@ async function fetchPopularMovies() {
         updateMovieList(popularMovies, '');
     } catch (error) {
         console.error('Error fetching popular movies', error);
+    }
+}
+
+async function fetchPopularShows() {
+    const url = `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=en-US&region=US`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        popularShows = data.results || [];
+        displayShows(popularShows);
+    } catch (error) {
+        console.error('Error fetching popular shows', error);
     }
 }
 
@@ -81,6 +94,44 @@ function updateMovieList(movies, query) {
     movieList.scrollTop = 0;
 }
 
+function displayShows(shows) {
+    const showsList = document.querySelector('.shows-list');
+    showsList.innerHTML = '';
+
+    shows.forEach(show => {
+        const showItem = document.createElement('li');
+        showItem.className = 'show-item';
+        showItem.style.display = 'flex';
+        showItem.style.alignItems = 'center';
+        showItem.style.justifyContent = 'space-between';
+
+        const poster = document.createElement('img');
+        poster.src = show.poster_path ? `https://image.tmdb.org/t/p/w92${show.poster_path}` : 'default_poster.png';
+        poster.alt = `${show.name} Poster`;
+        poster.style.width = '75px';
+        poster.style.height = '100px';
+        poster.style.marginLeft = '10px';
+
+        const showText = document.createElement('span');
+        showText.textContent = `${show.name || 'Unnamed Show'} (${new Date(show.first_air_date).getFullYear() || ''})`;
+        showText.style.flexGrow = '1';
+        showText.style.textAlign = 'center';
+
+        showItem.appendChild(showText);
+        showItem.appendChild(poster);
+        showItem.dataset.id = show.id;
+
+        showItem.addEventListener('click', () => {
+            window.location.href = `watch_show?tmdb_id=${show.id}`;
+        });
+
+        showsList.appendChild(showItem);
+    });
+
+    showsList.style.display = shows.length ? 'block' : 'none';
+    showsList.scrollTop = 0;
+}
+
 function debounce(func, delay) {
     return function(...args) {
         clearTimeout(searchTimeout);
@@ -114,28 +165,8 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// جلب الأفلام الشعبية عند تحميل الصفحةasync function fetchPopularShows() {
-    try {
-        const response = await fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=en-US`);
-        if (!response.ok) throw new Error('فشل في جلب المسلسلات.');
-        const data = await response.json();
-        shows = data.results;
-        if (shows.length > 0) {
-            updatePoster(shows[0]);
-            updateButtonStates();
-        }
-    } catch (error) {
-        console.error('خطأ في جلب المسلسلات:', error);
-    }
-}
-
-// جلب المسلسلات عند تحميل الصفحة
+// جلب الأفلام والمسلسلات الشعبية عند تحميل الصفحة
 window.onload = async () => {
-    fetchPopularShows();
-    displayShows();
+    await fetchPopularMovies();
+    await fetchPopularShows();
 };
-
-// وظيفة لتحديث قائمة المسلسلات (تأكد من أنها متوافقة مع المسلسلات)
-function displayShows() {
-    // تأكد من تكامل هذه الوظيفة مع طريقة العرض الحالية
-}
