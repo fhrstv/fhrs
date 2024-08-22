@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>فهرس الأفلام</title>
   <style>
-    body {
+       body {
       font-family: 'Arial', sans-serif;
       background-color: #141414;
       color: #fff;
@@ -35,7 +35,6 @@
       position: relative;
       margin: 20px auto;
       max-width: 600px;
-      margin-bottom: 330px;
     }
 
     #search-input {
@@ -65,9 +64,6 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
       display: none;
       z-index: 1;
-      left: 0;
-      right: 0;
-      margin: auto;
     }
 
     .movie-list.show {
@@ -105,6 +101,7 @@
       justify-content: center;
       align-items: center;
       margin: 20px 0;
+      flex-direction: column;
     }
 
     #poster-wrapper {
@@ -134,8 +131,8 @@
     }
 
     .poster.selected {
-      border-color: #e50914; /* اللون الأحمر للإطار حول البوستر المحدد */
-      border-width: 7px; /* سمك الإطار */
+      border-color: #e50914;
+      border-width: 7px;
     }
 
     .poster:hover {
@@ -173,7 +170,7 @@
       cursor: pointer;
       transition: background-color 0.3s, box-shadow 0.3s;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-      margin: 0 10px;
+      margin: 10px;
     }
 
     .nav-button:hover {
@@ -184,6 +181,62 @@
     .nav-button:disabled {
       background-color: #666;
       cursor: not-allowed;
+    }
+
+    /* استعلامات الوسائط للشاشات الصغيرة */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      #poster-wrapper {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .poster {
+        flex: 0 0 200px;
+      }
+
+      #movie-title {
+        font-size: 20px;
+      }
+
+      #movie-year {
+        font-size: 14px;
+      }
+
+      .nav-button {
+        font-size: 20px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      .poster-container {
+        flex-direction: column;
+      }
+
+      .poster {
+        flex: 0 0 150px;
+      }
+
+      #movie-title {
+        font-size: 18px;
+      }
+
+      #movie-year {
+        font-size: 12px;
+      }
+
+      .nav-button {
+        font-size: 18px;
+        padding: 8px;
+      }
     }
   </style>
 </head>
