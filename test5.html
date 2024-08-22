@@ -278,33 +278,30 @@ h1 {
 
         // تحديث حالة الأزرار
         // إزالة تعطيل الأزرار للسماح بالتنقل بشكل دائري
-function updateButtonStates() {
-            document.getElementById('prev-button').disabled = currentIndex === 0;
-            document.getElementById('next-button').disabled = movies.length <= 1;
-        }
-
-
 // الانتقال إلى اليسار
 document.getElementById('prev-button').addEventListener('click', () => {
     if (movies.length > 1) {
-        currentIndex--;
+        currentIndex--; // خفض الفهرس
         if (currentIndex < 0) {
             currentIndex = movies.length - 1; // العودة إلى آخر بوستر إذا كان المؤشر أقل من الصفر
         }
-        updatePoster(movies[currentIndex]);
+        updatePoster(movies[currentIndex]); // تحديث العرض
     }
 });
 
 // الانتقال إلى اليمين
 document.getElementById('next-button').addEventListener('click', () => {
     if (movies.length > 1) {
-        currentIndex++;
+        currentIndex++; // زيادة الفهرس
         if (currentIndex >= movies.length) {
             currentIndex = 0; // العودة إلى أول بوستر إذا كان المؤشر أكبر من أو يساوي عدد البوسترات
         }
-        updatePoster(movies[currentIndex]);
+        updatePoster(movies[currentIndex]); // تحديث العرض
     }
 });
+
+// تحديث العرض الأولي للبوستر
+updatePoster(movies[currentIndex]);
         // تحديث البوستر
         function updatePoster(movie) {
             document.getElementById('current-poster').src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
