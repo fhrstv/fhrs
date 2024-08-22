@@ -114,7 +114,28 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// جلب الأفلام الشعبية عند تحميل الصفحة
+// جلب الأفلام الشعبية عند تحميل الصفحةasync function fetchPopularShows() {
+    try {
+        const response = await fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=en-US`);
+        if (!response.ok) throw new Error('فشل في جلب المسلسلات.');
+        const data = await response.json();
+        shows = data.results;
+        if (shows.length > 0) {
+            updatePoster(shows[0]);
+            updateButtonStates();
+        }
+    } catch (error) {
+        console.error('خطأ في جلب المسلسلات:', error);
+    }
+}
+
+// جلب المسلسلات عند تحميل الصفحة
 window.onload = async () => {
-    await fetchPopularMovies();  // جلب الأفلام الشعبية عند التحميل
+    fetchPopularShows();
+    displayShows();
 };
+
+// وظيفة لتحديث قائمة المسلسلات (تأكد من أنها متوافقة مع المسلسلات)
+function displayShows() {
+    // تأكد من تكامل هذه الوظيفة مع طريقة العرض الحالية
+}
