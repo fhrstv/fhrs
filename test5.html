@@ -277,35 +277,32 @@ h1 {
         let hideTimeout;
 
         // تحديث حالة الأزرار
-        function updateButtonStates() {
-            document.getElementById('prev-button').disabled = currentIndex === 0;
-            document.getElementById('next-button').disabled = movies.length <= 1;
+        // إزالة تعطيل الأزرار للسماح بالتنقل بشكل دائري
+function updateButtonStates() {
+    // لا حاجة لتعطيل الأزرار، سيتمكن المستخدم من التنقل دائماً
+}
+
+// الانتقال إلى اليسار
+document.getElementById('prev-button').addEventListener('click', () => {
+    if (movies.length > 1) {
+        currentIndex--;
+        if (currentIndex < 0) {
+            currentIndex = movies.length - 1; // العودة إلى آخر بوستر إذا كان المؤشر أقل من الصفر
         }
+        updatePoster(movies[currentIndex]);
+    }
+});
 
-        // الانتقال إلى اليسار
-        document.getElementById('prev-button').addEventListener('click', () => {
-            if (movies.length > 1) {
-                currentIndex--;
-                if (currentIndex < 0) {
-                    currentIndex = movies.length - 1; // العودة إلى آخر بوستر إذا كان المؤشر أقل من الصفر
-                }
-                updatePoster(movies[currentIndex]);
-                updateButtonStates();
-            }
-        });
-
-        // الانتقال إلى اليمين
-        document.getElementById('next-button').addEventListener('click', () => {
-            if (movies.length > 1) {
-                currentIndex++;
-                if (currentIndex >= movies.length) {
-                    currentIndex = 0; // العودة إلى أول بوستر إذا كان المؤشر أكبر من أو يساوي عدد البوسترات
-                }
-                updatePoster(movies[currentIndex]);
-                updateButtonStates();
-            }
-        });
-
+// الانتقال إلى اليمين
+document.getElementById('next-button').addEventListener('click', () => {
+    if (movies.length > 1) {
+        currentIndex++;
+        if (currentIndex >= movies.length) {
+            currentIndex = 0; // العودة إلى أول بوستر إذا كان المؤشر أكبر من أو يساوي عدد البوسترات
+        }
+        updatePoster(movies[currentIndex]);
+    }
+});
         // تحديث البوستر
         function updatePoster(movie) {
             document.getElementById('current-poster').src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
