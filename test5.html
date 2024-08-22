@@ -279,8 +279,10 @@ h1 {
         // تحديث حالة الأزرار
         // إزالة تعطيل الأزرار للسماح بالتنقل بشكل دائري
 function updateButtonStates() {
-    // لا حاجة لتعطيل الأزرار، سيتمكن المستخدم من التنقل دائماً
-}
+            document.getElementById('prev-button').disabled = currentIndex === 0;
+            document.getElementById('next-button').disabled = movies.length <= 1;
+        }
+
 
 // الانتقال إلى اليسار
 document.getElementById('prev-button').addEventListener('click', () => {
