@@ -39,12 +39,12 @@ header {
 
 
 h1 {
-    margin: 0;
-    font-size: 36px;
-    font-weight: bold;
-    letter-spacing: 1px;
-
+    text-align: center; /* توسيط النص */
+    font-size: 3em; /* حجم الخط */
+    color: #fffefe; /* لون النص */
+    text-shadow: 2px 2px 4px rgba(251, 0, 0, 0.5); /* إضافة ظل للنص */
 }
+
 
 .content {
     padding: 20px;
@@ -300,17 +300,14 @@ h1 {
     </a>
     
     
-    
-    <div class="content">
-        <div class="home-button" onclick="window.location.href = '/'">
-            رجوع للصفحة الرئيسية
-        </div>
+    <h1>البحث عن الفلم يكون فقط عن طريق مربع البحث وليس هناك اي صفحات اخرى</h1>
+   
         <div class="search-container">
             <input type="text" id="search-input" placeholder="ابحث عن فيلم...">
             <ul class="movie-list"></ul>
         </div>
         
-        
+        <h1>أحدث الافلام الاجنبية</h1>
 
         <div class="poster-container">
             <div id="poster-wrapper">
@@ -331,6 +328,10 @@ h1 {
                 <button id="next-button" class="nav-button" disabled>&#10095;</button>
             </div>
         </div>
+        <div class="content">
+            <div class="home-button" onclick="window.location.href = '/'">
+                رجوع للصفحة الرئيسية
+            </div>
     </div>
     <script>
          const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
