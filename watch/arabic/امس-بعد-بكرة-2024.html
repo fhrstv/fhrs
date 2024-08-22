@@ -10,149 +10,524 @@
 <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style> 
-       body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #000
-        }
+      body {
+    font-family: 'Arial', sans-serif;
+    background-color: #141414;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+      text-align: center;
+}
 
-        header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
-            text-align: center;
-            padding: 10px;
-        }
+header {
+    text-align: center; /* توسيط النص */
+    font-size: 3em; /* حجم الخط الكبير */
+    color: red; /* اللون الأحمر للنص */
+    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
+}
 
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            font-size: 18px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
+#poster {
+    max-width: 300px;
+    height: auto;
+    margin: 20px auto;
+    display: block;
+    border: 5px solid; /* عرض الإطار */
+    border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1; /* خليط بين الأسود والأحمر والأبيض */
+}
 
-        iframe {
-            width: 100%;
-            height: 400px;
-        }
 
-        a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
+h1, p {
+    margin: 10px 0;
+}
 
-        a:hover {
-            background-color: gold;
-        }
+#trailer iframe,
+#movieIframe {
+    width: 100%;
+    max-width: 1080px;
+    height: 450px;
+    margin: 20px auto;
+    border: none;
+    border-radius: 10px;
+    display: block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-        p {
-            text-align: justify;
-            margin-bottom: 10px;
-        }
+#downloadButton {
+    background-color: #00BFFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 50%;
+    margin-top: 20px;
+    align-items: center;
+    text-align: center;
+}
 
-        #poster {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
+#downloadButton:hover {
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
+    background-color: #008CBA;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
 
-        #title {
-            color: red; /* لون عنوان الفيلم أحمر */
-            margin-bottom: 10px;
-            text-align: center;
-        }
+}
 
-        #genres,
+a {
+    text-decoration: none;
+    color: #ffffff;
+    display: block;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: red;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 25px;
+    text-align: center;
+    margin: 20px auto;
+    width: 60%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    perspective: 1000px; /* إضافة منظور لتحقيق التأثير ثلاثي الأبعاد */
+}
+
+/* تأثير ثلاثي الأبعاد عند تمرير الفأرة */
+a:hover {
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
+    background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
+}
+
+h2 {
+    color: #ffffff;
+    font-size: 30px;
+    text-align: center;
+    line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #ff0000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #ff0000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
+}
+
+h3 {
+    color: #ffffff; /* لون النص أبيض */
+    font-size: 22px;
+    margin: 20px auto;
+    max-width: 80%;
+    text-align: center;
+    line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
+}
+
+
+#title {
+    color: red;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#genres,
 #overview,
 #release-date,
 #rating {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #000; /* لون النصوص الأسود */
-    font-size: 20px; /* حجم الخط */
-    margin-bottom: 10px; /* المسافة بين العناصر */
-    text-align: center; /* تمركز النص في الوسط */
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
     font-weight: bold;
-    direction: rtl; /* اتجاه النصوص من اليمين لليسار */
-}
-
-         #trailer {
-    margin: 20px auto;
-    width: 100%;
-    max-width: 560px;
-}
-
-#trailer iframe {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    border: none;
-}
-
-  
- 
-
-        h2, h3, a {
-    color: #000; /* تغيير اللون إلى الأسود */
     direction: rtl;
 }
-@media screen and (max-width: 425px), screen and (max-width: 375px), screen and (max-width: 320px) {
-    body {
-        zoom: 0.8; /* قم بتعديل القيمة حسب احتياجك */
+
+/* Media Queries */
+
+/* أقل من 50 بكسل */
+@media (max-width: 50px) {
+    #poster {
+        max-width: 100px;
     }
-}
-
-.fa-solid.fa-gear {
-    color: black; /* لون الرمز */
-    font-size: 1em; /* حجم الرمز */
-    margin-right: 10px; /* المسافة بين الرمز والنص */
-}
-
-.icon-container {
-    display: inline-flex;
-    align-items: center;
-}
-
-.expand-icon {
-    margin-right: 10px; /* إزالة المسافة الزائدة بعد الرمز الأخير */
-}
-
-
-#downloadButton {
-        background-color: #00BFFF; /* لون سماوي */
-        color: white; /* لون النص أبيض */
-        border: none;
-        padding: 10px 20px;
+    #trailer iframe,
+    #movieIframe {
+        height: 200px;
+    }
+    #downloadButton,
+    a {
+        font-size: 12px;
+        width: 80%;
+    }
+    h2 {
         font-size: 18px;
-        cursor: pointer;
-        border-radius: 5px; /* لجعل الزر مربعًا */
-        width: 100%; /* اجعل الزر يمتد ليأخذ عرض الحاوية */
-        max-width: Auto; /* حدد الحد الأقصى للعرض */
-        margin-top: 20px;
     }
+    h3 {
+        font-size: 16px;
+    }
+}
 
-    #downloadButton:hover {
-        background-color: #008CBA; /* لون أغمق عند التمرير عليه */
+/* من 51px إلى 100px */
+@media (min-width: 51px) and (max-width: 100px) {
+    #poster {
+        max-width: 150px;
     }
+    #trailer iframe,
+    #movieIframe {
+        height: 250px;
+    }
+    #downloadButton,
+    a {
+        font-size: 14px;
+        width: 70%;
+    }
+    h2 {
+        font-size: 22px;
+    }
+    h3 {
+        font-size: 18px;
+    }
+}
+
+/* من 101px إلى 150px */
+@media (min-width: 101px) and (max-width: 150px) {
+    #poster {
+        max-width: 200px;
+    }
+    #trailer iframe,
+    #movieIframe {
+        height: 300px;
+    }
+    #downloadButton,
+    a {
+        font-size: 16px;
+        width: 60%;
+    }
+    h2 {
+        font-size: 24px;
+    }
+    h3 {
+        font-size: 20px;
+    }
+}
+
+/* من 151px إلى 200px */
+@media (min-width: 151px) and (max-width: 200px) {
+    #poster {
+        max-width: 250px;
+    }
+    #trailer iframe,
+    #movieIframe {
+        height: 350px;
+    }
+    #downloadButton,
+    a {
+        font-size: 18px;
+        width: 55%;
+    }
+    h2 {
+        font-size: 26px;
+    }
+    h3 {
+        font-size: 22px;
+    }
+}
+
+/* من 201px إلى 260px */
+@media (min-width: 201px) and (max-width: 260px) {
+    #poster {
+        max-width: 270px;
+    }
+    #trailer iframe,
+    #movieIframe {
+        height: 400px;
+    }
+    #downloadButton,
+    a {
+        font-size: 20px;
+        width: 50%;
+    }
+    h2 {
+        font-size: 28px;
+    }
+    h3 {
+        font-size: 24px;
+    }
+}
+
+/* من 261px إلى 320px */
+@media (min-width: 261px) and (max-width: 320px) {
+    #poster {
+        max-width: 300px;
+    }
+    #trailer iframe,
+    #movieIframe {
+        height: 450px;
+    }
+    #downloadButton,
+    a {
+        font-size: 22px;
+        width: 50%;
+    }
+    h2 {
+        font-size: 30px;
+    }
+    h3 {
+        font-size: 26px;
+    }
+}
+
+/* من 321px إلى 375px */
+@media (min-width: 321px) and (max-width: 375px) {
+    #poster {
+        max-width: 300px;
+    }
+    #trailer iframe,
+    #movieIframe {
+        height: 450px;
+    }
+    #downloadButton,
+    a {
+        font-size: 22px;
+        width: 50%;
+    }
+    h2 {
+        font-size: 30px;
+    }
+    h3 {
+        font-size: 26px;
+    }
+}
+
+/* من 376px إلى 425px */
+@media (min-width: 376px) and (max-width: 425px) {
+    #poster {
+        max-width: 320px; /* حجم مناسب للصورة */
+    }
+    #trailer iframe,
+    #movieIframe {
+        height: 400px; /* ارتفاع مناسب للفيديو */
+    }
+    #downloadButton,
+    a {
+        font-size: 20px; /* حجم خط مناسب */
+        width: 60%; /* عرض مناسب للأزرار */
+    }
+    h2 {
+        font-size: 28px; /* حجم خط مناسب للعناوين */
+    }
+    h3 {
+        font-size: 24px; /* حجم خط مناسب للعناوين الثانوية */
+    }
+    /* تحسين النصوص */
+    #genres,
+    #overview,
+    #release-date,
+    #rating {
+        font-size: 18px; /* حجم خط مناسب للنصوص */
+        margin-bottom: 15px; /* مسافة مناسبة بين النصوص */
+    }
+}
+
+/* من 426px إلى 768px */
+@media (min-width: 426px) and (max-width: 768px) {
+    #poster {
+        max-width: 400px; /* حجم مناسب للصورة */
+    }
+    #trailer iframe,
+    #movieIframe {
+        height: 450px; /* ارتفاع مناسب للفيديو */
+    }
+    #downloadButton,
+    a {
+        font-size: 22px; /* حجم خط مناسب */
+        width: 70%; /* عرض مناسب للأزرار */
+    }
+    h2 {
+        font-size: 32px; /* حجم خط مناسب للعناوين */
+    }
+    h3 {
+        font-size: 26px; /* حجم خط مناسب للعناوين الثانوية */
+    }
+    /* تحسين النصوص */
+    #genres,
+    #overview,
+    #release-date,
+    #rating {
+        font-size: 22px; /* حجم خط مناسب للنصوص */
+        margin-bottom: 20px; /* مسافة مناسبة بين النصوص */
+    }
+}
+
+/* من 769px إلى 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+    body {
+        font-size: 18px; /* حجم خط مناسب للأجهزة الأكبر */
+    }
+    #poster {
+        max-width: 500px; /* حجم مناسب للصورة */
+    }
+    #trailer iframe,
+    #movieIframe {
+        height: 500px; /* ارتفاع مناسب للفيديو */
+    }
+    #downloadButton,
+    a {
+        font-size: 24px; /* حجم خط مناسب */
+        width: 60%; /* عرض مناسب للأزرار */
+    }
+    h2 {
+        font-size: 36px; /* حجم خط مناسب للعناوين */
+    }
+    h3 {
+        font-size: 28px; /* حجم خط مناسب للعناوين الثانوية */
+    }
+    /* تحسين النصوص */
+    #genres,
+    #overview,
+    #release-date,
+    #rating {
+        font-size: 24px; /* حجم خط مناسب للنصوص */
+        margin-bottom: 20px; /* مسافة مناسبة بين النصوص */
+    }
+}
+
+/* من 1025px إلى 1440px */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    body {
+        font-size: 20px; /* حجم خط أكبر يناسب الشاشات الكبيرة */
+    }
+    #poster {
+        max-width: 600px; /* حجم مناسب للصورة */
+    }
+    #trailer iframe,
+    #movieIframe {
+        height: 600px; /* ارتفاع مناسب للفيديو */
+    }
+    #downloadButton,
+    a {
+        font-size: 26px; /* حجم خط أكبر */
+        width: 50%; /* عرض مناسب للأزرار */
+    }
+    h2 {
+        font-size: 40px; /* حجم خط أكبر للعناوين الرئيسية */
+    }
+    h3 {
+        font-size: 32px; /* حجم خط أكبر للعناوين الثانوية */
+    }
+    /* تحسين النصوص */
+    #genres,
+    #overview,
+    #release-date,
+    #rating {
+        font-size: 26px; /* حجم خط مناسب للنصوص */
+        margin-bottom: 25px; /* مسافة مناسبة بين النصوص */
+    }
+    header {
+        padding: 20px; /* زيادة padding للـ header */
+    }
+}
+
+/* من 1441px إلى 2560px */
+@media (min-width: 1441px) and (max-width: 2560px) {
+    body {
+        font-size: 22px; /* حجم خط أكبر يناسب الشاشات الكبيرة جداً */
+        padding: 0 40px; /* إضافة padding لتوفير المسافة حول المحتوى */
+    }
+    #poster {
+        max-width: 800px; /* حجم أكبر للصورة */
+    }
+    #trailer iframe,
+    #movieIframe {
+        height: 700px; /* ارتفاع مناسب للفيديو */
+    }
+    #downloadButton,
+    a {
+        font-size: 28px; /* حجم خط أكبر للأزرار */
+        width: 40%; /* عرض مناسب للأزرار على الشاشات الكبيرة */
+    }
+    h2 {
+        font-size: 50px; /* حجم خط أكبر للعناوين الرئيسية */
+    }
+    h3 {
+        font-size: 36px; /* حجم خط أكبر للعناوين الثانوية */
+    }
+    /* تحسين النصوص */
+    #genres,
+    #overview,
+    #release-date,
+    #rating {
+        font-size: 30px; /* حجم خط أكبر للنصوص */
+        margin-bottom: 30px; /* مسافة أكبر بين النصوص */
+    }
+    header {
+        padding: 30px; /* زيادة padding للـ header */
+    }
+}
+
+/* من 2561px إلى ما فوق */
+@media (min-width: 2561px) {
+    body {
+        font-size: 24px; /* حجم خط أكبر لتناسب مع الشاشات الكبيرة جداً */
+        padding: 0 60px; /* توفير مسافة أكبر حول المحتوى */
+    }
+    #poster {
+        max-width: 1000px; /* حجم أكبر للصورة */
+    }
+    #trailer iframe,
+    #movieIframe {
+        height: 800px; /* ارتفاع أكبر للفيديو */
+    }
+    #downloadButton,
+    a {
+        font-size: 32px; /* حجم خط أكبر للأزرار */
+        width: 30%; /* عرض مناسب للأزرار على الشاشات الكبيرة جداً */
+    }
+    h2 {
+        font-size: 60px; /* حجم خط أكبر للعناوين الرئيسية */
+    }
+    h3 {
+        font-size: 44px; /* حجم خط أكبر للعناوين الثانوية */
+    }
+    /* تحسين النصوص */
+    #genres,
+    #overview,
+    #release-date,
+    #rating {
+        font-size: 36px; /* حجم خط أكبر للنصوص */
+        margin-bottom: 40px; /* مسافة أكبر بين النصوص */
+    }
+    header {
+        padding: 40px; /* زيادة padding للـ header */
+    }
+    /* تحسين المظهر العام */
+    #trailer iframe:hover,
+    #movieIframe:hover {
+        transform: scale(1.05); /* تكبير الفيديو عند التفاعل */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* ظل أعمق عند التفاعل */
+    }
+    #downloadButton:hover,
+    a:hover {
+        background-color: #006994; /* لون أغمق عند التفاعل */
+    }
+}
+
+
+
     </style> 
 </head> 
 <body> 
-    <header> 
-        <h1>فهرس</h1> 
+    <b href="/">
+        <header>فهرس</header>
+    </b> 
    
 <div class="container">
     <img id="poster" src="">
@@ -169,10 +544,11 @@
     <h2>شاهد الآن</h2>
     <iframe id="movieIframe" src="https://vk.com/video_ext.php?oid=760598098&id=456248307&hash=&hd=2s" frameborder="0" allowfullscreen></iframe> 
     <button id="downloadButton">تحميل الفيلم</button>
-    <h2>
-        إذا لم يظهر مفتاح الإعدادات او مفتاح تكبير الشاشة
+   <h3>
             <i class="fa-solid fa-gear settings-icon"></i>
             <i class="fa-solid fa-up-right-and-down-left-from-center expand-icon"></i> 
+            إذا لم يظهر مفتاح الإعدادات او مفتاح تكبير الشاشة
+
         <br>
         جرب أحد هذه الحلول وسيعمل معك
         <br>
@@ -182,11 +558,11 @@
         <br> وستجد مفتاح الإعدادات و تكبير الشاشة و منها تستطيع أن تقوم بتغيير الجودة
         <br> إذا لم تعمل الحلقة او الفيلم ، الرجاء نسخ الرابط
         <br> و إرساله لنا من خلال صفحة اتصل بنا
-    </h2>
+    </h3>
     
 
 
-     <a href="../../Movies">رجوع</a>
+     <a href="../../Arabic">رجوع</a>
 </div>
 
 <script>
