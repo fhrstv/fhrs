@@ -10,7 +10,7 @@
     <script src=".htaccess" defer></script>
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
-    body {
+     body {
     font-family: 'Arial', sans-serif;
     background-color: #141414;
     color: #fff;
@@ -21,20 +21,12 @@
       touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
 
-#header {
-    background-color: #000;
-    color: #e50914;
-    text-align: center;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    cursor: pointer;
-    touch-action: manipulation;
-    transition: top 0.3s; /* إضافة تأثير الانتقال عند التمرير */
-    font-size: 40px;
+header {
+    text-align: center; /* توسيط النص */
+    font-size: 3em; /* حجم الخط الكبير */
+    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
 }
+
 
 
 h1 {
@@ -42,6 +34,7 @@ h1 {
     font-size: 36px;
     font-weight: bold;
     letter-spacing: 1px;
+
 }
 
 .content {
@@ -254,16 +247,11 @@ h1 {
 }
 
 
-
     </style>
-     
 </head>
 <body>
-<header>
-    <h1>فهرس</h1>
-  </header>
-</body>
-<body>
+    <header>فهرس</header>
+    
     
     <div class="content">
         <div class="search-container">
@@ -531,11 +519,6 @@ function updateMovieList(movies, query) {
     movieList.style.display = sortedMovies.length ? 'block' : 'none';
     movieList.scrollTop = 0;
 }
-
-
-
-
-
 
     </script>
 </body>
