@@ -177,3 +177,4 @@ window.onload = async () => {
 function displayShows() {
     // تأكد من تكامل هذه الوظيفة مع طريقة العرض الحالية
 }
+
