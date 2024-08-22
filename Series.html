@@ -282,6 +282,15 @@ h1 {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
 }
 
+#current-poster {
+    transition: transform 0.1s ease-in-out;
+}
+
+#current-poster:active {
+    transform: scale(0.95);
+}
+
+
 @media (min-width: 1025px) and (max-width: 1440px) {
     .home-button {
         font-size: 2em; /* حجم الخط أصغر قليلاً */
