@@ -293,7 +293,7 @@ label[for="lowQualityEpisodes"] {
         <video id="videoPlayer" controls>
             <source id="videoSource" src="" type="video/mp4">
         </video>
-            <label for="highQualityEpisodes">: حلقات الجودة العالية</label>
+            <label for="highQualityEpisodes">حلقات الجودة العالية</label>
             <select id="highQualityEpisodes" onchange="changeEpisode(this.value, 'high')">
                 <option value="https://server.sanime.net/Video3/2011/1.mp4">القسم الاول : الحلقة 1</option>
                 <option value="https://server.sanime.net/Video3/2011/2.mp4">القسم الاول : الحلقة 2</option>
@@ -328,7 +328,7 @@ label[for="lowQualityEpisodes"] {
             </select>
 
             <br>
-            <label for="lowQualityEpisodes">: حلقات الجودة المنخفضة</label>
+            <label for="lowQualityEpisodes">حلقات الجودة المنخفضة</label>
             <select id="lowQualityEpisodes" onchange="changeEpisode(this.value, 'low')">
                 <option value="" disabled selected>اختر الحلقة</option>
                 <!-- سيتم تعبئة هذه القائمة تلقائيًا -->
@@ -377,11 +377,11 @@ label[for="lowQualityEpisodes"] {
                         <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
                         <h2 class="movie-title">${data.title || data.name}</h2>
                         <div class="movie-details">
-                            <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
-                            <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
-                            <p><strong>التقييم:</strong> ${imdbRating}/10</p>
+                           <p><strong>سنة الإصدار :</strong> ${releaseYear}</p>
+                            <p><strong>النوع :</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>التقييم :</strong> ${imdbRating}/10</p>
                             <div class="story-container">
-                            <div class="story-title">: القصة</div>
+                            <div class="story-title">القصة :</div>
                             <div class="story">${trimmedOverview}</div>
                         </div>
                         </div>
@@ -548,6 +548,7 @@ function copyEpisodeLink() {
         alert("يرجى اختيار الحلقة أولاً.");
     }
 }
+
     </script>
 </body>
 </html>

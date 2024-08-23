@@ -1,4 +1,3 @@
-<!-- anime series -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +7,7 @@
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
-       body {
+        body {
     font-family: 'Arial', sans-serif;
     background-color: #141414;
     color: #fff;
@@ -272,31 +271,27 @@ label[for="lowQualityEpisodes"] {
     align-items: center;
     display: block;
 }
-
-
-
-
-
     </style>
 </head>
 <body>
-   <header onclick="window.location.href='/'" style="cursor: pointer;">
-    فهرس
-</header>
+    <header onclick="window.location.href='/'" style="cursor: pointer;">
+        فهرس
+    </header>
     <div class="container">
         <div id="movieInfo"></div>
+        <h2>التريلر</h2>
         <div id="trailerContainer"></div>
         <h2>شاهد الآن</h2>
         <video id="videoPlayer" controls>
             <source id="videoSource" src="" type="video/mp4">
         </video>
         <div class="episode-box">
-            <label for="highQualityEpisodes">حلقات الجودة العالية : </label>
+            <label for="highQualityEpisodes">حلقات الجودة العالية</label>
             <select id="highQualityEpisodes" onchange="changeEpisode(this.value, 'high')">
                 <option value="" disabled selected>اختر الحلقة</option>
             </select>
             <br>
-            <label for="lowQualityEpisodes">حلقات الجودة المنخفضة : </label>
+            <label for="lowQualityEpisodes">حلقات الجودة المنخفضة</label>
             <select id="lowQualityEpisodes" onchange="changeEpisode(this.value, 'low')">
                 <option value="" disabled selected>اختر الحلقة</option>
                 
@@ -305,6 +300,7 @@ label[for="lowQualityEpisodes"] {
             <button id="copyButton" onclick="copyEpisodeLink()">نسخ رابط الحلقة</button>
             <h3>لتحميل قم بنسخ رابط الفيلم او الحلقة و الذهاب الى برنامج <span class="english">vlc</span>    و انسخ الرابط داخل البرنامج وتستطيع تحميلها او مشاهدتها داخل البرنامج</h3>
             <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
+
         </div>
         <br>
         <a href="../../Anime">رجوع</a>
@@ -367,7 +363,6 @@ label[for="lowQualityEpisodes"] {
                                 const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
                                 const trailerContainer = document.getElementById('trailerContainer');
                                 trailerContainer.innerHTML = `
-                                    <h3>التريلر</h3>
                                     <iframe width="560" height="315" src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
                                 `;
                             } else {
