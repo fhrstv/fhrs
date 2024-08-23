@@ -258,8 +258,8 @@ h2 {
         </video>
         <div class="episode-box">
             <select id="episodes" onchange="changeEpisode(this.value)">
-                <option value="https://server.sanime.net/Video/4159/1.mp4">جودة الفيلم عالية</option>
-                <option value="https://server.sanime.net/Video/4159/1SD.mp4">جودة الفيلم منخفضة</option>
+                <option value="https://server.sanime.net/Video/4159/1.mp4">جودة الفيلم العالية</option>
+                <option value="https://server.sanime.net/Video/4159/1SD.mp4">جودة الفيلم المنخفضة</option>
             </select>
             <button id="copyButton" onclick="copyEpisodeLink()">نسخ رابط الحلقة</button>
         </div>
@@ -305,11 +305,11 @@ h2 {
                         <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
                         <h2 class="movie-title">${data.title || data.name}</h2>
                         <div class="movie-details">
-                            <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
-                            <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
-                            <p><strong>التقييم:</strong> ${imdbRating}/10</p>
+                             <p><strong>سنة الإصدار :</strong> ${releaseYear}</p>
+                            <p><strong>النوع :</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>التقييم :</strong> ${imdbRating}/10</p>
                             <div class="story-container">
-                            <div class="story-title">: القصة</div>
+                            <div class="story-title">القصة :</div>
                             <div class="story">${trimmedOverview}</div>
                         </div>
                         </div>
