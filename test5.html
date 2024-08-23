@@ -252,9 +252,11 @@ h2 {
 
 label[for="highQualityEpisodes"],
 label[for="lowQualityEpisodes"] {
-    font-size: 2.5rem; /* حجم الخط بناءً على عرض النافذة */
+    font-size: 1.5rem; /* حجم الخط بناءً على عرض النافذة */
     font-weight: bold; /* جعل الخط عريضًا */
     color: #fff; /* لون النص */
+    align-items: center;
+    display: block;
 }
 
 
@@ -277,7 +279,7 @@ label[for="lowQualityEpisodes"] {
             <source id="videoSource" src="" type="video/mp4">
         </video>
         <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
-            <label for="highQualityEpisodes">حلقات الجودة العالية : </label>
+            <label for="highQualityEpisodes">: حلقات الجودة العالية</label>
             <select id="highQualityEpisodes" onchange="changeEpisode(this.value, 'high')">
                 <option value="https://server.sanime.net/Video3/3186/1.mp4">الحلقة 1</option>
                 <option value="https://server.sanime.net/Video3/3186/2.mp4">الحلقة 2</option>
@@ -301,7 +303,7 @@ label[for="lowQualityEpisodes"] {
             </select>
 
         <br>
-        <label for="lowQualityEpisodes">حلقات الجودة المنخفضة : </label>
+        <label for="lowQualityEpisodes">: حلقات الجودة المنخفضة</label>
         <select id="lowQualityEpisodes" onchange="changeEpisode(this.value, 'low')">
             <option value="" disabled selected>اختر الحلقة</option>
             <!-- سيتم تعبئة هذه القائمة تلقائيًا -->
