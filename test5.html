@@ -113,17 +113,16 @@ img {
     border: 5px solid; /* عرض الإطار */
     border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
 }
-
-
-/* CSS لتصميم العناصر بحيث تكون متوافقة مع جميع الأجهزة */
+/* CSS لتصميم العناصر بحيث تكون أصغر مع الحفاظ على التناسب */
 .movie-embed-container, .trailer-container {
     position: relative;
-    width: 100%; /* استخدام عرض كامل للعنصر */
-    padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) */
+    width: 80%; /* تحديد العرض كنسبة مئوية من العرض الكامل للعنصر الأم */
     max-width: 800px; /* تحديد أقصى عرض للحاوية */
+    height: -500px; /* بداية الارتفاع بـ 0 */
+    padding-top: 35%; /* نسبة العرض إلى الارتفاع (9:16) لتصغير الحجم */
     margin: auto; /* توسيط العنصر */
     border: 5px solid; /* عرض الإطار */
-    border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
+    border-image: linear-gradient(45deg, #FF5733, #33FF57, #3357FF); /* خليط الألوان */
     border-image-slice: 1; /* تطبيق خليط الألوان على الإطار */
     overflow: hidden; /* إخفاء أي جزء من الفيديو يتجاوز الحاوية */
 }
