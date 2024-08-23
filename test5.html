@@ -116,15 +116,16 @@ img {
 /* CSS لتصميم العناصر بحيث تكون أصغر مع الحفاظ على التناسب */
 .movie-embed-container, .trailer-container {
     position: relative;
-    width: 80%; /* تحديد العرض كنسبة مئوية من العرض الكامل للعنصر الأم */
+    width: 100%; /* العرض الكامل ليتناسب مع العنصر الأم */
     max-width: 800px; /* تحديد أقصى عرض للحاوية */
-    height: -500px; /* بداية الارتفاع بـ 0 */
-    padding-top: 35%; /* نسبة العرض إلى الارتفاع (9:16) لتصغير الحجم */
+    height: 0; /* الارتفاع سيُحدد بناءً على النسبة */
+    padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) لتحديد الارتفاع تلقائيًا */
     margin: auto; /* توسيط العنصر */
     border: 5px solid; /* عرض الإطار */
     border-image: linear-gradient(45deg, #FF5733, #33FF57, #3357FF); /* خليط الألوان */
     border-image-slice: 1; /* تطبيق خليط الألوان على الإطار */
     overflow: hidden; /* إخفاء أي جزء من الفيديو يتجاوز الحاوية */
+    background-color: #000; /* خلفية داكنة لجعل الفيديو يبرز */
 }
 
 .movie-embed-container iframe, .trailer-container iframe {
@@ -135,6 +136,7 @@ img {
     height: 100%;
     border: none; /* إزالة الحدود حول الفيديو */
 }
+
 
 
 
