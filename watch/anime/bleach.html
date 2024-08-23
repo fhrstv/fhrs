@@ -290,7 +290,6 @@ label[for="lowQualityEpisodes"] {
         <video id="videoPlayer" controls>
             <source id="videoSource" src="" type="video/mp4">
         </video>
-        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
         <div class="episode-box">
             <label for="highQualityEpisodes">حلقات الجودة العالية : </label>
             <select id="highQualityEpisodes" onchange="changeEpisode(this.value, 'high')">
@@ -304,7 +303,8 @@ label[for="lowQualityEpisodes"] {
                 
             </select>
             <button id="copyButton" onclick="copyEpisodeLink()">نسخ رابط الحلقة</button>
-            <h4>لتحميل قم بنسخ رابط الفيلم او الحلقة و الذهاب الى برنامج <span class="english">vlc</span>    و انسخ الرابط داخل البرنامج وتستطيع تحميلها او مشاهدتها داخل البرنامج</h4>
+            <h3>لتحميل قم بنسخ رابط الفيلم او الحلقة و الذهاب الى برنامج <span class="english">vlc</span>    و انسخ الرابط داخل البرنامج وتستطيع تحميلها او مشاهدتها داخل البرنامج</h3>
+            <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
         </div>
         <br>
         <a href="../../Anime">رجوع</a>
@@ -350,7 +350,7 @@ label[for="lowQualityEpisodes"] {
                             <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
                             <p><strong>التقييم:</strong> ${imdbRating}/10</p>
                             <div class="story-container">
-                            <div class="story-title">: القصة</div>
+                            <div class="story-title">القصة:</div>
                             <div class="story">${trimmedOverview}</div>
                         </div>
                         </div>
