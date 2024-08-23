@@ -279,26 +279,27 @@ label[for="lowQualityEpisodes"] {
 </header>
     <div class="container">
         <div id="movieInfo"></div>
+        <h2>التريلر</h2>
         <div id="trailerContainer"></div>
         <h2>شاهد الآن</h2>
         <video id="videoPlayer" controls>
             <source id="videoSource" src="" type="video/mp4">
         </video>
-        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
         <div class="episode-box">
-            <label for="highQualityEpisodes">حلقات الجودة العالية : </label>
+            <label for="highQualityEpisodes">حلقات الجودة العالية</label>
             <select id="highQualityEpisodes" onchange="changeEpisode(this.value, 'high')">
                 <option value="" disabled selected>اختر الحلقة</option>
             </select>
             <br>
-            <label for="lowQualityEpisodes">حلقات الجودة المنخفضة : </label>
+            <label for="lowQualityEpisodes">حلقات الجودة المنخفضة</label>
             <select id="lowQualityEpisodes" onchange="changeEpisode(this.value, 'low')">
                 <option value="" disabled selected>اختر الحلقة</option>
                 
                 
             </select>
             <button id="copyButton" onclick="copyEpisodeLink()">نسخ رابط الحلقة</button>
-            <h4>لتحميل قم بنسخ رابط الفيلم او الحلقة و الذهاب الى برنامج <span class="english">vlc</span>    و انسخ الرابط داخل البرنامج وتستطيع تحميلها او مشاهدتها داخل البرنامج</h4>
+            <h3>لتحميل قم بنسخ رابط الفيلم او الحلقة و الذهاب الى برنامج <span class="english">vlc</span>    و انسخ الرابط داخل البرنامج وتستطيع تحميلها او مشاهدتها داخل البرنامج</h3>
+            <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
         </div>
         <br>
         <a href="../../Anime">رجوع</a>
@@ -340,11 +341,11 @@ label[for="lowQualityEpisodes"] {
                         <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
                         <h2 class="movie-title">${data.title || data.name}</h2>
                         <div class="movie-details">
-                            <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
-                            <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
-                            <p><strong>التقييم:</strong> ${imdbRating}/10</p>
+                            <p><strong>سنة الإصدار :</strong> ${releaseYear}</p>
+                            <p><strong>النوع :</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>التقييم :</strong> ${imdbRating}/10</p>
                             <div class="story-container">
-                            <div class="story-title">: القصة</div>
+                            <div class="story-title">القصة :</div>
                             <div class="story">${trimmedOverview}</div>
                         </div>
                         </div>

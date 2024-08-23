@@ -7,7 +7,7 @@
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
-        body {
+      body {
     font-family: 'Arial', sans-serif;
     background-color: #141414;
     color: #fff;
@@ -274,9 +274,9 @@ label[for="lowQualityEpisodes"] {
     </style>
 </head>
 <body>
-    <header onclick="window.location.href='/'" style="cursor: pointer;">
-        فهرس
-    </header>
+   <header onclick="window.location.href='/'" style="cursor: pointer;">
+    فهرس
+</header>
     <div class="container">
         <div id="movieInfo"></div>
         <h2>التريلر</h2>
@@ -300,7 +300,6 @@ label[for="lowQualityEpisodes"] {
             <button id="copyButton" onclick="copyEpisodeLink()">نسخ رابط الحلقة</button>
             <h3>لتحميل قم بنسخ رابط الفيلم او الحلقة و الذهاب الى برنامج <span class="english">vlc</span>    و انسخ الرابط داخل البرنامج وتستطيع تحميلها او مشاهدتها داخل البرنامج</h3>
             <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
-
         </div>
         <br>
         <a href="../../Anime">رجوع</a>
@@ -308,7 +307,7 @@ label[for="lowQualityEpisodes"] {
 
     <script>
  const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
-        const mediaIds = ['tt0434665'];
+        const mediaIds = ['tt0409591'];
 
         mediaIds.forEach(mediaId => {
             const apiUrl = `https://api.themoviedb.org/3/find/${mediaId}?api_key=${tmdbApiKey}&language=ar&external_source=imdb_id`;
@@ -363,6 +362,7 @@ label[for="lowQualityEpisodes"] {
                                 const videoEmbedUrl = `https://www.youtube.com/embed/${videoKey}`;
                                 const trailerContainer = document.getElementById('trailerContainer');
                                 trailerContainer.innerHTML = `
+                                    <h3>التريلر</h3>
                                     <iframe width="560" height="315" src="${videoEmbedUrl}" frameborder="0" allowfullscreen></iframe>
                                 `;
                             } else {
@@ -427,9 +427,9 @@ label[for="lowQualityEpisodes"] {
 
     function generateEpisodes() {
     var highQualitySelect = document.getElementById('highQualityEpisodes');
-    var numEpisodes = 366; // عدد الحلقات المسموح توليدها
-    var word = 'Video2'; // الكلمة
-    var number = 530; // الرقم
+    var numEpisodes = 220; // عدد الحلقات المسموح توليدها
+    var word = 'Video3'; // الكلمة
+    var number = 529; // الرقم
     var baseURL = `https://server.sanime.net/${word}/${number}/`;
 
     var fragment = document.createDocumentFragment(); // استخدام DocumentFragment لتجميع العناصر
