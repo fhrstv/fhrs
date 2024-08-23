@@ -280,9 +280,10 @@ label[for="lowQualityEpisodes"] {
     </style>
 </head>
 <body>
-    <b href="/">
-        <header>فهرس</header>
-    </b>
+   <header onclick="window.location.href='/'" style="cursor: pointer;">
+    فهرس
+</header>
+
         <div id="movieInfo"></div>
         <h2>التريلر</h2>
         <div id="trailerContainer"></div>
@@ -292,7 +293,6 @@ label[for="lowQualityEpisodes"] {
         <video id="videoPlayer" controls>
             <source id="videoSource" src="" type="video/mp4">
         </video>
-        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
             <label for="highQualityEpisodes">: حلقات الجودة العالية</label>
             <select id="highQualityEpisodes" onchange="changeEpisode(this.value, 'high')">
                 <option value="https://server.sanime.net/Video3/3186/1.mp4">الحلقة 1</option>
@@ -324,6 +324,8 @@ label[for="lowQualityEpisodes"] {
         </select>
         <button id="copyButton" onclick="copyEpisodeLink()">نسخ رابط الحلقة</button>
         <h3>لتحميل قم بنسخ رابط الفيلم او الحلقة و الذهاب الى برنامج <span class="english">vlc</span>    و انسخ الرابط داخل البرنامج وتستطيع تحميلها او مشاهدتها داخل البرنامج</h3>
+        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
+
     </div>
     
     <a href="../../Series">رجوع</a>
