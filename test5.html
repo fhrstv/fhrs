@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>فهرس</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="اكبر موقع فهرسة للأفلام والمسلسلات">
-    <script src="script.js" defer></script>
-    <script src=".htaccess" defer></script>
-    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
     <style>
-     body {
-    font-family: 'Arial', sans-serif;
+ body {
+        font-family: 'Arial', sans-serif;
     background-color: #141414;
     color: #fff;
     margin: 0;
@@ -20,10 +16,40 @@
       touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
 
-a {
-    text-decoration: none; /* إزالة التسطير من الرابط */
-    color: inherit; /* استخدام نفس لون النص */
+
+
+.movie-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    direction: rtl;
 }
+
+.movie-details img {
+    width: 300px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.movie-details h1 {
+    margin: 0;
+    color: red;
+}
+
+.movie-details p {
+    margin: 10px 0;
+}
+
+.movie-details p span {
+    color: #000; /* تعيين اللون الأسود للـ <span> */
+}
+
+
 
 header {
     text-align: center; /* توسيط النص */
@@ -35,548 +61,212 @@ header {
 }
 
 
-
-
-
-h1 {
-    text-align: center; /* توسيط النص */
-    font-size: 1.5em; /* حجم الخط */
-    color: #fffefe; /* لون النص */
-    text-shadow: 2px 2px 4px rgba(251, 0, 0, 0.5); /* إضافة ظل للنص */
-}
-
-.content {
-    padding: 20px;
-    text-align: center;
-}
-
-.search-container {
-    position: relative;
-    margin: 20px auto;
-    max-width: 600px;
-    margin-bottom: 330px; /* قم بتعديل المسافة حسب الحاجة */
-    
-}
-
-#search-input {
-    width: 100%;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid #444;
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-}
-
-#search-input:focus {
-    outline: none;
-    border-color: #e50914;
-    box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
-}
-
-.movie-list {
-    list-style: none;
-    padding: 0;
-    max-height: 300px;
-    overflow-y: auto;
-    margin: 0;
-    border-radius: 0 0 5px 5px;
-    background-color: #333;
-    border: 1px solid #444;
-    position: absolute;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    display: none;
-    z-index: 1;
-}
-
-.movie-list.show {
+a {
+    text-decoration: none;
+    color: #ffffff;
     display: block;
-}
-
-.movie-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #444;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    color: #fff;
-}
-
-.movie-item:hover {
-    background-color: #555;
-}
-
-.movie-item img {
-    width: 75px;
-    height: 100px;
-    border-radius: 5px;
-    margin-right: 10px;
-    transition: transform 0.3s ease;
-}
-
-.movie-item img:hover {
-    transform: scale(1.1);
-}
-
-.movie-item span {
-    flex: 1;
-    text-align: left;
-}
-
-.poster-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px 0;
-      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
-}
-
-#poster-wrapper {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 300px; /* أقصى عرض للبستر */
-    height: auto; /* ارتفاع تلقائي للبستر */
-}
-
-.poster {
-    border: 5px solid #444;
+    padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
-    overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-    width: 100%; /* اجعل العرض 100% ليتطابق مع الإطار */
-    height: 100%; /* اجعل الارتفاع 100% ليتطابق مع الإطار */
-    display: flex; /* لضمان تساوي حجم البوستر والإطار */
-    justify-content: center;
-    align-items: center;
-}
-
-.poster.selected {
-    border-color: #e50914;
-    border-width: 7px;
-}
-
-.poster:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
-}
-
-
-.poster img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* لضمان أن الصورة تغطي الإطار بالكامل */
-    display: block; /* إزالة أي فراغات ناتجة عن عرض الصورة */
-}
-
-#movie-details {
+    background-color: red;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 25px;
     text-align: center;
-    margin-top: 20px;
+    margin: 20px auto;
+    width: 60%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    perspective: 1000px; /* إضافة منظور لتحقيق التأثير ثلاثي الأبعاد */
 }
 
-.details-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* لضمان توزيع الأزرار بشكل متساوي على الأطراف */
-    margin-top: 10px;
-    padding: 0 20px;
-    gap: 15px; /* لضبط المسافة بين الأزرار */
-}
-
-
-#movie-title {
-    flex-grow: 1; /* يجعل العنوان يتمدد لملء المساحة المتاحة بين الأزرار */
-    font-size: 28px;
-    margin: 0;
-    font-weight: bold;
-    color: #e50914;
-    text-align: center;
-    white-space: normal; /* يسمح للنص بالانتقال إلى سطر جديد إذا كان طويلًا */
-    word-wrap: break-word; /* يقوم بكسر الكلمات الطويلة جداً لتجنب تمدد النص خارج الصفحة */
-      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
-}
-
-#movie-year {
-    font-size: 18px;
-    color: #aaa;
-    margin: 0;
-      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
-}
-
-.nav-buttons {
-    position: fixed; /* اجعل الأزرار ثابتة */
-    bottom: 20px; /* المسافة من أسفل الصفحة */
-    left: 50%;
-    transform: translateX(-50%); /* لتوسيط الأزرار بشكل أفقي */
-    display: flex;
-    gap: 10px; /* لضبط المسافة بين الأزرار */
-    z-index: 1000; /* تأكد من ظهور الأزرار فوق العناصر الأخرى */
-      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
-}
-
-.nav-button {
-    cursor: pointer;
-    font-size: 24px;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    user-select: none;
-    margin: 0; /* إزالة المسافة بين الأزرار */
-}
-
-.nav-button:hover {
-    background-color: #f40612;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
-}
-
-.nav-button:disabled {
-    background-color: #666;
-    cursor: not-allowed;
-}
-
-.poster-rank {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-
-.home-button {
-    display: inline-flex; /* لجعل العنصر يستخدم flexbox */
-    align-items: center; /* توسيط النص عموديًا */
-    justify-content: center; /* توسيط النص أفقيًا */
-    padding: 2vw 4vw; /* إضافة padding كنسبة مئوية من عرض النافذة */
-    background-color: red; /* لون الخلفية الأحمر */
-    color: white; /* لون النص الأبيض */
-    font-size: 5vw; /* حجم الخط نسبة إلى عرض نافذة العرض */
-    text-align: center; /* توسيط النص */
-    border-radius: 0.2em; /* زوايا دائرية للزر */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* إضافة ظل ثلاثي الأبعاد */
-    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الزر */
-    text-decoration: none; /* إزالة التسطير إذا كان هناك نص تحت */
-    margin: 2vw 0; /* إضافة هامش أعلى وأسفل كنسبة مئوية من عرض النافذة */
-    transition: background-color 0.3s, box-shadow 0.3s; /* إضافة تأثيرات الانتقال */
-    width: auto; /* السماح للعرض بالتكيف تلقائيًا */
-    max-width: 90vw; /* الحد الأقصى للعرض لضمان تناسق التصميم */
-}
-
-.home-button:hover {
+/* تأثير ثلاثي الأبعاد عند تمرير الفأرة */
+a:hover {
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
     background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
 }
 
-@media (min-width: 1025px) and (max-width: 1440px) {
-    .home-button {
-        font-size: 2em; /* حجم الخط أصغر قليلاً */
-        padding: 0.5em 2em; /* تقليل padding */
-        max-width: 80vw; /* تعديل الحد الأقصى للعرض */
-    }
+h2, h3, a {
+    color: #000;
 }
+
+h4 {
+    font-size: 40px;
+    margin: 0;
+}
+
+.movie-details strong {
+    color: #000; /* تعيين اللون الأسود */
+}
+
+.movie-details span {
+    color: #000; /* تعيين اللون الأسود */
+}
+
+
+
+
+img {
+    max-width: 300px;
+    height: auto;
+    margin: 20px auto;
+    display: block;
+    border: 5px solid; /* عرض الإطار */
+    border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
+}
+
+
+/* CSS لتصميم العناصر بحيث تكون متوافقة مع جميع الأجهزة */
+.movie-embed-container, .trailer-container {
+    position: relative;
+    width: 100%; /* استخدام عرض كامل للعنصر */
+    padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) */
+    max-width: 800px; /* تحديد أقصى عرض للحاوية */
+    margin: auto; /* توسيط العنصر */
+    border: 5px solid; /* عرض الإطار */
+    border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
+    border-image-slice: 1; /* تطبيق خليط الألوان على الإطار */
+    overflow: hidden; /* إخفاء أي جزء من الفيديو يتجاوز الحاوية */
+}
+
+.movie-embed-container iframe, .trailer-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none; /* إزالة الحدود حول الفيديو */
+}
+
+
 
 
 
 
     </style>
 </head>
+<b href="/">
+    <header>فهرس</header>
+</b>
 <body>
-    <a href="/">
-        <header>فهرس</header>
-    </a>
     
-    
-    
-    <div class="content">
-       
-
-        <h1>البحث عن الفلم يكون فقط عن طريق مربع البحث وليس هناك اي صفحات اخرى</h1>
-
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="ابحث عن فيلم...">
-            <ul class="movie-list"></ul>
-        </div>
-        
-        
-        <h1>أحدث الافلام الاجنبية</h1>
-        <div class="poster-container">
-            <div id="poster-wrapper">
-                <div class="poster">
-                    <span class="poster-rank" id="poster-rank"></span>
-                    <img id="current-poster" src="" alt="بوستر الفيلم">
-                </div>
-            </div>
-        </div>
-
-        <div id="movie-details">
-            <div class="details-container">
-                <button id="prev-button" class="nav-button" disabled>&#10094;</button>
-                <div>
-                    <h2 id="movie-title">عنوان الفيلم</h2>
-                    <p id="movie-year">سنة الإصدار</p>
-                </div>
-                <button id="next-button" class="nav-button" disabled>&#10095;</button>
-            </div>
-        </div>
-        <div class="content">
-            <div class="home-button" onclick="window.location.href = '/'">
-                رجوع للصفحة الرئيسية
-            </div>
+    <div class="movie-details" id="movie-details">
+        <img src="" alt="Movie Poster">
+        <h1>Movie Title</h1>
+        <p><strong>تاريخ الاصدار : </strong> <span id="release-date">N/A</span></p>
+        <p><strong>القصة : </strong> <span id="overview">No overview available.</span></p>
+        <p><strong>النوع : </strong> <span id="genre">N/A</span></p>
+        <p><strong>التقييم : </strong> <span id="rating">N/A</span></p>
+        <h2>التريلر</h2>
+        <div class="trailer-container" id="trailer-container"></div>
+        <h2>مشاهدة الفيلم</h2>
+        <div class="movie-embed-container" id="movie-embed-container"></div>
+        <a href="../../Movies">رجوع</a>
     </div>
+</header>
+    
+
     <script>
-         const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-let allMovies = [];
-let hideTimeout;
-let movies = [];
-let currentIndex = 0;
-let displayedMovies = [];
+        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
 
+async function fetchMovieDetails(tmdbId) {
+  const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=ar`;
 
-async function searchMovies(query) {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=en-US`;
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data.results || [];
-    } catch (error) {
-        console.error('Error fetching data from TMDB', error);
-        return [];
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('فشل في جلب تفاصيل الفيلم.');
     }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('خطأ في جلب تفاصيل الفيلم:', error);
+    return null;
+  }
 }
 
-function sortMovies(movies, query) {
-    const lowerCaseQuery = query.toLowerCase();
+async function fetchMovieVideos(tmdbId) {
+  const url = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}&language=en`;
 
-    return movies.sort((a, b) => {
-        const aTitle = a.title.toLowerCase();
-        const bTitle = b.title.toLowerCase();
-
-        const aExactMatch = aTitle === lowerCaseQuery;
-        const bExactMatch = bTitle === lowerCaseQuery;
-
-        if (aExactMatch && !bExactMatch) return -1;
-        if (!aExactMatch && bExactMatch) return 1;
-
-        return b.popularity - a.popularity;
-    });
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('فشل في جلب فيديوهات الفيلم.');
+    }
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error('خطأ في جلب فيديوهات الفيلم:', error);
+    return [];
+  }
 }
 
-function updateMovieList(movies, query) {
-    const sortedMovies = sortMovies(movies, query);
-    const movieList = document.querySelector('.movie-list');
-    movieList.innerHTML = '';
-
-    sortedMovies.forEach(movie => {
-        const movieItem = document.createElement('li');
-        movieItem.className = 'movie-item';
-        movieItem.style.display = 'flex';
-        movieItem.style.alignItems = 'center';
-        movieItem.style.justifyContent = 'space-between';
-
-        const poster = document.createElement('img');
-        poster.src = movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : 'default_poster.png';
-        poster.alt = `${movie.title} Poster`;
-        poster.style.width = '75px';
-        poster.style.height = '100px';
-        poster.style.marginLeft = '10px';
-
-        const movieText = document.createElement('span');
-        movieText.textContent = `${movie.title || 'Unnamed Movie'} (${new Date(movie.release_date).getFullYear() || ''})`;
-        movieText.style.flexGrow = '1';
-        movieText.style.textAlign = 'center';
-
-        movieItem.appendChild(movieText);
-        movieItem.appendChild(poster);
-        movieItem.dataset.id = movie.id;
-
-        movieItem.addEventListener('click', () => {
-            window.location.href = `watch_movie?tmdb_id=${movie.id}`;
-        });
-
-        movieList.appendChild(movieItem);
-    });
-
-    movieList.style.display = sortedMovies.length ? 'block' : 'none';
-    movieList.scrollTop = 0;
+function getQueryParameter(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
 }
 
-// البحث عند الكتابة في مربع البحث
-document.getElementById('search-input').addEventListener('input', async (event) => {
-    const query = event.target.value.trim();
-    if (hideTimeout) clearTimeout(hideTimeout);
-    if (query.length > 0) {
-        allMovies = await searchMovies(query);
-        updateMovieList(allMovies, query);
-        document.querySelector('.movie-list').style.display = 'block';
+async function checkIframeMessage() {
+  const iframe = document.getElementById('movie-embed-container').querySelector('iframe');
+  iframe.onload = function() {
+    const iframeContent = iframe.contentDocument || iframe.contentWindow.document;
+    const messageElement = iframeContent.querySelector('h4');
+    if (messageElement && messageElement.textContent === 'This media is unavailable at the moment.') {
+      // Redirect to a custom error page or previous page
+      window.location.href = '/error-page.html'; // or '/previous-page.html'
+    }
+  };
+}
+
+async function displayMovieDetails() {
+  const tmdbId = getQueryParameter('tmdb_id');
+
+  if (!tmdbId) {
+    document.getElementById('movie-details').innerHTML = '<p>لم يتم توفير معرّف الفيلم.</p>';
+    return;
+  }
+
+  const movieData = await fetchMovieDetails(tmdbId);
+  const movieVideos = await fetchMovieVideos(tmdbId);
+
+  if (movieData) {
+    document.querySelector('h1').textContent = movieData.title || 'لا يوجد عنوان';
+    document.querySelector('img').src = movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : '';
+    document.getElementById('release-date').textContent = movieData.release_date || 'غير متوفر';
+    document.getElementById('overview').textContent = movieData.overview || 'لا يوجد ملخص متاح.';
+
+    // Display genre
+    const genres = movieData.genres.map(genre => genre.name).join(', ');
+    document.getElementById('genre').textContent = genres || 'غير متوفر';
+
+    // Display rating (formatted to 1 decimal place)
+    const rating = movieData.vote_average ? movieData.vote_average.toFixed(1) : 'غير متوفر';
+    document.getElementById('rating').textContent = `${rating} / 10`;
+
+    // Embed movie from Vidsrc
+    document.getElementById('movie-embed-container').innerHTML = `
+      <iframe src="https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}" allowfullscreen></iframe>
+    `;
+
+    // Check the iframe message
+    checkIframeMessage();
+
+    // Find and display the first trailer
+    const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+    if (trailer) {
+      document.getElementById('trailer-container').innerHTML = `
+        <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
+      `;
     } else {
-        hideTimeout = setTimeout(() => {
-            document.querySelector('.movie-list').style.display = 'none';
-        }, 200); // تأخير اختفاء القائمة قليلاً للسماح بتحديث البيانات
+      document.getElementById('trailer-container').innerHTML = '<p>لا يوجد تريلر متاح.</p>';
     }
-});
-
-// إخفاء القائمة عند النقر خارجها
-document.addEventListener('click', function(event) {
-    const searchInput = document.getElementById('search-input');
-    const movieList = document.querySelector('.movie-list');
-
-    if (!searchInput.contains(event.target) && !movieList.contains(event.target)) {
-        hideTimeout = setTimeout(() => {
-            movieList.style.display = 'none';
-        }, 200); // تأخير اختفاء القائمة قليلاً للسماح بالنقر على عناصر القائمة
-    }
-});
-
-
-
-
-
-
-
-
-// تحديث حالة الأزرار
-function updateButtonStates() {
-    document.getElementById('prev-button').disabled = false;
-    document.getElementById('next-button').disabled = false;
+  } else {
+    document.getElementById('movie-details').innerHTML = '<p>فشل في تحميل تفاصيل الفيلم.</p>';
+  }
 }
 
-// الانتقال إلى اليسار
-document.getElementById('prev-button').addEventListener('click', () => {
-    if (movies.length > 1) {
-        currentIndex--;
-        if (currentIndex < 0) {
-            currentIndex = movies.length - 1;
-        }
-        updatePoster(movies[currentIndex]);
-        updateButtonStates();
-    }
-});
-
-// الانتقال إلى اليمين
-document.getElementById('next-button').addEventListener('click', () => {
-    if (movies.length > 1) {
-        currentIndex++;
-        if (currentIndex >= movies.length) {
-            currentIndex = 0;
-        }
-        updatePoster(movies[currentIndex]);
-        updateButtonStates();
-    }
-});
-
-// تحديث البوستر
-function updatePoster(movie) {
-    document.getElementById('current-poster').src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
-    document.getElementById('movie-title').textContent = movie.title;
-    document.getElementById('movie-year').textContent = movie.release_date ? movie.release_date.split('-')[0] : 'غير متوفر';
-
-    const rank = movies.indexOf(movie) + 1;
-    document.getElementById('poster-rank').textContent = `المرتبة : ${rank}`;
-
-    document.getElementById('current-poster').addEventListener('click', () => {
-        const tmdbId = movie.id;
-        const url = `watch.html?tmdbId=${tmdbId}`;
-        window.location.href = url;
-    });
-}
-
-// جلب الأفلام المتاحة حاليًا
-async function fetchNowPlayingMovies() {
-    try {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en`);
-        if (!response.ok) throw new Error('فشل في جلب الأفلام.');
-        const data = await response.json();
-        movies = data.results;
-        if (movies.length > 0) {
-            updatePoster(movies[0]);
-            updateButtonStates();
-        }
-    } catch (error) {
-        console.error('خطأ في جلب الأفلام:', error);
-    }
-}
-
-// جلب الأفلام عند تحميل الصفحة
-window.onload = async () => {
-    fetchNowPlayingMovies();
-    displayMovies();
-};
-
-
-function sortMovies(movies, query) {
-    const lowerCaseQuery = query.toLowerCase();
-    return movies.sort((a, b) => {
-        const aTitle = a.title.toLowerCase();
-        const bTitle = b.title.toLowerCase();
-        const aExactMatch = aTitle === lowerCaseQuery;
-        const bExactMatch = bTitle === lowerCaseQuery;
-
-        if (aExactMatch && !bExactMatch) return -1;
-        if (!aExactMatch && bExactMatch) return 1;
-
-        const titleComparison = aTitle.localeCompare(bTitle);
-        if (titleComparison !== 0) {
-            return titleComparison;
-        }
-
-        const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
-        const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
-        return aYear - bYear;
-    });
-}
-
-function updateMovieList(movies, query) {
-    const sortedMovies = sortMovies(movies, query);
-    const movieList = document.querySelector('.movie-list');
-    movieList.innerHTML = '';
-
-    sortedMovies.forEach(movie => {
-        const movieItem = document.createElement('li');
-        movieItem.className = 'movie-item';
-        movieItem.style.display = 'flex';
-        movieItem.style.alignItems = 'center';
-        movieItem.style.justifyContent = 'space-between';
-
-        const poster = document.createElement('img');
-        poster.src = movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : 'default_poster.png';
-        poster.alt = `${movie.title} Poster`;
-        poster.style.width = '75px';
-        poster.style.height = '100px';
-        poster.style.marginLeft = '10px';
-
-        const movieText = document.createElement('span');
-        movieText.textContent = `${movie.title || 'Unnamed Movie'} (${new Date(movie.release_date).getFullYear() || ''})`;
-        movieText.style.flexGrow = '1';
-        movieText.style.textAlign = 'center';
-
-        movieItem.appendChild(movieText);
-        movieItem.appendChild(poster);
-        movieItem.dataset.id = movie.id;
-
-        movieItem.addEventListener('click', () => {
-            window.location.href = `watch_movie?tmdb_id=${movie.id}`;
-        });
-
-        movieList.appendChild(movieItem);
-    });
-
-    movieList.style.display = sortedMovies.length ? 'block' : 'none';
-    movieList.scrollTop = 0;
-}
+window.onload = displayMovieDetails;
 
     </script>
+
 </body>
 </html>
