@@ -1,111 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TV Show Details</title>
+    <title>فهرس</title> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            color: #000;
-        }
+       body {
+        font-family: 'Arial', sans-serif;
+    background-color: #141414;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+}
 
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: transparent; /* لجعل الخلفية شفافة */
-            text-align: center;
-            font-size: 18px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
 
-        .tv-show-details {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
 
-        .tv-show-details img {
-            width: 300px;
-            height: auto;
-            border-radius: 5px;
-        }
+.movie-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    direction: rtl;
+}
 
-        .tv-show-details h1 {
-            margin: 0;
-            color: red;
-        }
+.movie-details h1 {
+    margin: 0;
+    color: red;
+}
 
-        .tv-show-details p {
-            margin: 10px 0;
-        }
+.movie-details p span {
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    direction: rtl;
+}
 
-        .tv-show-details p span {
-            color: #000; /* تعيين اللون الأسود للـ <span> */
-        }
 
-        iframe {
-            border: none;
-            border-radius: 5px;
-        }
 
-        .trailer-container, .tv-show-embed-container {
-            margin-top: 20px;
-        }
+header {
+    text-align: center; /* توسيط النص */
+    font-size: 3em; /* حجم الخط الكبير */
+    color: red; /* اللون الأحمر للنص */
+    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
+}
 
-        .trailer-container iframe, .tv-show-embed-container iframe {
-            width: 100%;
-            height: 400px;
-        }
 
-        header {
-            background-color: #333;
-            color: hsl(0, 94%, 46%);
-            text-align: center;
-            padding: 10px;
-        }
+a {
+    text-decoration: none;
+    color: #ffffff; /* لون النص الأبيض */
+    display: block;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: red; /* لون الخلفية */
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 25px;
+    text-align: center;
+    margin: 20px auto;
+    width: 60%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    perspective: 1000px; /* إضافة منظور لتحقيق التأثير ثلاثي الأبعاد */
+}
 
-        a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: red;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
 
-        a:hover {
-            background-color: gold;
-        }
+/* تأثير ثلاثي الأبعاد عند تمرير الفأرة */
+a:hover {
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
+    background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
+}
 
-        h2, h3, a {
-            color: #000;
-        }
+h2 {
+    color: #ffffff;
+    font-size: 30px;
+    text-align: center;
+    line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #ff0000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #ff0000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
+}
 
-        h4 {
-            font-size: 40px;
-            margin: 0;
-        }
+h3 {
+    color: #ffffff; /* لون النص أبيض */
+    font-size: 22px;
+    margin: 20px auto;
+    max-width: 80%;
+    text-align: center;
+    line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
+}
 
-        .tv-show-details strong {
-            color: #000; /* تعيين اللون الأسود */
-        }
 
-        .tv-show-details span {
-            color: #000; /* تعيين اللون الأسود */
-        }
 
+
+img {
+    max-width: 300px;
+    height: auto;
+    margin: 20px auto;
+    display: block;
+    border: 5px solid; /* عرض الإطار */
+    border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
+}
+
+
+
+.movie-embed-container, .trailer-container {
+    position: relative;
+    width: 90%; /* عرض الحاوية مع ترك مسافة على الجوانب */
+    max-width: 800px; /* تحديد أقصى عرض للحاوية */
+    height: 0; /* الارتفاع سيُحدد بناءً على النسبة */
+    padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) لتحديد الارتفاع تلقائيًا */
+    margin: 20px auto; /* توسيط العنصر مع مسافة على الجوانب */
+    border: 5px solid; /* عرض الإطار */
+    border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
+    border-image-slice: 1; /* تطبيق خليط الألوان على الإطار */
+    overflow: hidden; /* إخفاء أي جزء من الفيديو يتجاوز الحاوية */
+    background-color: #000; /* خلفية داكنة لجعل الفيديو يبرز */
+    box-sizing: border-box; /* تضمين الإطار في حساب العرض والارتفاع */
+}
+
+.movie-embed-container iframe, .trailer-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none; /* إزالة الحدود حول الفيديو */
+}
     </style>
 </head>
 <header>
