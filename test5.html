@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>فهرس</title> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-<script src=".htaccess" defer></script>
-<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
     <style>
  body {
         font-family: 'Arial', sans-serif;
@@ -33,23 +30,20 @@
     direction: rtl;
 }
 
-.movie-details img {
-    width: 300px;
-    height: auto;
-    border-radius: 5px;
-}
-
 .movie-details h1 {
     margin: 0;
     color: red;
 }
 
-.movie-details p {
-    margin: 10px 0;
-}
-
 .movie-details p span {
-    color: #000; /* تعيين اللون الأسود للـ <span> */
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    direction: rtl;
 }
 
 
@@ -66,11 +60,11 @@ header {
 
 a {
     text-decoration: none;
-    color: #ffffff;
+    color: #ffffff; /* لون النص الأبيض */
     display: block;
     padding: 20px;
     border-radius: 10px;
-    background-color: red;
+    background-color: red; /* لون الخلفية */
     transition: transform 0.3s, box-shadow 0.3s;
     font-size: 25px;
     text-align: center;
@@ -81,6 +75,7 @@ a {
     perspective: 1000px; /* إضافة منظور لتحقيق التأثير ثلاثي الأبعاد */
 }
 
+
 /* تأثير ثلاثي الأبعاد عند تمرير الفأرة */
 a:hover {
     transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
@@ -88,21 +83,30 @@ a:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
 }
 
-h2, h3, a {
-    color: #000;
+h2 {
+    color: #ffffff;
+    font-size: 30px;
+    text-align: center;
+    line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #ff0000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #ff0000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
 }
 
-h4 {
-    font-size: 40px;
-    margin: 0;
-}
-
-.movie-details strong {
-    color: #000; /* تعيين اللون الأسود */
-}
-
-.movie-details span {
-    color: #000; /* تعيين اللون الأسود */
+h3 {
+    color: #ffffff; /* لون النص أبيض */
+    font-size: 22px;
+    margin: 20px auto;
+    max-width: 80%;
+    text-align: center;
+    line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
 }
 
 
@@ -127,7 +131,7 @@ img {
     padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) لتحديد الارتفاع تلقائيًا */
     margin: 20px auto; /* توسيط العنصر مع مسافة على الجوانب */
     border: 5px solid; /* عرض الإطار */
-    border-image: linear-gradient(45deg, #FF5733, #33FF57, #3357FF); /* خليط الألوان */
+    border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
     border-image-slice: 1; /* تطبيق خليط الألوان على الإطار */
     overflow: hidden; /* إخفاء أي جزء من الفيديو يتجاوز الحاوية */
     background-color: #000; /* خلفية داكنة لجعل الفيديو يبرز */
@@ -166,6 +170,12 @@ img {
         <div class="trailer-container" id="trailer-container"></div>
         <h2>مشاهدة الفيلم</h2>
         <div class="movie-embed-container" id="movie-embed-container"></div>
+        <h3>اذا لم تظهر الترجمة العربية<br>[cc] اضغط على مربع  
+            <br>[ Arabic ] و اختار كلمة 
+            <br> و اختار الترجمة المناسبة ، قم بتغيير الترجمة اذا في تاخير او تسريع 
+            <br> اذا لم تجد الترجمة المناسبة وجميع الترجمات العربية متاخرة او مسرعة او السيرفر لا يعمل  أرجوك قم بنسخ الرابط وأرسله لنا بسرعة لتغييره  
+            <br>  من خلال الذهاب الى صفحة اتصل بنا
+            </h3>
         <a href="../../Movies">رجوع</a>
     </div>
 </header>
