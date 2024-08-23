@@ -8,7 +8,7 @@
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
-       body {
+      body {
     font-family: 'Arial', sans-serif;
     background-color: #141414;
     color: #fff;
@@ -21,40 +21,38 @@
 }
 
 header {
-    text-align: center; /* توسيط النص */
-    font-size: 3em; /* حجم الخط الكبير */
-    color: red; /* اللون الأحمر للنص */
-    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
-    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
+    font-size: 3vw; /* استخدام وحدة النسبة المئوية لضبط حجم الخط بناءً على عرض النافذة */
+    color: red;
+    margin: 2vw 0; /* استخدام وحدة النسبة المئوية للمسافات */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
 }
 
 a {
     text-decoration: none;
     color: #ffffff;
     display: block;
-    padding: 20px;
+    padding: 2vw;
     border-radius: 10px;
     background-color: red;
     transition: transform 0.3s, box-shadow 0.3s;
-    font-size: 25px;
-    text-align: center;
-    margin: 20px auto;
-    width: 60%;
+    font-size: 5vw; /* استخدام وحدة النسبة المئوية */
+    margin: 2vw auto;
+    width: 80%; /* استخدام النسبة المئوية للتأكد من تناسب العرض */
     max-width: 600px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    perspective: 1000px; /* إضافة منظور لتحقيق التأثير ثلاثي الأبعاد */
+    perspective: 1000px;
 }
 
 a:hover {
-    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
-    background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
+    transform: scale(1.05) translateZ(15px);
+    background-color: darkred;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 p {
     text-align: justify;
-    margin-bottom: 10px;
+    margin-bottom: 2vw; /* استخدام وحدة النسبة المئوية للمسافات */
 }
 
 .movie-details {
@@ -62,72 +60,82 @@ p {
     flex-direction: column;
     align-items: center;
     color: #ffffff;
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 5vw; /* استخدام وحدة النسبة المئوية */
+    margin-bottom: 2vw;
     text-align: center;
     font-weight: bold;
     direction: rtl;
 }
 
 .movie-poster {
-    max-width: 300px;
+    max-width: 80%; /* استخدام النسبة المئوية لضبط العرض */
     height: auto;
-    margin: 20px auto;
+    margin: 2vw auto;
     display: block;
-    border: 5px solid; /* عرض الإطار */
+    border: 5px solid;
     border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
 }
 
 .movie-info {
     text-align: center;
-    padding: 0 20px;
+    padding: 0 5vw;
 }
 
 .movie-info p {
-    margin-bottom: 10px;
+    margin-bottom: 2vw;
 }
 
 .movie-title {
     color: #ff0000;
-    font-size: 250%;
-    margin-bottom: 10px;
+    font-size: 6vw; /* استخدام وحدة النسبة المئوية */
+    margin-bottom: 2vw;
 }
-
 
 h3 {
-    color: #ffffff; /* تغيير اللون إلى الأسود */
+    color: #ffffff;
+    font-size: 4vw; /* استخدام وحدة النسبة المئوية */
+    direction: rtl;
+    font-family: 'Tahoma', sans-serif;
+    font-weight: bold;
+    text-align: center;
 }
 
+h3 span.english {
+    font-family: 'Arial', sans-serif;
+    font-size: inherit;
+    direction: ltr;
+}
 
-#episodes {
-    width: 100%;
-    font-size: 18px;
-    padding: 10px;
-    height: 50px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+h2 {
+    color: #ffffff;
+    font-size: 5vw; /* استخدام وحدة النسبة المئوية */
     text-align: center;
-    direction: rtl;
-    text-align: center;
-    flex-direction: row-reverse;
+    line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #ff0000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #ff0000,
+         1px  1px 0 #000000;
+}
+
+label[for="highQualityEpisodes"],
+label[for="lowQualityEpisodes"] {
+    font-size: 4vw; /* استخدام وحدة النسبة المئوية */
+    font-weight: bold;
+    color: #fff;
 }
 
 /* تعديل حجم مشغل الفيديو والتريلر */
 #trailerContainer {
     position: relative;
-    width: 90%; /* عرض الحاوية مع ترك مسافة على الجوانب */
-    max-width: 800px; /* تحديد أقصى عرض للحاوية */
-    height: fit-content; /* الارتفاع سيُحدد بناءً على النسبة */
-    padding-top: 30%; /* نسبة العرض إلى الارتفاع (16:9) لتحديد الارتفاع تلقائيًا */
-    margin: 20px auto; /* توسيط العنصر مع مسافة على الجوانب */
-    border: 5px solid; /* عرض الإطار */
+    width: 90%;
+    max-width: 100%;
+    padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) */
+    margin: 2vw auto;
+    border: 5px solid;
     border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
-    border-image-slice: 1; /* تطبيق خليط الألوان على الإطار */
-    overflow: hidden; /* إخفاء أي جزء من الفيديو يتجاوز الحاوية */
-    object-fit: cover;
-    
+    border-image-slice: 1;
+    overflow: hidden;
 }
 
 #trailerContainer iframe {
@@ -136,323 +144,64 @@ h3 {
     left: 0;
     width: 100%;
     height: 100%;
-    border: none; /* إزالة الحدود حول الفيديو */
-    object-fit: cover;
-    border: none; /* إزالة الإطار من داخل الإطار */
-
+    border: none;
 }
 
 video {
-    width: fit-content;
-    max-height: 400px; /* ضبط الارتفاع الأقصى */
+    width: 100%;
+    max-height: 400px;
     background-color: black;
-    border: 5px solid; /* عرض الإطار */
+    border: 5px solid;
     border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
-    border-image-slice: 1; /* تطبيق خليط الألوان على الإطار */
-    
-
+    border-image-slice: 1;
 }
-
 
 /* ضبط حجم مربعات الاختيار */
 select {
-    font-size: 1rem; /* حجم الخط */
-    font-weight: bold; /* جعل الخط عريضًا */
-    color: #333; /* لون النص */
-    padding: 0.5rem; /* الحشوة حول النص */
-    border: 1px solid #ccc; /* حدود عنصر select */
-    border-radius: 4px; /* زوايا دائرية للحدود */
-    background-color: #f9f9f9; /* لون الخلفية */
-    width: 100%; /* ملء عرض العنصر الأب */
-    max-width: 300px; /* أقصى عرض للعنصر */
-    box-sizing: border-box; /* حساب الحشوة والحدود ضمن العرض الإجمالي */
+    font-size: 2vw; /* استخدام وحدة النسبة المئوية */
+    font-weight: bold;
+    color: #333;
+    padding: 1vw;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
 }
 
-/* محاذاة النص إلى اليمين */
 select option {
-    text-align: center; /* محاذاة النص في القوائم إلى اليمين */
-    font-size: 1.5rem; /* حجم الخط بناءً على عرض النافذة */
-
+    text-align: center;
+    font-size: 2.5vw; /* استخدام وحدة النسبة المئوية */
 }
 
-/* محاذاة مربع "اختر الحلقة" في القوائم */
 select[disabled] {
-    text-align: right; /* محاذاة نص "اختر الحلقة" في القوائم إلى اليمين */
-    font-size: 2.5rem; /* حجم الخط بناءً على عرض النافذة */
-
+    text-align: right;
+    font-size: 3vw; /* استخدام وحدة النسبة المئوية */
 }
 
 /* تنسيق #copyButton ليظهر في سطر منفصل تحت الأزرار الأخرى */
 #copyButton {
-    background-color: #00bfff; /* أزرق سماوي */
+    background-color: #00bfff;
     color: #fff;
-    padding: 10px 20px;
+    padding: 1vw 2vw;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 30px auto; /* إضافة مسافة أعلى وأسفل، توسيط الزر */
-    display: block; /* جعل الزر يظهر في سطر منفصل */
-    width: 50%; /* عريض بنسبة 50% من الحاوية */
-    font-size: 18px;
+    margin: 2vw auto;
+    display: block;
+    width: 50%;
+    font-size: 2vw; /* استخدام وحدة النسبة المئوية */
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-
 #copyButton:hover {
-    background-color: #009acd; /* أزرق سماوي داكن عند التمرير */
-    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
+    background-color: #009acd;
+    transform: scale(1.05) translateZ(15px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-h3 {
-    font-size: 15px; /* حجم الخط الوسط */
-    direction: rtl; /* من اليمين إلى اليسار */
-    font-family: 'Tahoma', sans-serif; /* استخدام خط يدعم الحروف اللاتينية والعربية */
-    font-weight: bold; /* إذا كنت ترغب في جعل الخط سميكاً */
-    text-align: center; /* محاذاة النص إلى الوسط */
-}
-
-h3 span.english {
-    font-family: 'Arial', sans-serif; /* استخدام خط خاص للحروف اللاتينية */
-    font-size: inherit;
-    direction: ltr; /* تحديد الاتجاه من اليسار إلى اليمين للكلمات اللاتينية */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-h2 {
-    color: #ffffff;
-    font-size: 30px;
-    text-align: center;
-    line-height: 1.5;
-    text-shadow: 
-        -1px -1px 0 #ff0000,  
-         1px -1px 0 #000000,
-        -1px  1px 0 #ff0000,
-         1px  1px 0 #000000; /* إضافة حواف سوداء */
-}
-
-label[for="highQualityEpisodes"],
-label[for="lowQualityEpisodes"] {
-    font-size: 2.5rem; /* حجم الخط بناءً على عرض النافذة */
-    font-weight: bold; /* جعل الخط عريضًا */
-    color: #fff; /* لون النص */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-@media only screen and (max-width: 320px) {
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-        color: #000;
-    }
-
-    header {
-        background-color: #333;
-        color: hsl(0, 94%, 46%);
-        text-align: center;
-        padding: 8px;
-        font-size: 14px;
-    }
-
-    .container {
-        max-width: 100%;
-        margin: 5px;
-        padding: 10px;
-        background-color: #fff;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        font-size: 14px;
-        border-radius: 8px;
-        overflow: hidden;
-    }
-
-    iframe {
-        width: 100%;
-        height: 150px;
-    }
-
-    a {
-        text-decoration: none;
-        color: #333;
-        display: block;
-        padding: 10px;
-        border-radius: 4px;
-        background-color: red;
-        transition: background-color 0.3s;
-        margin-top: 10px;
-    }
-
-    a:hover {
-        background-color: gold;
-    }
-
-    p {
-        text-align: justify;
-        margin-bottom: 8px;
-        font-size: 14px;
-    }
-
-    .movie-details {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .movie-poster {
-        width: 100%;
-        max-width: 200px;
-        border-radius: 8px;
-        margin-bottom: 10px;
-    }
-
-    .movie-info {
-        text-align: center;
-        padding: 0 10px;
-    }
-
-    .movie-info p {
-        margin-bottom: 8px;
-        font-size: 14px;
-    }
-
-    .movie-title {
-        color: #ff0000;
-        font-size: 18px;
-        margin-bottom: 8px;
-    }
-
-    .story-title {
-        font-weight: bold;
-        margin-right: 8px; /* مسافة بين العنوان والنص */
-        font-size: 14px;
-    }
-
-    .story {
-        font-family: "Arial", sans-serif;
-        font-size: 14px;
-        line-height: 1.4;
-        text-align: right;
-        direction: rtl;
-        white-space: pre-wrap;
-        overflow-wrap: break-word;
-        text-align-last: right; /* لضمان محاذاة النص في النهاية لليمين */
-        display: block; /* لجعل النص يظهر ككتلة مستقلة */
-    }
-
-    h2, h3, a {
-        color: #000; /* تغيير اللون إلى الأسود */
-    }
-
-    .episode-box {
-        width: 95%;
-        margin: 10px auto;
-        background-color: #f9f9f9;
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-    }
-
-    #episodes {
-        width: 100%;
-        font-size: 14px;
-        padding: 5px;
-        height: 40px;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        direction: rtl;
-        flex-direction: row-reverse;
-    }
-
-    video {
-        width: 100%;
-        max-height: 250px; /* ضبط الارتفاع الأقصى */
-        background-color: black;
-    }
-
-    select {
-        font-size: 14px; /* حجم النص */
-        padding: 8px; /* المسافة الداخلية */
-        width: auto; /* العرض التلقائي */
-        max-width: 200px; /* تحديد الحد الأقصى للعرض */
-        box-sizing: border-box; /* ضمان أن padding لا يؤثر على العرض الإجمالي */
-        margin-bottom: 10px; /* مسافة أسفل المربع */
-    }
-
-    select option {
-        text-align: center; /* محاذاة النص في القوائم إلى اليمين */
-    }
-
-    select[disabled] {
-        text-align: right; /* محاذاة نص "اختر الحلقة" في القوائم إلى اليمين */
-    }
-
-    #copyButton {
-        background-color: #00bfff; /* أزرق سماوي */
-        color: #fff;
-        padding: 8px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-top: 10px;
-        display: block;
-        width: 100%; /* عريض بالكامل */
-        font-size: 14px;
-    }
-
-    #copyButton:hover {
-        background-color: #009acd; /* أزرق سماوي داكن عند التمرير */
-    }
-
-    h3 {
-        font-size: 12px; /* حجم الخط */
-        direction: rtl; /* من اليمين إلى اليسار */
-        font-family: 'Tahoma', sans-serif; /* استخدام خط يدعم الحروف اللاتينية والعربية */
-        font-weight: bold; /* إذا كنت ترغب في جعل الخط سميكاً */
-        text-align: center; /* محاذاة النص إلى الوسط */
-    }
-
-    h3 span.english {
-        font-family: 'Arial', sans-serif; /* استخدام خط خاص للحروف اللاتينية */
-        font-size: inherit;
-        direction: ltr; /* تحديد الاتجاه من اليسار إلى اليمين للكلمات اللاتينية */
-    }
-}
     </style>
 </head>
 <body>
