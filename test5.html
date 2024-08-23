@@ -116,17 +116,40 @@ h3 {
 
 /* تعديل حجم مشغل الفيديو والتريلر */
 #trailerContainer {
+    position: relative;
     width: 90%;
-    max-height: 400px;
+    max-width: 800px;
+    aspect-ratio: 16 / 9; /* النسبة المعتمدة لمقاطع الفيديو */
     background-color: black;
+    border-radius: 8px; /* زوايا دائرية كالموجودة في YouTube */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6); /* ظل لإعطاء التأثير المرتفع */
     border: 5px solid;
+
     border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
     border-image-slice: 1;
-    overflow-x: hidden;
-    align-items: center;
-    display: inline-block;
-    
+    overflow: hidden;
+    margin: 20px auto; /* توسيط العنصر في الصفحة */
 }
+
+#trailerContainer iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px; /* زوايا دائرية للفيديو */
+
+    
+
+}
+
+#trailerContainer::before {
+    content: '';
+    display: block;
+    padding-top: 56.25%; /* نسبة العرض إلى الارتفاع 16:9 */
+}
+
+
 
 
 
@@ -257,17 +280,15 @@ label[for="lowQualityEpisodes"] {
     </style>
 </head>
 <body>
-  <header onclick="window.location.href='/'" style="cursor: pointer;">
-    فهرس
-</header>
-
+    <b href="/">
+        <header>فهرس</header>
+    </b>
         <div id="movieInfo"></div>
-        
-        
-        <div class="container">
-          <h2>التريلر</h2>
+        <h2>التريلر</h2>
         <div id="trailerContainer"></div>
-          <h2>شاهد الآن</h2>
+        <h2>شاهد الآن</h2>
+        <div class="container">
+
         <video id="videoPlayer" controls>
             <source id="videoSource" src="" type="video/mp4">
         </video>
