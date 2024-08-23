@@ -116,31 +116,19 @@ h3 {
 
 /* تعديل حجم مشغل الفيديو والتريلر */
 #trailerContainer {
-    position: relative;
-    width: 90%; /* عرض الحاوية مع ترك مسافة على الجوانب */
-    max-width: 800px; /* تحديد أقصى عرض للحاوية */
-    height: fit-content; /* الارتفاع سيُحدد بناءً على النسبة */
-    padding-top: 30%; /* نسبة العرض إلى الارتفاع (16:9) لتحديد الارتفاع تلقائيًا */
-    margin: 20px auto; /* توسيط العنصر مع مسافة على الجوانب */
-    border: 5px solid; /* عرض الإطار */
+    width: 90%;
+    max-height: 400px;
+    background-color: black;
+    border: 5px solid;
     border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
-    border-image-slice: 1; /* تطبيق خليط الألوان على الإطار */
-    overflow: hidden; /* إخفاء أي جزء من الفيديو يتجاوز الحاوية */
-    object-fit: cover;
+    border-image-slice: 1;
+    overflow-x: hidden;
+    align-items: center;
+    display: inline-block;
     
 }
 
-#trailerContainer iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none; /* إزالة الحدود حول الفيديو */
-    object-fit: cover;
-    border: none; /* إزالة الإطار من داخل الإطار */
 
-}
 
 video {
     width: 90%;
