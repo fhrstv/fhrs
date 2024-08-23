@@ -8,7 +8,7 @@
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
     <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <style>
-      body {
+       body {
     font-family: 'Arial', sans-serif;
     background-color: #141414;
     color: #fff;
@@ -21,38 +21,40 @@
 }
 
 header {
-    font-size: 3vw; /* استخدام وحدة النسبة المئوية لضبط حجم الخط بناءً على عرض النافذة */
-    color: red;
-    margin: 2vw 0; /* استخدام وحدة النسبة المئوية للمسافات */
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
+    text-align: center; /* توسيط النص */
+    font-size: 3em; /* حجم الخط الكبير */
+    color: red; /* اللون الأحمر للنص */
+    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
 }
 
 a {
     text-decoration: none;
     color: #ffffff;
     display: block;
-    padding: 2vw;
+    padding: 20px;
     border-radius: 10px;
     background-color: red;
     transition: transform 0.3s, box-shadow 0.3s;
-    font-size: 5vw; /* استخدام وحدة النسبة المئوية */
-    margin: 2vw auto;
-    width: 80%; /* استخدام النسبة المئوية للتأكد من تناسب العرض */
+    font-size: 25px;
+    text-align: center;
+    margin: 20px auto;
+    width: 60%;
     max-width: 600px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    perspective: 1000px;
+    perspective: 1000px; /* إضافة منظور لتحقيق التأثير ثلاثي الأبعاد */
 }
 
 a:hover {
-    transform: scale(1.05) translateZ(15px);
-    background-color: darkred;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
+    background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
 }
 
 p {
     text-align: justify;
-    margin-bottom: 2vw; /* استخدام وحدة النسبة المئوية للمسافات */
+    margin-bottom: 10px;
 }
 
 .movie-details {
@@ -60,82 +62,72 @@ p {
     flex-direction: column;
     align-items: center;
     color: #ffffff;
-    font-size: 5vw; /* استخدام وحدة النسبة المئوية */
-    margin-bottom: 2vw;
+    font-size: 20px;
+    margin-bottom: 10px;
     text-align: center;
     font-weight: bold;
     direction: rtl;
 }
 
 .movie-poster {
-    max-width: 80%; /* استخدام النسبة المئوية لضبط العرض */
+    max-width: 300px;
     height: auto;
-    margin: 2vw auto;
+    margin: 20px auto;
     display: block;
-    border: 5px solid;
+    border: 5px solid; /* عرض الإطار */
     border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
 }
 
 .movie-info {
     text-align: center;
-    padding: 0 5vw;
+    padding: 0 20px;
 }
 
 .movie-info p {
-    margin-bottom: 2vw;
+    margin-bottom: 10px;
 }
 
 .movie-title {
     color: #ff0000;
-    font-size: 6vw; /* استخدام وحدة النسبة المئوية */
-    margin-bottom: 2vw;
+    font-size: 250%;
+    margin-bottom: 10px;
 }
+
 
 h3 {
-    color: #ffffff;
-    font-size: 4vw; /* استخدام وحدة النسبة المئوية */
+    color: #ffffff; /* تغيير اللون إلى الأسود */
+}
+
+
+#episodes {
+    width: 100%;
+    font-size: 18px;
+    padding: 10px;
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     direction: rtl;
-    font-family: 'Tahoma', sans-serif;
-    font-weight: bold;
     text-align: center;
-}
-
-h3 span.english {
-    font-family: 'Arial', sans-serif;
-    font-size: inherit;
-    direction: ltr;
-}
-
-h2 {
-    color: #ffffff;
-    font-size: 5vw; /* استخدام وحدة النسبة المئوية */
-    text-align: center;
-    line-height: 1.5;
-    text-shadow: 
-        -1px -1px 0 #ff0000,  
-         1px -1px 0 #000000,
-        -1px  1px 0 #ff0000,
-         1px  1px 0 #000000;
-}
-
-label[for="highQualityEpisodes"],
-label[for="lowQualityEpisodes"] {
-    font-size: 4vw; /* استخدام وحدة النسبة المئوية */
-    font-weight: bold;
-    color: #fff;
+    flex-direction: row-reverse;
 }
 
 /* تعديل حجم مشغل الفيديو والتريلر */
 #trailerContainer {
     position: relative;
-    width: 90%;
-    max-width: 100%;
-    padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) */
-    margin: 2vw auto;
-    border: 5px solid;
+    width: 90%; /* عرض الحاوية مع ترك مسافة على الجوانب */
+    max-width: 800px; /* تحديد أقصى عرض للحاوية */
+    height: fit-content; /* الارتفاع سيُحدد بناءً على النسبة */
+    padding-top: 30%; /* نسبة العرض إلى الارتفاع (16:9) لتحديد الارتفاع تلقائيًا */
+    margin: 20px auto; /* توسيط العنصر مع مسافة على الجوانب */
+    border: 5px solid; /* عرض الإطار */
     border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
-    border-image-slice: 1;
-    overflow: hidden;
+    border-image-slice: 1; /* تطبيق خليط الألوان على الإطار */
+    overflow: hidden; /* إخفاء أي جزء من الفيديو يتجاوز الحاوية */
+    object-fit: cover;
+    
 }
 
 #trailerContainer iframe {
@@ -144,7 +136,10 @@ label[for="lowQualityEpisodes"] {
     left: 0;
     width: 100%;
     height: 100%;
-    border: none;
+    border: none; /* إزالة الحدود حول الفيديو */
+    object-fit: cover;
+    border: none; /* إزالة الإطار من داخل الإطار */
+
 }
 
 video {
@@ -156,51 +151,115 @@ video {
     border-image-slice: 1;
 }
 
+
 /* ضبط حجم مربعات الاختيار */
 select {
-    font-size: 2vw; /* استخدام وحدة النسبة المئوية */
-    font-weight: bold;
-    color: #333;
-    padding: 1vw;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    width: 100%;
-    max-width: 300px;
-    box-sizing: border-box;
+    font-size: 1rem; /* حجم الخط */
+    font-weight: bold; /* جعل الخط عريضًا */
+    color: #333; /* لون النص */
+    padding: 0.5rem; /* الحشوة حول النص */
+    border: 1px solid #ccc; /* حدود عنصر select */
+    border-radius: 4px; /* زوايا دائرية للحدود */
+    background-color: #f9f9f9; /* لون الخلفية */
+    width: 100%; /* ملء عرض العنصر الأب */
+    max-width: 300px; /* أقصى عرض للعنصر */
+    box-sizing: border-box; /* حساب الحشوة والحدود ضمن العرض الإجمالي */
 }
 
+/* محاذاة النص إلى اليمين */
 select option {
-    text-align: center;
-    font-size: 2.5vw; /* استخدام وحدة النسبة المئوية */
+    text-align: center; /* محاذاة النص في القوائم إلى اليمين */
+    font-size: 1.5rem; /* حجم الخط بناءً على عرض النافذة */
+
 }
 
+/* محاذاة مربع "اختر الحلقة" في القوائم */
 select[disabled] {
-    text-align: right;
-    font-size: 3vw; /* استخدام وحدة النسبة المئوية */
+    text-align: right; /* محاذاة نص "اختر الحلقة" في القوائم إلى اليمين */
+    font-size: 2.5rem; /* حجم الخط بناءً على عرض النافذة */
+
 }
 
 /* تنسيق #copyButton ليظهر في سطر منفصل تحت الأزرار الأخرى */
 #copyButton {
-    background-color: #00bfff;
+    background-color: #00bfff; /* أزرق سماوي */
     color: #fff;
-    padding: 1vw 2vw;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 2vw auto;
-    display: block;
-    width: 50%;
-    font-size: 2vw; /* استخدام وحدة النسبة المئوية */
+    margin: 30px auto; /* إضافة مسافة أعلى وأسفل، توسيط الزر */
+    display: block; /* جعل الزر يظهر في سطر منفصل */
+    width: 50%; /* عريض بنسبة 50% من الحاوية */
+    font-size: 18px;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
+
 #copyButton:hover {
-    background-color: #009acd;
-    transform: scale(1.05) translateZ(15px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    background-color: #009acd; /* أزرق سماوي داكن عند التمرير */
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
 }
+
+h3 {
+    font-size: 15px; /* حجم الخط الوسط */
+    direction: rtl; /* من اليمين إلى اليسار */
+    font-family: 'Tahoma', sans-serif; /* استخدام خط يدعم الحروف اللاتينية والعربية */
+    font-weight: bold; /* إذا كنت ترغب في جعل الخط سميكاً */
+    text-align: center; /* محاذاة النص إلى الوسط */
+}
+
+h3 span.english {
+    font-family: 'Arial', sans-serif; /* استخدام خط خاص للحروف اللاتينية */
+    font-size: inherit;
+    direction: ltr; /* تحديد الاتجاه من اليسار إلى اليمين للكلمات اللاتينية */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+h2 {
+    color: #ffffff;
+    font-size: 30px;
+    text-align: center;
+    line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #ff0000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #ff0000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
+}
+
+label[for="highQualityEpisodes"],
+label[for="lowQualityEpisodes"] {
+    font-size: 2.5rem; /* حجم الخط بناءً على عرض النافذة */
+    font-weight: bold; /* جعل الخط عريضًا */
+    color: #fff; /* لون النص */
+}
+
+
+
+
 
     </style>
 </head>
