@@ -1,14 +1,13 @@
-<!DOCTYPE html> 
-<html> 
-<head> 
-    <title>فهرس</title> 
-    <meta charset="UTF-8"> 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>فهرس</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-<script src=".htaccess" defer></script>
-<link rel="icon" href="فهرس (شعار).png" type="image/x-icon"> 
-<style>
-    body {
+    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <style>
+      body {
     font-family: 'Arial', sans-serif;
     background-color: #141414;
     color: #fff;
@@ -272,191 +271,42 @@ label[for="lowQualityEpisodes"] {
     align-items: center;
     display: block;
 }
-</style>
-</head> 
-<body> 
+    </style>
+</head>
+<body>
    <header onclick="window.location.href='/'" style="cursor: pointer;">
     فهرس
 </header>
     <div class="container">
         <div id="movieInfo"></div>
+        <h2>التريلر</h2>
         <div id="trailerContainer"></div>
         <h2>شاهد الآن</h2>
         <video id="videoPlayer" controls>
             <source id="videoSource" src="" type="video/mp4">
         </video>
-
-         <label for="highQualityEpisodes">: حلقات الجودة العالية</label>
+        <div class="episode-box">
+            <label for="highQualityEpisodes">حلقات الجودة العالية</label>
             <select id="highQualityEpisodes" onchange="changeEpisode(this.value, 'high')">
-                <option value="https://server.sanime.net/Video/669/1.mp4">الحلقة 1</option>
-                <option value="https://server.sanime.net/Video/669/2.mp4">الحلقة 2</option>
-                <option value="https://server.sanime.net/Video/669/3.mp4">الحلقة 3</option>
-                <option value="https://server.sanime.net/Video/669/4.mp4">الحلقة 4</option>
-                <option value="https://server.sanime.net/Video/669/5.mp4">الحلقة 5</option>
-                <option value="https://server.sanime.net/Video/669/6.mp4">الحلقة 6</option>
-                <option value="https://server.sanime.net/Video/669/7.mp4">الحلقة 7</option>
-                <option value="https://server.sanime.net/Video/669/8.mp4">الحلقة 8</option>
-                <option value="https://server.sanime.net/Video/669/9.mp4">الحلقة 9</option>
-                <option value="https://server.sanime.net/Video/669/10.mp4">الحلقة 10</option>
-                <option value="https://server.sanime.net/Video/669/11.mp4">الحلقة 11</option>
-                <option value="https://server.sanime.net/Video/669/12.mp4">الحلقة 12</option>
-                <option value="https://server.sanime.net/Video/669/13.mp4">الحلقة 13</option>
-                <option value="https://server.sanime.net/Video/669/14.mp4">الحلقة 14</option>
-                <option value="https://server.sanime.net/Video/669/15.mp4">الحلقة 15</option>
-                <option value="https://server.sanime.net/Video/669/16.mp4">الحلقة 16</option>
-                <option value="https://server.sanime.net/Video/669/17.mp4">الحلقة 17</option>
-                <option value="https://server.sanime.net/Video/669/18.mp4">الحلقة 18</option>
-                <option value="https://server.sanime.net/Video/669/19.mp4">الحلقة 19</option>
-                <option value="https://server.sanime.net/Video/669/20.mp4">الحلقة 20</option>
-                <option value="https://server.sanime.net/Video/669/21.mp4">الحلقة 21</option>
-                <option value="https://server.sanime.net/Video/669/22.mp4">الحلقة 22</option>
-                <option value="https://server.sanime.net/Video/669/23.mp4">الحلقة 23</option>
-                <option value="https://server.sanime.net/Video/669/24.mp4">الحلقة 24</option>
-                <option value="https://server.sanime.net/Video/669/25.mp4">الحلقة 25</option>
-                <option value="https://server.sanime.net/Video/669/26.mp4">الحلقة 26</option>
-                <option value="https://server.sanime.net/Video/669/27.mp4">الحلقة 27</option>
-                <option value="https://server.sanime.net/Video/669/28.mp4">الحلقة 28</option>
-                <option value="https://server.sanime.net/Video/669/29.mp4">الحلقة 29</option>
-                <option value="https://server.sanime.net/Video/669/30.mp4">الحلقة 30</option>
-                <option value="https://server.sanime.net/Video/669/31.mp4">الحلقة 31</option>
-                <option value="https://server.sanime.net/Video/669/32.mp4">الحلقة 32</option>
-                <option value="https://server.sanime.net/Video/669/33.mp4">الحلقة 33</option>
-                <option value="https://server.sanime.net/Video/669/34.mp4">الحلقة 34</option>
-                <option value="https://server.sanime.net/Video/669/35.mp4">الحلقة 35</option>
-                <option value="https://server.sanime.net/Video/669/36.mp4">الحلقة 36</option>
-                <option value="https://server.sanime.net/Video/669/37.mp4">الحلقة 37</option>
-                <option value="https://server.sanime.net/Video/669/38.mp4">الحلقة 38</option>
-                <option value="https://server.sanime.net/Video/669/39.mp4">الحلقة 39</option>
-                <option value="https://server.sanime.net/Video/669/40.mp4">الحلقة 40</option>
-                <option value="https://server.sanime.net/Video/669/41.mp4">الحلقة 41</option>
-                <option value="https://server.sanime.net/Video/669/42.mp4">الحلقة 42</option>
-                <option value="https://server.sanime.net/Video/669/43.mp4">الحلقة 43</option>
-                <option value="https://server.sanime.net/Video/669/44.mp4">الحلقة 44</option>
-                <option value="https://server.sanime.net/Video/669/45.mp4">الحلقة 45</option>
-                <option value="https://server.sanime.net/Video/669/46.mp4">الحلقة 46</option>
-                <option value="https://server.sanime.net/Video/669/47.mp4">الحلقة 47</option>
-                <option value="https://server.sanime.net/Video/669/48.mp4">الحلقة 48</option>
-                <option value="https://server.sanime.net/Video/669/49.mp4">الحلقة 49</option>
-                <option value="https://server.sanime.net/Video/669/50.mp4">الحلقة 50</option>
-                <option value="https://server.sanime.net/Video/669/51.mp4">الحلقة 51</option>
-                <option value="https://server.sanime.net/Video/669/52.mp4">الحلقة 52</option>
-                <option value="https://server.sanime.net/Video/669/53.mp4">الحلقة 53</option>
-                <option value="https://server.sanime.net/Video/669/54.mp4">الحلقة 54</option>
-                <option value="https://server.sanime.net/Video/669/55.mp4">الحلقة 55</option>
-                <option value="https://server.sanime.net/Video/669/56.mp4">الحلقة 56</option>
-                <option value="https://server.sanime.net/Video/669/57.mp4">الحلقة 57</option>
-                <option value="https://server.sanime.net/Video/669/58.mp4">الحلقة 58</option>
-                <option value="https://server.sanime.net/Video/669/59.mp4">الحلقة 59</option>
-                <option value="https://server.sanime.net/Video/669/60.mp4">الحلقة 60</option>
-                <option value="https://server.sanime.net/Video/669/61.mp4">الحلقة 61</option>
-                <option value="https://server.sanime.net/Video/669/62.mp4">الحلقة 62</option>
-                <option value="https://server.sanime.net/Video/669/63.mp4">الحلقة 63</option>
-                <option value="https://server.sanime.net/Video/669/64.mp4">الحلقة 64</option>
-                <option value="https://server.sanime.net/Video/669/65.mp4">الحلقة 65</option>
-                <option value="https://server.sanime.net/Video/669/66.mp4">الحلقة 66</option>
-                <option value="https://server.sanime.net/Video/669/67.mp4">الحلقة 67</option>
-                <option value="https://server.sanime.net/Video/669/68.mp4">الحلقة 68</option>
-                <option value="https://server.sanime.net/Video/669/69.mp4">الحلقة 69</option>
-                <option value="https://server.sanime.net/Video/669/70.mp4">الحلقة 70</option>
-                <option value="https://server.sanime.net/Video/669/71.mp4">الحلقة 71</option>
-                <option value="https://server.sanime.net/Video/669/72.mp4">الحلقة 72</option>
-                <option value="https://server.sanime.net/Video/669/73.mp4">الحلقة 73</option>
-                <option value="https://server.sanime.net/Video/669/74.mp4">الحلقة 74</option>
-                <option value="https://server.sanime.net/Video/669/75.mp4">الحلقة 75</option>
-                <option value="https://server.sanime.net/Video/669/76.mp4">الحلقة 76</option>
-                <option value="https://server.sanime.net/Video/669/77.mp4">الحلقة 77</option>
-                <option value="https://server.sanime.net/Video/669/78.mp4">الحلقة 78</option>
-                <option value="https://server.sanime.net/Video/669/79.mp4">الحلقة 79</option>
-                <option value="https://server.sanime.net/Video/669/80.mp4">الحلقة 80</option>
-                <option value="https://server.sanime.net/Video/669/81.mp4">الحلقة 81</option>
-                <option value="https://server.sanime.net/Video/669/82.mp4">الحلقة 82</option>
-                <option value="https://server.sanime.net/Video/669/83.mp4">الحلقة 83</option>
-                <option value="https://server.sanime.net/Video/669/84.mp4">الحلقة 84</option>
-                <option value="https://server.sanime.net/Video/669/85.mp4">الحلقة 85</option>
-                <option value="https://server.sanime.net/Video/669/86.mp4">الحلقة 86</option>
-                <option value="https://server.sanime.net/Video/669/87.mp4">الحلقة 87</option>
-                <option value="https://server.sanime.net/Video/669/88.mp4">الحلقة 88</option>
-                <option value="https://server.sanime.net/Video/669/89.mp4">الحلقة 89</option>
-                <option value="https://server.sanime.net/Video/669/90.mp4">الحلقة 90</option>
-                <option value="https://server.sanime.net/Video/669/91.mp4">الحلقة 91</option>
-                <option value="https://server.sanime.net/Video/669/92.mp4">الحلقة 92</option>
-                <option value="https://server.sanime.net/Video/669/93.mp4">الحلقة 93</option>
-                <option value="https://server.sanime.net/Video/669/94.mp4">الحلقة 94</option>
-                <option value="https://server.sanime.net/Video/669/95.mp4">الحلقة 95</option>
-                <option value="https://server.sanime.net/Video/669/96.mp4">الحلقة 96</option>
-                <option value="https://server.sanime.net/Video/669/97.mp4">الحلقة 97</option>
-                <option value="https://server.sanime.net/Video/669/98.mp4">الحلقة 98</option>
-                <option value="https://server.sanime.net/Video/669/99.mp4">الحلقة 99</option>
-                <option value="https://server.sanime.net/Video/669/100.mp4">الحلقة 100</option>
-                <option value="https://server.sanime.net/Video/669/101.mp4">الحلقة 101</option>
-                <option value="https://server.sanime.net/Video/669/102.mp4">الحلقة 102</option>
-                <option value="https://server.sanime.net/Video/669/103.mp4">الحلقة 103</option>
-                <option value="https://server.sanime.net/Video/669/104.mp4">الحلقة 104</option>
-                <option value="https://server.sanime.net/Video/669/105.mp4">الحلقة 105</option>
-                <option value="https://server.sanime.net/Video/669/106.mp4">الحلقة 106</option>
-                <option value="https://server.sanime.net/Video/669/107.mp4">الحلقة 107</option>
-                <option value="https://server.sanime.net/Video/669/108.mp4">الحلقة 108</option>
-                <option value="https://server.sanime.net/Video/669/109.mp4">الحلقة 109</option>
-                <option value="https://server.sanime.net/Video/669/110.mp4">الحلقة 110</option>
-                <option value="https://server.sanime.net/Video/669/111.mp4">الحلقة 111</option>
-                <option value="https://server.sanime.net/Video/669/112.mp4">الحلقة 112</option>
-                <option value="https://server.sanime.net/Video/669/113.mp4">الحلقة 113</option>
-                <option value="https://server.sanime.net/Video/669/114.mp4">الحلقة 114</option>
-                <option value="https://server.sanime.net/Video/669/115.mp4">الحلقة 115</option>
-                <option value="https://server.sanime.net/Video/669/116.mp4">الحلقة 116</option>
-                <option value="https://server.sanime.net/Video/669/117.mp4">الحلقة 117</option>
-                <option value="https://server.sanime.net/Video/669/118.mp4">الحلقة 118</option>
-                <option value="https://server.sanime.net/Video/669/119.mp4">الحلقة 119</option>
-                <option value="https://server.sanime.net/Video/669/120.mp4">الحلقة 120</option>
-                <option value="https://server.sanime.net/Video/669/121.mp4">الحلقة 121</option>
-                <option value="https://server.sanime.net/Video/669/122.mp4">الحلقة 122</option>
-                <option value="https://server.sanime.net/Video/669/123.mp4">الحلقة 123</option>
-                <option value="https://server.sanime.net/Video/669/124.mp4">الحلقة 124</option>
-                <option value="https://server.sanime.net/Video/669/125.mp4">الحلقة 125</option>
-                <option value="https://server.sanime.net/Video/669/126.mp4">الحلقة 126</option>
-                <option value="https://server.sanime.net/Video/669/127.mp4">الحلقة 127</option>
-                <option value="https://server.sanime.net/Video/669/128.mp4">الحلقة 128</option>
-                <option value="https://server.sanime.net/Video/669/129.mp4">الحلقة 129</option>
-                <option value="https://server.sanime.net/Video/669/130.mp4">الحلقة 130</option>
-                <option value="https://server.sanime.net/Video/669/131.mp4">الحلقة 131</option>
-                <option value="https://server.sanime.net/Video/669/132.mp4">الحلقة 132</option>
-                <option value="https://server.sanime.net/Video/669/133.mp4">الحلقة 133</option>
-                <option value="https://server.sanime.net/Video/669/134.mp4">الحلقة 134</option>
-                <option value="https://server.sanime.net/Video/669/135.mp4">الحلقة 135</option>
-                <option value="https://server.sanime.net/Video/669/136.mp4">الحلقة 136</option>
-                <option value="https://server.sanime.net/Video/669/137.mp4">الحلقة 137</option>
-                <option value="https://server.sanime.net/Video/669/138.mp4">الحلقة 138</option>
-                <option value="https://server.sanime.net/Video/669/139.mp4">الحلقة 139</option>
-                <option value="https://server.sanime.net/Video/669/140.mp4">الحلقة 140</option>
-                <option value="https://server.sanime.net/Video/669/141.mp4">الحلقة 141</option>
-                <option value="https://server.sanime.net/Video/669/142.mp4">الحلقة 142</option>
-                <option value="https://server.sanime.net/Video/669/143.mp4">الحلقة 143</option>
-                <option value="https://server.sanime.net/Video/669/144.mp4">الحلقة 144</option>
-                <option value="https://server.sanime.net/Video/669/145.mp4">الحلقة 145</option>
-                <option value="https://server.sanime.net/Video/669/146.mp4">الحلقة 146</option>
-                <option value="https://server.sanime.net/Video/669/147.mp4">الحلقة 147</option>
-                <option value="https://server.sanime.net/Video/669/148.mp4">الحلقة 148 والاخيرة</option>
-                
-                <!-- Add more options for each episode with their respective URLs -->
+                <option value="" disabled selected>اختر الحلقة</option>
             </select>
-
+            <br>
+            <label for="lowQualityEpisodes">حلقات الجودة المنخفضة</label>
+            <select id="lowQualityEpisodes" onchange="changeEpisode(this.value, 'low')">
+                <option value="" disabled selected>اختر الحلقة</option>
+                
+                
+            </select>
+            <button id="copyButton" onclick="copyEpisodeLink()">نسخ رابط الحلقة</button>
+            <h3>لتحميل قم بنسخ رابط الفيلم او الحلقة و الذهاب الى برنامج <span class="english">vlc</span>    و انسخ الرابط داخل البرنامج وتستطيع تحميلها او مشاهدتها داخل البرنامج</h3>
+            <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
+        </div>
         <br>
-        <label for="lowQualityEpisodes">: حلقات الجودة المنخفضة</label>
-        <select id="lowQualityEpisodes" onchange="changeEpisode(this.value, 'low')">
-            <option value="" disabled selected>اختر الحلقة</option>
-            <!-- سيتم تعبئة هذه القائمة تلقائيًا -->
-        </select>
-        <button id="copyButton" onclick="copyEpisodeLink()">نسخ رابط الحلقة</button>
-        <h3>لتحميل قم بنسخ رابط الفيلم او الحلقة و الذهاب الى برنامج <span class="english">vlc</span>    و انسخ الرابط داخل البرنامج وتستطيع تحميلها او مشاهدتها داخل البرنامج</h3>
-        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
-
+        <a href="../../Anime">رجوع</a>
     </div>
-    
-    <a href="../../Anime">رجوع</a>
-</div>
 
     <script>
-        const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
+ const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5';
         const mediaIds = ['tt2098220'];
 
         mediaIds.forEach(mediaId => {
@@ -491,11 +341,11 @@ label[for="lowQualityEpisodes"] {
                         <img class="movie-poster" src="https://image.tmdb.org/t/p/w500/${data.poster_path}" alt="Movie Poster">
                         <h2 class="movie-title">${data.title || data.name}</h2>
                         <div class="movie-details">
-                            <p><strong>سنة الإصدار:</strong> ${releaseYear}</p>
-                            <p><strong>النوع:</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
-                            <p><strong>التقييم:</strong> ${imdbRating}/10</p>
+                            <p><strong>سنة الإصدار :</strong> ${releaseYear}</p>
+                            <p><strong>النوع :</strong> ${data.genres.map(genre => genre.name).join(', ')}</p>
+                            <p><strong>التقييم :</strong> ${imdbRating}/10</p>
                             <div class="story-container">
-                            <div class="story-title">: القصة</div>
+                            <div class="story-title">القصة :</div>
                             <div class="story">${trimmedOverview}</div>
                         </div>
                         </div>
@@ -528,18 +378,125 @@ label[for="lowQualityEpisodes"] {
 
 
 
+    function changeEpisode(value, quality) {
+        var videoSource = document.getElementById('videoSource');
+        var videoPlayer = document.getElementById('videoPlayer');
+        
+        if (videoSource.src !== value) {
+            videoSource.src = value;
+            videoPlayer.load();
+        } else {
+            videoPlayer.currentTime = 0;
+            videoPlayer.load();
+        }
+        
+        // تعيين الاختيار إلى "اختر الحلقة" بناءً على الجودة
+        var highQualitySelect = document.getElementById('highQualityEpisodes');
+        var lowQualitySelect = document.getElementById('lowQualityEpisodes');
+        
+        if (quality === 'high') {
+            lowQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة" في الجودة المنخفضة
+        } else if (quality === 'low') {
+            highQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة" في الجودة العالية
+        }
+    }
 
+    function populateLowQualityEpisodes() {
+        var highQualitySelect = document.getElementById('highQualityEpisodes');
+        var lowQualitySelect = document.getElementById('lowQualityEpisodes');
+        lowQualitySelect.innerHTML = ''; // مسح أي خيارات موجودة
 
+        // إضافة الخيار "اختر الحلقة" في بداية القائمة
+        var placeholderOption = document.createElement('option');
+        placeholderOption.value = "";
+        placeholderOption.disabled = true;
+        placeholderOption.selected = true;
+        placeholderOption.text = "اختر الحلقة";
+        lowQualitySelect.appendChild(placeholderOption);
 
+        // إضافة الخيارات الخاصة بالجودة المنخفضة
+        for (var i = 1; i < highQualitySelect.options.length; i++) {
+            var highQualityOption = highQualitySelect.options[i];
+            var lowQualityValue = highQualityOption.value.replace(/\.mp4$/, 'SD.mp4');
+            var lowQualityOption = document.createElement('option');
+            lowQualityOption.value = lowQualityValue;
+            lowQualityOption.text = highQualityOption.text;
+            lowQualitySelect.appendChild(lowQualityOption);
+        }
+    }
 
+    function generateEpisodes() {
+    var highQualitySelect = document.getElementById('highQualityEpisodes');
+    var numEpisodes = 148; // عدد الحلقات المسموح توليدها
+    var word = 'Video'; // الكلمة
+    var number = 669; // الرقم
+    var baseURL = `https://server.sanime.net/${word}/${number}/`;
 
+    var fragment = document.createDocumentFragment(); // استخدام DocumentFragment لتجميع العناصر
 
+    // إنشاء عنصر الخيار "اختر الحلقة"
+    var placeholderOption = document.createElement('option');
+    placeholderOption.value = "";
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    placeholderOption.text = "اختر الحلقة";
+    fragment.appendChild(placeholderOption);
 
-      
-        function changeEpisode(value, quality) {
+    // إنشاء خيارات الحلقات
+    for (var i = 1; i <= numEpisodes; i++) {
+        var episodeNumber = i;
+        var episodeURL = baseURL + episodeNumber + '.mp4';
+        var option = document.createElement('option');
+        option.value = episodeURL;
+        option.text = 'الحلقة ' + episodeNumber;
+        fragment.appendChild(option);
+    }
+
+    highQualitySelect.innerHTML = ''; // مسح القائمة الحالية
+    highQualitySelect.appendChild(fragment); // إضافة جميع العناصر دفعة واحدة
+
+    populateLowQualityEpisodes(); // تحديث قائمة الجودة المنخفضة بعد توليد الجودة العالية
+
+    // تعيين الحلقة 1 كمصدر للفيديو عند تحميل الصفحة
+    var firstEpisodeURL = baseURL + '1.mp4';
     var videoSource = document.getElementById('videoSource');
     var videoPlayer = document.getElementById('videoPlayer');
-    
+    videoSource.src = firstEpisodeURL;
+    videoPlayer.load();
+}
+
+function populateLowQualityEpisodes() {
+    var highQualitySelect = document.getElementById('highQualityEpisodes');
+    var lowQualitySelect = document.getElementById('lowQualityEpisodes');
+    var fragment = document.createDocumentFragment(); // استخدام DocumentFragment لتجميع العناصر
+
+    lowQualitySelect.innerHTML = ''; // مسح القائمة الحالية
+
+    // إنشاء عنصر الخيار "اختر الحلقة"
+    var placeholderOption = document.createElement('option');
+    placeholderOption.value = "";
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    placeholderOption.text = "اختر الحلقة";
+    fragment.appendChild(placeholderOption);
+
+    // إضافة الخيارات الخاصة بالجودة المنخفضة
+    for (var i = 1; i < highQualitySelect.options.length; i++) {
+        var highQualityOption = highQualitySelect.options[i];
+        var lowQualityValue = highQualityOption.value.replace(/\.mp4$/, 'SD.mp4');
+        var lowQualityOption = document.createElement('option');
+        lowQualityOption.value = lowQualityValue;
+        lowQualityOption.text = highQualityOption.text;
+        fragment.appendChild(lowQualityOption);
+    }
+
+    lowQualitySelect.appendChild(fragment); // إضافة جميع العناصر دفعة واحدة
+}
+
+function changeEpisode(value, quality) {
+    var videoSource = document.getElementById('videoSource');
+    var videoPlayer = document.getElementById('videoPlayer');
+
     if (videoSource.src !== value) {
         videoSource.src = value;
         videoPlayer.load();
@@ -547,11 +504,11 @@ label[for="lowQualityEpisodes"] {
         videoPlayer.currentTime = 0;
         videoPlayer.load();
     }
-    
+
     // تعيين الاختيار إلى "اختر الحلقة" بناءً على الجودة
     var highQualitySelect = document.getElementById('highQualityEpisodes');
     var lowQualitySelect = document.getElementById('lowQualityEpisodes');
-    
+
     if (quality === 'high') {
         lowQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة" في الجودة المنخفضة
     } else if (quality === 'low') {
@@ -559,88 +516,9 @@ label[for="lowQualityEpisodes"] {
     }
 }
 
-function populateLowQualityEpisodes() {
-    var highQualitySelect = document.getElementById('highQualityEpisodes');
-    var lowQualitySelect = document.getElementById('lowQualityEpisodes');
-    lowQualitySelect.innerHTML = ''; // مسح أي خيارات موجودة
-
-    // إضافة الخيار "اختر الحلقة" في بداية القائمة
-    var placeholderOption = document.createElement('option');
-    placeholderOption.value = "";
-    placeholderOption.disabled = true;
-    placeholderOption.selected = true;
-    placeholderOption.text = "اختر الحلقة";
-    lowQualitySelect.appendChild(placeholderOption);
-
-    // إضافة الخيارات الخاصة بالجودة المنخفضة
-    for (var i = 0; i < highQualitySelect.options.length; i++) {
-        var highQualityOption = highQualitySelect.options[i];
-        var lowQualityValue = highQualityOption.value.replace(/\.mp4$/, 'SD.mp4');
-        var lowQualityOption = document.createElement('option');
-        lowQualityOption.value = lowQualityValue;
-        lowQualityOption.text = highQualityOption.text;
-        lowQualitySelect.appendChild(lowQualityOption);
-    }
-}
-
-// تعيين حدث التغيير لقائمة الجودة المنخفضة
-function setupLowQualityChangeEvent() {
-    var lowQualitySelect = document.getElementById('lowQualityEpisodes');
-    lowQualitySelect.addEventListener('change', function() {
-        changeEpisode(this.value, 'low');
-        
-        // إعادة تعيين الاختيار إلى "اختر الحلقة" لقائمة الجودة العالية
-        var highQualitySelect = document.getElementById('highQualityEpisodes');
-        highQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة"
-    });
-}
-
-// تعيين حدث التغيير لقائمة الجودة العالية
-function setupHighQualityChangeEvent() {
-    var highQualitySelect = document.getElementById('highQualityEpisodes');
-    highQualitySelect.addEventListener('change', function() {
-        changeEpisode(this.value, 'high');
-        
-        // إعادة تعيين الاختيار إلى "اختر الحلقة" لقائمة الجودة المنخفضة
-        var lowQualitySelect = document.getElementById('lowQualityEpisodes');
-        lowQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة"
-    });
-}
-
 window.onload = function() {
-    populateLowQualityEpisodes();
-    setupLowQualityChangeEvent();
-    setupHighQualityChangeEvent();
-
-    // تعيين الخيار "اختر الحلقة" في قائمة الجودة العالية عند تحميل الصفحة
-    var highQualitySelect = document.getElementById('highQualityEpisodes');
-    var placeholderOption = document.createElement('option');
-    placeholderOption.value = "";
-    placeholderOption.disabled = true;
-    placeholderOption.selected = true;
-    placeholderOption.text = "اختر الحلقة";
-    
-    if (highQualitySelect.options.length === 0) {
-        highQualitySelect.appendChild(placeholderOption);
-    } else if (highQualitySelect.options[0].text !== "اختر الحلقة") {
-        highQualitySelect.insertBefore(placeholderOption, highQualitySelect.firstChild);
-    }
-
-    // تشغيل الحلقة الأولى من الجودة العالية بشكل تلقائي عند تحميل الصفحة
-    var firstHighQualityEpisode = highQualitySelect.options[1]; // الحصول على أول حلقة (تجاوز خيار "اختر الحلقة")
-    
-    if (firstHighQualityEpisode) {
-        changeEpisode(firstHighQualityEpisode.value, 'high');
-        highQualitySelect.selectedIndex = 0; // تعيين الاختيار إلى "اختر الحلقة" في الجودة العالية
-    }
+    generateEpisodes(); // توليد الحلقات عند تحميل الصفحة
 };
-
-
-
-
-
-
-
 
 function copyEpisodeLink() {
     var highQualitySelect = document.getElementById('highQualityEpisodes');
@@ -662,9 +540,6 @@ function copyEpisodeLink() {
         alert("يرجى اختيار الحلقة أولاً.");
     }
 }
-
-
-
     </script>
-</body> 
+</body>
 </html>
