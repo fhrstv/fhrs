@@ -283,10 +283,8 @@ label[for="lowQualityEpisodes"] {
         <div id="trailerContainer"></div>
         <h2>شاهد الآن</h2>
         <video id="videoPlayer" controls>
-            <source src="https://server.sanime.net/Video/669/1.mp4" type="video/mp4">
+            <source id="videoSource" src="" type="video/mp4">
         </video>
-        <h2></h2> 
-        <h3>إذا لم تعمل الحلقة، يرجى نسخ الرابط وإرساله لنا من خلال زيارة صفحة اتصل بنا</h3>
 
          <label for="highQualityEpisodes">: حلقات الجودة العالية</label>
             <select id="highQualityEpisodes" onchange="changeEpisode(this.value, 'high')">
