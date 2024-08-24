@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /random.js
-Disallow: /Movies.js
-Disallow: /Series.js
-Disallow: /Scripit.js
