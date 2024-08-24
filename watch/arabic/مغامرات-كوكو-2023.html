@@ -47,7 +47,7 @@ h1, p {
 
 #trailer iframe,
 #movieIframe {
-    width: 100%;
+    width: 98%;
     max-width: 1080px;
     height: 450px;
     margin: 20px auto;
@@ -56,6 +56,9 @@ h1, p {
     display: block;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 3px solid; /* عرض الإطار */
+    border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
+    border-image-slice: 1; /* تطبيق خليط الألوان على الإطار */
 }
 
 #downloadButton {
