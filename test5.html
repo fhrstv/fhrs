@@ -44,8 +44,7 @@
     <ul id="movies" class="movie-list"></ul>
 
     <script>
-
-    document.getElementById('search').addEventListener('input', function() {
+document.getElementById('search').addEventListener('input', function() {
     const query = this.value;
     const movieList = document.getElementById('movies');
 
@@ -59,8 +58,14 @@
                 if (movies && movies.length > 0) {
                     movies.forEach(movie => {
                         const li = document.createElement('li');
-                        li.innerHTML = `<span class="movie-title">${movie.title}</span> (${movie.year})`;
+                        li.innerHTML = `<span class="movie-title" data-id="${movie.id}">${movie.title}</span> (${movie.year})`;
                         movieList.appendChild(li);
+
+                        // عند النقر على اسم الفيلم
+                        li.addEventListener('click', function() {
+                            const movieId = this.querySelector('.movie-title').getAttribute('data-id');
+                            window.location.href = `https://yts.mx/movies/${movie.slug}`;
+                        });
                     });
                 } else {
                     movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
