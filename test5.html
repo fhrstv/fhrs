@@ -45,15 +45,37 @@
             width: 100%;
             max-height: 90vh;
         }
+
+        .quality-options {
+            margin: 10px 0;
+        }
+
+        .quality-options button {
+            display: block;
+            margin: 5px 0;
+            padding: 10px;
+            border: none;
+            background-color: #444;
+            color: #fff;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .quality-options button:hover {
+            background-color: #666;
+        }
     </style>
 </head>
 <body>
     <h1>ابحث عن فيلم</h1>
     <input type="text" id="search" class="search-box" placeholder="أدخل اسم الفيلم...">
     <ul id="movies" class="movie-list"></ul>
+    <div id="quality-container" class="quality-options"></div>
     <div id="player" class="webtor"></div>
 
     <script>
+        let selectedMovieTitle = '';
+
         document.getElementById('search').addEventListener('input', function() {
             const query = this.value;
             const movieList = document.getElementById('movies');
@@ -67,17 +89,14 @@
 
                         if (movies && movies.length > 0) {
                             movies.forEach(movie => {
-                                const torrent = movie.torrents.find(torrent => torrent.quality === '1080p'); // اختر الجودة المطلوبة
-                                if (torrent) {
-                                    const li = document.createElement('li');
-                                    li.innerHTML = `<span class="movie-title" data-magnet="${torrent.url}">${movie.title}</span> (${movie.year})`;
-                                    movieList.appendChild(li);
+                                const li = document.createElement('li');
+                                li.innerHTML = `<span class="movie-title">${movie.title}</span> (${movie.year})`;
+                                movieList.appendChild(li);
 
-                                    li.addEventListener('click', function() {
-                                        const magnetLink = this.querySelector('.movie-title').getAttribute('data-magnet');
-                                        showVideoPlayer(magnetLink);
-                                    });
-                                }
+                                li.addEventListener('click', function() {
+                                    selectedMovieTitle = movie.title;
+                                    fetchMovieTorrents(movie.id);
+                                });
                             });
                         } else {
                             movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
@@ -86,8 +105,36 @@
                     .catch(error => console.error('Error fetching movies:', error));
             } else {
                 movieList.innerHTML = '';
+                document.getElementById('quality-container').innerHTML = '';
             }
         });
+
+        function fetchMovieTorrents(movieId) {
+            fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const movie = data.data.movie;
+                    const qualityContainer = document.getElementById('quality-container');
+                    qualityContainer.innerHTML = '';
+
+                    if (movie && movie.torrents.length > 0) {
+                        movie.torrents.forEach(torrent => {
+                            const button = document.createElement('button');
+                            button.textContent = `${torrent.quality} (${torrent.size})`;
+                            button.setAttribute('data-magnet', torrent.url);
+                            qualityContainer.appendChild(button);
+
+                            button.addEventListener('click', function() {
+                                const magnetLink = this.getAttribute('data-magnet');
+                                showVideoPlayer(magnetLink);
+                            });
+                        });
+                    } else {
+                        qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
+                    }
+                })
+                .catch(error => console.error('Error fetching movie details:', error));
+        }
 
         function showVideoPlayer(magnetLink) {
             if (window.Webtor) {
@@ -112,8 +159,10 @@
                     lang: 'en',
                 });
 
-                // Refresh Webtor player
-                window.Webtor.init();
+                // Trigger Webtor to refresh with new magnet link
+                if (typeof window.Webtor !== 'undefined') {
+                    window.Webtor.init();
+                }
             } else {
                 console.error('Webtor SDK not loaded.');
             }
