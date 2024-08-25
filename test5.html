@@ -59,11 +59,6 @@
             background-color: #666;
         }
 
-        #player-container {
-            margin: 20px;
-            text-align: center;
-        }
-
         #magnet-link {
             margin: 20px;
             font-size: 1.2em;
@@ -75,10 +70,10 @@
     <input type="text" id="search" class="search-box" placeholder="أدخل اسم الفيلم...">
     <ul id="movies" class="movie-list"></ul>
     <div id="quality-container" class="quality-options"></div>
-    <div id="player-container">
-        <div id="player" class="webtor"></div>
-    </div>
     <div id="magnet-link"></div>
+
+    <video id="webtor-player" controls></video>
+    <script src="https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js" charset="utf-8" async></script>
 
     <script>
         document.getElementById('search').addEventListener('input', function() {
@@ -111,7 +106,6 @@
                 movieList.innerHTML = '';
                 document.getElementById('quality-container').innerHTML = '';
                 document.getElementById('magnet-link').innerHTML = '';
-                document.getElementById('player').innerHTML = ''; // Clear Webtor player
             }
         });
 
@@ -132,8 +126,15 @@
 
                             button.addEventListener('click', function() {
                                 const magnetLink = this.getAttribute('data-magnet');
-                                updateWebtorPlayer(magnetLink);
-                                copyToClipboard(magnetLink);
+                                document.getElementById('magnet-link').innerHTML = `<p>رابط المغناطيس: <a href="${magnetLink}" target="_blank">${magnetLink}</a></p>`;
+                                
+                                // تحديث مصدر مشغل الفيديو مع رابط المغناطيس
+                                const webtorPlayer = document.getElementById('webtor-player');
+                                window.webtor = window.webtor || [];
+                                window.webtor.push({
+                                    id: 'webtor-player',
+                                    magnet: magnetLink,
+                                });
                             });
                         });
                     } else {
@@ -141,31 +142,6 @@
                     }
                 })
                 .catch(error => console.error('Error fetching movie details:', error));
-        }
-
-        function updateWebtorPlayer(magnetLink) {
-            const player = document.getElementById('player');
-            player.innerHTML = `
-                <script>
-                    window.webtor = window.webtor || [];
-                    window.webtor.push({
-                        id: 'player',
-                        magnet: '${magnetLink}',
-                        poster: 'https://via.placeholder.com/150/0000FF/808080', // Optional
-                        subtitles: [],
-                        lang: 'ar'
-                    });
-                </script>
-                <script src="https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js" charset="utf-8" async></script>
-            `;
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text)
-                .then(() => {
-                    document.getElementById('magnet-link').innerHTML = `<p>رابط المغناطيس تم نسخه إلى الحافظة: <a href="${text}" target="_blank">${text}</a></p>`;
-                })
-                .catch(err => console.error('Failed to copy: ', err));
         }
     </script>
 </body>
