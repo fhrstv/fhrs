@@ -1,404 +1,137 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <style>
-   body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    color: #000;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مربع بحث للأفلام</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
 
-header {
-    background-color: #333;
-    color: hsl(0, 94%, 46%);
-    text-align: center;
-    padding: 10px;
-}
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            margin: 20px 0;
+            box-sizing: border-box;
+        }
 
-h1 {
-    margin: 0;
-}
+        .movie-list {
+            list-style: none;
+            padding: 0;
+        }
 
-.content {
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
+        .movie-list li {
+            padding: 10px;
+            border-bottom: 1px solid #444;
+            cursor: pointer;
+        }
 
-.search-box {
-    text-align: center;
-    margin-top: 20px;
-    position: relative;
-}
+        .movie-list li:hover {
+            background-color: #333;
+        }
 
-#search-input {
-    padding: 10px;
-    border-radius: 5px 5px 0 0;
-    border: 1px solid #ccc;
-    width: 100%;
-    max-width: 300px;
-    text-align: center;
-    box-sizing: border-box;
-}
+        .movie-title {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
 
-.movie-list {
-    list-style-type: none;
-    padding: 0;
-    max-height: 300px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    border-top: none;
-    border-radius: 0 0 5px 5px;
-    position: absolute;
-    width: 100%;
-    max-width: 300px;
-    background-color: #fff;
-    z-index: 1;
-    display: none;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    left: 0;
-    right: 0;
-    margin: auto;
-}
+        .quality-options {
+            margin: 10px 0;
+        }
 
-.movie-list.show {
-    display: block;
-}
+        .quality-options button {
+            display: block;
+            margin: 5px 0;
+            padding: 10px;
+            border: none;
+            background-color: #444;
+            color: #fff;
+            cursor: pointer;
+            width: 100%;
+        }
 
-.movie-item {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
-}
+        .quality-options button:hover {
+            background-color: #666;
+        }
 
-.movie-item:hover {
-    background-color: #f0f0f0;
-}
-
-.film-container {
-    display: flex;
-    flex-direction: column; /* لتصفية العناصر عموديًا */
-    align-items: center; /* توسيط العناصر أفقيًا */
-    padding: 20px;
-}
-
-.film-box {
-    background-color: red;
-    color: #333;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 200px; /* عرض ثابت للمربعات */
-    margin-bottom: 20px; /* مسافة بين المربعات */
-    display: flex;
-    flex-direction: column; /* لتصفية النصوص عموديًا */
-    align-items: center; /* توسيط النصوص داخل المربع */
-    justify-content: center; /* توسيط النصوص عموديًا داخل المربع */
-    text-align: center; /* توسيط النصوص داخل المربع */
-    cursor: pointer;
-}
-
-.film-box span {
-    font-size: 18px; /* حجم الخط */
-    line-height: 1.4; /* تحسين التباعد بين الأسطر */
-}
-
-.film-box:hover {
-    background-color: gold; /* لون خلفية ذهبي عند التفاعل */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التفاعل */
-}
-
-.head-center {
-    list-style-type: none;
-    padding: 0;
-    text-align: center;
-}
-
-.head-item a {
-    color: #333; /* لون النص أبيض */
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.head-item a:hover {
-    background-color: gold; /* لون خلفية ذهبي عند التمرير */
-}
-
-/* تنسيق مربع البحث */
-/* تنسيق مربع البحث */
-.search-container {
-    margin-bottom: 330px; /* زيادة المسافة بين مربع البحث والعناصر أدناه */
-}
-
-/* تنسيق حاوية البوستر */
-.poster-container {
-    position: relative; /* تأكد من أن الحاوية تحتوي على العناصر ذات الترتيب z */
-    display: flex;
-    align-items: center;
-    justify-content: center; /* توسيط البوستر والأزرار */
-    margin: 40px 0; /* زيادة المسافة بين البوستر والعناصر الأخرى */
-}
-
-
-.poster {
-    position: relative; /* تحديد موضع البوستر بالنسبة لحاويته */
-    z-index: 2; /* وضع البوستر في الأمام */
-    border: 5px solid #ddd; /* الحافة حول البوستر */
-    border-radius: 10px; /* زوايا دائرية */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* زيادة الظل لإبراز التأثير ثلاثي الأبعاد */
-    overflow: hidden; /* لضمان عدم ظهور الصورة خارج الحواف */
-}
-
-
-.poster img {
-    display: block;
-    width: 300px; /* عرض البوستر */
-    height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
-}
-
-
-/* تنسيق أزرار التنقل */
-.nav-button {
-    cursor: pointer;
-    font-size: 24px;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    user-select: none;
-    margin: 0 20px; /* إضافة مساحة بين الأزرار */
-}
-.nav-button.left {
-    left: -60px; /* ضبط المسافة من اليسار */
-}
-
-.nav-button.right {
-    right: -60px; /* ضبط المسافة من اليمين */
-}
-
-/* تنسيق حاوية البوستر */
-.poster-container {
-    display: flex;
-    align-items: center;
-    position: relative;
-    margin: 20px 0;
-}
-
-/* تنسيق صندوق البوستر */
-#poster-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* تنسيق البوستر */
-.poster {
-    border: 5px solid #ddd; /* الحافة حول البوستر */
-    border-radius: 10px; /* زوايا دائرية */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* ظل خفيف */
-    overflow: hidden; /* لضمان عدم ظهور الصورة خارج الحواف */
-}
-
-.poster img {
-    display: block;
-    width: 300px; /* عرض البوستر */
-    height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
-}
-
-/* تنسيق تفاصيل الفيلم */
-#movie-details {
-    text-align: center;
-}
-
-#movie-title {
-    font-size: 24px;
-    margin: 10px 0;
-}
-
-#movie-year {
-    font-size: 18px;
-    color: #666;
-}
-
-  </style>
+        #magnet-link {
+            margin: 20px;
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>فهرس الأفلام</h1>
-  </header>
-  <div class="content">
-    <div class="search-container">
-        <input type="text" id="search-input" placeholder="ابحث عن فيلم...">
-        <ul class="movie-list"></ul>
-    </div>
+    <h1>ابحث عن فيلم</h1>
+    <input type="text" id="search" class="search-box" placeholder="أدخل اسم الفيلم...">
+    <ul id="movies" class="movie-list"></ul>
+    <div id="quality-container" class="quality-options"></div>
+    <div id="magnet-link"></div>
 
-    <div class="poster-container">
-        <div id="prev-button" class="nav-button">&#10094;</div>
-        <div id="poster-wrapper">
-            <div class="poster">
-                <img id="poster-img" src="default_poster.png" alt="بوستر الفيلم">
-            </div>
-        </div>
-        <div id="next-button" class="nav-button">&#10095;</div>
-    </div>
+    <script>
+        document.getElementById('search').addEventListener('input', function() {
+            const query = this.value;
+            const movieList = document.getElementById('movies');
 
-    <div id="movie-details">
-        <h2 id="movie-title">عنوان الفيلم</h2>
-        <p id="movie-year">سنة الإصدار</p>
-    </div>
-</div>
+            if (query.length > 2) {
+                fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const movies = data.data.movies;
+                        movieList.innerHTML = '';
 
-  <script>
- const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-let movies = [];
-let currentIndex = 0;
-let allMovies = [];
-let displayedMovies = [];
+                        if (movies && movies.length > 0) {
+                            movies.forEach(movie => {
+                                const li = document.createElement('li');
+                                li.innerHTML = `<span class="movie-title">${movie.title}</span> (${movie.year})`;
+                                movieList.appendChild(li);
 
-// البحث عن الأفلام بناءً على استعلام البحث
-async function searchMovies(query) {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data.results || [];
-    } catch (error) {
-        console.error('Error fetching data from TMDB', error);
-        return [];
-    }
-}
-
-// ترتيب الأفلام
-function sortMovies(movies, query) {
-    const lowerCaseQuery = query.toLowerCase();
-    return movies.sort((a, b) => {
-        const aTitle = a.title.toLowerCase();
-        const bTitle = b.title.toLowerCase();
-        const aExactMatch = aTitle === lowerCaseQuery;
-        const bExactMatch = bTitle === lowerCaseQuery;
-
-        if (aExactMatch && !bExactMatch) return -1;
-        if (!aExactMatch && bExactMatch) return 1;
-
-        const titleComparison = aTitle.localeCompare(bTitle);
-        if (titleComparison !== 0) return titleComparison;
-
-        const aYear = a.release_date ? new Date(a.release_date).getFullYear() : 0;
-        const bYear = b.release_date ? new Date(b.release_date).getFullYear() : 0;
-        return aYear - bYear;
-    });
-}
-
-// تحديث قائمة الأفلام بناءً على البحث
-function updateMovieList(movies, query) {
-    const sortedMovies = sortMovies(movies, query);
-    const movieList = document.querySelector('.movie-list');
-    movieList.innerHTML = '';
-
-    sortedMovies.forEach(movie => {
-        const movieItem = document.createElement('li');
-        movieItem.className = 'movie-item';
-        movieItem.style.display = 'flex';
-        movieItem.style.alignItems = 'center';
-        movieItem.style.justifyContent = 'space-between';
-
-        const poster = document.createElement('img');
-        poster.src = movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : 'default_poster.png';
-        poster.alt = `${movie.title} Poster`;
-        poster.style.width = '75px';
-        poster.style.height = '100px';
-        poster.style.marginLeft = '10px';
-
-        const movieText = document.createElement('span');
-        movieText.textContent = `${movie.title || 'Unnamed Movie'} (${new Date(movie.release_date).getFullYear() || ''})`;
-        movieText.style.flexGrow = '1';
-        movieText.style.textAlign = 'center';
-
-        movieItem.appendChild(movieText);
-        movieItem.appendChild(poster);
-        movieItem.dataset.id = movie.id;
-
-        movieItem.addEventListener('click', () => {
-            window.location.href = `watch_movie?tmdb_id=${movie.id}`;
+                                li.addEventListener('click', function() {
+                                    fetchMovieTorrents(movie.id);
+                                });
+                            });
+                        } else {
+                            movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
+                        }
+                    })
+                    .catch(error => console.error('Error fetching movies:', error));
+            } else {
+                movieList.innerHTML = '';
+                document.getElementById('quality-container').innerHTML = '';
+                document.getElementById('magnet-link').innerHTML = '';
+            }
         });
 
-        movieList.appendChild(movieItem);
-    });
+        function fetchMovieTorrents(movieId) {
+            fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const movie = data.data.movie;
+                    const qualityContainer = document.getElementById('quality-container');
+                    qualityContainer.innerHTML = '';
 
-    movieList.style.display = sortedMovies.length ? 'block' : 'none';
-    movieList.scrollTop = 0;
-}
+                    if (movie && movie.torrents.length > 0) {
+                        movie.torrents.forEach(torrent => {
+                            const button = document.createElement('button');
+                            button.textContent = `${torrent.quality} (${torrent.size})`;
+                            button.setAttribute('data-magnet', torrent.url);
+                            qualityContainer.appendChild(button);
 
-document.getElementById('search-input').addEventListener('input', async (event) => {
-    const query = event.target.value.trim();
-    if (query.length > 0) {
-        allMovies = await searchMovies(query);
-        updateMovieList(allMovies, query);
-    } else {
-        document.querySelector('.movie-list').style.display = 'none';
-    }
-});
-
-document.addEventListener('click', function(event) {
-    const searchInput = document.getElementById('search-input');
-    const movieList = document.querySelector('.movie-list');
-
-    if (!searchInput.contains(event.target) && !movieList.contains(event.target)) {
-        movieList.style.display = 'none';
-    }
-});
-
-// جلب الأفلام التي تعرض الآن
-async function fetchNowPlayingMovies() {
-    const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&page=1`;
-
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Failed to load now playing movies');
+                            button.addEventListener('click', function() {
+                                const magnetLink = this.getAttribute('data-magnet');
+                                document.getElementById('magnet-link').innerHTML = `<p>رابط المغناطيس: <a href="${magnetLink}" target="_blank">${magnetLink}</a></p>`;
+                            });
+                        });
+                    } else {
+                        qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
+                    }
+                })
+                .catch(error => console.error('Error fetching movie details:', error));
         }
-        const data = await response.json();
-        return data.results || [];
-    } catch (error) {
-        console.error('Error fetching now playing movies', error);
-        return [];
-    }
-}
-
-// تحديث البوستر
-function updatePoster(movie) {
-    const posterImg = document.getElementById('poster-img');
-    posterImg.src = movie.poster_path ? `https://image.tmdb.org/t/p/w300${movie.poster_path}` : 'default_poster.png';
-
-    document.getElementById('movie-title').textContent = movie.title || 'عنوان الفيلم';
-    document.getElementById('movie-year').textContent = new Date(movie.release_date).getFullYear() || 'سنة الإصدار';
-}
-
-// الانتقال إلى اليسار
-document.getElementById('prev-button').addEventListener('click', () => {
-    if (movies.length > 0) {
-        currentIndex = (currentIndex - 1 + movies.length) % movies.length;
-        updatePoster(movies[currentIndex]);
-    }
-});
-
-// الانتقال إلى اليمين
-document.getElementById('next-button').addEventListener('click', () => {
-    if (movies.length > 0) {
-        currentIndex = (currentIndex + 1) % movies.length;
-        updatePoster(movies[currentIndex]);
-    }
-});
-
-async function initialize() {
-    movies = await fetchNowPlayingMovies();
-    updatePoster(movies[currentIndex]);
-}
-
-initialize();
-
-  </script>
+    </script>
 </body>
 </html>
