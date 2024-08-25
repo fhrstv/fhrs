@@ -16,13 +16,45 @@
         video {
             width: 80%;
             height: auto;
+            display: none; /* إخفاء المشغل حتى يتم تحميل الفيديو */
+        }
+        #loading {
+            color: #fff;
+            font-size: 1.5rem;
         }
     </style>
 </head>
 <body>
-    <video controls autoplay>
-        <source src="https://dl.vidsrc.vip/movie/tt15239678" type="video/mp4">
-        متصفحك لا يدعم تشغيل الفيديو.
-    </video>
+    <div id="loading">جارٍ جلب الفيديو...</div>
+    <video id="videoPlayer" controls autoplay></video>
+
+    <script>
+        async function fetchVideo() {
+            try {
+                // طلب الصفحة الرئيسية للفيلم
+                const response = await fetch('https://dl.vidsrc.vip/movie/tt15239678');
+                const html = await response.text();
+
+                // استخراج رابط الفيديو باستخدام تعبير منتظم
+                const videoUrlMatch = html.match(/<a href="(.*?)"[^>]*>تحميل<\/a>/);
+                if (videoUrlMatch && videoUrlMatch[1]) {
+                    const videoUrl = videoUrlMatch[1];
+                    const videoPlayer = document.getElementById('videoPlayer');
+                    
+                    videoPlayer.src = videoUrl;
+                    videoPlayer.style.display = 'block';
+                    
+                    document.getElementById('loading').style.display = 'none';
+                } else {
+                    document.getElementById('loading').textContent = 'فشل في جلب رابط الفيديو.';
+                }
+            } catch (error) {
+                console.error('Error fetching video:', error);
+                document.getElementById('loading').textContent = 'حدث خطأ أثناء محاولة جلب الفيديو.';
+            }
+        }
+
+        fetchVideo();
+    </script>
 </body>
 </html>
