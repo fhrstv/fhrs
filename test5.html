@@ -62,7 +62,7 @@
             const movieList = document.getElementById('movies');
 
             if (query.length > 2) {
-                fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${query}`)
+                fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
                     .then(response => response.json())
                     .then(data => {
                         const movies = data.data.movies;
@@ -86,7 +86,7 @@
                             movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
                         }
                     })
-                    .catch(error => console.error('Error:', error));
+                    .catch(error => console.error('Error fetching movies:', error));
             } else {
                 movieList.innerHTML = '';
             }
