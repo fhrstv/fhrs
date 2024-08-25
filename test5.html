@@ -9,6 +9,8 @@
             font-family: Arial, sans-serif;
             background-color: #121212;
             color: #ffffff;
+            margin: 0;
+            padding: 0;
         }
 
         .search-box {
@@ -26,6 +28,7 @@
         .movie-list li {
             padding: 10px;
             border-bottom: 1px solid #444;
+            cursor: pointer;
         }
 
         .movie-list li:hover {
@@ -36,12 +39,22 @@
             font-size: 1.2em;
             font-weight: bold;
         }
+
+        #video-container {
+            margin: 20px;
+        }
+
+        video {
+            width: 100%;
+            max-height: 90vh;
+        }
     </style>
 </head>
 <body>
     <h1>ابحث عن فيلم</h1>
     <input type="text" id="search" class="search-box" placeholder="أدخل اسم الفيلم...">
     <ul id="movies" class="movie-list"></ul>
+    <div id="video-container"></div>
 
     <script>
 document.getElementById('search').addEventListener('input', function() {
@@ -58,14 +71,16 @@ document.getElementById('search').addEventListener('input', function() {
                 if (movies && movies.length > 0) {
                     movies.forEach(movie => {
                         const li = document.createElement('li');
-                        li.innerHTML = `<span class="movie-title" data-magnet="${movie.torrents[0].url}">${movie.title}</span> (${movie.year})`;
-                        movieList.appendChild(li);
+                        const torrent = movie.torrents.find(torrent => torrent.quality === '1080p'); // اختر الجودة المطلوبة
+                        if (torrent) {
+                            li.innerHTML = `<span class="movie-title" data-magnet="${torrent.url}">${movie.title}</span> (${movie.year})`;
+                            movieList.appendChild(li);
 
-                        // عند النقر على اسم الفيلم
-                        li.addEventListener('click', function() {
-                            const magnetLink = this.querySelector('.movie-title').getAttribute('data-magnet');
-                            showVideoPlayer(magnetLink);
-                        });
+                            li.addEventListener('click', function() {
+                                const magnetLink = this.querySelector('.movie-title').getAttribute('data-magnet');
+                                showVideoPlayer(magnetLink);
+                            });
+                        }
                     });
                 } else {
                     movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
@@ -77,19 +92,17 @@ document.getElementById('search').addEventListener('input', function() {
     }
 });
 
-// دالة لعرض مشغل الفيديو مع رابط المغناطيس
 function showVideoPlayer(magnetLink) {
-    // إعداد المشغل والصفحة
-    const playerHtml = `
-        <video controls src="${magnetLink}" data-path="${magnetLink}" style="width: 100%; max-height: 90vh;"></video>
+    const videoContainer = document.getElementById('video-container');
+    videoContainer.innerHTML = `
+        <video controls>
+            <source src="${magnetLink}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         <script src="https://cdn.jsdelivr.net/npm/@webtor/player-sdk-js/dist/index.min.js" charset="utf-8" async></script>
     `;
-
-    const videoContainer = document.createElement('div');
-    videoContainer.innerHTML = playerHtml;
-    document.body.innerHTML = ''; // مسح المحتوى الحالي
-    document.body.appendChild(videoContainer); // إضافة مشغل الفيديو
 }
+    
     </script>
 </body>
 </html>
