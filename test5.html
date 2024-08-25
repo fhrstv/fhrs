@@ -157,16 +157,7 @@
                     });
                 </script>
                 <script src="https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js" charset="utf-8" async></script>
-            `;
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text)
-                .then(() => {
-                    document.getElementById('magnet-link').innerHTML = `<p>رابط المغناطيس تم نسخه إلى الحافظة: <a href="${text}" target="_blank">${text}</a></p>`;
-                })
-                .catch(err => console.error('Failed to copy: ', err));
-        }
+            
     </script>
 </body>
 </html>
