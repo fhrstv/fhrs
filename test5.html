@@ -63,6 +63,15 @@
             margin: 20px;
             font-size: 1.2em;
         }
+
+        #player-container {
+            margin: 20px 0;
+        }
+
+        #webtor-player {
+            width: 100%;
+            height: 400px;
+        }
     </style>
 </head>
 <body>
@@ -72,7 +81,9 @@
     <div id="quality-container" class="quality-options"></div>
     <div id="magnet-link"></div>
 
-    <video id="webtor-player" controls></video>
+    <div id="player-container">
+        <div id="webtor-player"></div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js" charset="utf-8" async></script>
 
     <script>
@@ -127,14 +138,9 @@
                             button.addEventListener('click', function() {
                                 const magnetLink = this.getAttribute('data-magnet');
                                 document.getElementById('magnet-link').innerHTML = `<p>رابط المغناطيس: <a href="${magnetLink}" target="_blank">${magnetLink}</a></p>`;
-                                
-                                // تحديث مصدر مشغل الفيديو مع رابط المغناطيس
-                                const webtorPlayer = document.getElementById('webtor-player');
-                                window.webtor = window.webtor || [];
-                                window.webtor.push({
-                                    id: 'webtor-player',
-                                    magnet: magnetLink,
-                                });
+
+                                // إعادة تحميل المشغل مع الرابط المغناطيسي الجديد
+                                loadWebtorPlayer(magnetLink);
                             });
                         });
                     } else {
@@ -142,6 +148,18 @@
                     }
                 })
                 .catch(error => console.error('Error fetching movie details:', error));
+        }
+
+        function loadWebtorPlayer(magnetLink) {
+            // قم بتفريغ المشغل الحالي قبل تحميل رابط جديد
+            document.getElementById('webtor-player').innerHTML = '';
+
+            // تهيئة مشغل webtor بالرابط الجديد
+            window.webtor = window.webtor || [];
+            window.webtor.push({
+                id: 'webtor-player',
+                magnet: magnetLink,
+            });
         }
     </script>
 </body>
