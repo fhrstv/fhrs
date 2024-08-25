@@ -40,12 +40,6 @@
             font-weight: bold;
         }
 
-        #player {
-            margin: 20px;
-            width: 100%;
-            max-height: 90vh;
-        }
-
         .quality-options {
             margin: 10px 0;
         }
@@ -64,6 +58,11 @@
         .quality-options button:hover {
             background-color: #666;
         }
+
+        #magnet-link {
+            margin: 20px;
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body>
@@ -71,11 +70,9 @@
     <input type="text" id="search" class="search-box" placeholder="أدخل اسم الفيلم...">
     <ul id="movies" class="movie-list"></ul>
     <div id="quality-container" class="quality-options"></div>
-    <div id="player" class="webtor"></div>
+    <div id="magnet-link"></div>
 
     <script>
-        let selectedMovieTitle = '';
-
         document.getElementById('search').addEventListener('input', function() {
             const query = this.value;
             const movieList = document.getElementById('movies');
@@ -94,7 +91,6 @@
                                 movieList.appendChild(li);
 
                                 li.addEventListener('click', function() {
-                                    selectedMovieTitle = movie.title;
                                     fetchMovieTorrents(movie.id);
                                 });
                             });
@@ -106,6 +102,7 @@
             } else {
                 movieList.innerHTML = '';
                 document.getElementById('quality-container').innerHTML = '';
+                document.getElementById('magnet-link').innerHTML = '';
             }
         });
 
@@ -126,7 +123,7 @@
 
                             button.addEventListener('click', function() {
                                 const magnetLink = this.getAttribute('data-magnet');
-                                showVideoPlayer(magnetLink);
+                                document.getElementById('magnet-link').innerHTML = `<p>رابط المغناطيس: <a href="${magnetLink}" target="_blank">${magnetLink}</a></p>`;
                             });
                         });
                     } else {
@@ -135,39 +132,6 @@
                 })
                 .catch(error => console.error('Error fetching movie details:', error));
         }
-
-        function showVideoPlayer(magnetLink) {
-            if (window.Webtor) {
-                // Clear any previous content
-                const player = document.getElementById('player');
-                player.innerHTML = '';
-
-                // Initialize Webtor player
-                window.webtor = window.webtor || [];
-                window.webtor.push({
-                    id: 'player',
-                    magnet: magnetLink,
-                    poster: 'https://via.placeholder.com/150/0000FF/808080',
-                    subtitles: [
-                        {
-                            srclang: 'en',
-                            label: 'test',
-                            src: 'https://raw.githubusercontent.com/andreyvit/subtitle-tools/master/sample.srt',
-                            default: true,
-                        }
-                    ],
-                    lang: 'en',
-                });
-
-                // Trigger Webtor to refresh with new magnet link
-                if (typeof window.Webtor !== 'undefined') {
-                    window.Webtor.init();
-                }
-            } else {
-                console.error('Webtor SDK not loaded.');
-            }
-        }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js" charset="utf-8" async></script>
 </body>
 </html>
