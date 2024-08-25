@@ -40,11 +40,8 @@
             font-weight: bold;
         }
 
-        #video-container {
+        #player {
             margin: 20px;
-        }
-
-        video {
             width: 100%;
             max-height: 90vh;
         }
@@ -54,7 +51,7 @@
     <h1>ابحث عن فيلم</h1>
     <input type="text" id="search" class="search-box" placeholder="أدخل اسم الفيلم...">
     <ul id="movies" class="movie-list"></ul>
-    <div id="video-container"></div>
+    <div id="player" class="webtor"></div>
 
     <script>
         document.getElementById('search').addEventListener('input', function() {
@@ -93,14 +90,28 @@
         });
 
         function showVideoPlayer(magnetLink) {
-            const videoContainer = document.getElementById('video-container');
-            videoContainer.innerHTML = `
-                <video controls>
-                    <source src="${magnetLink}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <script src="https://cdn.jsdelivr.net/npm/@webtor/player-sdk-js/dist/index.min.js" charset="utf-8" async></script>
-            
+            window.webtor = window.webtor || [];
+            window.webtor.push({
+                id: 'player',
+                magnet: magnetLink,
+                poster: 'https://via.placeholder.com/150/0000FF/808080',
+                subtitles: [
+                    {
+                        srclang: 'en',
+                        label: 'test',
+                        src: 'https://raw.githubusercontent.com/andreyvit/subtitle-tools/master/sample.srt',
+                        default: true,
+                    }
+                ],
+                lang: 'en',
+            });
+
+            // Trigger Webtor to refresh with new magnet link
+            if (typeof window.Webtor !== 'undefined') {
+                window.Webtor.update('player');
+            }
+        }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js" charset="utf-8" async></script>
 </body>
 </html>
