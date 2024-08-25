@@ -59,6 +59,11 @@
             background-color: #666;
         }
 
+        #video-container {
+            margin: 20px;
+            text-align: center;
+        }
+
         #magnet-link {
             margin: 20px;
             font-size: 1.2em;
@@ -70,6 +75,9 @@
     <input type="text" id="search" class="search-box" placeholder="أدخل اسم الفيلم...">
     <ul id="movies" class="movie-list"></ul>
     <div id="quality-container" class="quality-options"></div>
+    <div id="video-container">
+        <video id="video-player" controls></video>
+    </div>
     <div id="magnet-link"></div>
 
     <script>
@@ -103,6 +111,7 @@
                 movieList.innerHTML = '';
                 document.getElementById('quality-container').innerHTML = '';
                 document.getElementById('magnet-link').innerHTML = '';
+                document.getElementById('video-player').src = ''; // Clear video src
             }
         });
 
@@ -123,7 +132,8 @@
 
                             button.addEventListener('click', function() {
                                 const magnetLink = this.getAttribute('data-magnet');
-                                document.getElementById('magnet-link').innerHTML = `<p>رابط المغناطيس: <a href="${magnetLink}" target="_blank">${magnetLink}</a></p>`;
+                                updateVideoPlayer(magnetLink);
+                                copyToClipboard(magnetLink);
                             });
                         });
                     } else {
@@ -131,6 +141,19 @@
                     }
                 })
                 .catch(error => console.error('Error fetching movie details:', error));
+        }
+
+        function updateVideoPlayer(magnetLink) {
+            const videoPlayer = document.getElementById('video-player');
+            videoPlayer.src = magnetLink; // Update video player src
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    document.getElementById('magnet-link').innerHTML = `<p>رابط المغناطيس تم نسخه إلى الحافظة: <a href="${text}" target="_blank">${text}</a></p>`;
+                })
+                .catch(err => console.error('Failed to copy: ', err));
         }
     </script>
 </body>
