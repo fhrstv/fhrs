@@ -75,20 +75,15 @@
 
     <script>
         document.getElementById('subtitleBox').onclick = function() {
-            // استخراج اسم الفيلم من الرابط
             const movieUrl = 'https://dl.vidsrc.vip/movie/tt15239678';
             const movieName = movieUrl.split('/').pop(); // استخراج اسم الفيلم
 
-            // إنشاء رابط لموقع OpenSubtitles
             const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${movieName}`;
-            
-            // توجيه المستخدم إلى موقع OpenSubtitles
             window.location.href = subtitleUrl;
         }
 
-        // عند تحميل الصفحة، ابدأ في جلب تفاصيل الفيلم
         document.addEventListener('DOMContentLoaded', function() {
-            const movieId = 'tt15239678'; // هنا يمكن استخدام معرف TMDB الخاص بالفيلم
+            const movieId = '15239678'; // تأكد من استخدام المعرف الصحيح للفيلم في YTS
 
             fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
                 .then(response => response.json())
@@ -97,13 +92,11 @@
                     const qualityContainer = document.getElementById('quality-container');
                     qualityContainer.innerHTML = '';
 
-                    if (movie && movie.torrents.length > 0) {
-                        // عرض اسم الفيلم
+                    if (movie && movie.torrents && movie.torrents.length > 0) {
                         const movieTitle = document.createElement('h2');
                         movieTitle.textContent = movie.title;
                         qualityContainer.appendChild(movieTitle);
 
-                        // عرض جودات التورنت
                         movie.torrents.forEach(torrent => {
                             const button = document.createElement('button');
                             button.textContent = `${torrent.quality} (${torrent.size})`;
@@ -112,7 +105,7 @@
 
                             button.addEventListener('click', function() {
                                 const torrentUrl = this.getAttribute('data-url');
-                                window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
+                                window.location.href = torrentUrl;
                             });
                         });
                     } else {
