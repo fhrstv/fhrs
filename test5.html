@@ -27,7 +27,7 @@
             border: none;
             margin-top: 20px;
         }
-        .subtitle-box, .torrent-box {
+        .subtitle-box {
             margin-top: 20px;
             padding: 15px;
             background-color: #333;
@@ -36,21 +36,22 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        .subtitle-box:hover, .torrent-box:hover {
+        .subtitle-box:hover {
             background-color: #555;
         }
-        #movies, #quality-container {
+        #quality-container {
             margin-top: 20px;
         }
-        #movies li, #quality-container button {
+        #quality-container button {
             background-color: #555;
             color: #fff;
-            margin: 5px 0;
+            margin: 5px;
             padding: 10px;
-            list-style: none;
             cursor: pointer;
+            border: none;
+            border-radius: 5px;
         }
-        #movies li:hover, #quality-container button:hover {
+        #quality-container button:hover {
             background-color: #777;
         }
     </style>
@@ -69,11 +70,6 @@
             حمل الترجمة
         </div>
         
-        <div class="torrent-box" id="torrentBox">
-            تحميل التورنت
-        </div>
-
-        <ul id="movies"></ul>
         <div id="quality-container"></div>
     </div>
 
@@ -90,34 +86,10 @@
             window.location.href = subtitleUrl;
         }
 
-        document.getElementById('torrentBox').onclick = function() {
-            const query = 'tt15239678'; // هنا يمكن استخدام معرف TMDB أو اسم الفيلم
-            const movieList = document.getElementById('movies');
+        // عند تحميل الصفحة، ابدأ في جلب تفاصيل الفيلم
+        document.addEventListener('DOMContentLoaded', function() {
+            const movieId = 'tt15239678'; // هنا يمكن استخدام معرف TMDB الخاص بالفيلم
 
-            fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
-                .then(response => response.json())
-                .then(data => {
-                    const movies = data.data.movies;
-                    movieList.innerHTML = '';
-
-                    if (movies && movies.length > 0) {
-                        movies.forEach(movie => {
-                            const li = document.createElement('li');
-                            li.innerHTML = `<span class="movie-title">${movie.title}</span> (${movie.year})`;
-                            movieList.appendChild(li);
-
-                            li.addEventListener('click', function() {
-                                fetchMovieTorrents(movie.id);
-                            });
-                        });
-                    } else {
-                        movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
-                    }
-                })
-                .catch(error => console.error('Error fetching movies:', error));
-        }
-
-        function fetchMovieTorrents(movieId) {
             fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
                 .then(response => response.json())
                 .then(data => {
@@ -126,6 +98,12 @@
                     qualityContainer.innerHTML = '';
 
                     if (movie && movie.torrents.length > 0) {
+                        // عرض اسم الفيلم
+                        const movieTitle = document.createElement('h2');
+                        movieTitle.textContent = movie.title;
+                        qualityContainer.appendChild(movieTitle);
+
+                        // عرض جودات التورنت
                         movie.torrents.forEach(torrent => {
                             const button = document.createElement('button');
                             button.textContent = `${torrent.quality} (${torrent.size})`;
@@ -142,7 +120,7 @@
                     }
                 })
                 .catch(error => console.error('Error fetching movie details:', error));
-        }
+        });
     </script>
 </body>
 </html>
