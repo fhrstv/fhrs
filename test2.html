@@ -19,12 +19,25 @@
         }
         .content {
             padding: 20px;
+            text-align: center;
         }
         iframe {
             width: 100%;
             height: 600px;
             border: none;
             margin-top: 20px;
+        }
+        .subtitle-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #333;
+            color: #fff;
+            display: inline-block;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .subtitle-box:hover {
+            background-color: #555;
         }
     </style>
 </head>
@@ -37,6 +50,24 @@
         <p>هنا يمكن أن تضع محتوى خاص بك مثل نصوص، صور، أو أي شيء تريده.</p>
 
         <iframe src="https://dl.vidsrc.vip/movie/tt15239678" allowfullscreen></iframe>
+        
+        <div class="subtitle-box" id="subtitleBox">
+            حمل الترجمة
+        </div>
     </div>
+
+    <script>
+        document.getElementById('subtitleBox').onclick = function() {
+            // استخراج اسم الفيلم من الرابط
+            const movieUrl = 'https://dl.vidsrc.vip/movie/tt15239678';
+            const movieName = movieUrl.split('/').pop(); // استخراج اسم الفيلم
+
+            // إنشاء رابط لموقع OpenSubtitles
+            const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${movieName}`;
+            
+            // توجيه المستخدم إلى موقع OpenSubtitles
+            window.location.href = subtitleUrl;
+        }
+    </script>
 </body>
 </html>
