@@ -138,7 +138,9 @@
                             button.addEventListener('click', function() {
                                 const magnetLink = this.getAttribute('data-magnet');
                                 const magnetHash = extractMagnetHash(magnetLink);
-                                document.getElementById('magnet-link').innerHTML = `<p>رمز المغناطيس: ${magnetHash}</p>`;
+                                
+                                // عرض رمز الـ hash للتحقق منه
+                                document.getElementById('magnet-link').innerHTML = `<p>رمز الـ Hash: ${magnetHash}</p>`;
 
                                 // تحميل مشغل Webtor مع رمز المغناطيس الجديد
                                 loadWebtorPlayer(magnetHash);
@@ -166,7 +168,7 @@
             window.webtor = window.webtor || [];
             window.webtor.push({
                 id: 'webtor-player',
-                magnet: `magnet:?xt=urn:btih:${magnetHash}&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F`,
+                magnet: `magnet:?xt=urn:btih:${magnetHash}`,
                 width: '100%',
                 height: '100%',
                 features: {
