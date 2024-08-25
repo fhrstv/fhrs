@@ -57,52 +57,51 @@
     <div id="video-container"></div>
 
     <script>
-document.getElementById('search').addEventListener('input', function() {
-    const query = this.value;
-    const movieList = document.getElementById('movies');
+        document.getElementById('search').addEventListener('input', function() {
+            const query = this.value;
+            const movieList = document.getElementById('movies');
 
-    if (query.length > 2) {
-        fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${query}`)
-            .then(response => response.json())
-            .then(data => {
-                const movies = data.data.movies;
-                movieList.innerHTML = '';
+            if (query.length > 2) {
+                fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const movies = data.data.movies;
+                        movieList.innerHTML = '';
 
-                if (movies && movies.length > 0) {
-                    movies.forEach(movie => {
-                        const li = document.createElement('li');
-                        const torrent = movie.torrents.find(torrent => torrent.quality === '1080p'); // اختر الجودة المطلوبة
-                        if (torrent) {
-                            li.innerHTML = `<span class="movie-title" data-magnet="${torrent.url}">${movie.title}</span> (${movie.year})`;
-                            movieList.appendChild(li);
+                        if (movies && movies.length > 0) {
+                            movies.forEach(movie => {
+                                const torrent = movie.torrents.find(torrent => torrent.quality === '1080p'); // اختر الجودة المطلوبة
+                                if (torrent) {
+                                    const li = document.createElement('li');
+                                    li.innerHTML = `<span class="movie-title" data-magnet="${torrent.url}">${movie.title}</span> (${movie.year})`;
+                                    movieList.appendChild(li);
 
-                            li.addEventListener('click', function() {
-                                const magnetLink = this.querySelector('.movie-title').getAttribute('data-magnet');
-                                showVideoPlayer(magnetLink);
+                                    li.addEventListener('click', function() {
+                                        const magnetLink = this.querySelector('.movie-title').getAttribute('data-magnet');
+                                        showVideoPlayer(magnetLink);
+                                    });
+                                }
                             });
+                        } else {
+                            movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
                         }
-                    });
-                } else {
-                    movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    } else {
-        movieList.innerHTML = '';
-    }
-});
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                movieList.innerHTML = '';
+            }
+        });
 
-function showVideoPlayer(magnetLink) {
-    const videoContainer = document.getElementById('video-container');
-    videoContainer.innerHTML = `
-        <video controls>
-            <source src="${magnetLink}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <script src="https://cdn.jsdelivr.net/npm/@webtor/player-sdk-js/dist/index.min.js" charset="utf-8" async></script>
-    `;
-}
-    
+        function showVideoPlayer(magnetLink) {
+            const videoContainer = document.getElementById('video-container');
+            videoContainer.innerHTML = `
+                <video controls>
+                    <source src="${magnetLink}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <script src="https://cdn.jsdelivr.net/npm/@webtor/player-sdk-js/dist/index.min.js" charset="utf-8" async></script>
+            `;
+        }
     </script>
 </body>
 </html>
