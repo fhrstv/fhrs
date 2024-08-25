@@ -84,7 +84,7 @@
     <div id="player-container">
         <div id="webtor-player"></div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js" charset="utf-8" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js" charset="utf-8"></script>
 
     <script>
         document.getElementById('search').addEventListener('input', function() {
@@ -139,7 +139,7 @@
                                 const magnetLink = this.getAttribute('data-magnet');
                                 document.getElementById('magnet-link').innerHTML = `<p>رابط المغناطيس: <a href="${magnetLink}" target="_blank">${magnetLink}</a></p>`;
 
-                                // إعادة تحميل المشغل مع الرابط المغناطيسي الجديد
+                                // تحميل مشغل Webtor مع الرابط المغناطيسي الجديد
                                 loadWebtorPlayer(magnetLink);
                             });
                         });
@@ -151,14 +151,31 @@
         }
 
         function loadWebtorPlayer(magnetLink) {
-            // قم بتفريغ المشغل الحالي قبل تحميل رابط جديد
-            document.getElementById('webtor-player').innerHTML = '';
+            // تنظيف المشغل الحالي إذا كان موجودًا
+            const playerContainer = document.getElementById('webtor-player');
+            playerContainer.innerHTML = '';
 
-            // تهيئة مشغل webtor بالرابط الجديد
+            // تهيئة مشغل Webtor بالرابط المغناطيسي الجديد
             window.webtor = window.webtor || [];
             window.webtor.push({
                 id: 'webtor-player',
                 magnet: magnetLink,
+                width: '100%',
+                height: '100%',
+                features: {
+                    subtitles: true,
+                    timeline: true,
+                    settings: true,
+                    download: true,
+                },
+                on: function(e) {
+                    if (e.name === window.webtor.TORRENT_FETCHED) {
+                        console.log('Torrent fetched', e.data);
+                    }
+                    if (e.name === window.webtor.TORRENT_ERROR) {
+                        console.log('Torrent error', e.data);
+                    }
+                },
             });
         }
     </script>
