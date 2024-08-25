@@ -27,7 +27,7 @@
             border: none;
             margin-top: 20px;
         }
-        .subtitle-box {
+        .subtitle-box, .torrent-box {
             margin-top: 20px;
             padding: 15px;
             background-color: #333;
@@ -36,8 +36,22 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        .subtitle-box:hover {
+        .subtitle-box:hover, .torrent-box:hover {
             background-color: #555;
+        }
+        #movies, #quality-container {
+            margin-top: 20px;
+        }
+        #movies li, #quality-container button {
+            background-color: #555;
+            color: #fff;
+            margin: 5px 0;
+            padding: 10px;
+            list-style: none;
+            cursor: pointer;
+        }
+        #movies li:hover, #quality-container button:hover {
+            background-color: #777;
         }
     </style>
 </head>
@@ -49,17 +63,24 @@
     <div class="content">
         <p>هنا يمكن أن تضع محتوى خاص بك مثل نصوص، صور، أو أي شيء تريده.</p>
 
-        <iframe src="https://dl.vidsrc.vip/movie/tt1375666" allowfullscreen></iframe>
+        <iframe src="https://dl.vidsrc.vip/movie/tt15239678" allowfullscreen></iframe>
         
         <div class="subtitle-box" id="subtitleBox">
             حمل الترجمة
         </div>
+        
+        <div class="torrent-box" id="torrentBox">
+            تحميل التورنت
+        </div>
+
+        <ul id="movies"></ul>
+        <div id="quality-container"></div>
     </div>
 
     <script>
         document.getElementById('subtitleBox').onclick = function() {
             // استخراج اسم الفيلم من الرابط
-            const movieUrl = 'https://dl.vidsrc.vip/movie/tt1375666';
+            const movieUrl = 'https://dl.vidsrc.vip/movie/tt15239678';
             const movieName = movieUrl.split('/').pop(); // استخراج اسم الفيلم
 
             // إنشاء رابط لموقع OpenSubtitles
@@ -67,6 +88,60 @@
             
             // توجيه المستخدم إلى موقع OpenSubtitles
             window.location.href = subtitleUrl;
+        }
+
+        document.getElementById('torrentBox').onclick = function() {
+            const query = 'tt15239678'; // هنا يمكن استخدام معرف TMDB أو اسم الفيلم
+            const movieList = document.getElementById('movies');
+
+            fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const movies = data.data.movies;
+                    movieList.innerHTML = '';
+
+                    if (movies && movies.length > 0) {
+                        movies.forEach(movie => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<span class="movie-title">${movie.title}</span> (${movie.year})`;
+                            movieList.appendChild(li);
+
+                            li.addEventListener('click', function() {
+                                fetchMovieTorrents(movie.id);
+                            });
+                        });
+                    } else {
+                        movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
+                    }
+                })
+                .catch(error => console.error('Error fetching movies:', error));
+        }
+
+        function fetchMovieTorrents(movieId) {
+            fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const movie = data.data.movie;
+                    const qualityContainer = document.getElementById('quality-container');
+                    qualityContainer.innerHTML = '';
+
+                    if (movie && movie.torrents.length > 0) {
+                        movie.torrents.forEach(torrent => {
+                            const button = document.createElement('button');
+                            button.textContent = `${torrent.quality} (${torrent.size})`;
+                            button.setAttribute('data-url', torrent.url);
+                            qualityContainer.appendChild(button);
+
+                            button.addEventListener('click', function() {
+                                const torrentUrl = this.getAttribute('data-url');
+                                window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
+                            });
+                        });
+                    } else {
+                        qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
+                    }
+                })
+                .catch(error => console.error('Error fetching movie details:', error));
         }
     </script>
 </body>
