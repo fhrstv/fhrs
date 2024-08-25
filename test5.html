@@ -90,25 +90,32 @@
         });
 
         function showVideoPlayer(magnetLink) {
-            window.webtor = window.webtor || [];
-            window.webtor.push({
-                id: 'player',
-                magnet: magnetLink,
-                poster: 'https://via.placeholder.com/150/0000FF/808080',
-                subtitles: [
-                    {
-                        srclang: 'en',
-                        label: 'test',
-                        src: 'https://raw.githubusercontent.com/andreyvit/subtitle-tools/master/sample.srt',
-                        default: true,
-                    }
-                ],
-                lang: 'en',
-            });
+            if (window.Webtor) {
+                // Clear any previous content
+                const player = document.getElementById('player');
+                player.innerHTML = '';
 
-            // Trigger Webtor to refresh with new magnet link
-            if (typeof window.Webtor !== 'undefined') {
-                window.Webtor.update('player');
+                // Initialize Webtor player
+                window.webtor = window.webtor || [];
+                window.webtor.push({
+                    id: 'player',
+                    magnet: magnetLink,
+                    poster: 'https://via.placeholder.com/150/0000FF/808080',
+                    subtitles: [
+                        {
+                            srclang: 'en',
+                            label: 'test',
+                            src: 'https://raw.githubusercontent.com/andreyvit/subtitle-tools/master/sample.srt',
+                            default: true,
+                        }
+                    ],
+                    lang: 'en',
+                });
+
+                // Refresh Webtor player
+                window.Webtor.init();
+            } else {
+                console.error('Webtor SDK not loaded.');
             }
         }
     </script>
