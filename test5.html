@@ -104,11 +104,7 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${tmdbApiKey}`)
 
         // تحديث iframe مع رابط dl.vidsrc.vip باستخدام الـ IMDb ID
         const movieFrame = document.getElementById('movieFrame');
-        if (movieFrame) {
-            movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
-        } else {
-            console.error('العنصر movieFrame غير موجود في الصفحة.');
-        }
+        movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
 
         // تحميل التورنت والمعلومات الأخرى مباشرة عند تحميل الصفحة
         const query = imdbId; // استخدام الـ IMDb ID كاستعلام
@@ -145,16 +141,13 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${tmdbApiKey}`)
 
                     if (movie && movie.torrents.length > 0) {
                         movie.torrents.forEach(torrent => {
-                            const button = document.createElement('button');
-                            button.textContent = `${torrent.quality} (${torrent.size})`;
-                            button.setAttribute('data-url', torrent.url);
-                            qualityContainer.appendChild(button);
-
-                            // إصلاح استجابة زر التورنت عند النقر
-                            button.onclick = function() {
-                                const torrentUrl = button.getAttribute('data-url');
-                                window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
+                            const p = document.createElement('p');
+                            p.textContent = `${torrent.quality} (${torrent.size}) - تحميل`;
+                            p.style.cursor = 'pointer';
+                            p.onclick = function() {
+                                window.location.href = torrent.url; // توجيه المستخدم لتحميل ملف التورنت
                             };
+                            qualityContainer.appendChild(p);
                         });
                     } else {
                         qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
