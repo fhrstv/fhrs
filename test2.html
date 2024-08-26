@@ -27,7 +27,7 @@
             border: none;
             margin-top: 20px;
         }
-        .subtitle-box, .torrent-box {
+        .subtitle-box, .torrent-box, .direct-download-box {
             margin-top: 20px;
             padding: 15px;
             background-color: #333;
@@ -36,7 +36,7 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        .subtitle-box:hover, .torrent-box:hover {
+        .subtitle-box:hover, .torrent-box:hover, .direct-download-box:hover {
             background-color: #555;
         }
         #movies, #quality-container {
@@ -63,14 +63,18 @@
     <div class="content">
         <p>هنا يمكن أن تضع محتوى خاص بك مثل نصوص، صور، أو أي شيء تريده.</p>
 
-        <iframe src="https://dl.vidsrc.vip/movie/tt15239678" allowfullscreen></iframe>
+        <iframe id="movieFrame" allowfullscreen></iframe>
         
         <div class="subtitle-box" id="subtitleBox">
             حمل الترجمة
         </div>
-        
+
         <div class="torrent-box" id="torrentBox">
             تحميل التورنت
+        </div>
+
+        <div class="direct-download-box" id="directDownloadBox">
+            تحميل مباشر
         </div>
 
         <ul id="movies"></ul>
@@ -78,20 +82,27 @@
     </div>
 
     <script>
-        document.getElementById('subtitleBox').onclick = function() {
-            // استخراج اسم الفيلم من الرابط
-            const movieUrl = 'https://dl.vidsrc.vip/movie/tt15239678';
-            const movieName = movieUrl.split('/').pop(); // استخراج اسم الفيلم
+        // استخراج IMDb ID من URL الصفحة باستخدام المفتاح imdb_id
+        const urlParams = new URLSearchParams(window.location.search);
+        const imdbId = urlParams.get('imdb_id');
 
-            // إنشاء رابط لموقع OpenSubtitles
-            const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${movieName}`;
-            
-            // توجيه المستخدم إلى موقع OpenSubtitles
+        if (!imdbId) {
+            alert('IMDb ID غير موجود في الـ URL');
+        }
+
+        // تحديث iframe مع رابط dl.vidsrc.vip باستخدام الـ IMDb ID
+        const movieFrame = document.getElementById('movieFrame');
+        movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
+
+        // عند الضغط على زر الترجمة
+        document.getElementById('subtitleBox').onclick = function() {
+            const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
             window.location.href = subtitleUrl;
         }
 
+        // عند الضغط على زر التورنت
         document.getElementById('torrentBox').onclick = function() {
-            const query = 'tt15239678'; // هنا يمكن استخدام معرف TMDB أو اسم الفيلم
+            const query = imdbId; // استخدام الـ IMDb ID كاستعلام
             const movieList = document.getElementById('movies');
 
             fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
@@ -142,6 +153,12 @@
                     }
                 })
                 .catch(error => console.error('Error fetching movie details:', error));
+        }
+
+        // عند الضغط على زر التحميل المباشر
+        document.getElementById('directDownloadBox').onclick = function() {
+            const movieUrl = `https://dl.vidsrc.vip/movie/${imdbId}`;
+            window.location.href = movieUrl; // توجيه المستخدم لتحميل الفيلم مباشرة
         }
     </script>
 </body>
