@@ -82,9 +82,9 @@
     </div>
 
     <script>
-        // استخراج IMDb ID من URL الصفحة
+        // استخراج IMDb ID من URL الصفحة باستخدام المفتاح imdb_id
         const urlParams = new URLSearchParams(window.location.search);
-        const imdbId = urlParams.get('imdb');
+        const imdbId = urlParams.get('imdb_id');
 
         if (!imdbId) {
             alert('IMDb ID غير موجود في الـ URL');
