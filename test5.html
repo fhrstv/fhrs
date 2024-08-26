@@ -63,7 +63,7 @@
     <div class="content">
         <p>هنا يمكن أن تضع محتوى خاص بك مثل نصوص، صور، أو أي شيء تريده.</p>
 
-
+        <iframe id="movieFrame" allowfullscreen></iframe>
         
         <div class="subtitle-box" id="subtitleBox">
             حمل الترجمة
@@ -82,16 +82,27 @@
     </div>
 
     <script>
-        document.getElementById('subtitleBox').onclick = function() {
-            const movieUrl = 'https://dl.vidsrc.vip/movie/tt15239678';
-            const movieName = movieUrl.split('/').pop();
+        // استخراج IMDb ID من URL الصفحة
+        const urlParams = new URLSearchParams(window.location.search);
+        const imdbId = urlParams.get('imdb');
 
-            const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${movieName}`;
+        if (!imdbId) {
+            alert('IMDb ID غير موجود في الـ URL');
+        }
+
+        // تحديث iframe مع رابط dl.vidsrc.vip باستخدام الـ IMDb ID
+        const movieFrame = document.getElementById('movieFrame');
+        movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
+
+        // عند الضغط على زر الترجمة
+        document.getElementById('subtitleBox').onclick = function() {
+            const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
             window.location.href = subtitleUrl;
         }
 
+        // عند الضغط على زر التورنت
         document.getElementById('torrentBox').onclick = function() {
-            const query = 'tt15239678';
+            const query = imdbId; // استخدام الـ IMDb ID كاستعلام
             const movieList = document.getElementById('movies');
 
             fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
@@ -134,7 +145,7 @@
 
                             button.addEventListener('click', function() {
                                 const torrentUrl = this.getAttribute('data-url');
-                                window.location.href = torrentUrl;
+                                window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
                             });
                         });
                     } else {
@@ -144,8 +155,9 @@
                 .catch(error => console.error('Error fetching movie details:', error));
         }
 
+        // عند الضغط على زر التحميل المباشر
         document.getElementById('directDownloadBox').onclick = function() {
-            const movieUrl = 'https://dl.vidsrc.vip/movie/tt15239678';
+            const movieUrl = `https://dl.vidsrc.vip/movie/${imdbId}`;
             window.location.href = movieUrl; // توجيه المستخدم لتحميل الفيلم مباشرة
         }
     </script>
