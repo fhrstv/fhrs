@@ -3,46 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحتي الخاصة</title>
+    <title>صفحة الأفلام</title>
     <style>
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            font-size: 24px;
-        }
-        .content {
+            margin: 0;
             padding: 20px;
             text-align: center;
         }
-        iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
-            margin-top: 20px;
+        #movie-details {
+            margin: 20px 0;
         }
-        .subtitle-box {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #333;
-            color: #fff;
-            display: inline-block;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .subtitle-box:hover {
-            background-color: #555;
-        }
-        #quality-container {
-            margin-top: 20px;
-        }
-        #quality-container button {
+        #quality-container button,
+        #subtitle-button {
             background-color: #555;
             color: #fff;
             margin: 5px;
@@ -51,192 +25,87 @@
             border: none;
             border-radius: 5px;
         }
-        #quality-container button:hover {
+        #quality-container button:hover,
+        #subtitle-button:hover {
             background-color: #777;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            margin-top: 20px;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <header>
-        مرحباً بكم في صفحتي الخاصة
-    </header>
 
-    <div class="content">
-        <p>هنا يمكن أن تضع محتوى خاص بك مثل نصوص، صور، أو أي شيء تريده.</p>
-
-        <iframe src="https://dl.vidsrc.vip/movie/tt15239678" allowfullscreen></iframe>
-        
-        <div class="subtitle-box" id="subtitleBox">
-            حمل الترجمة
-        </div>
-        
-        <div id="quality-container"></div>
-    </div>
+    <h1>تفاصيل الفيلم</h1>
+    <div id="movie-details"></div>
+    <div id="quality-container"></div>
+    <button id="subtitle-button">تحميل الترجمة</button>
+    <iframe id="movie-player" allowfullscreen></iframe>
 
     <script>
-        <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحتي الخاصة</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            font-size: 24px;
-        }
-        .content {
-            padding: 20px;
-            text-align: center;
-        }
-        iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
-            margin-top: 20px;
-        }
-        .subtitle-box {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #333;
-            color: #fff;
-            display: inline-block;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .subtitle-box:hover {
-            background-color: #555;
-        }
-        #quality-container {
-            margin-top: 20px;
-        }
-        #quality-container button {
-            background-color: #555;
-            color: #fff;
-            margin: 5px;
-            padding: 10px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-        }
-        #quality-container button:hover {
-            background-color: #777;
-        }
-        #movies {
-            list-style: none;
-            padding: 0;
-        }
-        #movies li {
-            background: #ddd;
-            margin: 5px;
-            padding: 10px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        مرحباً بكم في صفحتي الخاصة
-    </header>
-
-    <div class="content">
-        <p>هنا يمكن أن تضع محتوى خاص بك مثل نصوص، صور، أو أي شيء تريده.</p>
-
-        <iframe src="https://dl.vidsrc.vip/movie/tt15239678" allowfullscreen></iframe>
-        
-        <div class="subtitle-box" id="subtitleBox">
-            حمل الترجمة
-        </div>
-        
-        <div id="quality-container"></div>
-        <ul id="movies"></ul>
-    </div>
-
-    <script>
-        document.getElementById('subtitleBox').onclick = function() {
-            const movieUrl = 'https://dl.vidsrc.vip/movie/tt15239678';
-            const movieName = movieUrl.split('/').pop(); // استخراج اسم الفيلم
-
-            const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${movieName}`;
-            window.location.href = subtitleUrl;
+        // استخراج TMDB ID من عنوان URL
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
         }
 
-        document.getElementById('search').addEventListener('input', function() {
-            const query = this.value;
-            const movieList = document.getElementById('movies');
+        const tmdbId = getQueryParameter('tmdbId');
 
-            if (query.length > 2) {
-                fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const movies = data.data.movies;
-                        movieList.innerHTML = '';
-
-                        if (movies && movies.length > 0) {
-                            movies.forEach(movie => {
-                                const li = document.createElement('li');
-                                li.innerHTML = `<span class="movie-title">${movie.title}</span> (${movie.year})`;
-                                movieList.appendChild(li);
-
-                                li.addEventListener('click', function() {
-                                    fetchMovieTorrents(movie.id);
-                                });
-                            });
-                        } else {
-                            movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
-                        }
-                    })
-                    .catch(error => console.error('Error fetching movies:', error));
-            } else {
-                movieList.innerHTML = '';
-                document.getElementById('quality-container').innerHTML = '';
+        async function fetchMovieFromYTS(tmdbId) {
+            try {
+                const response = await fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${tmdbId}&limit=1`);
+                const data = await response.json();
+                if (data.data.movies && data.data.movies.length > 0) {
+                    return data.data.movies[0];
+                } else {
+                    throw new Error('الفيلم غير موجود على YTS.');
+                }
+            } catch (error) {
+                console.error('خطأ في جلب بيانات الفيلم من YTS:', error);
+                return null;
             }
-        });
-
-        function fetchMovieTorrents(movieId) {
-            fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
-                .then(response => response.json())
-                .then(data => {
-                    const movie = data.data.movie;
-                    const qualityContainer = document.getElementById('quality-container');
-                    qualityContainer.innerHTML = '';
-
-                    if (movie && movie.torrents && movie.torrents.length > 0) {
-                        const movieTitle = document.createElement('h2');
-                        movieTitle.textContent = movie.title;
-                        qualityContainer.appendChild(movieTitle);
-
-                        movie.torrents.forEach(torrent => {
-                            const button = document.createElement('button');
-                            button.textContent = `${torrent.quality} (${torrent.size})`;
-                            button.setAttribute('data-url', torrent.url);
-                            qualityContainer.appendChild(button);
-
-                            button.addEventListener('click', function() {
-                                const torrentUrl = this.getAttribute('data-url');
-                                window.location.href = torrentUrl;
-                            });
-                        });
-                    } else {
-                        qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching movie details:', error);
-                    document.getElementById('quality-container').innerHTML = '<p>فشل في جلب بيانات الفيلم</p>';
-                });
         }
+
+        async function fetchMovieFromVidSrc(tmdbId) {
+            const iframe = document.getElementById('movie-player');
+            iframe.src = `https://dl.vidsrc.vip/movie/${tmdbId}`;
+        }
+
+        function setupSubtitleButton(movieName) {
+            const subtitleButton = document.getElementById('subtitle-button');
+            subtitleButton.onclick = () => {
+                const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${movieName}`;
+                window.location.href = subtitleUrl;
+            };
+        }
+
+        async function displayMovieDetails() {
+            const movie = await fetchMovieFromYTS(tmdbId);
+            if (movie) {
+                const movieDetails = document.getElementById('movie-details');
+                movieDetails.innerHTML = `<h2>${movie.title}</h2><p>السنة: ${movie.year}</p>`;
+
+                const qualityContainer = document.getElementById('quality-container');
+                movie.torrents.forEach(torrent => {
+                    const button = document.createElement('button');
+                    button.textContent = `${torrent.quality} (${torrent.size})`;
+                    button.onclick = () => {
+                        window.location.href = torrent.url;
+                    };
+                    qualityContainer.appendChild(button);
+                });
+
+                setupSubtitleButton(movie.title);
+            }
+
+            await fetchMovieFromVidSrc(tmdbId);
+        }
+
+        displayMovieDetails();
     </script>
-</body>
-</html>
-    </script>
+
 </body>
 </html>
