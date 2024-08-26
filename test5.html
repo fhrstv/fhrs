@@ -78,16 +78,39 @@
             }
         }
 
+        // إعداد زر تحميل الترجمة
+        function setupSubtitleButton(movieName) {
+            const subtitleButton = document.getElementById('subtitle-button');
+            subtitleButton.onclick = () => {
+                const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${movieName}`;
+                window.location.href = subtitleUrl;
+            };
+        }
+
         // عرض تفاصيل الفيلم وجلب الـ IMDb ID
         async function displayMovieDetails() {
-            const imdbId = await getIMDbId(tmdbId);
-            if (imdbId) {
-                console.log('IMDb ID:', imdbId);
-                // يمكنك استخدام الـ IMDb ID في مكان آخر في الصفحة
-                // على سبيل المثال، لعرضه للمستخدم أو لاستخدامه في رابط آخر
-            }
+            const movie = await fetchMovieFromTMDB(tmdbId);
+            if (movie) {
+                const movieDetails = document.getElementById('movie-details');
+                movieDetails.innerHTML = `<h2>${movie.title}</h2><p>السنة: ${movie.release_date ? new Date(movie.release_date).getFullYear() : 'غير متوفر'}</p>`;
 
-            // يمكنك إضافة وظائف إضافية لعرض التفاصيل الأخرى هنا
+                const qualityContainer = document.getElementById('quality-container');
+                // يمكنك إضافة أزرار الجودة هنا إذا كنت تستخدم بيانات YTS
+
+                const imdbId = await getIMDbId(tmdbId);
+                if (imdbId) {
+                    console.log('IMDb ID:', imdbId);
+                    // يمكنك استخدام الـ IMDb ID في مكان آخر في الصفحة
+                    // على سبيل المثال، لعرضه للمستخدم أو لاستخدامه في رابط آخر
+                }
+
+                // إعداد زر تحميل الترجمة
+                setupSubtitleButton(movie.title);
+
+                // إعداد مشغل الفيديو
+                const iframe = document.getElementById('movie-player');
+                iframe.src = `https://dl.vidsrc.vip/movie/${tmdbId}`; // تأكد من أن هذا الرابط يعمل بشكل صحيح
+            }
         }
 
         displayMovieDetails();
