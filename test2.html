@@ -107,7 +107,27 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
       window.location.href = subtitleUrl;
     }
 
-    // عند الضغط على زر التورنتfunction fetchMovieTorrents(movieId) {
+
+  // عند الضغط على زر التورنت
+document.getElementById('torrentBox').onclick = function() {
+  const query = imdbId; // استخدام الـ IMDb ID كاستعلام
+  const movieList = document.getElementById('movies');
+
+  fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
+    .then(response => response.json())
+    .then(data => {
+      const movies = data.data.movies;
+      if (movies && movies.length > 0) {
+        const movie = movies[0]; // Take the first movie (assuming there's only one)
+        fetchMovieTorrents(movie.id);
+      } else {
+        movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
+      }
+    })
+    .catch(error => console.error('Error fetching movies:', error));
+}
+
+function fetchMovieTorrents(movieId) {
   fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
     .then(response => response.json())
     .then(data => {
@@ -133,6 +153,9 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
     })
     .catch(error => console.error('Error fetching movie details:', error));
 }
+
+
+
     // عند الضغط على زر التحميل المباشر
     document.getElementById('directDownloadBox').onclick = function() {
       const movieUrl = `https://dl.vidsrc.vip/movie/${imdbId}`;
