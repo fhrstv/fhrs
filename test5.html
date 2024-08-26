@@ -104,7 +104,11 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${tmdbApiKey}`)
 
         // تحديث iframe مع رابط dl.vidsrc.vip باستخدام الـ IMDb ID
         const movieFrame = document.getElementById('movieFrame');
-        movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
+        if (movieFrame) {
+            movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
+        } else {
+            console.error('العنصر movieFrame غير موجود في الصفحة.');
+        }
 
         // تحميل التورنت والمعلومات الأخرى مباشرة عند تحميل الصفحة
         const query = imdbId; // استخدام الـ IMDb ID كاستعلام
@@ -159,12 +163,6 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${tmdbApiKey}`)
                 .catch(error => console.error('Error fetching movie details:', error));
         }
 
-        // عند الضغط على زر التحميل المباشر
-        document.getElementById('directDownloadBox').onclick = function() {
-            const movieUrl = `https://dl.vidsrc.vip/movie/${imdbId}`;
-            window.location.href = movieUrl; // توجيه المستخدم لتحميل الفيلم مباشرة
-        };
-
         // عند الضغط على زر الترجمة
         document.getElementById('subtitleBox').onclick = function() {
             const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
@@ -172,8 +170,6 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${tmdbApiKey}`)
         };
     })
     .catch(error => console.error('Error fetching IMDb ID:', error));
-
-
         </script>
 </body>
 </html>
