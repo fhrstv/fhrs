@@ -46,62 +46,48 @@
     <iframe id="movie-player" allowfullscreen></iframe>
 
     <script>
-        // استخراج TMDB ID من عنوان URL
+        const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // استبدل بمفتاح API الخاص بك
+        const tmdbId = getQueryParameter('tmdb_id');
+
+        // وظيفة لاستخراج معلمات الـ URL
         function getQueryParameter(name) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(name);
         }
 
-        const tmdbId = getQueryParameter('tmdb_id');
-
-        async function fetchMovieFromYTS(tmdbId) {
+        // جلب بيانات الفيلم من TMDB API
+        async function fetchMovieFromTMDB(tmdbId) {
             try {
-                const response = await fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${tmdbId}&limit=1`);
+                const response = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=ar`);
                 const data = await response.json();
-                if (data.data.movies && data.data.movies.length > 0) {
-                    return data.data.movies[0];
-                } else {
-                    throw new Error('الفيلم غير موجود على YTS.');
-                }
+                return data;
             } catch (error) {
-                console.error('خطأ في جلب بيانات الفيلم من YTS:', error);
+                console.error('خطأ في جلب بيانات الفيلم من TMDB:', error);
                 return null;
             }
         }
 
-        async function fetchMovieFromVidSrc(tmdbId) {
-            const iframe = document.getElementById('movie-player');
-            iframe.src = `https://dl.vidsrc.vip/movie/${tmdbId}`;
+        // تحويل TMDB ID إلى IMDb ID
+        async function getIMDbId(tmdbId) {
+            const movieData = await fetchMovieFromTMDB(tmdbId);
+            if (movieData && movieData.imdb_id) {
+                return movieData.imdb_id;
+            } else {
+                console.error('لم يتم العثور على IMDb ID للفيلم.');
+                return null;
+            }
         }
 
-        function setupSubtitleButton(movieName) {
-            const subtitleButton = document.getElementById('subtitle-button');
-            subtitleButton.onclick = () => {
-                const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${movieName}`;
-                window.location.href = subtitleUrl;
-            };
-        }
-
+        // عرض تفاصيل الفيلم وجلب الـ IMDb ID
         async function displayMovieDetails() {
-            const movie = await fetchMovieFromYTS(tmdbId);
-            if (movie) {
-                const movieDetails = document.getElementById('movie-details');
-                movieDetails.innerHTML = `<h2>${movie.title}</h2><p>السنة: ${movie.year}</p>`;
-
-                const qualityContainer = document.getElementById('quality-container');
-                movie.torrents.forEach(torrent => {
-                    const button = document.createElement('button');
-                    button.textContent = `${torrent.quality} (${torrent.size})`;
-                    button.onclick = () => {
-                        window.location.href = torrent.url;
-                    };
-                    qualityContainer.appendChild(button);
-                });
-
-                setupSubtitleButton(movie.title);
+            const imdbId = await getIMDbId(tmdbId);
+            if (imdbId) {
+                console.log('IMDb ID:', imdbId);
+                // يمكنك استخدام الـ IMDb ID في مكان آخر في الصفحة
+                // على سبيل المثال، لعرضه للمستخدم أو لاستخدامه في رابط آخر
             }
 
-            await fetchMovieFromVidSrc(tmdbId);
+            // يمكنك إضافة وظائف إضافية لعرض التفاصيل الأخرى هنا
         }
 
         displayMovieDetails();
