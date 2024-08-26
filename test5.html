@@ -74,6 +74,93 @@
     </div>
 
     <script>
+        <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحتي الخاصة</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            margin-top: 20px;
+        }
+        .subtitle-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #333;
+            color: #fff;
+            display: inline-block;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .subtitle-box:hover {
+            background-color: #555;
+        }
+        #quality-container {
+            margin-top: 20px;
+        }
+        #quality-container button {
+            background-color: #555;
+            color: #fff;
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        #quality-container button:hover {
+            background-color: #777;
+        }
+        #movies {
+            list-style: none;
+            padding: 0;
+        }
+        #movies li {
+            background: #ddd;
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        مرحباً بكم في صفحتي الخاصة
+    </header>
+
+    <div class="content">
+        <p>هنا يمكن أن تضع محتوى خاص بك مثل نصوص، صور، أو أي شيء تريده.</p>
+
+        <iframe src="https://dl.vidsrc.vip/movie/tt15239678" allowfullscreen></iframe>
+        
+        <div class="subtitle-box" id="subtitleBox">
+            حمل الترجمة
+        </div>
+        
+        <div id="quality-container"></div>
+        <ul id="movies"></ul>
+    </div>
+
+    <script>
         document.getElementById('subtitleBox').onclick = function() {
             const movieUrl = 'https://dl.vidsrc.vip/movie/tt15239678';
             const movieName = movieUrl.split('/').pop(); // استخراج اسم الفيلم
@@ -82,16 +169,41 @@
             window.location.href = subtitleUrl;
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const movieId = 'tt15239678'; // تأكد من استخدام المعرف الصحيح للفيلم في YTS
+        document.getElementById('search').addEventListener('input', function() {
+            const query = this.value;
+            const movieList = document.getElementById('movies');
 
+            if (query.length > 2) {
+                fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const movies = data.data.movies;
+                        movieList.innerHTML = '';
+
+                        if (movies && movies.length > 0) {
+                            movies.forEach(movie => {
+                                const li = document.createElement('li');
+                                li.innerHTML = `<span class="movie-title">${movie.title}</span> (${movie.year})`;
+                                movieList.appendChild(li);
+
+                                li.addEventListener('click', function() {
+                                    fetchMovieTorrents(movie.id);
+                                });
+                            });
+                        } else {
+                            movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
+                        }
+                    })
+                    .catch(error => console.error('Error fetching movies:', error));
+            } else {
+                movieList.innerHTML = '';
+                document.getElementById('quality-container').innerHTML = '';
+            }
+        });
+
+        function fetchMovieTorrents(movieId) {
             fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
                     const movie = data.data.movie;
                     const qualityContainer = document.getElementById('quality-container');
@@ -121,7 +233,10 @@
                     console.error('Error fetching movie details:', error);
                     document.getElementById('quality-container').innerHTML = '<p>فشل في جلب بيانات الفيلم</p>';
                 });
-        });
+        }
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
