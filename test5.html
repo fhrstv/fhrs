@@ -89,7 +89,7 @@ if (!tmdbId) {
   alert('TMDB ID غير موجود في الـ URL');
 }
 
-fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=YOUR_API_KEY`)
+fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
   .then(response => response.json())
   .then(data => {
     const imdbId = data.imdb_id;
