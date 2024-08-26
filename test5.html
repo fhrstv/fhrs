@@ -161,12 +161,6 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
         })
         .catch(error => console.error('Error fetching movie details:', error));
     }
-
-    // عند الضغط على زر التحميل المباشر
-    document.getElementById('directDownloadBox').onclick = function() {
-      const movieUrl = `https://dl.vidsrc.vip/movie/${imdbId}`;
-      window.location.href = movieUrl; // توجيه المستخدم لتحميل الفيلم مباشرة
-    }
   })
   .catch(error => console.error('Error fetching movie details:', error));
         
