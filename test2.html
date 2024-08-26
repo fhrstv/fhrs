@@ -107,35 +107,32 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
       window.location.href = subtitleUrl;
     }
 
-    // عند الضغط على زر التورنت
-    // عند الضغط على زر التورنت
-document.getElementById('torrentBox').onclick = function() {
-  const query = imdbId; // استخدام الـ IMDb ID كاستعلام
-  const movieList = document.getElementById('movies');
-
-  fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
+    // عند الضغط على زر التورنتfunction fetchMovieTorrents(movieId) {
+  fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
     .then(response => response.json())
     .then(data => {
-      const movies = data.data.movies;
-      movieList.innerHTML = '';
+      const movie = data.data.movie;
+      const qualityContainer = document.getElementById('quality-container');
+      qualityContainer.innerHTML = '';
 
-      if (movies && movies.length > 0) {
-        movies.forEach(movie => {
-          const li = document.createElement('li');
-          li.innerHTML = `<span>${movie.year}</span>`; // Remove the movie title
-          movieList.appendChild(li);
+      if (movie && movie.torrents.length > 0) {
+        movie.torrents.forEach(torrent => {
+          const button = document.createElement('button');
+          button.textContent = `${torrent.quality} (${torrent.size})`;
+          button.setAttribute('data-url', torrent.url);
+          qualityContainer.appendChild(button);
 
-          li.addEventListener('click', function() {
-            fetchMovieTorrents(movie.id);
+          button.addEventListener('click', function() {
+            const torrentUrl = this.getAttribute('data-url');
+            window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
           });
         });
       } else {
-        movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
+        qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
       }
     })
-    .catch(error => console.error('Error fetching movies:', error));
+    .catch(error => console.error('Error fetching movie details:', error));
 }
-
     // عند الضغط على زر التحميل المباشر
     document.getElementById('directDownloadBox').onclick = function() {
       const movieUrl = `https://dl.vidsrc.vip/movie/${imdbId}`;
