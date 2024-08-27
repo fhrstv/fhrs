@@ -73,9 +73,7 @@
             تحميل التورنت
         </div>
 
-        <div class="direct-download-box" id="directDownloadBox">
-            تحميل مباشر
-        </div>
+        
 
         <ul id="movies"></ul>
         <div id="quality-container"></div>
@@ -97,19 +95,18 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
       alert('IMDb ID غير موجود في بيانات الفيلم');
     }
 
-    // تحديث iframe مع رابط dl.vidsrc.vip باستخدام الـ IMDb ID
+    // تحديث iframe مع رابط dl.vidsrc.vip باستخدام الـ IMDb ID بأسرع وقت ممكن
     const movieFrame = document.getElementById('movieFrame');
     movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
 
-    // عند الضغط على زر الترجمة
+    // تحميل باقي البيانات (الترجمات، التورنت) بعد تعيين src للـ iframe
     document.getElementById('subtitleBox').onclick = function() {
       const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
       window.location.href = subtitleUrl;
     }
 
-    // عند الضغط على زر التورنت
     document.getElementById('torrentBox').onclick = function() {
-      const query = imdbId; // استخدام الـ IMDb ID كاستعلام
+      const query = imdbId;
       const movieList = document.getElementById('movies');
 
       fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
@@ -117,7 +114,7 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
         .then(data => {
           const movies = data.data.movies;
           if (movies && movies.length > 0) {
-            const movie = movies[0]; // Take the first movie (assuming there's only one)
+            const movie = movies[0];
             fetchMovieTorrents(movie.id);
           } else {
             movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
@@ -143,7 +140,7 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
 
               button.addEventListener('click', function() {
                 const torrentUrl = this.getAttribute('data-url');
-                window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
+                window.location.href = torrentUrl;
               });
             });
           } else {
@@ -155,6 +152,8 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
 
   })
   .catch(error => console.error('Error fetching movie details:', error));
+
+
     </script>
 </body>
 </html>
