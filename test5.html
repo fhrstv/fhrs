@@ -109,6 +109,11 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
       loadingMessage.style.display = 'none';
       movieFrame.style.display = 'block'; // عرض iframe بعد التحميل
     };
+    
+    document.getElementById('subtitleBox').onclick = function() {
+      const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
+      window.location.href = subtitleUrl;
+    }
 
     // تحميل جودات التورنت وعرضها مباشرة في الصفحة
     fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(imdbId)}`)
