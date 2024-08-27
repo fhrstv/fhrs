@@ -2,162 +2,45 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحتي الخاصة</title>
+    <title>ترجمات الفيلم</title>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
+        .subtitle-box {
+            border: 1px solid #ccc;
             padding: 10px;
+            margin: 10px;
+            background-color: #f9f9f9;
             text-align: center;
-            font-size: 24px;
-        }
-        .content {
-            padding: 20px;
-            text-align: center;
-        }
-        iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
-            margin-top: 20px;
-        }
-        .subtitle-box, .torrent-box, .direct-download-box {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #333;
-            color: #fff;
-            display: inline-block;
-            border-radius: 5px;
             cursor: pointer;
-        }
-        .subtitle-box:hover, .torrent-box:hover, .direct-download-box:hover {
-            background-color: #555;
-        }
-        #movies, #quality-container {
-            margin-top: 20px;
-        }
-        #movies li, #quality-container button {
-            background-color: #555;
-            color: #fff;
-            margin: 5px 0;
-            padding: 10px;
-            list-style: none;
-            cursor: pointer;
-        }
-        #movies li:hover, #quality-container button:hover {
-            background-color: #777;
         }
     </style>
 </head>
 <body>
-    <header>
-        مرحباً بكم في صفحتي الخاصة
-    </header>
+    <div id="subtitles-container"></div>
 
-    <div class="content">
-        <p>هنا يمكن أن تضع محتوى خاص بك مثل نصوص، صور، أو أي شيء تريده.</p>
-
-        <iframe id="movieFrame" allowfullscreen></iframe>
-        
-        <div class="subtitle-box" id="subtitleBox">
-            حمل الترجمة
-        </div>
-
-        <div id="subtitles-container"></div>
-
-        <div id="loadingMessage">يرجى الانتظار، سوف يظهر رابط المباشر بعد قليل...</div>
-<iframe id="movieFrame" style="display:none;"></iframe>
-
-        <ul id="movies"></ul>
-        <div id="quality-container"></div>
-    </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-const urlParams = new URLSearchParams(window.location.search);
-const tmdbId = urlParams.get('tmdb_id');
+        $(document).ready(function() {
+            // استبدل TMDB_API_KEY بمفتاح TMDB الخاص بك
+            const TMDB_API_KEY = 'cf64a661774f647b7513facb9f1e55e5';
+            const movieId = '934632'; // استبدل هذا بالمعرّف الصحيح لفيلمك
+            const language = 'ar';
 
-if (!tmdbId) {
-  alert('TMDB ID غير موجود في الـ URL');
-}
+            // جلب الترجمات من TMDB API
+            $.getJSON(`https://api.themoviedb.org/3/movie/${movieId}/translations?api_key=${TMDB_API_KEY}`, function(data) {
+                const translations = data.translations;
+                const arabicSubtitles = translations.find(translation => translation.iso_639_1 === language);
 
-const loadingMessage = document.getElementById('loadingMessage');
-const movieFrame = document.getElementById('movieFrame');
-
-// إخفاء iframe حتى يتم تحميله بالكامل
-movieFrame.style.display = 'none';
-
-// تغيير 'movie' إلى 'tv' لجلب بيانات المسلسل بدلاً من الفيلم
-fetch(`https://api.themoviedb.org/3/tv/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
-  .then(response => response.json())
-  .then(data => {
-    const imdbId = data.external_ids.imdb_id;
-    if (!imdbId) {
-      alert('IMDb ID غير موجود في بيانات المسلسل');
-    }
-
-    // إظهار الرسالة عند بدء تحميل iframe
-    loadingMessage.style.display = 'block';
-
-    // تعيين src للـ iframe بشكل غير مرئي ثم إظهاره بعد التحميل
-    movieFrame.src = `https://dl.vidsrc.vip/tv/${imdbId}`;
-    movieFrame.onload = function() {
-      loadingMessage.style.display = 'none';
-      movieFrame.style.display = 'block'; // عرض iframe بعد التحميل
-    };
-    
-    document.getElementById('subtitleBox').onclick = function() {
-      const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
-      window.location.href = subtitleUrl;
-    }
-
-    // تحميل جودات التورنت وعرضها مباشرة في الصفحة
-    fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(imdbId)}`)
-      .then(response => response.json())
-      .then(data => {
-        const movies = data.data.movies;
-        if (movies && movies.length > 0) {
-          const movie = movies[0];
-          fetchMovieTorrents(movie.id);
-        } else {
-          document.getElementById('quality-container').innerHTML = '<p>لم يتم العثور على أفلام</p>';
-        }
-      })
-      .catch(error => console.error('Error fetching movies:', error));
-
-    function fetchMovieTorrents(movieId) {
-      fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
-        .then(response => response.json())
-        .then(data => {
-          const movie = data.data.movie;
-          const qualityContainer = document.getElementById('quality-container');
-          qualityContainer.innerHTML = '';
-
-          if (movie && movie.torrents.length > 0) {
-            movie.torrents.forEach(torrent => {
-              const button = document.createElement('button');
-              button.textContent = `${torrent.quality} (${torrent.size})`;
-              button.setAttribute('data-url', torrent.url);
-              qualityContainer.appendChild(button);
-
-              button.addEventListener('click', function() {
-                const torrentUrl = this.getAttribute('data-url');
-                window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
-              });
+                if (arabicSubtitles) {
+                    $('#subtitles-container').append(`
+                        <div class="subtitle-box">
+                            <a href="https://www.opensubtitles.org/ar/search/sublanguageid-${language}/idmovie-${arabicSubtitles.data.id}">تحميل الترجمة</a>
+                        </div>
+                    `);
+                } else {
+                    $('#subtitles-container').append('<p>لا توجد ترجمات عربية متاحة لهذا الفيلم.</p>');
+                }
             });
-          } else {
-            qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
-          }
-        })
-        .catch(error => console.error('Error fetching movie details:', error));
-    }
-  })
-  .catch(error => console.error('Error fetching tv show details:', error));
+        });
     </script>
 </body>
 </html>
