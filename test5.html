@@ -80,31 +80,33 @@
     </div>
 
     <script>
+const movieFrame = document.getElementById('movieFrame');
+movieFrame.src = "https://dl.vidsrc.vip/loading"; // رابط افتراضي أو رسالة تحميل
+
 const urlParams = new URLSearchParams(window.location.search);
 const tmdbId = urlParams.get('tmdb_id');
 
 if (!tmdbId) {
   alert('TMDB ID غير موجود في الـ URL');
+} else {
+  // جلب IMDb ID مباشرة بعد التحقق من وجود tmdb_id
+  fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
+    .then(response => response.json())
+    .then(data => {
+      const imdbId = data.imdb_id;
+      if (!imdbId) {
+        alert('IMDb ID غير موجود في بيانات الفيلم');
+        return;
+      }
+
+      // تحديث iframe مع رابط dl.vidsrc.vip باستخدام الـ IMDb ID فورًا
+      movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
+
+      // معالجة باقي البيانات بشكل منفصل لتحسين الأداء
+      handleAdditionalData(imdbId);
+    })
+    .catch(error => console.error('Error fetching movie details:', error));
 }
-
-// جلب IMDb ID أولاً لتحديث الـ iframe بسرعة
-fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
-  .then(response => response.json())
-  .then(data => {
-    const imdbId = data.imdb_id;
-    if (!imdbId) {
-      alert('IMDb ID غير موجود في بيانات الفيلم');
-      return;
-    }
-
-    // تحديث iframe مع رابط dl.vidsrc.vip باستخدام الـ IMDb ID فورًا
-    const movieFrame = document.getElementById('movieFrame');
-    movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
-
-    // معالجة باقي البيانات بشكل منفصل لتحسين الأداء
-    handleAdditionalData(imdbId);
-  })
-  .catch(error => console.error('Error fetching movie details:', error));
 
 function handleAdditionalData(imdbId) {
   // عند الضغط على زر الترجمة
@@ -168,8 +170,6 @@ function fetchMovieTorrents(movieId) {
     })
     .catch(error => console.error('Error fetching movie details:', error));
 }
-
-
     </script>
 </body>
 </html>
