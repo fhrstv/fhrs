@@ -92,7 +92,12 @@ if (!tmdbId) {
 } else {
   // جلب IMDb ID مباشرة بعد التحقق من وجود tmdb_id
   fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('فشل في جلب بيانات الفيلم');
+      }
+      return response.json();
+    })
     .then(data => {
       const imdbId = data.imdb_id;
       if (!imdbId) {
@@ -100,16 +105,17 @@ if (!tmdbId) {
         return;
       }
 
-      // تحديث iframe مع رابط dl.vidsrc.vip باستخدام الـ IMDb ID فورًا
+      // تحديث iframe فور الحصول على IMDb ID
       movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
 
       // معالجة باقي البيانات بشكل منفصل لتحسين الأداء
       handleAdditionalData(imdbId);
     })
-    .catch(error => console.error('Error fetching movie details:', error));
+    .catch(error => {
+      console.error('Error fetching movie details:', error);
+      movieFrame.src = "https://dl.vidsrc.vip/error"; // رابط يظهر رسالة خطأ عند فشل جلب الـ IMDb ID
+    });
 }
-
-function handleAdditionalData(imdbId) {
   // عند الضغط على زر الترجمة
   document.getElementById('subtitleBox').onclick = function() {
     const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
