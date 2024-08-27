@@ -89,69 +89,72 @@ if (!tmdbId) {
 const loadingMessage = document.getElementById('loadingMessage');
 const movieFrame = document.getElementById('movieFrame');
 
-// إخفاء iframe حتى يتم تحميله بالكامل
+// إظهار الرسالة عند بدء تحميل iframe
+loadingMessage.style.display = 'block';
 movieFrame.style.display = 'none';
 
-fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
-  .then(response => response.json())
-  .then(data => {
-    const imdbId = data.imdb_id;
-    if (!imdbId) {
-      alert('IMDb ID غير موجود في بيانات الفيلم');
-    }
+// تعيين src للـ iframe بشكل غير مرئي ثم إظهاره بعد التحميل
+movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
 
-    // إظهار الرسالة عند بدء تحميل iframe
-    loadingMessage.style.display = 'block';
+movieFrame.onload = function() {
+  loadingMessage.style.display = 'none';
+  movieFrame.style.display = 'block'; // عرض iframe بعد التحميل
+};
 
-    // تعيين src للـ iframe بشكل غير مرئي ثم إظهاره بعد التحميل
-    movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
-    movieFrame.onload = function() {
-      loadingMessage.style.display = 'none';
-      movieFrame.style.display = 'block'; // عرض iframe بعد التحميل
-    };
+// استخدام التوقيت لضبط سرعة تحميل iframe
+setTimeout(() => {
+  fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
+    .then(response => response.json())
+    .then(data => {
+      const imdbId = data.imdb_id;
+      if (!imdbId) {
+        alert('IMDb ID غير موجود في بيانات الفيلم');
+      }
 
-    // تحميل جودات التورنت وعرضها مباشرة في الصفحة
-    fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(imdbId)}`)
-      .then(response => response.json())
-      .then(data => {
-        const movies = data.data.movies;
-        if (movies && movies.length > 0) {
-          const movie = movies[0];
-          fetchMovieTorrents(movie.id);
-        } else {
-          document.getElementById('quality-container').innerHTML = '<p>لم يتم العثور على أفلام</p>';
-        }
-      })
-      .catch(error => console.error('Error fetching movies:', error));
-
-    function fetchMovieTorrents(movieId) {
-      fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
+      // تحميل جودات التورنت وعرضها مباشرة في الصفحة
+      fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(imdbId)}`)
         .then(response => response.json())
         .then(data => {
-          const movie = data.data.movie;
-          const qualityContainer = document.getElementById('quality-container');
-          qualityContainer.innerHTML = '';
-
-          if (movie && movie.torrents.length > 0) {
-            movie.torrents.forEach(torrent => {
-              const button = document.createElement('button');
-              button.textContent = `${torrent.quality} (${torrent.size})`;
-              button.setAttribute('data-url', torrent.url);
-              qualityContainer.appendChild(button);
-
-              button.addEventListener('click', function() {
-                const torrentUrl = this.getAttribute('data-url');
-                window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
-              });
-            });
+          const movies = data.data.movies;
+          if (movies && movies.length > 0) {
+            const movie = movies[0];
+            fetchMovieTorrents(movie.id);
           } else {
-            qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
+            document.getElementById('quality-container').innerHTML = '<p>لم يتم العثور على أفلام</p>';
           }
         })
-        .catch(error => console.error('Error fetching movie details:', error));
-    }
-  })
-  .catch(error => console.error('Error fetching movie details:', error));
+        .catch(error => console.error('Error fetching movies:', error));
+
+      function fetchMovieTorrents(movieId) {
+        fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
+          .then(response => response.json())
+          .then(data => {
+            const movie = data.data.movie;
+            const qualityContainer = document.getElementById('quality-container');
+            qualityContainer.innerHTML = '';
+
+            if (movie && movie.torrents.length > 0) {
+              movie.torrents.forEach(torrent => {
+                const button = document.createElement('button');
+                button.textContent = `${torrent.quality} (${torrent.size})`;
+                button.setAttribute('data-url', torrent.url);
+                qualityContainer.appendChild(button);
+
+                button.addEventListener('click', function() {
+                  const torrentUrl = this.getAttribute('data-url');
+                  window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
+                });
+              });
+            } else {
+              qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
+            }
+          })
+          .catch(error => console.error('Error fetching movie details:', error));
+      }
+    })
+    .catch(error => console.error('Error fetching movie details:', error));
+}, 500); // تأخير 500 مللي ثانية قبل بدء التحميل
+
     </script>
 </body>
 </html>
