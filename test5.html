@@ -69,9 +69,7 @@
             حمل الترجمة
         </div>
 
-        <div class="torrent-box" id="torrentBox">
-            تحميل التورنت
-        </div>
+        
 
         <div id="loadingMessage">يرجى الانتظار، سوف يظهر رابط المباشر بعد قليل...</div>
 <iframe id="movieFrame" style="display:none;"></iframe>
@@ -81,6 +79,7 @@
     </div>
 
     <script>
+
 const urlParams = new URLSearchParams(window.location.search);
 const tmdbId = urlParams.get('tmdb_id');
 
@@ -112,29 +111,19 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
       movieFrame.style.display = 'block';
     };
 
-    // تحميل باقي البيانات (الترجمات، التورنت) بعد تعيين src للـ iframe
-    document.getElementById('subtitleBox').onclick = function() {
-      const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
-      window.location.href = subtitleUrl;
-    }
-
-    document.getElementById('torrentBox').onclick = function() {
-      const query = imdbId;
-      const movieList = document.getElementById('movies');
-
-      fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
-        .then(response => response.json())
-        .then(data => {
-          const movies = data.data.movies;
-          if (movies && movies.length > 0) {
-            const movie = movies[0];
-            fetchMovieTorrents(movie.id);
-          } else {
-            movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
-          }
-        })
-        .catch(error => console.error('Error fetching movies:', error));
-    }
+    // تحميل جودات التورنت وعرضها مباشرة في الصفحة
+    fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(imdbId)}`)
+      .then(response => response.json())
+      .then(data => {
+        const movies = data.data.movies;
+        if (movies && movies.length > 0) {
+          const movie = movies[0];
+          fetchMovieTorrents(movie.id);
+        } else {
+          document.getElementById('quality-container').innerHTML = '<p>لم يتم العثور على أفلام</p>';
+        }
+      })
+      .catch(error => console.error('Error fetching movies:', error));
 
     function fetchMovieTorrents(movieId) {
       fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
@@ -146,15 +135,9 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
 
           if (movie && movie.torrents.length > 0) {
             movie.torrents.forEach(torrent => {
-              const button = document.createElement('button');
-              button.textContent = `${torrent.quality} (${torrent.size})`;
-              button.setAttribute('data-url', torrent.url);
-              qualityContainer.appendChild(button);
-
-              button.addEventListener('click', function() {
-                const torrentUrl = this.getAttribute('data-url');
-                window.location.href = torrentUrl;
-              });
+              const div = document.createElement('div');
+              div.textContent = `${torrent.quality} (${torrent.size})`;
+              qualityContainer.appendChild(div);
             });
           } else {
             qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
@@ -172,6 +155,7 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
     */
   })
   .catch(error => console.error('Error fetching movie details:', error));
+
     </script>
 </body>
 </html>
