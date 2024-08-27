@@ -69,7 +69,7 @@
             حمل الترجمة
         </div>
 
-        
+        <div id="subtitles-container"></div>
 
         <div id="loadingMessage">يرجى الانتظار، سوف يظهر رابط المباشر بعد قليل...</div>
 <iframe id="movieFrame" style="display:none;"></iframe>
@@ -109,10 +109,31 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
       loadingMessage.style.display = 'none';
       movieFrame.style.display = 'block'; // عرض iframe بعد التحميل
     };
-    
+
+    // جلب الترجمات العربية وعرضها في الصفحة
     document.getElementById('subtitleBox').onclick = function() {
-      const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
-      window.location.href = subtitleUrl;
+      fetch(`https://www.opensubtitles.org/api/v1/subtitles?imdb_id=${imdbId}&languages=ar`)
+        .then(response => response.json())
+        .then(data => {
+          const subtitles = data.data;
+          const subtitlesContainer = document.getElementById('subtitles-container');
+          subtitlesContainer.innerHTML = '';
+
+          if (subtitles && subtitles.length > 0) {
+            subtitles.forEach(subtitle => {
+              const subtitleDiv = document.createElement('div');
+              subtitleDiv.className = 'subtitle-item';
+              subtitleDiv.textContent = subtitle.attributes.language + ': ' + subtitle.attributes.filename;
+              subtitleDiv.onclick = function() {
+                window.location.href = subtitle.attributes.url; // تحميل ملف الترجمة
+              };
+              subtitlesContainer.appendChild(subtitleDiv);
+            });
+          } else {
+            subtitlesContainer.innerHTML = '<p>لم يتم العثور على ترجمات عربية</p>';
+          }
+        })
+        .catch(error => console.error('Error fetching subtitles:', error));
     }
 
     // تحميل جودات التورنت وعرضها مباشرة في الصفحة
@@ -157,7 +178,6 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
     }
   })
   .catch(error => console.error('Error fetching movie details:', error));
-
     </script>
 </body>
 </html>
