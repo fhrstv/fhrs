@@ -84,28 +84,33 @@ const tmdbId = urlParams.get('tmdb_id');
 
 if (!tmdbId) {
   alert('TMDB ID غير موجود في الـ URL');
-  throw new Error('TMDB ID غير موجود');
 }
 
+const loadingMessage = document.getElementById('loadingMessage');
 const movieFrame = document.getElementById('movieFrame');
 
-// تعيين src للـ iframe فورًا دون انتظار تحميل أي شيء آخر
-movieFrame.src = `https://dl.vidsrc.vip/movie/${tmdbId}`;
+// إخفاء iframe حتى يتم تحميله بالكامل
+movieFrame.style.display = 'none';
 
-// إظهار iframe فورًا دون تأخير
-movieFrame.style.display = 'block';
-
-// إذا كنت لا تزال تحتاج إلى تحميل بيانات أخرى بعد إظهار iframe، استخدم هذا الجزء من الكود
 fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
   .then(response => response.json())
   .then(data => {
     const imdbId = data.imdb_id;
     if (!imdbId) {
       alert('IMDb ID غير موجود في بيانات الفيلم');
-      return;
     }
 
-    // تحميل جودات التورنت وعرضها في الصفحة إذا كنت تحتاج إلى ذلك
+    // إظهار الرسالة عند بدء تحميل iframe
+    loadingMessage.style.display = 'block';
+
+    // تعيين src للـ iframe بشكل غير مرئي ثم إظهاره بعد التحميل
+    movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
+    movieFrame.onload = function() {
+      loadingMessage.style.display = 'none';
+      movieFrame.style.display = 'block'; // عرض iframe بعد التحميل
+    };
+
+    // تحميل جودات التورنت وعرضها مباشرة في الصفحة
     fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(imdbId)}`)
       .then(response => response.json())
       .then(data => {
@@ -132,7 +137,6 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
               const button = document.createElement('button');
               button.textContent = `${torrent.quality} (${torrent.size})`;
               button.setAttribute('data-url', torrent.url);
-              button.className = 'torrent-button';
               qualityContainer.appendChild(button);
 
               button.addEventListener('click', function() {
@@ -148,6 +152,7 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
     }
   })
   .catch(error => console.error('Error fetching movie details:', error));
+
     </script>
 </body>
 </html>
