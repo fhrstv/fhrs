@@ -89,6 +89,9 @@ if (!tmdbId) {
 const loadingMessage = document.getElementById('loadingMessage');
 const movieFrame = document.getElementById('movieFrame');
 
+// إخفاء iframe حتى يتم تحميله بالكامل
+movieFrame.style.display = 'none';
+
 fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
   .then(response => response.json())
   .then(data => {
@@ -99,15 +102,12 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
 
     // إظهار الرسالة عند بدء تحميل iframe
     loadingMessage.style.display = 'block';
-    movieFrame.style.display = 'none';
 
-    // تعيين src للـ iframe
+    // تعيين src للـ iframe بشكل غير مرئي ثم إظهاره بعد التحميل
     movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
-
-    // إخفاء الرسالة بعد تحميل الـ iframe
     movieFrame.onload = function() {
       loadingMessage.style.display = 'none';
-      movieFrame.style.display = 'block';
+      movieFrame.style.display = 'block'; // عرض iframe بعد التحميل
     };
 
     // تحميل جودات التورنت وعرضها مباشرة في الصفحة
@@ -152,7 +152,6 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
     }
   })
   .catch(error => console.error('Error fetching movie details:', error));
-
     </script>
 </body>
 </html>
