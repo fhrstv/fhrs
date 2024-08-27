@@ -20,22 +20,19 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            // استبدل TMDB_API_KEY بمفتاح TMDB الخاص بك
-            const TMDB_API_KEY = 'cf64a661774f647b7513facb9f1e55e5';
-            const movieId = '934632'; // استبدل هذا بالمعرّف الصحيح لفيلمك
-            const language = 'ar';
+            const movieName = 'John Wick'; // استبدل هذا باسم الفيلم المطلوب
+            const movieYear = '2023'; // استبدل هذا بسنة إصدار الفيلم المطلوبة
 
-            // جلب الترجمات من TMDB API
-            $.getJSON(`https://api.themoviedb.org/3/movie/${movieId}/translations?api_key=${TMDB_API_KEY}`, function(data) {
-                const translations = data.translations;
-                const arabicSubtitles = translations.find(translation => translation.iso_639_1 === language);
-
-                if (arabicSubtitles) {
-                    $('#subtitles-container').append(`
-                        <div class="subtitle-box">
-                            <a href="https://www.opensubtitles.org/ar/search/sublanguageid-${language}/idmovie-${arabicSubtitles.data.id}">تحميل الترجمة</a>
-                        </div>
-                    `);
+            // البحث عن الترجمات
+            $.getJSON(`https://api.opensubtitles.org/en/search2?query=${movieName}&year=${movieYear}&sublanguageid=ara`, function(data) {
+                if (data.total_results > 0) {
+                    data.results.forEach(function(subtitle) {
+                        $('#subtitles-container').append(`
+                            <div class="subtitle-box">
+                                <a href="${subtitle.url}" target="_blank">تحميل الترجمة: ${subtitle.filename}</a>
+                            </div>
+                        `);
+                    });
                 } else {
                     $('#subtitles-container').append('<p>لا توجد ترجمات عربية متاحة لهذا الفيلم.</p>');
                 }
