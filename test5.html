@@ -112,29 +112,28 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
 
     // جلب الترجمات العربية وعرضها في الصفحة
     document.getElementById('subtitleBox').onclick = function() {
-      fetch(`https://www.opensubtitles.org/api/v1/subtitles?imdb_id=${imdbId}&languages=ar`)
-        .then(response => response.json())
-        .then(data => {
-          const subtitles = data.data;
-          const subtitlesContainer = document.getElementById('subtitles-container');
-          subtitlesContainer.innerHTML = '';
+  fetch(`https://api.opensubtitles.org/api/v1/subtitles?query=${tmdbId}&languages=ar`)
+    .then(response => response.json())
+    .then(data => {
+      const subtitlesContainer = document.getElementById('subtitles-container');
+      subtitlesContainer.innerHTML = '';
 
-          if (subtitles && subtitles.length > 0) {
-            subtitles.forEach(subtitle => {
-              const subtitleDiv = document.createElement('div');
-              subtitleDiv.className = 'subtitle-item';
-              subtitleDiv.textContent = subtitle.attributes.language + ': ' + subtitle.attributes.filename;
-              subtitleDiv.onclick = function() {
-                window.location.href = subtitle.attributes.url; // تحميل ملف الترجمة
-              };
-              subtitlesContainer.appendChild(subtitleDiv);
-            });
-          } else {
-            subtitlesContainer.innerHTML = '<p>لم يتم العثور على ترجمات عربية</p>';
-          }
-        })
-        .catch(error => console.error('Error fetching subtitles:', error));
-    }
+      if (data && data.subtitles.length > 0) {
+        data.subtitles.forEach(subtitle => {
+          const subtitleDiv = document.createElement('div');
+          subtitleDiv.className = 'subtitle-item';
+          subtitleDiv.textContent = subtitle.file_name;
+          subtitleDiv.onclick = function() {
+            window.location.href = subtitle.url; // تحميل ملف الترجمة
+          };
+          subtitlesContainer.appendChild(subtitleDiv);
+        });
+      } else {
+        subtitlesContainer.innerHTML = '<p>لم يتم العثور على ترجمات عربية</p>';
+      }
+    })
+    .catch(error => console.error('Error fetching subtitles:', error));
+}
 
     // تحميل جودات التورنت وعرضها مباشرة في الصفحة
     fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(imdbId)}`)
