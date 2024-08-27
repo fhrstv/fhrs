@@ -92,19 +92,20 @@ const movieFrame = document.getElementById('movieFrame');
 // إخفاء iframe حتى يتم تحميله بالكامل
 movieFrame.style.display = 'none';
 
-fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
+// تغيير 'movie' إلى 'tv' لجلب بيانات المسلسل بدلاً من الفيلم
+fetch(`https://api.themoviedb.org/3/tv/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
   .then(response => response.json())
   .then(data => {
-    const imdbId = data.imdb_id;
+    const imdbId = data.external_ids.imdb_id;
     if (!imdbId) {
-      alert('IMDb ID غير موجود في بيانات الفيلم');
+      alert('IMDb ID غير موجود في بيانات المسلسل');
     }
 
     // إظهار الرسالة عند بدء تحميل iframe
     loadingMessage.style.display = 'block';
 
     // تعيين src للـ iframe بشكل غير مرئي ثم إظهاره بعد التحميل
-    movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
+    movieFrame.src = `https://dl.vidsrc.vip/tv/${imdbId}`;
     movieFrame.onload = function() {
       loadingMessage.style.display = 'none';
       movieFrame.style.display = 'block'; // عرض iframe بعد التحميل
@@ -156,10 +157,7 @@ fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513
         .catch(error => console.error('Error fetching movie details:', error));
     }
   })
-  .catch(error => console.error('Error fetching movie details:', error));
-
-
-
+  .catch(error => console.error('Error fetching tv show details:', error));
     </script>
 </body>
 </html>
