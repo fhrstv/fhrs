@@ -73,90 +73,63 @@
             تحميل التورنت
         </div>
 
-        
+        <div class="direct-download-box" id="directDownloadBox">
+            تحميل مباشر
+        </div>
 
         <ul id="movies"></ul>
         <div id="quality-container"></div>
     </div>
 
     <script>
-
-const movieFrame = document.getElementById('movieFrame');
-movieFrame.src = "https://dl.vidsrc.vip/loading"; // default link or loading message
-
 const urlParams = new URLSearchParams(window.location.search);
 const tmdbId = urlParams.get('tmdb_id');
 
 if (!tmdbId) {
-  alert('TMDB ID not found in URL');
-} else {
-  fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
-    .then(response => response.json())
-    .then(data => {
-      const imdbId = data.imdb_id;
-      if (!imdbId) {
-        alert('IMDb ID not found in movie data');
-        return;
-      }
-
-      // Update iframe with dl.vidsrc.vip link using IMDb ID
-      movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
-
-      // Handle additional data separately for better performance
-      handleAdditionalData(imdbId);
-    })
-    .catch(error => console.error('Error fetching movie details:', error));
+  alert('TMDB ID غير موجود في الـ URL');
 }
 
-// Rest of your code remains the same
-  // عند الضغط على زر الترجمة
-  document.getElementById('subtitleBox').onclick = function() {
-    const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
-    window.location.href = subtitleUrl;
-  }
+fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
+  .then(response => response.json())
+  .then(data => {
+    const imdbId = data.imdb_id;
+    if (!imdbId) {
+      alert('IMDb ID غير موجود في بيانات الفيلم');
+    }
+
+    // تحديث iframe مع رابط dl.vidsrc.vip باستخدام الـ IMDb ID
+    const movieFrame = document.getElementById('movieFrame');
+    movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
+
+    // عند الضغط على زر الترجمة
+    document.getElementById('subtitleBox').onclick = function() {
+      const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
+      window.location.href = subtitleUrl;
+    }
+
 
   // عند الضغط على زر التورنت
-  document.getElementById('torrentBox').onclick = function() {
-    const query = imdbId; // استخدام الـ IMDb ID كاستعلام
-    const movieList = document.getElementById('movies');
+document.getElementById('torrentBox').onclick = function() {
+  const query = imdbId; // استخدام الـ IMDb ID كاستعلام
+  const movieList = document.getElementById('movies');
 
-    fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('فشل في جلب قائمة الأفلام');
-        }
-        return response.json();
-      })
-      .then(data => {
-        const movies = data.data.movies;
-        movieList.innerHTML = '';
-
-        if (movies && movies.length > 0) {
-          movies.forEach(movie => {
-            const li = document.createElement('li');
-            li.innerHTML = `<span class="movie-title">${movie.title}</span> (${movie.year})`;
-            movieList.appendChild(li);
-
-            li.addEventListener('click', function() {
-              fetchMovieTorrents(movie.id);
-            });
-          });
-        } else {
-          movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
-        }
-      })
-      .catch(error => console.error('Error fetching movies:', error));
-  }
+  fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
+    .then(response => response.json())
+    .then(data => {
+      const movies = data.data.movies;
+      if (movies && movies.length > 0) {
+        const movie = movies[0]; // Take the first movie (assuming there's only one)
+        fetchMovieTorrents(movie.id);
+      } else {
+        movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
+      }
+    })
+    .catch(error => console.error('Error fetching movies:', error));
 }
 
 function fetchMovieTorrents(movieId) {
   fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('فشل في جلب تفاصيل الفيلم');
-      }
-      return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
       const movie = data.data.movie;
       const qualityContainer = document.getElementById('quality-container');
@@ -180,6 +153,17 @@ function fetchMovieTorrents(movieId) {
     })
     .catch(error => console.error('Error fetching movie details:', error));
 }
+
+
+
+    // عند الضغط على زر التحميل المباشر
+    document.getElementById('directDownloadBox').onclick = function() {
+      const movieUrl = `https://dl.vidsrc.vip/movie/${imdbId}`;
+      window.location.href = movieUrl; // توجيه المستخدم لتحميل الفيلم مباشرة
+    }
+  })
+  .catch(error => console.error('Error fetching movie details:', error));
+        
     </script>
 </body>
 </html>
