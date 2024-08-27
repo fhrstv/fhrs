@@ -46,8 +46,8 @@
             const movieName = 'Longlegs'; // هنا ضع اسم الفيلم
             const movieYear = 2024; // هنا ضع سنة الإصدار
 
-            const searchQuery = `${movieName} (${movieYear})`;
-            const url = `https://subsource.net/search?query=${encodeURIComponent(searchQuery)}`;
+            const formattedMovieName = movieName.toLowerCase().replace(/\s+/g, '-'); // تحويل الاسم إلى lowercase واستبدال المسافات بشرطة "-"
+            const url = `https://subsource.net/subtitles/${formattedMovieName}-${movieYear}`;
             
             window.location.href = url;
         }
