@@ -3,27 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رابط مباشر للفيلم</title>
+    <title>عرض الفيلم</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            text-align: center;
-            padding: 50px;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
         }
-        a {
-            color: #1e90ff;
-            text-decoration: none;
-            font-size: 1.5em;
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
 
-    <h1>رابط مباشر للفيلم</h1>
-    <p>اضغط على الرابط أدناه للوصول إلى الفيلم مباشرة:</p>
-    <a id="movie-link" href="#">رابط الفيلم</a>
+    <iframe id="movie-frame" src=""></iframe>
 
     <script>
         // استخراج tmdb_id من عنوان URL
@@ -33,9 +32,8 @@
         // بناء الرابط الكامل باستخدام tmdb_id
         const movieLink = `https://dl.vidsrc.vip/movie/${tmdbId}`;
 
-        // تحديث الرابط في الصفحة
-        document.getElementById('movie-link').setAttribute('href', movieLink);
-        document.getElementById('movie-link').textContent = movieLink;
+        // تحديث الـ iframe لعرض الصفحة المطلوبة
+        document.getElementById('movie-frame').setAttribute('src', movieLink);
     </script>
     
 </body>
