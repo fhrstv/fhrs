@@ -105,17 +105,16 @@ if (!tmdbId) {
         return;
       }
 
-      // تحديث iframe فور الحصول على IMDb ID
+      // تحديث iframe مع رابط dl.vidsrc.vip باستخدام الـ IMDb ID فورًا
       movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
 
       // معالجة باقي البيانات بشكل منفصل لتحسين الأداء
       handleAdditionalData(imdbId);
     })
-    .catch(error => {
-      console.error('Error fetching movie details:', error);
-      movieFrame.src = "https://dl.vidsrc.vip/error"; // رابط يظهر رسالة خطأ عند فشل جلب الـ IMDb ID
-    });
+    .catch(error => console.error('Error fetching movie details:', error));
 }
+
+function handleAdditionalData(imdbId) {
   // عند الضغط على زر الترجمة
   document.getElementById('subtitleBox').onclick = function() {
     const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
@@ -128,7 +127,12 @@ if (!tmdbId) {
     const movieList = document.getElementById('movies');
 
     fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('فشل في جلب قائمة الأفلام');
+        }
+        return response.json();
+      })
       .then(data => {
         const movies = data.data.movies;
         movieList.innerHTML = '';
@@ -153,7 +157,12 @@ if (!tmdbId) {
 
 function fetchMovieTorrents(movieId) {
   fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('فشل في جلب تفاصيل الفيلم');
+      }
+      return response.json();
+    })
     .then(data => {
       const movie = data.data.movie;
       const qualityContainer = document.getElementById('quality-container');
