@@ -82,39 +82,33 @@
     <script>
 
 const movieFrame = document.getElementById('movieFrame');
-movieFrame.src = "https://dl.vidsrc.vip/loading"; // رابط افتراضي أو رسالة تحميل
+movieFrame.src = "https://dl.vidsrc.vip/loading"; // default link or loading message
 
 const urlParams = new URLSearchParams(window.location.search);
 const tmdbId = urlParams.get('tmdb_id');
 
 if (!tmdbId) {
-  alert('TMDB ID غير موجود في الـ URL');
+  alert('TMDB ID not found in URL');
 } else {
-  // جلب IMDb ID مباشرة بعد التحقق من وجود tmdb_id
   fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('فشل في جلب بيانات الفيلم');
-      }
-      return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
       const imdbId = data.imdb_id;
       if (!imdbId) {
-        alert('IMDb ID غير موجود في بيانات الفيلم');
+        alert('IMDb ID not found in movie data');
         return;
       }
 
-      // تحديث iframe مع رابط dl.vidsrc.vip باستخدام الـ IMDb ID فورًا
+      // Update iframe with dl.vidsrc.vip link using IMDb ID
       movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
 
-      // معالجة باقي البيانات بشكل منفصل لتحسين الأداء
+      // Handle additional data separately for better performance
       handleAdditionalData(imdbId);
     })
     .catch(error => console.error('Error fetching movie details:', error));
 }
 
-function handleAdditionalData(imdbId) {
+// Rest of your code remains the same
   // عند الضغط على زر الترجمة
   document.getElementById('subtitleBox').onclick = function() {
     const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
