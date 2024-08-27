@@ -88,15 +88,12 @@ if (!tmdbId) {
     return;
 }
 
+// استخدم TMDB API لتحويل TMDB ID إلى IMDb ID
 const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5'; // مفتاح API الخاص بك
-
-(async function fetchData() {
-    try {
-        // استخدم async/await لتحميل البيانات بشكل متزامن
-        const tmdbResponse = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${tmdbApiKey}`);
-        const tmdbData = await tmdbResponse.json();
-
-        const imdbId = tmdbData.imdb_id;
+fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${tmdbApiKey}`)
+    .then(response => response.json())
+    .then(data => {
+        const imdbId = data.imdb_id;
 
         if (!imdbId) {
             alert('لم يتم العثور على IMDb ID');
@@ -104,77 +101,66 @@ const tmdbApiKey = 'cf64a661774f647b7513facb9f1e55e5'; // مفتاح API الخ�
         }
 
         // تحديث iframe مع رابط dl.vidsrc.vip باستخدام الـ IMDb ID
-        document.getElementById('movieFrame').src = `https://dl.vidsrc.vip/movie/${imdbId}`;
+        const movieFrame = document.getElementById('movieFrame');
+        movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
 
-        // عرض التورنت تلقائياً باستخدام الـ IMDb ID
-        displayTorrents(imdbId);
+        // تحميل التورنت والمعلومات الأخرى مباشرة عند تحميل الصفحة
+        const query = imdbId; // استخدام الـ IMDb ID كاستعلام
+        const movieList = document.getElementById('movies');
 
-        // إعداد زر تحميل الترجمة
-        document.getElementById('subtitleBox').onclick = function () {
+        fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                const movies = data.data.movies;
+                movieList.innerHTML = '';
+
+                if (movies && movies.length > 0) {
+                    movies.forEach(movie => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<span class="movie-title">${movie.title}</span> (${movie.year})`;
+                        movieList.appendChild(li);
+
+                        // عرض التورنت تلقائياً
+                        fetchMovieTorrents(movie.id);
+                    });
+                } else {
+                    movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
+                }
+            })
+            .catch(error => console.error('Error fetching movies:', error));
+
+        function fetchMovieTorrents(movieId) {
+            fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const movie = data.data.movie;
+                    const qualityContainer = document.getElementById('quality-container');
+                    qualityContainer.innerHTML = '';
+
+                    if (movie && movie.torrents.length > 0) {
+                        movie.torrents.forEach(torrent => {
+                            const p = document.createElement('p');
+                            p.textContent = `${torrent.quality} (${torrent.size}) - تحميل`;
+                            p.style.cursor = 'pointer';
+                            p.onclick = function() {
+                                window.location.href = torrent.url; // توجيه المستخدم لتحميل ملف التورنت
+                            };
+                            qualityContainer.appendChild(p);
+                        });
+                    } else {
+                        qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
+                    }
+                })
+                .catch(error => console.error('Error fetching movie details:', error));
+        }
+
+        // عند الضغط على زر الترجمة
+        document.getElementById('subtitleBox').onclick = function() {
             const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
             window.location.href = subtitleUrl;
         };
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        document.getElementById('movies').innerHTML = '<li>حدث خطأ أثناء التحميل</li>';
-        document.getElementById('quality-container').innerHTML = '<p>حدث خطأ أثناء التحميل</p>';
-    }
-})();
-
-async function displayTorrents(imdbId) {
-    try {
-        const ytsResponse = await fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(imdbId)}`);
-        const ytsData = await ytsResponse.json();
-
-        const movies = ytsData.data.movies;
-        const movieList = document.getElementById('movies');
-        const qualityContainer = document.getElementById('quality-container');
-        
-        movieList.innerHTML = '';
-        qualityContainer.innerHTML = '';
-
-        if (movies && movies.length > 0) {
-            movies.forEach(movie => {
-                const li = document.createElement('li');
-                li.innerHTML = `<span class="movie-title">${movie.title}</span> (${movie.year})`;
-                movieList.appendChild(li);
-
-                // عرض جودات التورنت تلقائيًا
-                fetchMovieTorrents(movie.id);
-            });
-        } else {
-            movieList.innerHTML = '<li>لم يتم العثور على أفلام</li>';
-            qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
-        }
-    } catch (error) {
-        console.error('Error fetching torrents:', error);
-    }
-}
-
-async function fetchMovieTorrents(movieId) {
-    try {
-        const response = await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`);
-        const data = await response.json();
-        const movie = data.data.movie;
-        const qualityContainer = document.getElementById('quality-container');
-
-        if (movie && movie.torrents.length > 0) {
-            movie.torrents.forEach(torrent => {
-                const p = document.createElement('p');
-                p.textContent = `${torrent.quality} (${torrent.size}) - تحميل`;
-                p.style.cursor = 'pointer';
-                p.onclick = function() {
-                    window.location.href = torrent.url;
-                };
-                qualityContainer.appendChild(p);
-            });
-        } else {
-            qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
-        }
-    } catch (error) {
-        console.error('Error fetching movie details:', error);
-    }
-}
+    })
+    .catch(error => console.error('Error fetching IMDb ID:', error));
     </script>
 </body>
 </html>
