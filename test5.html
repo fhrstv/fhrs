@@ -80,6 +80,7 @@
     </div>
 
     <script>
+
 const movieFrame = document.getElementById('movieFrame');
 movieFrame.src = "https://dl.vidsrc.vip/loading"; // رابط افتراضي أو رسالة تحميل
 
@@ -91,7 +92,12 @@ if (!tmdbId) {
 } else {
   // جلب IMDb ID مباشرة بعد التحقق من وجود tmdb_id
   fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('فشل في جلب بيانات الفيلم');
+      }
+      return response.json();
+    })
     .then(data => {
       const imdbId = data.imdb_id;
       if (!imdbId) {
@@ -121,7 +127,12 @@ function handleAdditionalData(imdbId) {
     const movieList = document.getElementById('movies');
 
     fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(query)}`)
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('فشل في جلب قائمة الأفلام');
+        }
+        return response.json();
+      })
       .then(data => {
         const movies = data.data.movies;
         movieList.innerHTML = '';
@@ -146,7 +157,12 @@ function handleAdditionalData(imdbId) {
 
 function fetchMovieTorrents(movieId) {
   fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('فشل في جلب تفاصيل الفيلم');
+      }
+      return response.json();
+    })
     .then(data => {
       const movie = data.data.movie;
       const qualityContainer = document.getElementById('quality-container');
@@ -170,6 +186,7 @@ function fetchMovieTorrents(movieId) {
     })
     .catch(error => console.error('Error fetching movie details:', error));
 }
+
     </script>
 </body>
 </html>
