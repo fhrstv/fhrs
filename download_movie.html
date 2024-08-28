@@ -147,6 +147,47 @@ h2 {
          1px  1px 0 #000000; /* إضافة حواف سوداء */
 }
 
+
+
+
+
+#quality-container {
+    margin-top: 20px;
+    display: flex; /* استخدم flex بدلاً من inline-flex */
+    flex-wrap: wrap;
+    gap: 10px; /* المسافة بين الأزرار */
+    justify-content: center; /* محاذاة الأزرار في وسط الحاوية */
+}
+
+#quality-container button {
+    background-color: #007bff; /* لون الخلفية الأساسي */
+    color: white; /* لون النص */
+    border: none; /* إزالة الحدود */
+    border-radius: 5px; /* حواف دائرية */
+    padding: 8px 12px; /* حجم الحشو الداخلي مع تقليل الحجم لجعل الأزرار أصغر */
+    cursor: pointer; /* تغيير شكل المؤشر عند المرور على الزر */
+    font-size: 1rem; /* حجم النص باستخدام وحدة نسبية */
+    transition: background-color 0.3s ease; /* تأثير التحويل */
+    text-align: center; /* محاذاة النص في الوسط */
+    flex: 1 1 auto; /* نمط المرونة يسمح للأزرار بالتمدد والتقلص */
+    min-width: 100px; /* الحد الأدنى لعرض الزر */
+    max-width: 25%; /* الحد الأقصى لعرض الزر كنسبة مئوية من الحاوية */
+    box-sizing: border-box; /* ضمان احتساب الحشو والحدود في العرض الكلي */
+}
+
+#quality-container button:hover {
+    background-color: #0056b3; /* لون الخلفية عند المرور */
+}
+
+#quality-container button:active {
+    background-color: #004494; /* لون الخلفية عند الضغط */
+}
+
+#quality-container p {
+    font-size: 1rem; /* حجم النص باستخدام وحدة نسبية */
+    color: #333;
+}
+
     </style>
 </head>
 <b href="/">
