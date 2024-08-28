@@ -209,7 +209,7 @@ img {
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
 
 async function fetchMovieDetails(tmdbId) {
-  const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=ar`;
+  const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=en`;
 
   try {
     const response = await fetch(url);
