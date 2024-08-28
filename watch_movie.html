@@ -307,7 +307,7 @@ async function displayMovieDetails() {
 document.getElementById('downloadBtn').addEventListener('click', function() {
             const tmdbId = getQueryParameter('tmdb_id');
             if (tmdbId) {
-                window.location.href = `download_serie?tmdb_id=${tmdbId}`;
+                window.location.href = `download_movie?tmdb_id=${tmdbId}`;
             } else {
                 alert('لا يوجد TMDB ID في عنوان URL.');
             }
