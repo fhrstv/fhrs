@@ -248,7 +248,7 @@ function getQueryParameter(name) {
 }
 
 async function fetchSeriesDetails(tmdbId) {
-    const url = `https://api.themoviedb.org/3/tv/${tmdbId}?api_key=${apiKey}&language=ar`;
+    const url = `https://api.themoviedb.org/3/tv/${tmdbId}?api_key=${apiKey}&language=en`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
