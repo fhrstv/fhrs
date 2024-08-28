@@ -32,17 +32,17 @@
         }
         
         #iframe-container {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            
-        }
+    position: relative;
+    width: 100%;
+    height: auto; /* بدل تحديد ارتفاع ثابت */
+    overflow: visible; /* تغيير overflow إلى visible */
+}
         iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            pointer-events: auto;
-        }
+    width: 100%;
+    height: 500px; /* تحديد ارتفاع يسمح بالتمرير إذا كان المحتوى يتجاوز هذا الارتفاع */
+    border: none;
+    pointer-events: auto;
+}
         
         #overlay {
             position: absolute;
