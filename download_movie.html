@@ -6,23 +6,23 @@
     <title>تضمين فيديو</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #141414;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            overflow-x: hidden;
-            touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
-        }
-        header {
-            text-align: center;
-            font-size: 3em;
-            color: red;
-            margin: 20px 0;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-            cursor: pointer;
-        }
+        font-family: 'Arial', sans-serif;
+    background-color: #141414;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+}
+header {
+    text-align: center; /* توسيط النص */
+    font-size: 3em; /* حجم الخط الكبير */
+    color: red; /* اللون الأحمر للنص */
+    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
+}
 
         #container {
             max-width: 800px;
@@ -32,17 +32,17 @@
         }
         
         #iframe-container {
-    position: relative;
-    width: 100%;
-    height: auto; /* بدل تحديد ارتفاع ثابت */
-    overflow: visible; /* تغيير overflow إلى visible */
-}
+            position: relative;
+            width: 100%;
+            height: 500px; /* يمكن تعديل الارتفاع حسب الحاجة */
+            overflow: hidden; /* يمنع التمرير */
+        }
         iframe {
-    width: 100%;
-    height: 500px; /* تحديد ارتفاع يسمح بالتمرير إذا كان المحتوى يتجاوز هذا الارتفاع */
-    border: none;
-    pointer-events: auto;
-}
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: auto; /* يتيح التفاعل مع المحتوى داخل iframe */
+        }
         
         #overlay {
             position: absolute;
