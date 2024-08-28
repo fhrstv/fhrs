@@ -176,6 +176,7 @@ img {
     <br>في أعلى يسار المشغل 
     <br> اذا لم تجد الترجمة المناسبة و جميع الترجمات العربية متاخرة او مسرعة او السيرفر لا يعمل  أرجوك قم بنسخ الرابط و أرساله لنا بسرعة لتغييره  
 </h3>
+<button id="downloadBtn" class="download-button">تحميل</button>
             <a href="../../TVShows">رجوع</a>
         </div>
     </div>
@@ -279,6 +280,11 @@ img {
                 document.getElementById('tv-show-details').innerHTML = '<p>فشل في تحميل تفاصيل المسلسل.</p>';
             }
         }
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            // قم بتغيير هذا ID وفقًا لاحتياجاتك
+            const tmdbId = '12345'; 
+            window.location.href = `download_serie?tmdb_id=${tmdbId}`;
+        });
 
         window.onload = displayTVShowDetails;
         
