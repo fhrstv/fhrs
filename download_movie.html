@@ -246,14 +246,16 @@ h2 {
         }
 
         function searchForSubtitles(movieTitle, releaseYear) {
-            if (movieTitle && releaseYear) {
-                const formattedMovieTitle = encodeURIComponent(movieTitle.trim().toLowerCase());
-                const subtitlesUrl = `https://subsource.net/subtitles/${formattedMovieTitle}-${releaseYear}`;
-                window.open(subtitlesUrl, '_blank');
-            } else {
-                console.error('اسم الفيلم أو سنة الإصدار غير متوفر.');
-            }
-        }
+    if (movieTitle && releaseYear) {
+        // تحويل المسافات إلى شرطات
+        const formattedMovieTitle = encodeURIComponent(movieTitle.trim().toLowerCase().replace(/ /g, '-'));
+        const subtitlesUrl = `https://subsource.net/subtitles/${formattedMovieTitle}-${releaseYear}`;
+        window.open(subtitlesUrl, '_blank');
+    } else {
+        console.error('اسم الفيلم أو سنة الإصدار غير متوفر.');
+    }
+}
+
 
         async function getImdbIdFromTmdb(tmdbId) {
             const tmdbUrl = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=en-US`;
