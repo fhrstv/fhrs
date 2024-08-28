@@ -280,10 +280,19 @@ img {
                 document.getElementById('tv-show-details').innerHTML = '<p>فشل في تحميل تفاصيل المسلسل.</p>';
             }
         }
+
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
         document.getElementById('downloadBtn').addEventListener('click', function() {
-            // قم بتغيير هذا ID وفقًا لاحتياجاتك
-            const tmdbId = '12345'; 
-            window.location.href = `download_serie?tmdb_id=${tmdbId}`;
+            const tmdbId = getQueryParameter('tmdb_id');
+            if (tmdbId) {
+                window.location.href = `download_serie?tmdb_id=${tmdbId}`;
+            } else {
+                alert('لا يوجد TMDB ID في عنوان URL.');
+            }
         });
 
         window.onload = displayTVShowDetails;
