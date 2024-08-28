@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تضمين فيديو</title>
+    <style>
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        #series-info {
+            margin-bottom: 20px;
+        }
+        #iframe-container {
+            position: relative;
+            width: 100%;
+            height: 500px; /* يمكن تعديل الارتفاع حسب الحاجة */
+            overflow: hidden; /* يمنع التمرير */
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: auto; /* يتيح التفاعل مع المحتوى داخل iframe */
+        }
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: red;
+            opacity: 0; /* الافتراضي هو عدم الظهور */
+            z-index: 10; /* تأكد من أن العنصر يكون فوق iframe */
+            pointer-events: none; /* يسمح بتفاعل المستخدم مع iframe من خلال overlay */
+        }
+        #controls {
+            margin: 20px 0;
+        }
+        select {
+            margin-right: 10px;
+        }
+        /* تنسيق حاوية المعلومات */
+#series-info {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* تنسيق عنوان المسلسل */
+#series-title {
+    font-size: 24px; /* حجم الخط */
+    font-weight: bold; /* وزن الخط */
+    color: #333; /* لون النص */
+    margin: 10px 0; /* هامش فوق وتحت النص */
+}
+
+/* تنسيق تاريخ الإصدار */
+#release-date {
+    font-size: 18px; /* حجم الخط */
+    color: #666; /* لون النص */
+    margin: 5px 0; /* هامش فوق وتحت النص */
+}
+
+
+#overlay {
+  
+    background: rgba(0, 0, 0, 0.7); /* خلفية مظللة */
+    display: flex; /* استخدام flexbox لمحاذاة المحتوى */
+    justify-content: center; /* محاذاة المحتوى أفقياً في المنتصف */
+    align-items: center; /* محاذاة المحتوى عمودياً في المنتصف */
+    opacity: 0; /* بدءًا من حالة الإخفاء */
+    transition: opacity 0.5s ease; /* تأثير التلاشي */
+}
+
+#overlay div {
+    color: white !important; /* ضمان تطبيق اللون */
+    font-size: 24px;
+    font-family: Arial, sans-serif; /* تحديد نوع الخط */
+    text-align: center; /* محاذاة النص في المنتصف */
+    padding: 20px; /* إضافة حشوة لتوفير مساحة حول النص */
+}
+
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="series-info">
+            <h1 id="series-title">عنوان المسلسل</h1>
+            <p id="release-date">تاريخ الإصدار: غير متوفر</p>
+        </div>
+        <div id="controls">
+            <label for="season-select">اختر الموسم:</label>
+            <select id="season-select"></select>
+            
+            <label for="episode-select">اختر الحلقة:</label>
+            <select id="episode-select"></select>
+        </div>
+        <div id="iframe-container">
+            <iframe id="video-iframe" src="" frameborder="0"></iframe>
+            <div id="overlay"></div>
+        </div>
+
+        <button id="subtitle-button">تحميل الترجمة</button>
+
+        
+    </div>
+
+    <script>
+const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // مفتاح API الخاص بك
+let tmdbId = getQueryParameter('tmdb_id');
+let episodesPerSeason = {};
+
+function getQueryParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+async function fetchSeriesDetails(tmdbId) {
+    const url = `https://api.themoviedb.org/3/tv/${tmdbId}?api_key=${apiKey}&language=ar`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('فشل في جلب تفاصيل المسلسل.');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('خطأ في جلب تفاصيل المسلسل:', error);
+        return null;
+    }
+}
+
+async function fetchSeasonDetails(tmdbId, seasonNumber) {
+    const url = `https://api.themoviedb.org/3/tv/${tmdbId}/season/${seasonNumber}?api_key=${apiKey}&language=ar`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('فشل في جلب تفاصيل الموسم.');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('خطأ في جلب تفاصيل الموسم:', error);
+        return null;
+    }
+}
+
+function searchForSubtitles(seriesName, seasonNumber) {
+    if (seriesName && seasonNumber) {
+        const formattedSeriesName = encodeURIComponent(seriesName.trim().toLowerCase());
+        const subtitlesUrl = `https://subsource.net/subtitles/${formattedSeriesName}/season-${seasonNumber}`;
+        window.open(subtitlesUrl, '_blank');
+    } else {
+        console.error('اسم المسلسل أو رقم الموسم غير متوفر.');
+    }
+}
+
+function formatReleaseDate(dateString) {
+    if (dateString) {
+        const year = new Date(dateString).getFullYear();
+        return year;
+    }
+    return 'غير متوفر';
+}
+
+async function populateSeasonAndEpisodeSelectors() {
+    const seriesDetails = await fetchSeriesDetails(tmdbId);
+    if (seriesDetails && seriesDetails.seasons) {
+        const seasonSelect = document.getElementById('season-select');
+        const episodeSelect = document.getElementById('episode-select');
+        const subtitleButton = document.getElementById('subtitle-button');
+
+        // Clear existing options
+        seasonSelect.innerHTML = '';
+        episodeSelect.innerHTML = '';
+
+        // Update series info on the page
+        document.getElementById('series-title').textContent = seriesDetails.name || 'غير متوفر';
+        document.getElementById('release-date').textContent = formatReleaseDate(seriesDetails.first_air_date) || 'غير متوفر';
+
+        let seasons = [];
+        for (const season of seriesDetails.seasons) {
+            if (season.air_date && new Date(season.air_date) <= new Date() && season.season_number > 0) {
+                seasons.push(season.season_number);
+            }
+        }
+
+        seasons.sort((a, b) => a - b);
+
+        for (const seasonNumber of seasons) {
+            const seasonOption = document.createElement('option');
+            seasonOption.value = seasonNumber;
+            seasonOption.textContent = `الموسم ${seasonNumber}`;
+            seasonSelect.appendChild(seasonOption);
+
+            const seasonDetails = await fetchSeasonDetails(tmdbId, seasonNumber);
+            if (seasonDetails) {
+                episodesPerSeason[seasonNumber] = seasonDetails.episodes.length;
+            }
+        }
+
+        seasonSelect.addEventListener('change', () => {
+            populateEpisodes(seasonSelect.value);
+        });
+
+        episodeSelect.addEventListener('change', updateIframe);
+
+        if (seasonSelect.options.length > 0) {
+            seasonSelect.value = seasonSelect.options[0].value;
+            populateEpisodes(seasonSelect.value);
+            episodeSelect.value = 1;
+            updateIframe();
+        }
+
+        subtitleButton.addEventListener('click', () => {
+            searchForSubtitles(seriesDetails.name, seasonSelect.value);
+        });
+    }
+}
+
+function populateEpisodes(seasonNumber) {
+    const episodeSelect = document.getElementById('episode-select');
+    episodeSelect.innerHTML = ''; // Clear existing options
+
+    for (let i = 1; i <= episodesPerSeason[seasonNumber]; i++) {
+        const episodeOption = document.createElement('option');
+        episodeOption.value = i;
+        episodeOption.textContent = `حلقة ${i}`;
+        episodeSelect.appendChild(episodeOption);
+    }
+
+    updateIframe();
+}
+
+function updateIframe() {
+    const season = document.getElementById('season-select').value;
+    const episode = document.getElementById('episode-select').value;
+    const iframe = document.getElementById('video-iframe');
+
+    if (season && episode) {
+        iframe.src = `https://vid2c.xyz/t/${tmdbId}/${season}/${episode}`;
+    }
+}
+
+function initialize() {
+    if (tmdbId) {
+        populateSeasonAndEpisodeSelectors();
+    } else {
+        document.getElementById('container').innerHTML = '<p>معرف المسلسل غير متوفر.</p>';
+    }
+}
+const overlay = document.getElementById('overlay');
+const overlayText = document.createElement('div');
+overlayText.textContent = 'الرجاء الانتظار قليلا';
+overlay.appendChild(overlayText);
+
+// Set the overlay to be visible initially
+overlay.style.opacity = 1;
+
+// Add event listeners to season and episode select elements
+document.getElementById('season-select').addEventListener('change', () => {
+  overlay.style.opacity = 1; // Show overlay
+});
+
+document.getElementById('episode-select').addEventListener('change', () => {
+  overlay.style.opacity = 1; // Show overlay
+});
+
+// Add an event listener to the iframe to hide the overlay when the content is loaded
+document.getElementById('video-iframe').addEventListener('load', () => {
+  overlay.style.opacity = 0; // Hide overlay
+});
+
+initialize();
+
+    </script>
+</body>
+</html>
