@@ -32,11 +32,11 @@ header {
         }
         
         #iframe-container {
-    position: relative;
-    width: 100%;
-    height: 500px; /* يمكنك تعديل الارتفاع حسب الحاجة */
-    overflow: auto; /* يسمح بالتمرير */
-}
+            position: relative;
+            width: 100%;
+            height: 500px; /* يمكن تعديل الارتفاع حسب الحاجة */
+            overflow: auto; /* يمنع التمرير */
+        }
         iframe {
             width: 100%;
             height: 100%;
@@ -63,6 +63,7 @@ header {
             align-items: center;
             opacity: 0;
             transition: opacity 0.5s ease;
+            pointer-events: none;
         }
 
         #overlay div {
