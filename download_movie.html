@@ -3,163 +3,323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحتي الخاصة</title>
+    <title>تضمين فيديو</title>
     <style>
         body {
+            font-family: 'Arial', sans-serif;
+            background-color: #141414;
+            color: #fff;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
         }
         header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
             text-align: center;
-            font-size: 24px;
+            font-size: 3em;
+            color: red;
+            margin: 20px 0;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
         }
-        .content {
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
             padding: 20px;
             text-align: center;
         }
+        
+        #iframe-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+        }
         iframe {
             width: 100%;
-            height: 600px;
+            height: 100%;
             border: none;
-            margin-top: 20px;
+            pointer-events: auto;
         }
-        .subtitle-box, .torrent-box, .direct-download-box {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #333;
+        
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #overlay div {
+            color: white !important;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ffffff;
+            display: block;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: red;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-size: 25px;
+            text-align: center;
+            margin: 20px auto;
+            width: 60%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        a:hover {
+            transform: scale(1.05) translateZ(15px);
+            background-color: darkred;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        #subtitle-button {
+            background-color: #00bfff;
             color: #fff;
-            display: inline-block;
+            padding: 10px 20px;
+            border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin: 30px auto;
+            display: block;
+            width: 50%;
+            font-size: 18px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .subtitle-box:hover, .torrent-box:hover, .direct-download-box:hover {
-            background-color: #555;
+
+        #subtitle-button:hover {
+            background-color: #009acd;
+            transform: scale(1.05) translateZ(15px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
         }
-        #movies, #quality-container {
-            margin-top: 20px;
-        }
-        #movies li, #quality-container button {
-            background-color: #555;
-            color: #fff;
-            margin: 5px 0;
-            padding: 10px;
-            list-style: none;
-            cursor: pointer;
-        }
-        #movies li:hover, #quality-container button:hover {
-            background-color: #777;
-        }
+
+        #movie-title {
+            color: #ffffff; /* لون النص أبيض */
+    font-size: 30px;
+    margin: 20px auto;
+    max-width: 80%;
+    text-align: center;
+    line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
+}
+
+#release-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    direction: rtl;
+}
+
+h2 {
+    color: #ffffff;
+    font-size: 30px;
+    text-align: center;
+    line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #ff0000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #ff0000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
+}
+
     </style>
 </head>
+<b href="/">
+    <header>فهرس</header>
+</b>
 <body>
-    <header>
-        مرحباً بكم في صفحتي الخاصة
-    </header>
-
-    <div class="content">
-        <p>هنا يمكن أن تضع محتوى خاص بك مثل نصوص، صور، أو أي شيء تريده.</p>
-
-        <iframe id="movieFrame" allowfullscreen></iframe>
-        
-        <div class="subtitle-box" id="subtitleBox">
-            حمل الترجمة
+    <div id="container">
+        <div id="movie-info">
+            <h1 id="movie-title">عنوان الفيلم</h1>
+            <p id="release-date">تاريخ الإصدار: غير متوفر</p>
+        </div>
+        <h2>تحميل من التورنت</h2>
+        <div id="quality-container"></div>
+<h2>تحميل رابط مباشر</h2>
+        <div id="iframe-container">
+            <iframe id="video-iframe" src="" frameborder="0"></iframe>
+            <div id="overlay">
+                <div>الرجاء الانتظار قليلا</div>
+            </div>
         </div>
 
-        <div id="subtitles-container"></div>
+        <button id="subtitle-button">تحميل الترجمة</button>
 
-        <div id="loadingMessage">يرجى الانتظار، سوف يظهر رابط المباشر بعد قليل...</div>
-<iframe id="movieFrame" style="display:none;"></iframe>
-
-        <ul id="movies"></ul>
-        <div id="quality-container"></div>
+        <a href="watch_movie">رجوع</a>
     </div>
 
     <script>
-const urlParams = new URLSearchParams(window.location.search);
-const tmdbId = urlParams.get('tmdb_id');
+ const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // مفتاح API الخاص بك
+        const tmdbId = getQueryParameter('tmdb_id');
 
-if (!tmdbId) {
-  alert('TMDB ID غير موجود في الـ URL');
-}
-
-const loadingMessage = document.getElementById('loadingMessage');
-const movieFrame = document.getElementById('movieFrame');
-
-// إخفاء iframe حتى يتم تحميله بالكامل
-movieFrame.style.display = 'none';
-
-fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=cf64a661774f647b7513facb9f1e55e5`)
-  .then(response => response.json())
-  .then(data => {
-    const imdbId = data.imdb_id;
-    if (!imdbId) {
-      alert('IMDb ID غير موجود في بيانات الفيلم');
-    }
-
-    // إظهار الرسالة عند بدء تحميل iframe
-    loadingMessage.style.display = 'block';
-
-    // تعيين src للـ iframe بشكل غير مرئي ثم إظهاره بعد التحميل
-    movieFrame.src = `https://dl.vidsrc.vip/movie/${imdbId}`;
-    movieFrame.onload = function() {
-      loadingMessage.style.display = 'none';
-      movieFrame.style.display = 'block'; // عرض iframe بعد التحميل
-    };
-    
-    document.getElementById('subtitleBox').onclick = function() {
-      const subtitleUrl = `https://www.opensubtitles.org/ar/search2/sublanguageid-all/moviename-${imdbId}`;
-      window.location.href = subtitleUrl;
-    }
-
-    // تحميل جودات التورنت وعرضها مباشرة في الصفحة
-    fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(imdbId)}`)
-      .then(response => response.json())
-      .then(data => {
-        const movies = data.data.movies;
-        if (movies && movies.length > 0) {
-          const movie = movies[0];
-          fetchMovieTorrents(movie.id);
-        } else {
-          document.getElementById('quality-container').innerHTML = '<p>لم يتم العثور على أفلام</p>';
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
         }
-      })
-      .catch(error => console.error('Error fetching movies:', error));
 
-    function fetchMovieTorrents(movieId) {
-      fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`)
-        .then(response => response.json())
-        .then(data => {
-          const movie = data.data.movie;
-          const qualityContainer = document.getElementById('quality-container');
-          qualityContainer.innerHTML = '';
+        async function fetchMovieDetails(tmdbId) {
+            const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=ar`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('فشل في جلب تفاصيل الفيلم.');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('خطأ في جلب تفاصيل الفيلم:', error);
+                return null;
+            }
+        }
 
-          if (movie && movie.torrents.length > 0) {
-            movie.torrents.forEach(torrent => {
-              const button = document.createElement('button');
-              button.textContent = `${torrent.quality} (${torrent.size})`;
-              button.setAttribute('data-url', torrent.url);
-              qualityContainer.appendChild(button);
+        function formatReleaseDate(dateString) {
+            if (dateString) {
+                const year = new Date(dateString).getFullYear();
+                return year;
+            }
+            return 'غير متوفر';
+        }
 
-              button.addEventListener('click', function() {
-                const torrentUrl = this.getAttribute('data-url');
-                window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
-              });
-            });
-          } else {
-            qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
-          }
-        })
-        .catch(error => console.error('Error fetching movie details:', error));
-    }
-  })
-  .catch(error => console.error('Error fetching movie details:', error));
+        function searchForSubtitles(movieTitle, releaseYear) {
+            if (movieTitle && releaseYear) {
+                const formattedMovieTitle = encodeURIComponent(movieTitle.trim().toLowerCase());
+                const subtitlesUrl = `https://subsource.net/subtitles/${formattedMovieTitle}-${releaseYear}`;
+                window.open(subtitlesUrl, '_blank');
+            } else {
+                console.error('اسم الفيلم أو سنة الإصدار غير متوفر.');
+            }
+        }
+
+        async function getImdbIdFromTmdb(tmdbId) {
+            const tmdbUrl = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=en-US`;
+            try {
+                const response = await fetch(tmdbUrl);
+                if (!response.ok) {
+                    throw new Error('فشل في جلب بيانات TMDB.');
+                }
+                const data = await response.json();
+                return data.imdb_id;
+            } catch (error) {
+                console.error('خطأ في جلب IMDb ID:', error);
+                return null;
+            }
+        }
+
+        async function fetchMovies(imdbId) {
+            try {
+                const response = await fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(imdbId)}`);
+                if (!response.ok) {
+                    throw new Error('فشل في جلب بيانات الأفلام.');
+                }
+                const data = await response.json();
+                const movies = data.data.movies;
+                
+                if (movies && movies.length > 0) {
+                    const movie = movies[0];
+                    fetchMovieTorrents(movie.id);
+                } else {
+                    document.getElementById('quality-container').innerHTML = '<p>لم يتم العثور على أفلام</p>';
+                }
+            } catch (error) {
+                console.error('خطأ في جلب الأفلام:', error);
+            }
+        }
+
+        async function fetchMovieTorrents(movieId) {
+            try {
+                const response = await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${movieId}`);
+                if (!response.ok) {
+                    throw new Error('فشل في جلب تفاصيل الفيلم.');
+                }
+                const data = await response.json();
+                const movie = data.data.movie;
+                const qualityContainer = document.getElementById('quality-container');
+                qualityContainer.innerHTML = '';
+
+                if (movie && movie.torrents.length > 0) {
+                    movie.torrents.forEach(torrent => {
+                        const button = document.createElement('button');
+                        button.textContent = `${torrent.quality} (${torrent.size})`;
+                        button.setAttribute('data-url', torrent.url);
+                        qualityContainer.appendChild(button);
+
+                        button.addEventListener('click', function() {
+                            const torrentUrl = this.getAttribute('data-url');
+                            window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
+                        });
+                    });
+                } else {
+                    qualityContainer.innerHTML = '<p>لا توجد جودات متاحة</p>';
+                }
+            } catch (error) {
+                console.error('خطأ في جلب تفاصيل الفيلم:', error);
+            }
+        }
+
+        async function displayMovieDetails() {
+            if (tmdbId) {
+                const movieDetails = await fetchMovieDetails(tmdbId);
+                if (movieDetails) {
+                    document.getElementById('movie-title').textContent = movieDetails.title || 'غير متوفر';
+                    document.getElementById('release-date').textContent = formatReleaseDate(movieDetails.release_date) || 'غير متوفر';
+                    document.getElementById('video-iframe').src = `https://dl.vidsrc.vip/movie/${tmdbId}`;
+
+                    // Add event listener for subtitle button
+                    document.getElementById('subtitle-button').addEventListener('click', () => {
+                        searchForSubtitles(movieDetails.title, new Date(movieDetails.release_date).getFullYear());
+                    });
+
+                    // Get IMDb ID and fetch YTS movies
+                    const imdbId = await getImdbIdFromTmdb(tmdbId);
+                    if (imdbId) {
+                        fetchMovies(imdbId);
+                    } else {
+                        document.getElementById('quality-container').innerHTML = '<p>لم يتم العثور على IMDb ID</p>';
+                    }
+                } else {
+                    document.getElementById('container').innerHTML = '<p>فشل في تحميل تفاصيل الفيلم.</p>';
+                }
+            } else {
+                document.getElementById('container').innerHTML = '<p>معرف الفيلم غير متوفر.</p>';
+            }
+        }
+
+        const overlay = document.getElementById('overlay');
+        document.getElementById('video-iframe').addEventListener('load', () => {
+            overlay.style.opacity = 0; // Hide overlay
+        });
+
+        // Show overlay while loading
+        overlay.style.opacity = 1;
+
+        displayMovieDetails();
 
 
-
+     
     </script>
 </body>
 </html>
