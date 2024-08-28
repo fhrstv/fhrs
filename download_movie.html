@@ -34,14 +34,16 @@ header {
         #iframe-container {
             position: relative;
             width: 100%;
-            height: 500px; /* يمكن تعديل الارتفاع حسب الحاجة */
-            overflow: hidden; /* يمنع التمرير */
+            height: 0; /* يمكن تعديل الارتفاع حسب الحاجة */
+
         }
         iframe {
+            position: absolute;
             width: 100%;
             height: 100%;
-            border: none;
-            pointer-events: auto; /* يتيح التفاعل مع المحتوى داخل iframe */
+            top: 0;
+            left: 0;
+
         }
         
         #overlay {
