@@ -277,7 +277,7 @@ async function fetchSeasonDetails(tmdbId, seasonNumber) {
 
 function searchForSubtitles(seriesName, seasonNumber) {
     if (seriesName && seasonNumber) {
-        const formattedSeriesName = encodeURIComponent(seriesName.trim().toLowerCase());
+        const formattedSeriesName = encodeURIComponent(SeriesName.trim().toLowerCase().replace(/ /g, '-'));
         const subtitlesUrl = `https://subsource.net/subtitles/${formattedSeriesName}/season-${seasonNumber}`;
         window.open(subtitlesUrl, '_blank');
     } else {
