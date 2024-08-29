@@ -35,6 +35,7 @@ function sortShows(shows, query) {
         return b.popularity - a.popularity;
     });
 }
+
 function updateShowList(shows, query) {
     const sortedShows = sortShows(shows, query);
     const showList = document.querySelector('.movie-list');
@@ -151,10 +152,10 @@ function updatePoster(show) {
     });
 }
 
-// جلب المسلسلات الشعبية
-async function fetchPopularShows() {
+// جلب المسلسلات التي تُعرض اليوم
+async function fetchAiringTodayShows() {
     try {
-        const response = await fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=en-US`);
+        const response = await fetch(`https://api.themoviedb.org/3/tv/airing_today?api_key=${apiKey}&language=en-US`);
         if (!response.ok) throw new Error('فشل في جلب المسلسلات.');
         const data = await response.json();
         shows = data.results;
@@ -173,15 +174,11 @@ window.onload = async () => {
         anchor.href = anchor.href.replace('.html', '');
     });
 
-    fetchPopularShows();
+    fetchAiringTodayShows(); // استدعاء الوظيفة الجديدة لجلب المسلسلات المعروضة اليوم
     displayShows();
 };
-
-
 
 // وظيفة لتحديث قائمة المسلسلات (تأكد من أنها متوافقة مع المسلسلات)
 function displayShows() {
     // تأكد من تكامل هذه الوظيفة مع طريقة العرض الحالية
 }
-
-
