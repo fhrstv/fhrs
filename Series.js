@@ -3,7 +3,6 @@ let allShows = [];
 let hideTimeout;
 let shows = [];
 let currentIndex = 0;
-let displayedShows = [];
 
 // بحث عن المسلسلات
 async function searchShows(query) {
@@ -75,23 +74,22 @@ function updateShowList(shows, query) {
     showList.scrollTop = 0;
 }
 
-let inputTimeout; // تعريف متغير لتخزين الـ timeout
+let inputTimeout;
 
 document.getElementById('search-input').addEventListener('input', async (event) => {
-    clearTimeout(inputTimeout); // إلغاء أي timeout سابق
+    clearTimeout(inputTimeout);
     const query = event.target.value.trim();
     
-    inputTimeout = setTimeout(async () => { // إنشاء timeout جديد
+    inputTimeout = setTimeout(async () => {
         if (query.length > 0) {
-            allShows = await searchShows(query); // تغيير "searchMovies" إلى "searchShows"
-            updateShowList(allShows, query); // تغيير "updateMovieList" إلى "updateShowList"
+            allShows = await searchShows(query);
+            updateShowList(allShows, query);
             document.querySelector('.movie-list').style.display = 'block';
         } else {
-            // إذا كان مربع البحث فارغًا، إخفاء القائمة المنسدلة
             document.querySelector('.movie-list').style.display = 'none';
             allShows = [];
         }
-    }, 300); // تأخير لمدة 300 مللي ثانية (يمكنك تعديلها حسب الحاجة)
+    }, 300);
 });
 
 // إخفاء القائمة عند النقر خارجها
@@ -174,11 +172,5 @@ window.onload = async () => {
         anchor.href = anchor.href.replace('.html', '');
     });
 
-    fetchAiringTodayShows(); // استدعاء الوظيفة الجديدة لجلب المسلسلات المعروضة اليوم
-    displayShows();
+    fetchAiringTodayShows();
 };
-
-// وظيفة لتحديث قائمة المسلسلات (تأكد من أنها متوافقة مع المسلسلات)
-
-    // تأكد من تكامل هذه الوظيفة مع طريقة العرض الحالية
-}
