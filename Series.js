@@ -155,7 +155,7 @@ function updatePoster(show) {
 // جلب المسلسلات التي تُعرض اليوم
 async function fetchAiringTodayShows() {
     try {
-        const response = await fetch(`https://api.themoviedb.org/3/tv/airing_today?api_key=${apiKey}&language=en-US`);
+        const response = await fetch(`https://api.themoviedb.org/3/tv/airing_today?api_key=${apiKey}&language=en`);
         if (!response.ok) throw new Error('فشل في جلب المسلسلات.');
         const data = await response.json();
         shows = data.results;
