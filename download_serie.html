@@ -277,8 +277,8 @@ async function fetchSeasonDetails(tmdbId, seasonNumber) {
 
 function searchForSubtitles(seriesName, seasonNumber) {
     if (seriesName && seasonNumber) {
-        // تحويل المسافات إلى شرطات
-        const formattedSeriesName = encodeURIComponent(seriesName.trim().toLowerCase().replace(/ /g, '-'));
+        // تحويل المسافات إلى شرطات وإزالة الرموز الخاصة
+        const formattedSeriesName = seriesName.trim().toLowerCase().replace(/ /g, '-').replace(/:/g, '');
         const subtitlesUrl = `https://subsource.net/subtitles/${formattedSeriesName}/season-${seasonNumber}`;
         window.open(subtitlesUrl, '_blank');
     } else {
