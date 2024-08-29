@@ -154,16 +154,16 @@ function updatePoster(show) {
 // جلب المسلسلات الشعبية
 async function fetchPopularShows() {
     try {
-        const response = await fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=ar`);
-        if (!response.ok) throw new Error('فشل في جلب المسلسلات الشائعة.');
+        const response = await fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=en-US`);
+        if (!response.ok) throw new Error('فشل في جلب المسلسلات.');
         const data = await response.json();
-        const shows = data.results;
+        shows = data.results;
         if (shows.length > 0) {
             updatePoster(shows[0]);
             updateButtonStates();
         }
     } catch (error) {
-        console.error('خطأ في جلب المسلسلات الشائعة:', error);
+        console.error('خطأ في جلب المسلسلات:', error);
     }
 }
 
