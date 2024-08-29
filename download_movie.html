@@ -219,7 +219,7 @@ h2 {
 
         <button id="subtitle-button">تحميل الترجمة</button>
 
-        <a href="watch_movie">رجوع</a>
+        <a href="#" id="backButton">رجوع</a>
     </div>
 
     <script>
@@ -370,7 +370,25 @@ h2 {
         displayMovieDetails();
 
 
-     
+
+
+
+
+         document.getElementById('backButton').addEventListener('click', function() {
+        // الحصول على الـ URL الحالي
+        const currentUrl = new URL(window.location.href);
+        
+        // استخراج الـ tmdb_id من الـ URL
+        const tmdbId = currentUrl.searchParams.get('tmdb_id');
+        
+        // توجيه المستخدم إلى صفحة 'watch_movie' مع تمرير الـ tmdb_id
+        if (tmdbId) {
+            window.location.href = `watch_movie?tmdb_id=${tmdbId}`;
+        } else {
+            window.location.href = 'watch_movie'; // إذا لم يكن هناك tmdb_id في الـ URL
+        }
+    });
     </script>
+    
 </body>
 </html>
