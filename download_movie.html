@@ -256,7 +256,7 @@ h2 {
         function searchForSubtitles(movieTitle, releaseYear) {
     if (movieTitle && releaseYear) {
         // تحويل المسافات إلى شرطات
-        const formattedMovieTitle = encodeURIComponent(movieTitle.trim().toLowerCase().replace(/ /g, '-').replace(/:/g, '');
+        const formattedMovieTitle = encodeURIComponent(movieTitle.trim().toLowerCase().replace(/ /g, '-')).replace(/:/g, '');
         const subtitlesUrl = `https://subsource.net/subtitles/${formattedMovieTitle}-${releaseYear}`;
         window.open(subtitlesUrl, '_blank');
     } else {
