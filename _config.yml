@@ -1,0 +1,5 @@
+include:
+  - bundle.abc123.js
+
+headers:
+  - X-Robots-Tag: "noindex, nofollow, nosnippet, noarchive, notranslate, noimageindex"

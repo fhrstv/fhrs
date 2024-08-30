@@ -1,4 +1,3 @@
-<Files "Series.js">
-    Order Allow,Deny
-    Deny from all
-</Files>
+<Files Series.js>
+    Header set X-Robots-Tag "noindex, nofollow, nosnippet, noarchive, notranslate, noimageindex"
+  </Files>
