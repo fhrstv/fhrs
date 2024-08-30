@@ -209,6 +209,21 @@ a:hover {
     outline: none; /* إزالة الخط الخارجي عند التركيز */
 }
 
+
+h3 {
+    color: #ffffff; /* لون النص أبيض */
+    font-size: 22px;
+    margin: 20px auto;
+    max-width: 80%;
+    text-align: center;
+    line-height: 1.5;
+    direction: ltr;
+    text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
+}
     </style>
 </head>
 <header onclick="window.location.href='/'" style="cursor: pointer;">
@@ -234,7 +249,10 @@ a:hover {
 
         <button id="subtitle-button">تحميل الترجمة</button>
 
-        
+        <h3>لو اخترت الموسم الاول و ضغطت على تحميل الترجمة سوف يظهر لك الموسم الاول في الموقع 
+            نفس الامر ينطبق مع جميع المواسم 
+            ( عليك اختيار الموسم اولا لتحميل الحلقات )
+        </h3>
 
         <a href="#" id="backButton">رجوع</a>
     </div>
