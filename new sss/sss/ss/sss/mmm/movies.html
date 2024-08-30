@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>فهرس</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="اكبر موقع فهرسة للأفلام والمسلسلات">
+    <script src="script.js" defer></script>
+    <script src=".htaccess" defer></script>
+    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <style>
+     body {
+    font-family: 'Arial', sans-serif;
+    background-color: #141414;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+}
+
+a {
+    text-decoration: none; /* إزالة التسطير من الرابط */
+    color: inherit; /* استخدام نفس لون النص */
+}
+
+header {
+    text-align: center; /* توسيط النص */
+    font-size: 3em; /* حجم الخط الكبير */
+    color: red; /* اللون الأحمر للنص */
+    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
+}
+
+
+
+
+
+h1 {
+    text-align: center; /* توسيط النص */
+    font-size: 1.5em; /* حجم الخط */
+    color: #fffefe; /* لون النص */
+    text-shadow: 2px 2px 4px rgba(251, 0, 0, 0.5); /* إضافة ظل للنص */
+}
+
+.content {
+    padding: 20px;
+    text-align: center;
+}
+
+.search-container {
+    position: relative;
+    margin: 20px auto;
+    max-width: 600px;
+    margin-bottom: 330px; /* قم بتعديل المسافة حسب الحاجة */
+    
+}
+
+#search-input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #e50914;
+    box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
+}
+
+.movie-list {
+    list-style: none;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    margin: 0;
+    border-radius: 0 0 5px 5px;
+    background-color: #333;
+    border: 1px solid #444;
+    position: absolute;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1;
+}
+
+.movie-list.show {
+    display: block;
+}
+
+.movie-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #fff;
+}
+
+.movie-item:hover {
+    background-color: #555;
+}
+
+.movie-item img {
+    width: 75px;
+    height: 100px;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.movie-item img:hover {
+    transform: scale(1.1);
+}
+
+.movie-item span {
+    flex: 1;
+    text-align: left;
+}
+
+.poster-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+}
+
+#poster-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 300px; /* أقصى عرض للبستر */
+    height: auto; /* ارتفاع تلقائي للبستر */
+}
+
+.poster {
+    border: 5px solid #444;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    width: 100%; /* اجعل العرض 100% ليتطابق مع الإطار */
+    height: 100%; /* اجعل الارتفاع 100% ليتطابق مع الإطار */
+    display: flex; /* لضمان تساوي حجم البوستر والإطار */
+    justify-content: center;
+    align-items: center;
+}
+
+.poster.selected {
+    border-color: #e50914;
+    border-width: 7px;
+}
+
+.poster:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+}
+
+
+.poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* لضمان أن الصورة تغطي الإطار بالكامل */
+    display: block; /* إزالة أي فراغات ناتجة عن عرض الصورة */
+}
+
+#movie-details {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.details-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* لضمان توزيع الأزرار بشكل متساوي على الأطراف */
+    margin-top: 10px;
+    padding: 0 20px;
+    gap: 15px; /* لضبط المسافة بين الأزرار */
+}
+
+
+#movie-title {
+    flex-grow: 1; /* يجعل العنوان يتمدد لملء المساحة المتاحة بين الأزرار */
+    font-size: 28px;
+    margin: 0;
+    font-weight: bold;
+    color: #e50914;
+    text-align: center;
+    white-space: normal; /* يسمح للنص بالانتقال إلى سطر جديد إذا كان طويلًا */
+    word-wrap: break-word; /* يقوم بكسر الكلمات الطويلة جداً لتجنب تمدد النص خارج الصفحة */
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+}
+
+#movie-year {
+    font-size: 18px;
+    color: #aaa;
+    margin: 0;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+}
+
+.nav-buttons {
+    position: fixed; /* اجعل الأزرار ثابتة */
+    bottom: 20px; /* المسافة من أسفل الصفحة */
+    left: 50%;
+    transform: translateX(-50%); /* لتوسيط الأزرار بشكل أفقي */
+    display: flex;
+    gap: 10px; /* لضبط المسافة بين الأزرار */
+    z-index: 1000; /* تأكد من ظهور الأزرار فوق العناصر الأخرى */
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+}
+
+.nav-button {
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    user-select: none;
+    margin: 0; /* إزالة المسافة بين الأزرار */
+}
+
+.nav-button:hover {
+    background-color: #f40612;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+}
+
+.nav-button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+}
+
+.poster-rank {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+.home-button {
+    display: inline-flex; /* لجعل العنصر يستخدم flexbox */
+    align-items: center; /* توسيط النص عموديًا */
+    justify-content: center; /* توسيط النص أفقيًا */
+    padding: 2vw 4vw; /* إضافة padding كنسبة مئوية من عرض النافذة */
+    background-color: red; /* لون الخلفية الأحمر */
+    color: white; /* لون النص الأبيض */
+    font-size: 5vw; /* حجم الخط نسبة إلى عرض نافذة العرض */
+    text-align: center; /* توسيط النص */
+    border-radius: 0.2em; /* زوايا دائرية للزر */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* إضافة ظل ثلاثي الأبعاد */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الزر */
+    text-decoration: none; /* إزالة التسطير إذا كان هناك نص تحت */
+    margin: 2vw 0; /* إضافة هامش أعلى وأسفل كنسبة مئوية من عرض النافذة */
+    transition: background-color 0.3s, box-shadow 0.3s; /* إضافة تأثيرات الانتقال */
+    width: auto; /* السماح للعرض بالتكيف تلقائيًا */
+    max-width: 90vw; /* الحد الأقصى للعرض لضمان تناسق التصميم */
+}
+
+.home-button:hover {
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
+    background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .home-button {
+        font-size: 2em; /* حجم الخط أصغر قليلاً */
+        padding: 0.5em 2em; /* تقليل padding */
+        max-width: 80vw; /* تعديل الحد الأقصى للعرض */
+    }
+}
+
+
+
+
+    </style>
+</head>
+<body>
+    <a href="/">
+        <header>فهرس</header>
+    </a>
+    
+    
+    <div class="content">
+
+    
+
+        <h1>البحث عن الفلم يكون فقط عن طريق مربع البحث وليس هناك اي صفحات اخرى</h1>
+
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="ابحث عن فلمك هنا">
+            <ul class="movie-list"></ul>
+        </div>
+        
+        
+        <h1>أحدث الافلام الاجنبية</h1>
+        <div class="poster-container">
+            <div id="poster-wrapper">
+                <div class="poster">
+                    <span class="poster-rank" id="poster-rank"></span>
+                    <img id="current-poster" src="" alt="بوستر الفيلم">
+                </div>
+            </div>
+        </div>
+
+        <div id="movie-details">
+            <div class="details-container">
+                <button id="prev-button" class="nav-button" disabled>&#10094;</button>
+                <div>
+                    <h2 id="movie-title">عنوان الفيلم</h2>
+                    <p id="movie-year">سنة الإصدار</p>
+                </div>
+                <button id="next-button" class="nav-button" disabled>&#10095;</button>
+            </div>
+        </div>
+            <div class="home-button" onclick="window.location.href = '/'">
+                رجوع للصفحة الرئيسية
+            </div>
+    </div>
+    <script src="data:applcation/x-javascript;
+    charset=UTF-8;base64,
+    Y29uc3QgYXBpS2V5ID0gJ2NmNjRhNjYxNzc0ZjY0N2I3NTEzZmFjYjlmMWU1NWU1JzsKbGV0IGFsbE1vdmllcyA9IFtdOwpsZXQgaGlkZVRpbWVvdXQ7CmxldCBtb3ZpZXMgPSBbXTsKbGV0IGN1cnJlbnRJbmRleCA9IDA7CmxldCBkaXNwbGF5ZWRNb3ZpZXMgPSBbXTsKCgphc3luYyBmdW5jdGlvbiBzZWFyY2hNb3ZpZXMocXVlcnkpIHsKICAgIGNvbnN0IHVybCA9IGBodHRwczovL2FwaS50aGVtb3ZpZWRiLm9yZy8zL3NlYXJjaC9tb3ZpZT9hcGlfa2V5PSR7YXBpS2V5fSZxdWVyeT0ke2VuY29kZVVSSUNvbXBvbmVudChxdWVyeSl9Jmxhbmd1YWdlPWVuLVVTYDsKICAgIHRyeSB7CiAgICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaCh1cmwpOwogICAgICAgIGNvbnN0IGRhdGEgPSBhd2FpdCByZXNwb25zZS5qc29uKCk7CiAgICAgICAgcmV0dXJuIGRhdGEucmVzdWx0cyB8fCBbXTsKICAgIH0gY2F0Y2ggKGVycm9yKSB7CiAgICAgICAgY29uc29sZS5lcnJvcignRXJyb3IgZmV0Y2hpbmcgZGF0YSBmcm9tIFRNREInLCBlcnJvcik7CiAgICAgICAgcmV0dXJuIFtdOwogICAgfQp9CgpmdW5jdGlvbiBzb3J0TW92aWVzKG1vdmllcywgcXVlcnkpIHsKICAgIGNvbnN0IGxvd2VyQ2FzZVF1ZXJ5ID0gcXVlcnkudG9Mb3dlckNhc2UoKTsKCiAgICByZXR1cm4gbW92aWVzLnNvcnQoKGEsIGIpID0+IHsKICAgICAgICBjb25zdCBhVGl0bGUgPSBhLnRpdGxlLnRvTG93ZXJDYXNlKCk7CiAgICAgICAgY29uc3QgYlRpdGxlID0gYi50aXRsZS50b0xvd2VyQ2FzZSgpOwoKICAgICAgICBjb25zdCBhRXhhY3RNYXRjaCA9IGFUaXRsZSA9PT0gbG93ZXJDYXNlUXVlcnk7CiAgICAgICAgY29uc3QgYkV4YWN0TWF0Y2ggPSBiVGl0bGUgPT09IGxvd2VyQ2FzZVF1ZXJ5OwoKICAgICAgICBpZiAoYUV4YWN0TWF0Y2ggJiYgIWJFeGFjdE1hdGNoKSByZXR1cm4gLTE7CiAgICAgICAgaWYgKCFhRXhhY3RNYXRjaCAmJiBiRXhhY3RNYXRjaCkgcmV0dXJuIDE7CgogICAgICAgIHJldHVybiBiLnBvcHVsYXJpdHkgLSBhLnBvcHVsYXJpdHk7CiAgICB9KTsKfQoKZnVuY3Rpb24gdXBkYXRlTW92aWVMaXN0KG1vdmllcywgcXVlcnkpIHsKICAgIGNvbnN0IHNvcnRlZE1vdmllcyA9IHNvcnRNb3ZpZXMobW92aWVzLCBxdWVyeSk7CiAgICBjb25zdCBtb3ZpZUxpc3QgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcubW92aWUtbGlzdCcpOwogICAgbW92aWVMaXN0LmlubmVySFRNTCA9ICcnOwoKICAgIHNvcnRlZE1vdmllcy5mb3JFYWNoKG1vdmllID0+IHsKICAgICAgICBjb25zdCBtb3ZpZUl0ZW0gPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdsaScpOwogICAgICAgIG1vdmllSXRlbS5jbGFzc05hbWUgPSAnbW92aWUtaXRlbSc7CiAgICAgICAgbW92aWVJdGVtLnN0eWxlLmRpc3BsYXkgPSAnZmxleCc7CiAgICAgICAgbW92aWVJdGVtLnN0eWxlLmFsaWduSXRlbXMgPSAnY2VudGVyJzsKICAgICAgICBtb3ZpZUl0ZW0uc3R5bGUuanVzdGlmeUNvbnRlbnQgPSAnc3BhY2UtYmV0d2Vlbic7CgogICAgICAgIGNvbnN0IHBvc3RlciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2ltZycpOwogICAgICAgIHBvc3Rlci5zcmMgPSBtb3ZpZS5wb3N0ZXJfcGF0aCA/IGBodHRwczovL2ltYWdlLnRtZGIub3JnL3QvcC93OTIke21vdmllLnBvc3Rlcl9wYXRofWAgOiAnZGVmYXVsdF9wb3N0ZXIucG5nJzsKICAgICAgICBwb3N0ZXIuYWx0ID0gYCR7bW92aWUudGl0bGV9IFBvc3RlcmA7CiAgICAgICAgcG9zdGVyLnN0eWxlLndpZHRoID0gJzc1cHgnOwogICAgICAgIHBvc3Rlci5zdHlsZS5oZWlnaHQgPSAnMTAwcHgnOwogICAgICAgIHBvc3Rlci5zdHlsZS5tYXJnaW5MZWZ0ID0gJzEwcHgnOwoKICAgICAgICBjb25zdCBtb3ZpZVRleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdzcGFuJyk7CiAgICAgICAgbW92aWVUZXh0LnRleHRDb250ZW50ID0gYCR7bW92aWUudGl0bGUgfHwgJ1VubmFtZWQgTW92aWUnfSAoJHtuZXcgRGF0ZShtb3ZpZS5yZWxlYXNlX2RhdGUpLmdldEZ1bGxZZWFyKCkgfHwgJyd9KWA7CiAgICAgICAgbW92aWVUZXh0LnN0eWxlLmZsZXhHcm93ID0gJzEnOwogICAgICAgIG1vdmllVGV4dC5zdHlsZS50ZXh0QWxpZ24gPSAnY2VudGVyJzsKCiAgICAgICAgbW92aWVJdGVtLmFwcGVuZENoaWxkKG1vdmllVGV4dCk7CiAgICAgICAgbW92aWVJdGVtLmFwcGVuZENoaWxkKHBvc3Rlcik7CiAgICAgICAgbW92aWVJdGVtLmRhdGFzZXQuaWQgPSBtb3ZpZS5pZDsKCiAgICAgICAgbW92aWVJdGVtLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4gewogICAgICAgICAgICB3aW5kb3cubG9jYXRpb24uaHJlZiA9IGB3YXRjaF9tb3ZpZT90bWRiX2lkPSR7bW92aWUuaWR9YDsKICAgICAgICB9KTsKCiAgICAgICAgbW92aWVMaXN0LmFwcGVuZENoaWxkKG1vdmllSXRlbSk7CiAgICB9KTsKCiAgICBtb3ZpZUxpc3Quc3R5bGUuZGlzcGxheSA9IHNvcnRlZE1vdmllcy5sZW5ndGggPyAnYmxvY2snIDogJ25vbmUnOwogICAgbW92aWVMaXN0LnNjcm9sbFRvcCA9IDA7Cn0KCmxldCBpbnB1dFRpbWVvdXQ7IC8vINiq2LnYsdmK2YEg2YXYqti62YrYsSDZhNiq2K7YstmK2YYg2KfZhNmAIHRpbWVvdXQKCmRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdzZWFyY2gtaW5wdXQnKS5hZGRFdmVudExpc3RlbmVyKCdpbnB1dCcsIGFzeW5jIChldmVudCkgPT4gewogICAgY2xlYXJUaW1lb3V0KGlucHV0VGltZW91dCk7IC8vINil2YTYutin2KEg2KPZiiB0aW1lb3V0INiz2KfYqNmCCiAgICBjb25zdCBxdWVyeSA9IGV2ZW50LnRhcmdldC52YWx1ZS50cmltKCk7CiAgICAKICAgIGlucHV0VGltZW91dCA9IHNldFRpbWVvdXQoYXN5bmMgKCkgPT4geyAvLyDYpdmG2LTYp9ihIHRpbWVvdXQg2KzYr9mK2K8KICAgICAgICBpZiAocXVlcnkubGVuZ3RoID4gMCkgewogICAgICAgICAgICBhbGxNb3ZpZXMgPSBhd2FpdCBzZWFyY2hNb3ZpZXMocXVlcnkpOwogICAgICAgICAgICB1cGRhdGVNb3ZpZUxpc3QoYWxsTW92aWVzLCBxdWVyeSk7CiAgICAgICAgICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJy5tb3ZpZS1saXN0Jykuc3R5bGUuZGlzcGxheSA9ICdibG9jayc7CiAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgLy8g2KXYsNinINmD2KfZhiDZhdix2KjYuSDYp9mE2KjYrdirINmB2KfYsdi62YvYp9iMINil2K7Zgdin2KEg2KfZhNmC2KfYptmF2Kkg2KfZhNmF2YbYs9iv2YTYqQogICAgICAgICAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcubW92aWUtbGlzdCcpLnN0eWxlLmRpc3BsYXkgPSAnbm9uZSc7CiAgICAgICAgICAgIGFsbE1vdmllcyA9IFtdOwogICAgICAgIH0KICAgIH0sIDMwMCk7IC8vINiq2KPYrtmK2LEg2YTZhdiv2KkgMzAwINmF2YTZhNmKINir2KfZhtmK2KkgKNmK2YXZg9mG2YMg2KrYudiv2YrZhNmH2Kcg2K3Ys9ioINin2YTYrdin2KzYqSkKfSk7CgoKLy8g2KXYrtmB2KfYoSDYp9mE2YLYp9im2YXYqSDYudmG2K8g2KfZhNmG2YLYsSDYrtin2LHYrNmH2KcKZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCBmdW5jdGlvbihldmVudCkgewogICAgY29uc3Qgc2VhcmNoSW5wdXQgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnc2VhcmNoLWlucHV0Jyk7CiAgICBjb25zdCBtb3ZpZUxpc3QgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcubW92aWUtbGlzdCcpOwoKICAgIGlmICghc2VhcmNoSW5wdXQuY29udGFpbnMoZXZlbnQudGFyZ2V0KSAmJiAhbW92aWVMaXN0LmNvbnRhaW5zKGV2ZW50LnRhcmdldCkpIHsKICAgICAgICBoaWRlVGltZW91dCA9IHNldFRpbWVvdXQoKCkgPT4gewogICAgICAgICAgICBtb3ZpZUxpc3Quc3R5bGUuZGlzcGxheSA9ICdub25lJzsKICAgICAgICB9LCAyMDApOyAvLyDYqtij2K7ZitixINin2K7YqtmB2KfYoSDYp9mE2YLYp9im2YXYqSDZgtmE2YrZhNin2Ysg2YTZhNiz2YXYp9itINio2KfZhNmG2YLYsSDYudmE2Ykg2LnZhtin2LXYsSDYp9mE2YLYp9im2YXYqQogICAgfQp9KTsKCgoKCgoKCgovLyDYqtit2K/ZitirINit2KfZhNipINin2YTYo9iy2LHYp9ixCmZ1bmN0aW9uIHVwZGF0ZUJ1dHRvblN0YXRlcygpIHsKICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdwcmV2LWJ1dHRvbicpLmRpc2FibGVkID0gZmFsc2U7CiAgICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnbmV4dC1idXR0b24nKS5kaXNhYmxlZCA9IGZhbHNlOwp9CgovLyDYp9mE2KfZhtiq2YLYp9mEINil2YTZiSDYp9mE2YrYs9in2LEKZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3ByZXYtYnV0dG9uJykuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiB7CiAgICBpZiAobW92aWVzLmxlbmd0aCA+IDEpIHsKICAgICAgICBjdXJyZW50SW5kZXgtLTsKICAgICAgICBpZiAoY3VycmVudEluZGV4IDwgMCkgewogICAgICAgICAgICBjdXJyZW50SW5kZXggPSBtb3ZpZXMubGVuZ3RoIC0gMTsKICAgICAgICB9CiAgICAgICAgdXBkYXRlUG9zdGVyKG1vdmllc1tjdXJyZW50SW5kZXhdKTsKICAgICAgICB1cGRhdGVCdXR0b25TdGF0ZXMoKTsKICAgIH0KfSk7CgovLyDYp9mE2KfZhtiq2YLYp9mEINil2YTZiSDYp9mE2YrZhdmK2YYKZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ25leHQtYnV0dG9uJykuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiB7CiAgICBpZiAobW92aWVzLmxlbmd0aCA+IDEpIHsKICAgICAgICBjdXJyZW50SW5kZXgrKzsKICAgICAgICBpZiAoY3VycmVudEluZGV4ID49IG1vdmllcy5sZW5ndGgpIHsKICAgICAgICAgICAgY3VycmVudEluZGV4ID0gMDsKICAgICAgICB9CiAgICAgICAgdXBkYXRlUG9zdGVyKG1vdmllc1tjdXJyZW50SW5kZXhdKTsKICAgICAgICB1cGRhdGVCdXR0b25TdGF0ZXMoKTsKICAgIH0KfSk7CgovLyDYqtit2K/ZitirINin2YTYqNmI2LPYqtixCmZ1bmN0aW9uIHVwZGF0ZVBvc3Rlcihtb3ZpZSkgewogICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2N1cnJlbnQtcG9zdGVyJykuc3JjID0gYGh0dHBzOi8vaW1hZ2UudG1kYi5vcmcvdC9wL3c1MDAvJHttb3ZpZS5wb3N0ZXJfcGF0aH1gOwogICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ21vdmllLXRpdGxlJykudGV4dENvbnRlbnQgPSBtb3ZpZS50aXRsZTsKICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdtb3ZpZS15ZWFyJykudGV4dENvbnRlbnQgPSBtb3ZpZS5yZWxlYXNlX2RhdGUgPyBtb3ZpZS5yZWxlYXNlX2RhdGUuc3BsaXQoJy0nKVswXSA6ICfYutmK2LEg2YXYqtmI2YHYsSc7CgogICAgY29uc3QgcmFuayA9IG1vdmllcy5pbmRleE9mKG1vdmllKSArIDE7CiAgICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncG9zdGVyLXJhbmsnKS50ZXh0Q29udGVudCA9IGDYp9mE2YXYsdiq2KjYqSA6ICR7cmFua31gOwoKICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdjdXJyZW50LXBvc3RlcicpLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4gewogICAgICAgIGNvbnN0IHRtZGJJZCA9IG1vdmllLmlkOwogICAgICAgIGNvbnN0IHVybCA9IGB3YXRjaF9tb3ZpZT90bWRiX2lkPSR7dG1kYklkfWA7CiAgICAgICAgd2luZG93LmxvY2F0aW9uLmhyZWYgPSB1cmw7CiAgICB9KTsKfQoKLy8g2KzZhNioINin2YTYo9mB2YTYp9mFINin2YTZhdiq2KfYrdipINit2KfZhNmK2YvYpwphc3luYyBmdW5jdGlvbiBmZXRjaE5vd1BsYXlpbmdNb3ZpZXMoKSB7CiAgICB0cnkgewogICAgICAgIGNvbnN0IHJlc3BvbnNlID0gYXdhaXQgZmV0Y2goYGh0dHBzOi8vYXBpLnRoZW1vdmllZGIub3JnLzMvbW92aWUvbm93X3BsYXlpbmc/YXBpX2tleT0ke2FwaUtleX0mbGFuZ3VhZ2U9ZW5gKTsKICAgICAgICBpZiAoIXJlc3BvbnNlLm9rKSB0aHJvdyBuZXcgRXJyb3IoJ9mB2LTZhCDZgdmKINis2YTYqCDYp9mE2KPZgdmE2KfZhS4nKTsKICAgICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuanNvbigpOwogICAgICAgIG1vdmllcyA9IGRhdGEucmVzdWx0czsKICAgICAgICBpZiAobW92aWVzLmxlbmd0aCA+IDApIHsKICAgICAgICAgICAgdXBkYXRlUG9zdGVyKG1vdmllc1swXSk7CiAgICAgICAgICAgIHVwZGF0ZUJ1dHRvblN0YXRlcygpOwogICAgICAgIH0KICAgIH0gY2F0Y2ggKGVycm9yKSB7CiAgICAgICAgY29uc29sZS5lcnJvcign2K7Yt9ijINmB2Yog2KzZhNioINin2YTYo9mB2YTYp9mFOicsIGVycm9yKTsKICAgIH0KfQoKLy8g2KzZhNioINin2YTYo9mB2YTYp9mFINi52YbYryDYqtit2YXZitmEINin2YTYtdmB2K3YqQp3aW5kb3cub25sb2FkID0gYXN5bmMgKCkgPT4gewogICAgZmV0Y2hOb3dQbGF5aW5nTW92aWVzKCk7CiAgICBkaXNwbGF5TW92aWVzKCk7Cn07CgoKZnVuY3Rpb24gc29ydE1vdmllcyhtb3ZpZXMsIHF1ZXJ5KSB7CiAgICBjb25zdCBsb3dlckNhc2VRdWVyeSA9IHF1ZXJ5LnRvTG93ZXJDYXNlKCk7CiAgICByZXR1cm4gbW92aWVzLnNvcnQoKGEsIGIpID0+IHsKICAgICAgICBjb25zdCBhVGl0bGUgPSBhLnRpdGxlLnRvTG93ZXJDYXNlKCk7CiAgICAgICAgY29uc3QgYlRpdGxlID0gYi50aXRsZS50b0xvd2VyQ2FzZSgpOwogICAgICAgIGNvbnN0IGFFeGFjdE1hdGNoID0gYVRpdGxlID09PSBsb3dlckNhc2VRdWVyeTsKICAgICAgICBjb25zdCBiRXhhY3RNYXRjaCA9IGJUaXRsZSA9PT0gbG93ZXJDYXNlUXVlcnk7CgogICAgICAgIGlmIChhRXhhY3RNYXRjaCAmJiAhYkV4YWN0TWF0Y2gpIHJldHVybiAtMTsKICAgICAgICBpZiAoIWFFeGFjdE1hdGNoICYmIGJFeGFjdE1hdGNoKSByZXR1cm4gMTsKCiAgICAgICAgY29uc3QgdGl0bGVDb21wYXJpc29uID0gYVRpdGxlLmxvY2FsZUNvbXBhcmUoYlRpdGxlKTsKICAgICAgICBpZiAodGl0bGVDb21wYXJpc29uICE9PSAwKSB7CiAgICAgICAgICAgIHJldHVybiB0aXRsZUNvbXBhcmlzb247CiAgICAgICAgfQoKICAgICAgICBjb25zdCBhWWVhciA9IGEucmVsZWFzZV9kYXRlID8gbmV3IERhdGUoYS5yZWxlYXNlX2RhdGUpLmdldEZ1bGxZZWFyKCkgOiAwOwogICAgICAgIGNvbnN0IGJZZWFyID0gYi5yZWxlYXNlX2RhdGUgPyBuZXcgRGF0ZShiLnJlbGVhc2VfZGF0ZSkuZ2V0RnVsbFllYXIoKSA6IDA7CiAgICAgICAgcmV0dXJuIGFZZWFyIC0gYlllYXI7CiAgICB9KTsKfQoKZnVuY3Rpb24gdXBkYXRlTW92aWVMaXN0KG1vdmllcywgcXVlcnkpIHsKICAgIGNvbnN0IHNvcnRlZE1vdmllcyA9IHNvcnRNb3ZpZXMobW92aWVzLCBxdWVyeSk7CiAgICBjb25zdCBtb3ZpZUxpc3QgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcubW92aWUtbGlzdCcpOwogICAgbW92aWVMaXN0LmlubmVySFRNTCA9ICcnOwoKICAgIHNvcnRlZE1vdmllcy5mb3JFYWNoKG1vdmllID0+IHsKICAgICAgICBjb25zdCBtb3ZpZUl0ZW0gPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdsaScpOwogICAgICAgIG1vdmllSXRlbS5jbGFzc05hbWUgPSAnbW92aWUtaXRlbSc7CiAgICAgICAgbW92aWVJdGVtLnN0eWxlLmRpc3BsYXkgPSAnZmxleCc7CiAgICAgICAgbW92aWVJdGVtLnN0eWxlLmFsaWduSXRlbXMgPSAnY2VudGVyJzsKICAgICAgICBtb3ZpZUl0ZW0uc3R5bGUuanVzdGlmeUNvbnRlbnQgPSAnc3BhY2UtYmV0d2Vlbic7CgogICAgICAgIGNvbnN0IHBvc3RlciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2ltZycpOwogICAgICAgIHBvc3Rlci5zcmMgPSBtb3ZpZS5wb3N0ZXJfcGF0aCA/IGBodHRwczovL2ltYWdlLnRtZGIub3JnL3QvcC93OTIke21vdmllLnBvc3Rlcl9wYXRofWAgOiAnZGVmYXVsdF9wb3N0ZXIucG5nJzsKICAgICAgICBwb3N0ZXIuYWx0ID0gYCR7bW92aWUudGl0bGV9IFBvc3RlcmA7CiAgICAgICAgcG9zdGVyLnN0eWxlLndpZHRoID0gJzc1cHgnOwogICAgICAgIHBvc3Rlci5zdHlsZS5oZWlnaHQgPSAnMTAwcHgnOwogICAgICAgIHBvc3Rlci5zdHlsZS5tYXJnaW5MZWZ0ID0gJzEwcHgnOwoKICAgICAgICBjb25zdCBtb3ZpZVRleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdzcGFuJyk7CiAgICAgICAgbW92aWVUZXh0LnRleHRDb250ZW50ID0gYCR7bW92aWUudGl0bGUgfHwgJ1VubmFtZWQgTW92aWUnfSAoJHtuZXcgRGF0ZShtb3ZpZS5yZWxlYXNlX2RhdGUpLmdldEZ1bGxZZWFyKCkgfHwgJyd9KWA7CiAgICAgICAgbW92aWVUZXh0LnN0eWxlLmZsZXhHcm93ID0gJzEnOwogICAgICAgIG1vdmllVGV4dC5zdHlsZS50ZXh0QWxpZ24gPSAnY2VudGVyJzsKCiAgICAgICAgbW92aWVJdGVtLmFwcGVuZENoaWxkKG1vdmllVGV4dCk7CiAgICAgICAgbW92aWVJdGVtLmFwcGVuZENoaWxkKHBvc3Rlcik7CiAgICAgICAgbW92aWVJdGVtLmRhdGFzZXQuaWQgPSBtb3ZpZS5pZDsKCiAgICAgICAgbW92aWVJdGVtLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4gewogICAgICAgICAgICB3aW5kb3cubG9jYXRpb24uaHJlZiA9IGB3YXRjaF9tb3ZpZT90bWRiX2lkPSR7bW92aWUuaWR9YDsKICAgICAgICB9KTsKCiAgICAgICAgbW92aWVMaXN0LmFwcGVuZENoaWxkKG1vdmllSXRlbSk7CiAgICB9KTsKCiAgICBtb3ZpZUxpc3Quc3R5bGUuZGlzcGxheSA9IHNvcnRlZE1vdmllcy5sZW5ndGggPyAnYmxvY2snIDogJ25vbmUnOwogICAgbW92aWVMaXN0LnNjcm9sbFRvcCA9IDA7Cn0KCg==
+    "></script>
+
+</body>
+</html>
