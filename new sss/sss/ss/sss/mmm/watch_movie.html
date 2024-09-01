@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>فهرس</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <style>
+ body {
+        font-family: 'Arial', sans-serif;
+    background-color: #141414;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+}
+
+
+
+.movie-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    direction: rtl;
+}
+
+.movie-details h1 {
+    margin: 0;
+    color: red;
+}
+
+.movie-details p span {
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    direction: rtl;
+}
+
+
+
+header {
+    text-align: center; /* توسيط النص */
+    font-size: 3em; /* حجم الخط الكبير */
+    color: red; /* اللون الأحمر للنص */
+    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
+}
+
+
+a {
+    text-decoration: none;
+    color: #ffffff; /* لون النص الأبيض */
+    display: block;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: red; /* لون الخلفية */
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 25px;
+    text-align: center;
+    margin: 20px auto;
+    width: 60%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    perspective: 1000px; /* إضافة منظور لتحقيق التأثير ثلاثي الأبعاد */
+}
+
+
+/* تأثير ثلاثي الأبعاد عند تمرير الفأرة */
+a:hover {
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
+    background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
+}
+
+h2 {
+    color: #ffffff;
+    font-size: 30px;
+    text-align: center;
+    line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #ff0000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #ff0000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
+}
+
+h3 {
+    color: #ffffff; /* لون النص أبيض */
+    font-size: 22px;
+    margin: 20px auto;
+    max-width: 80%;
+    text-align: center;
+    line-height: 1.5;
+    direction: ltr;
+    text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
+         
+}
+
+
+
+
+img {
+    max-width: 300px;
+    height: auto;
+    margin: 20px auto;
+    display: block;
+    border: 5px solid; /* عرض الإطار */
+    border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
+}
+
+
+
+.movie-embed-container, .trailer-container {
+    position: relative;
+    width: 90%; /* عرض الحاوية مع ترك مسافة على الجوانب */
+    max-width: 800px; /* تحديد أقصى عرض للحاوية */
+    height: 0; /* الارتفاع سيُحدد بناءً على النسبة */
+    padding-top: 56.25%; /* نسبة العرض إلى الارتفاع (16:9) لتحديد الارتفاع تلقائيًا */
+    margin: 20px auto; /* توسيط العنصر مع مسافة على الجوانب */
+    border: 5px solid; /* عرض الإطار */
+    border-image: linear-gradient(45deg, #000000, #ff0000, #250f0f) 1;
+    border-image-slice: 1; /* تطبيق خليط الألوان على الإطار */
+    overflow: hidden; /* إخفاء أي جزء من الفيديو يتجاوز الحاوية */
+    background-color: #000; /* خلفية داكنة لجعل الفيديو يبرز */
+    box-sizing: border-box; /* تضمين الإطار في حساب العرض والارتفاع */
+}
+
+.movie-embed-container iframe, .trailer-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none; /* إزالة الحدود حول الفيديو */
+}
+
+
+
+
+.download-button {
+    background-color: #00BFFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 50%;
+    margin-top: 20px;
+    align-items: center;
+    text-align: center;
+        }
+
+        .download-button:hover {
+            transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
+    background-color: #008CBA;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
+        }
+
+    </style>
+</head>
+<header onclick="window.location.href='/'" style="cursor: pointer;">
+    فهرس
+</header>
+<body>
+    
+    <div class="movie-details" id="movie-details">
+        <img src="" alt="Movie Poster">
+        <h1>Movie Title</h1>
+        <p><strong>تاريخ الاصدار : </strong> <span id="release-date">N/A</span></p>
+        <p><strong>القصة : </strong> <span id="overview">No overview available.</span></p>
+        <p><strong>النوع : </strong> <span id="genre">N/A</span></p>
+        <p><strong>التقييم : </strong> <span id="rating">N/A</span></p>
+        <h2>التريلر</h2>
+        <div class="trailer-container" id="trailer-container"></div>
+        <h2>مشاهدة الفيلم</h2>
+        <div class="movie-embed-container" id="movie-embed-container"></div>
+        <h3>اذا لم تظهر الترجمة العربية<br>[cc] اضغط على مربع  
+            <br>[ Arabic ] و اختار كلمة 
+            <br> و اختار الترجمة المناسبة ، قم بتغيير الترجمة اذا في تاخير او تسريع 
+            <br> اذا لم تجد الترجمة المناسبة و جميع الترجمات العربية متاخرة او مسرعة او السيرفر لا يعمل  أرجوك قم بنسخ الرابط و أرساله لنا بسرعة لتغييره  
+            <br>  من خلال الذهاب الى صفحة اتصل بنا
+            </h3>
+            <button id="downloadBtn" class="download-button">تحميل</button>
+        <a href="Movies">رجوع</a>
+    </div>
+</header>
+    
+
+    <script>
+        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+
+async function fetchMovieDetails(tmdbId) {
+  const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=ar`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('فشل في جلب تفاصيل الفيلم.');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('خطأ في جلب تفاصيل الفيلم:', error);
+    return null;
+  }
+}
+
+async function fetchMovieVideos(tmdbId) {
+  const url = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}&language=en`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('فشل في جلب فيديوهات الفيلم.');
+    }
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error('خطأ في جلب فيديوهات الفيلم:', error);
+    return [];
+  }
+}
+
+function getQueryParameter(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+async function checkIframeMessage() {
+  const iframe = document.getElementById('movie-embed-container').querySelector('iframe');
+  iframe.onload = function() {
+    const iframeContent = iframe.contentDocument || iframe.contentWindow.document;
+    const messageElement = iframeContent.querySelector('h4');
+    if (messageElement && messageElement.textContent === 'This media is unavailable at the moment.') {
+      // Redirect to a custom error page or previous page
+      window.location.href = '/error-page.html'; // or '/previous-page.html'
+    }
+  };
+}
+
+async function displayMovieDetails() {
+  const tmdbId = getQueryParameter('tmdb_id');
+
+  if (!tmdbId) {
+    document.getElementById('movie-details').innerHTML = '<p>لم يتم توفير معرّف الفيلم.</p>';
+    return;
+  }
+
+  const movieData = await fetchMovieDetails(tmdbId);
+  const movieVideos = await fetchMovieVideos(tmdbId);
+
+  if (movieData) {
+    document.querySelector('h1').textContent = movieData.title || 'لا يوجد عنوان';
+    document.querySelector('img').src = movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : '';
+    document.getElementById('release-date').textContent = movieData.release_date || 'غير متوفر';
+    document.getElementById('overview').textContent = movieData.overview || 'لا يوجد ملخص متاح.';
+
+    // Display genre
+    const genres = movieData.genres.map(genre => genre.name).join(', ');
+    document.getElementById('genre').textContent = genres || 'غير متوفر';
+
+    // Display rating (formatted to 1 decimal place)
+    const rating = movieData.vote_average ? movieData.vote_average.toFixed(1) : 'غير متوفر';
+    document.getElementById('rating').textContent = `${rating} / 10`;
+
+    // Embed movie from Vidsrc
+    document.getElementById('movie-embed-container').innerHTML = `
+      <iframe src="https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}" allowfullscreen></iframe>
+    `;
+
+    // Check the iframe message
+    checkIframeMessage();
+
+    // Find and display the first trailer
+    const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+    if (trailer) {
+      document.getElementById('trailer-container').innerHTML = `
+        <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
+      `;
+    } else {
+      document.getElementById('trailer-container').innerHTML = '<p>لا يوجد تريلر متاح.</p>';
+    }
+  } else {
+    document.getElementById('movie-details').innerHTML = '<p>فشل في تحميل تفاصيل الفيلم.</p>';
+  }
+}
+
+document.getElementById('downloadBtn').addEventListener('click', function() {
+            const tmdbId = getQueryParameter('tmdb_id');
+            if (tmdbId) {
+                window.location.href = `download_movie?tmdb_id=${tmdbId}`;
+            } else {
+                alert('لا يوجد TMDB ID في عنوان URL.');
+            }
+        });
+
+window.onload = displayMovieDetails;
+
+    </script>
+
+</body>
+</html>
