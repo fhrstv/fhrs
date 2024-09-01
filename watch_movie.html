@@ -220,7 +220,7 @@ img {
 
 #prevBtn {
     position: absolute;
-    left: -1px; /* يحدد المسافة من اليسار */
+    left: -0px; /* يحدد المسافة من اليسار */
     top: 93%;
     transform: translateY(-50%);
     
@@ -229,7 +229,7 @@ img {
 
 #nextBtn {
     position: absolute;
-    right: -1px; /* يحدد المسافة من اليمين */
+    right: -0px; /* يحدد المسافة من اليمين */
     top: 93%;
     transform: translateY(-50%);
     
@@ -418,7 +418,7 @@ async function displaySimilarMovies(tmdbId) {
           </div>
         `;
         movieElement.addEventListener('click', () => {
-          window.location.href = `watch_movie?tmdb_id=${movie.id}`;
+          window.location.href = `watch_movie.html?tmdb_id=${movie.id}`;
         });
         similarMovieContent.appendChild(movieElement);
       });
