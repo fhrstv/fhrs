@@ -3,50 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webtor.io Direct Download</title>
+    <title>إنشاء رابط تورنت</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>تحميل مباشر من Webtor.io</h1>
-    
-    <form id="torrentForm">
-        <label for="torrentHash">أدخل هاش التورنت:</label>
-        <input type="text" id="torrentHash" name="torrentHash" required>
-        <button type="submit">تحميل الفيلم</button>
-    </form>
+    <h1>إنشاء رابط تورنت</h1>
+    <label for="torrentHash">هاش التورنت:</label>
+    <input type="text" id="torrentHash" placeholder="أدخل هاش التورنت" />
+    <button onclick="generateLink()">إنشاء الرابط</button>
 
     <div id="result"></div>
-    <iframe id="webtorIframe" style="display: none;"></iframe>
 
     <script>
-        document.getElementById('torrentForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        function generateLink() {
             const torrentHash = document.getElementById('torrentHash').value;
-            const webtorUrl = `https://webtor.io/download/${torrentHash}`;
-            const iframe = document.getElementById('webtorIframe');
-            iframe.src = webtorUrl;
+            if (!torrentHash) {
+                alert('يرجى إدخال هاش التورنت.');
+                return;
+            }
 
-            iframe.onload = function() {
-                // Try to extract the direct download link from the iframe's content
-                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-                const content = iframeDocument.body.innerHTML;
+            const baseUrl = "https://abra--2d8fde14.api.brilliant-bittern.buzz";
+            const videoPath = `/${torrentHash}/${torrentHash}.mp4`;
 
-                const downloadLinkStart = content.indexOf('https://abra');
-                if (downloadLinkStart !== -1) {
-                    const downloadLinkEnd = content.indexOf('"', downloadLinkStart);
-                    const downloadLink = content.substring(downloadLinkStart, downloadLinkEnd);
-                    document.getElementById('result').innerHTML = `
-                        <p>رابط التحميل المباشر:</p>
-                        <a href="${downloadLink}" target="_blank">${downloadLink}</a>
-                    `;
-                } else {
-                    document.getElementById('result').textContent = 'لم يتم العثور على رابط التحميل.';
-                }
-            };
+            // الثوابت
+            const userId = "b03c397d9df9e2bb92a1fe839fbf32d2";
+            const downloadId = "610a785beb10c4184a252df9a89e5ad4";
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZ2VudCI6Ik1vemlsbGEvNS4wIChpUGhvbmU7IENQVSBpUGhvbmUgT1MgMTZfN18xMCBsaWtlIE1hYyBPUyBYKSBBcHBsZVdlYktpdC82MDUuMS4xNSAoS0hUTUwsIGxpa2UgR2Vja28pIFZlcnNpb24vMTYuNiBNb2JpbGUvMTVFMTQ4IFNhZmFyaS82MDQuMSIsInJlbW90ZUFkZHJlc3MiOiIyYTAwOjE4ZDg6NjQ6ZTJiNjoxMDc0OjE1NjE6YWQ3NDplNDA5IiwiZG9tYWluIjoid2VidG9yLmlvIiwiZXhwIjoxNzI1OTY1NjI0LCJzZXNzaW9uSUQiOiJCLV9Ubm9VanpkV3ZXVHNZald1aTJLcDViYk4wRGNBRiIsInJhdGUiOiIxME0iLCJyb2xlIjoibm9ib2R5In0.uyQMTYHlM9oxYit0VZoHIZnUR1JxmIFbhhrBC0wAe2g";
+            const apiKey = "8acbcf1e-732c-4574-a3bf-27e6a85b86f1";
 
-            iframe.onerror = function() {
-                document.getElementById('result').textContent = 'حدث خطأ في تحميل الصفحة.';
-            };
-        });
+            // معلمات URL
+            const params = new URLSearchParams({
+                "user-id": userId,
+                "download": "true",
+                "download-id": downloadId,
+                "token": token,
+                "api-key": apiKey
+            });
+
+            // توليد الرابط الكامل
+            const fullUrl = `${baseUrl}${videoPath}?${params.toString()}`;
+
+            // عرض النتيجة
+            document.getElementById('result').innerHTML = `
+                <strong>رابط التنزيل:</strong><br>
+                <a href="${fullUrl}" target="_blank">${fullUrl}</a>
+            `;
+        }
     </script>
 </body>
 </html>
