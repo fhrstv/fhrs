@@ -15,31 +15,37 @@
     </form>
 
     <div id="result"></div>
+    <iframe id="webtorIframe" style="display: none;"></iframe>
 
     <script>
         document.getElementById('torrentForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const torrentHash = document.getElementById('torrentHash').value;
             const webtorUrl = `https://webtor.io/download/${torrentHash}`;
+            const iframe = document.getElementById('webtorIframe');
+            iframe.src = webtorUrl;
 
-            fetch(webtorUrl)
-                .then(response => response.text())
-                .then(data => {
-                    const downloadLinkStart = data.indexOf('https://abra');
-                    if (downloadLinkStart !== -1) {
-                        const downloadLinkEnd = data.indexOf('"', downloadLinkStart);
-                        const downloadLink = data.substring(downloadLinkStart, downloadLinkEnd);
-                        document.getElementById('result').innerHTML = `
-                            <p>رابط التحميل المباشر:</p>
-                            <a href="${downloadLink}" target="_blank">${downloadLink}</a>
-                        `;
-                    } else {
-                        document.getElementById('result').textContent = 'لم يتم العثور على رابط التحميل.';
-                    }
-                })
-                .catch(error => {
-                    document.getElementById('result').textContent = `حدث خطأ: ${error}`;
-                });
+            iframe.onload = function() {
+                // Try to extract the direct download link from the iframe's content
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                const content = iframeDocument.body.innerHTML;
+
+                const downloadLinkStart = content.indexOf('https://abra');
+                if (downloadLinkStart !== -1) {
+                    const downloadLinkEnd = content.indexOf('"', downloadLinkStart);
+                    const downloadLink = content.substring(downloadLinkStart, downloadLinkEnd);
+                    document.getElementById('result').innerHTML = `
+                        <p>رابط التحميل المباشر:</p>
+                        <a href="${downloadLink}" target="_blank">${downloadLink}</a>
+                    `;
+                } else {
+                    document.getElementById('result').textContent = 'لم يتم العثور على رابط التحميل.';
+                }
+            };
+
+            iframe.onerror = function() {
+                document.getElementById('result').textContent = 'حدث خطأ في تحميل الصفحة.';
+            };
         });
     </script>
 </body>
