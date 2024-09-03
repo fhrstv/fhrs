@@ -3,24 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشغل Webtor.io</title>
+    <title>استخراج رابط التحميل المباشر</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #eee;
+            text-align: center;
             margin: 0;
             padding: 0;
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-        }
-        iframe {
-            border: none;
-            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
+            flex-direction: column;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #ff5722;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #e64a19;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            word-break: break-all;
         }
     </style>
 </head>
 <body>
-    <!-- تضمين مشغل Webtor.io مع تورنت محدد -->
-    <iframe src="https://webtor.io/?hash=ea357862db8132a971c27bef13bf7b8f2310dc58" title="مشغل Webtor.io"></iframe>
+    <h1>استخراج رابط التحميل المباشر</h1>
+    <input type="text" id="torrentHash" placeholder="أدخل هاش التورنت هنا">
+    <button onclick="fetchDownloadLink()">احصل على رابط التحميل</button>
+
+    <div id="result"></div>
+
+    <script>
+        async function fetchDownloadLink() {
+            const torrentHash = document.getElementById('torrentHash').value.trim();
+            if (!torrentHash) {
+                alert('يرجى إدخال هاش التورنت');
+                return;
+            }
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = 'جارٍ استخراج الرابط...';
+
+            try {
+                const url = `https://webtor.io/${torrentHash}/`;
+                const response = await fetch(url);
+                const htmlText = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+                const downloadLink = doc.querySelector('a[download]');
+
+                if (downloadLink) {
+                    resultDiv.innerHTML = `رابط التحميل المباشر: <a href="${downloadLink.href}" target="_blank">اضغط هنا للتحميل</a>`;
+                } else {
+                    resultDiv.textContent = 'لم يتم العثور على رابط التحميل المباشر.';
+                }
+            } catch (error) {
+                console.error('Error fetching direct download link:', error);
+                resultDiv.textContent = 'حدث خطأ أثناء محاولة استخراج الرابط.';
+            }
+        }
+    </script>
 </body>
 </html>
