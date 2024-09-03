@@ -28,8 +28,8 @@
 
     <script>
         async function getDownloadLink() {
-            const torrentHash = document.getElementById('torrentHash').value;
-            const apiKey = '8acbcf1e-732c-4574-a3bf-27e6a85b86f1'; // استبدل بـ API Key الخاص بك
+            const torrentHash = document.getElementById('torrentHash').value.trim();
+            const apiKey = '8acbcf1e-732c-4574-a3bf-27e6a85b86f1'; // API Key الخاص بك
             const url = `https://webtor.io/api/v1/torrents/${torrentHash}`;
 
             try {
@@ -38,6 +38,11 @@
                         'Authorization': `Bearer ${apiKey}`
                     }
                 });
+
+                if (!response.ok) {
+                    throw new Error('فشل في الاتصال بـ API');
+                }
+
                 const data = await response.json();
 
                 if (data.success) {
@@ -48,7 +53,7 @@
                     document.getElementById('download-link').textContent = 'لا يمكن العثور على رابط التحميل. تأكد من صحة الهاش.';
                 }
             } catch (error) {
-                document.getElementById('download-link').textContent = 'فشل في الوصول إلى API. حاول مرة أخرى.';
+                document.getElementById('download-link').textContent = error.message;
             }
         }
     </script>
