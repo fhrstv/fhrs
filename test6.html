@@ -1,61 +1,19 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رابط تحميل التورنت</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 20px;
-            background-color: #f4f4f4;
-        }
-        input, button {
-            padding: 10px;
-            margin: 10px;
-        }
-        #download-link {
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <h1>تحويل هاش التورنت إلى رابط تحميل</h1>
-    <input type="text" id="torrentHash" placeholder="أدخل هاش التورنت هنا">
-    <button onclick="getDownloadLink()">احصل على رابط التحميل</button>
-    <div id="download-link"></div>
-
+    <div id="player" class="webtor" />
     <script>
-        async function getDownloadLink() {
-            const torrentHash = document.getElementById('torrentHash').value.trim();
-            const apiKey = '8acbcf1e-732c-4574-a3bf-27e6a85b86f1'; // API Key الخاص بك
-            const url = `https://webtor.io/api/v1/torrents/${torrentHash}`;
-
-            try {
-                const response = await fetch(url, {
-                    headers: {
-                        'Authorization': `Bearer ${apiKey}`
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('فشل في الاتصال بـ API');
+        window.webtor = window.webtor || [];
+        window.webtor.push({
+            id: 'player',
+            magnet: 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F',
+            poster: 'https://via.placeholder.com/150/0000FF/808080',
+            subtitles: [
+                {
+                    srclang: 'en',
+                    label: 'test',
+                    src: 'https://raw.githubusercontent.com/andreyvit/subtitle-tools/master/sample.srt',
+                    default: true,
                 }
-
-                const data = await response.json();
-
-                if (data.success) {
-                    document.getElementById('download-link').innerHTML = `
-                        <a href="${data.download_link}" target="_blank">رابط تحميل التورنت</a>
-                    `;
-                } else {
-                    document.getElementById('download-link').textContent = 'لا يمكن العثور على رابط التحميل. تأكد من صحة الهاش.';
-                }
-            } catch (error) {
-                document.getElementById('download-link').textContent = error.message;
-            }
-        }
+            ],
+            lang: 'en',
+        });
     </script>
-</body>
-</html>
+    <script src="https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js" charset="utf-8" async></script>
