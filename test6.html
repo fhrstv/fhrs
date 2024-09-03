@@ -3,64 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إنشاء رابط تورنت</title>
+    <title>رابط تحميل التورنت</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            text-align: center;
             margin: 20px;
+            background-color: #f4f4f4;
         }
         input, button {
-            margin-top: 10px;
             padding: 10px;
-            font-size: 16px;
+            margin: 10px;
         }
-        #result {
+        #download-link {
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>إنشاء رابط تورنت</h1>
-    <label for="torrentHash">هاش التورنت:</label>
-    <input type="text" id="torrentHash" placeholder="أدخل هاش التورنت" />
-    <button onclick="generateLink()">إنشاء الرابط</button>
-
-    <div id="result"></div>
+    <h1>تحويل هاش التورنت إلى رابط تحميل</h1>
+    <input type="text" id="torrentHash" placeholder="أدخل هاش التورنت هنا">
+    <button onclick="getDownloadLink()">احصل على رابط التحميل</button>
+    <div id="download-link"></div>
 
     <script>
-        function generateLink() {
+        async function getDownloadLink() {
             const torrentHash = document.getElementById('torrentHash').value;
-            if (!torrentHash) {
-                alert('يرجى إدخال هاش التورنت.');
-                return;
+            const apiKey = '8acbcf1e-732c-4574-a3bf-27e6a85b86f1'; // استبدل بـ API Key الخاص بك
+            const url = `https://webtor.io/api/v1/torrents/${torrentHash}`;
+
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`
+                    }
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('download-link').innerHTML = `
+                        <a href="${data.download_link}" target="_blank">رابط تحميل التورنت</a>
+                    `;
+                } else {
+                    document.getElementById('download-link').textContent = 'لا يمكن العثور على رابط التحميل. تأكد من صحة الهاش.';
+                }
+            } catch (error) {
+                document.getElementById('download-link').textContent = 'فشل في الوصول إلى API. حاول مرة أخرى.';
             }
-
-            const baseUrl = "https://abra--2d8fde14.api.brilliant-bittern.buzz";
-            const videoPath = `/${torrentHash}/${torrentHash}.mp4`;
-
-            // الثوابت
-            const userId = "b03c397d9df9e2bb92a1fe839fbf32d2";
-            const downloadId = "610a785beb10c4184a252df9a89e5ad4";
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZ2VudCI6Ik1vemlsbGEvNS4wIChpUGhvbmU7IENQVSBpUGhvbmUgT1MgMTZfN18xMCBsaWtlIE1hYyBPUyBYKSBBcHBsZVdlYktpdC82MDUuMS4xNSAoS0hUTUwsIGxpa2UgR2Vja28pIFZlcnNpb24vMTYuNiBNb2JpbGUvMTVFMTQ4IFNhZmFyaS82MDQuMSIsInJlbW90ZUFkZHJlc3MiOiIyYTAwOjE4ZDg6NjQ6ZTJiNjoxMDc0OjE1NjE6YWQ3NDplNDA5IiwiZG9tYWluIjoid2VidG9yLmlvIiwiZXhwIjoxNzI1OTY1NjI0LCJzZXNzaW9uSUQiOiJCLV9Ubm9VanpkV3ZXVHNZald1aTJLcDViYk4wRGNBRiIsInJhdGUiOiIxME0iLCJyb2xlIjoibm9ib2R5In0.uyQMTYHlM9oxYit0VZoHIZnUR1JxmIFbhhrBC0wAe2g";
-            const apiKey = "8acbcf1e-732c-4574-a3bf-27e6a85b86f1";
-
-            // معلمات URL
-            const params = new URLSearchParams({
-                "user-id": userId,
-                "download": "true",
-                "download-id": downloadId,
-                "token": token,
-                "api-key": apiKey
-            });
-
-            // توليد الرابط الكامل
-            const fullUrl = `${baseUrl}${videoPath}?${params.toString()}`;
-
-            // عرض النتيجة
-            document.getElementById('result').innerHTML = `
-                <strong>رابط التنزيل:</strong><br>
-                <a href="${fullUrl}" target="_blank">${fullUrl}</a>
-            `;
         }
     </script>
 </body>
