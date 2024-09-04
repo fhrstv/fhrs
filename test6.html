@@ -72,7 +72,6 @@ function formatUrl(title, year, quality, source, codec) {
     return formattedUrl;
 }
 
-
 // دالة لجلب IMDb ID من TMDB ID
 async function getImdbIdFromTmdb(tmdbId) {
     const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=ar`;
