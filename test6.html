@@ -158,7 +158,54 @@ async function displayMovieTorrents() {
 // استدعاء الدالة عند تحميل الصفحة
 window.onload = displayMovieTorrents;
 
+async function fetchMovieTorrents(imdbId) {
+    try {
+        const response = await fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${imdbId}&limit=1`);
+        if (!response.ok) {
+            throw new Error('فشل في البحث عن الفيلم في YTS.');
+        }
+        const data = await response.json();
+        const movies = data.data.movies;
 
+        if (movies && movies.length > 0) {
+            const movie = movies[0]; // يفترض العثور على الفيلم الأول المتطابق
+            const qualityOptions = document.getElementById('quality-options');
+            qualityOptions.innerHTML = '';
+
+            movie.torrents.forEach(torrent => {
+                const quality = torrent.quality || 'N/A';
+                const codec = torrent.codec || 'x264'; // إذا لم يكن هناك codec محدد، افترض أنه x264
+                const source = torrent.source || 'WEB';
+                const fileHash = torrent.hash.toLowerCase(); // تحويل الهاش إلى حروف صغيرة
+
+                // تعديل اسم الفيلم للصيغة المطلوبة
+                const title = movie.title;
+                const year = movie.year;
+                const formattedUrl = formatUrl(title, year, quality, source, codec);
+                const baseUrl = `https://abra--7537cb52.api.brilliant-bittern.buzz/${fileHash}/`;
+                const downloadUrl = `${baseUrl}${formattedUrl}`;
+
+                const button = document.createElement('button');
+                button.textContent = `${quality} ${codec}`;
+                button.setAttribute('data-url', downloadUrl);
+                qualityOptions.appendChild(button);
+
+                button.addEventListener('click', function() {
+                    const torrentUrl = this.getAttribute('data-url');
+                    if (torrentUrl) {
+                        window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
+                    }
+                });
+            });
+
+        } else {
+            const qualityOptions = document.getElementById('quality-options');
+            qualityOptions.innerHTML = '<p>لا توجد جودات متاحة</p>';
+        }
+    } catch (error) {
+        console.error('خطأ في البحث عن الفيلم في YTS:', error);
+    }
+}
 
 </script>
 
