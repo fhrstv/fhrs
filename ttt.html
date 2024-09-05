@@ -122,7 +122,7 @@ async function fetchMovieTorrents(imdbId) {
                 button.addEventListener('click', function() {
                     const torrentUrl = this.getAttribute('data-url');
                     if (torrentUrl) {
-                        window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
+                        window.open(torrentUrl, '_blank'); // فتح الرابط في نافذة جديدة
                     }
                 });
             });
