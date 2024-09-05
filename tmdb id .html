@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة المشاهدة</title>
+</head>
+<body>
+    <h1>عرض الصفحتين ttt و tttt</h1>
+
+    <!-- Iframes لعرض ttt و tttt -->
+    <iframe id="tttIframe" width="100%" height="400px" src=""></iframe>
+    <iframe id="ttttIframe" width="100%" height="400px" src=""></iframe>
+
+    <script>
+        // استخراج tmdb_id من URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const tmdbId = urlParams.get('tmdb_id');
+        
+        console.log("معرّف TMDB المستخرج:", tmdbId);
+
+        if (tmdbId) {
+            // تمرير tmdb_id إلى صفحات iframe
+            document.getElementById('tttIframe').src = `ttt.html?tmdb_id=${tmdbId}`;
+            document.getElementById('ttttIframe').src = `tttt.html?tmdb_id=${tmdbId}`;
+            
+            console.log("تم تحديث iframe مع معرّف TMDB.");
+        } else {
+            console.error("tmdb_id غير موجود في رابط الصفحة.");
+        }
+    </script>
+</body>
+</html>
