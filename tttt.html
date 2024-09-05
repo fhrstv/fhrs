@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خيارات الجودات المتاحة</title>
+    <style>
+        .quality-container {
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            padding: 10px;
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #f8f9fa;
+        }
+        .quality-options {
+            margin-bottom: 10px;
+        }
+        .quality-options button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .quality-options button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quality-container">
+    <div class="quality-options" id="quality-options">
+        <!-- سيتم إضافة خيارات الجودة هنا -->
+    </div>
+</div>
+
+<script>
+const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // استخدم مفتاح API الخاص بك
+
+// دالة لتحويل النصوص إلى الحروف الكبيرة في بداية كل كلمة
+function capitalizeWords(str) {
+    return str.replace(/\b\w/g, char => char.toUpperCase());
+}
+
+// دالة لتنسيق الرابط بناءً على الجودة
+function formatUrl(title, year, quality, source, codec) {
+    const formattedTitle = encodeURIComponent(capitalizeWords(title)).replace(/%20/g, ' ');
+    const formattedTitleWithDots = capitalizeWords(title).replace(/\s+/g, '.');
+
+    let formattedUrl = '';
+
+    if (quality === '2160p') {
+        if (codec === 'x264') {
+            formattedUrl = `${formattedTitle} (${year}) %5B2160p%5D %5B4K%5D %5BWEB%5D %5B5.1%5D %5BYTS.MX%5D/${formattedTitleWithDots}.${year}.2160p.4K.WEB.x265.10bit.AAC5.1-%5BYTS.MX%5D.mkv`;
+        } else if (codec === 'x265') {
+            formattedUrl = `${formattedTitle} (${year}) %5B2160p%5D %5B4K%5D %5BWEB%5D %5B5.1%5D %5BYTS.MX%5D/${formattedTitleWithDots}.${year}.2160p.4K.WEB.x265.10bit.AAC5.1-%5BYTS.MX%5D.mkv`;
+        }    } else if (quality === '1080p') {
+        if (codec === 'x264') {
+            formattedUrl = `${formattedTitle} (${year}) %5B1080p%5D %5BWEBRip%5D %5B5.1%5D %5BYTS.MX%5D/${formattedTitleWithDots}.${year}.1080p.WEBRip.x264.AAC5.1-%5BYTS.MX%5D.mp4`;
+        } else if (codec === 'x265') {
+            formattedUrl = `${formattedTitle} (${year}) %5B1080p%5D %5BWEBRip%5D %5B5.1%5D %5BYTS.MX%5D/${formattedTitleWithDots}.${year}.1080p.WEBRip.x265.AAC5.1-%5BYTS.MX%5D.mp4`;
+        }
+    } else if (quality === '720p') {
+        if (codec === 'x264') {
+            formattedUrl = `${formattedTitle} (${year}) %5B720p%5D %5BWEBRip%5D %5BYTS.MX%5D/${formattedTitleWithDots}.${year}.720p.WEBRip.x264.AAC-%5BYTS.MX%5D.mp4`;
+        } else if (codec === 'x265') {
+            formattedUrl = `${formattedTitle} (${year}) %5B720p%5D %5BWEBRip%5D %5BYTS.MX%5D/${formattedTitleWithDots}.${year}.720p.WEBRip.x264.AAC-%5BYTS.MX%5D.mp4`;
+        }
+    } else {
+        formattedUrl = `${formattedTitle} (${year}) %5B${quality}%5D %5BWEBRip%5D %5BYTS.MX%5D/${formattedTitleWithDots}.${year}.${quality}.WEBRip.x264.AAC-%5BYTS.MX%5D.mp4`;
+    }
+
+    return formattedUrl;
+}
+
+
+// دالة لجلب IMDb ID من TMDB ID
+async function getImdbIdFromTmdb(tmdbId) {
+    const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=ar`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('فشل في جلب معلومات الفيلم من TMDB.');
+        }
+        const data = await response.json();
+        return data.imdb_id || null;
+    } catch (error) {
+        console.error('خطأ في جلب IMDb ID:', error);
+        return null;
+    }
+}
+
+// دالة للبحث عن الفيلم في YTS باستخدام imdb_id
+async function fetchMovieTorrents(imdbId) {
+    try {
+        const response = await fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${imdbId}&limit=1`);
+        if (!response.ok) {
+            throw new Error('فشل في البحث عن الفيلم في YTS.');
+        }
+        const data = await response.json();
+        const movies = data.data.movies;
+
+        if (movies && movies.length > 0) {
+            const movie = movies[0]; // يفترض العثور على الفيلم الأول المتطابق
+            const qualityOptions = document.getElementById('quality-options');
+            qualityOptions.innerHTML = '';
+
+            movie.torrents.forEach(torrent => {
+                const quality = torrent.quality || 'N/A';
+                const source = torrent.source || 'WEB';
+                const fileHash = torrent.hash.toLowerCase(); // تحويل الهاش إلى حروف صغيرة
+
+                // تعديل اسم الفيلم للصيغة المطلوبة
+                const title = movie.title;
+                const year = movie.year;
+                const formattedUrl = formatUrl(title, year, quality, source);
+                const baseUrl = `https://abra--7537cb52.api.brilliant-bittern.buzz/${fileHash}/`;
+                const downloadUrl = `${baseUrl}${formattedUrl}?user-id=6feda3fd3bd32ce60a14b8ee7c0a18cd&download=true&download-id=c1779402ca7c706fca15c046d3d006c3&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZ2VudCI6Ik1vemlsbGEvNS4wIChpUGhvbmU7IENQVSBpUGhvbmUgT1MgMTZfN18xMCBsaWtlIE1hYyBPUyBYKSBBcHBsZVdlYktpdC82MDUuMS4xNSAoS0hUTUwsIGxpa2UgR2Vja28pIFZlcnNpb24vMTYuNiBNb2JpbGUvMTVFMTQ4IFNhZmFyaS82MDQuMSIsInJlbW90ZUFkZHJlc3MiOiIyYTAwOjE4ZDg6NjQ6ZTJiNjo2Y2Q1OmViMTM6ODcxNTplMiIsImRvbWFpbiI6IndlYnRvci5pbyIsImV4cCI6MTcyNTk3OTMxNSwic2Vzc2lvbklEIjoiTDMyTWdqRTFfSTduOWlIODVrRlR1TDRCdGdmMEFxYXUiLCJyYXRlIjoiMTBNIiwicm9sZSI6Im5vYm9keSJ9.xFyoLR4Xr_KhUMdXDPQe5vmIzEJyE6RDYQAP3VbFs1k&api-key=8acbcf1e-732c-4574-a3bf-27e6a85b86f1`;
+
+                const button = document.createElement('button');
+                button.textContent = quality;
+                button.setAttribute('data-url', downloadUrl);
+                qualityOptions.appendChild(button);
+
+                button.addEventListener('click', function() {
+                    const torrentUrl = this.getAttribute('data-url');
+                    if (torrentUrl) {
+                        window.location.href = torrentUrl; // توجيه المستخدم لتحميل ملف التورنت
+                    }
+                });
+            });
+
+        } else {
+            const qualityOptions = document.getElementById('quality-options');
+            qualityOptions.innerHTML = '<p>لا توجد جودات متاحة</p>';
+        }
+    } catch (error) {
+        console.error('خطأ في البحث عن الفيلم في YTS:', error);
+    }
+}
+
+// دالة لجلب معلومات الفيلم وعرض التورنت
+async function displayMovieTorrents() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tmdbId = urlParams.get('tmdb_id');
+    
+    if (tmdbId) {
+        const imdbId = await getImdbIdFromTmdb(tmdbId);
+        if (imdbId) {
+            await fetchMovieTorrents(imdbId);
+        } else {
+            document.getElementById('quality-options').innerHTML = '<p>فشل في جلب IMDb ID</p>';
+        }
+    } else {
+        document.getElementById('quality-options').innerHTML = '<p>لم يتم توفير TMDB ID</p>';
+    }
+}
+
+// استدعاء الدالة عند تحميل الصفحة
+window.onload = displayMovieTorrents;
+</script>
+
+
+
+</body>
+</html>
