@@ -18,14 +18,13 @@
         }
 
         header {
-    text-align: center; /* توسيط النص */
-    font-size: 3em; /* حجم الخط الكبير */
-    color: red; /* اللون الأحمر للنص */
-    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
-    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
-}
-
+            text-align: center; /* توسيط النص */
+            font-size: 3em; /* حجم الخط الكبير */
+            color: red; /* اللون الأحمر للنص */
+            margin: 20px 0; /* إضافة هامش أعلى وأسفل */
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
+            cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
+        }
 
         iframe {
             display: block; /* يزيل أي مسافات حول الـ iframe */
@@ -65,9 +64,10 @@
         .button:hover {
             background-color: #009acd;
             transform: scale(1.05) translateZ(15px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);        }
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);        
+        }
 
-            a {
+        a {
             text-decoration: none;
             color: #ffffff;
             display: block;
@@ -119,8 +119,8 @@
 
     <button class="button" id="download-subtitles">تحميل الترجمة</button>
 
-    <a href="watch_movie" id="backButton">رجوع</a>
-
+    <!-- زر الرجوع مع تمرير tmdb_id -->
+    <a href="#" id="backButton">رجوع</a>
 
     <script>
         const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // استبدل بـ API Key الخاص بك
@@ -132,7 +132,12 @@
             document.getElementById('direct2Iframe').src = `direct2.html?tmdb_id=${tmdbId}`;
             document.getElementById('direct3Iframe').src = `direct3.html?tmdb_id=${tmdbId}`;
             document.getElementById('direct1Iframe').src = `direct1.html?tmdb_id=${tmdbId}`;
-            
+
+            // تعيين وظيفة للزر الرجوع
+            document.getElementById('backButton').onclick = function() {
+                window.location.href = `watch_movie?tmdb_id=${tmdbId}`;
+            };
+
             async function fetchMovieDetails() {
                 try {
                     const response = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=en`);
@@ -141,7 +146,7 @@
                     if (data && data.title && data.release_date) {
                         const releaseYear = data.release_date.split('-')[0];
                         document.getElementById('movie-title').textContent = `${data.title} (${releaseYear})`;
-                        
+
                         // تعيين وظيفة للزر لتحميل الترجمة
                         document.getElementById('download-subtitles').onclick = function() {
                             searchForSubtitles(data.title, releaseYear);
@@ -154,7 +159,7 @@
                     document.getElementById('movie-title').textContent = 'حدث خطأ أثناء جلب تفاصيل الفيلم.';
                 }
             }
-            
+
             function searchForSubtitles(movieTitle, releaseYear) {
                 if (movieTitle && releaseYear) {
                     // تحويل المسافات إلى شرطات
@@ -165,13 +170,13 @@
                     console.error('اسم الفيلم أو سنة الإصدار غير متوفر.');
                 }
             }
-            
+
             fetchMovieDetails();
         } else {
             console.error("tmdb_id غير موجود في رابط الصفحة.");
             document.getElementById('movie-title').textContent = 'معرّف الفيلم غير متوفر.';
         }
     </script>
-     
+
 </body>
 </html>
