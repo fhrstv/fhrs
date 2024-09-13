@@ -3,54 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أحدث الأنميات باستخدام Jikan API</title>
+    <title>موقع Anime4Up</title>
     <style>
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
         }
-        .anime-info {
-            margin-top: 20px;
-        }
-        .anime-item {
-            margin-bottom: 20px;
+        .header {
+            background-color: #333;
+            color: #fff;
             padding: 10px;
-            border: 1px solid #ddd;
-            background-color: #fff;
+            text-align: center;
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 60px); /* Adjust based on header height */
+        }
+        .info {
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-bottom: 2px solid #ddd;
+        }
+        .iframe-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <h1>أحدث الأنميات الموسمية</h1>
-    <button onclick="getLatestAnime()">جلب أحدث الأنميات</button>
-
-    <div class="anime-info" id="latestAnime"></div>
-
+    <div class="header">
+        <h1>موقع Anime4Up</h1>
+    </div>
+    <div class="main-content">
+        <div class="info">
+            <h2>معلومات الموقع</h2>
+            <p>مرحبا بكم في صفحة عرض موقع Anime4Up. هنا يمكنكم مشاهدة محتوى الموقع مباشرة ضمن إطار في هذه الصفحة. استمتعوا بالتصفح!</p>
+            <p>إذا كنت تبحث عن محتوى معين أو تحتاج إلى مساعدة، لا تتردد في التواصل معنا.</p>
+        </div>
+        <div class="iframe-container">
+            <iframe id="anime-iframe" src="" allowfullscreen></iframe>
+        </div>
+    </div>
     <script>
-        function getLatestAnime() {
-            fetch('https://api.jikan.moe/v4/seasons/now')
-                .then(response => response.json())
-                .then(data => {
-                    const animeList = data.data;
-                    let output = '';
-                    animeList.forEach(anime => {
-                        output += `
-                            <div class="anime-item">
-                                <h2><a href="anime.html?id=${anime.mal_id}">${anime.title}</a></h2>
-                                <img src="${anime.images.jpg.image_url}" alt="${anime.title}" width="150" />
-                                <p><strong>التقييم:</strong> ${anime.score || 'غير متاح'}</p>
-                                <p><strong>الحلقات:</strong> ${anime.episodes || 'غير متاح'}</p>
-                                <p><strong>القصة:</strong> ${anime.synopsis || 'لا توجد قصة متاحة'}</p>
-                            </div>
-                        `;
-                    });
-                    document.getElementById('latestAnime').innerHTML = output;
-                })
-                .catch(error => {
-                    console.error('حدث خطأ:', error);
-                });
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
         }
+
+        function setIframeSrc() {
+            const title = getQueryParameter('title');
+            if (title) {
+                const iframe = document.getElementById('anime-iframe');
+                iframe.src = `https://anime4up.lol/episode/${encodeURIComponent(title)}`;
+            } else {
+                console.error('معلمة "title" غير موجودة في عنوان URL.');
+            }
+        }
+
+        window.onload = setIframeSrc;
     </script>
 </body>
 </html>
