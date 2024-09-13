@@ -346,6 +346,27 @@ h1 {
     }
 
 
+
+
+    #prev-button, #next-button {
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    user-select: none;
+    margin: 0 100px; /* إضافة مسافة بين الأزرار */
+}
+
+#prev-button:hover, #next-button:hover {
+    background-color: #f40612;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+}
+
+
+
     </style>
 </head>
 <body>
@@ -371,15 +392,12 @@ h1 {
             </div>
         </div>
 
-        <div id="movie-details">
-            <div class="details-container">
-                <button id="prev-button" class="nav-button" disabled>&#10094;</button>
-                <div>
-                    <h2 id="movie-title">عنوان الأنمي</h2>
-                    <p id="movie-year">سنة الإصدار</p>
-                </div>
-                <button id="next-button" class="nav-button" disabled>&#10095;</button>
-            </div>
+        
+        <h1 id="movie-title"></h1>
+        <p id="movie-year"></p>
+        <div>
+            <button id="prev-button">&#9664;</button> <!-- سهم لليسار -->
+            <button id="next-button">&#9654;</button> <!-- سهم لليمين -->
         </div>
         <div class="home-button" onclick="window.location.href = '/'">
             رجوع للصفحة الرئيسية
@@ -405,7 +423,7 @@ h1 {
             const data = await response.json();
             latestAnimeList = data.data; // تخزين قائمة الأنميات
             if (latestAnimeList.length > 0) {
-                displayPoster(latestAnimeList[currentIndex]); // عرض الأنمي الأول
+                displayPoster(latestAnimeList[currentIndex], currentIndex + 1); // عرض الأنمي الأول مع الترتيب
             }
         } catch (error) {
             console.error('خطأ في جلب أحدث الأنمي:', error);
@@ -413,17 +431,28 @@ h1 {
     }
 
     // عرض البوستر ومعلومات الأنمي
-    function displayPoster(anime) {
+    function displayPoster(anime, rank) {
         currentPoster.src = anime.images.jpg.large_image_url;
         movieTitle.textContent = anime.title;
         movieYear.textContent = `سنة الإصدار: ${anime.aired.prop.from.year}`;
+
+        // إنشاء المربع الرصاصي وعرضه
+        const rankBox = document.createElement('div');
+        rankBox.className = 'rank-box';
+        rankBox.textContent = `المرتبة ${rank}`;
+
+        // إضافة المربع إلى الحاوية
+        const posterContainer = document.getElementById('poster-container');
+        posterContainer.innerHTML = ''; // مسح المحتويات السابقة
+        posterContainer.appendChild(currentPoster);
+        posterContainer.appendChild(rankBox);
     }
 
     // عرض الأنمي السابق
     function showPreviousAnime() {
         if (currentIndex > 0) {
             currentIndex--;
-            displayPoster(latestAnimeList[currentIndex]);
+            displayPoster(latestAnimeList[currentIndex], currentIndex + 1);
         }
     }
 
@@ -431,7 +460,7 @@ h1 {
     function showNextAnime() {
         if (currentIndex < latestAnimeList.length - 1) {
             currentIndex++;
-            displayPoster(latestAnimeList[currentIndex]);
+            displayPoster(latestAnimeList[currentIndex], currentIndex + 1);
         }
     }
 
