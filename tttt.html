@@ -431,22 +431,29 @@ h1 {
     }
 
     // عرض البوستر ومعلومات الأنمي
-    function displayPoster(anime, rank) {
-        currentPoster.src = anime.images.jpg.large_image_url;
-        movieTitle.textContent = anime.title;
-        movieYear.textContent = `سنة الإصدار: ${anime.aired.prop.from.year}`;
+    // عرض البوستر ومعلومات الأنمي
+function displayPoster(anime, rank) {
+    currentPoster.src = anime.images.jpg.large_image_url;
+    movieTitle.textContent = anime.title;
+    movieYear.textContent = `سنة الإصدار: ${anime.aired.prop.from.year}`;
 
-        // إنشاء المربع الرصاصي وعرضه
-        const rankBox = document.createElement('div');
-        rankBox.className = 'rank-box';
-        rankBox.textContent = `المرتبة ${rank}`;
+    // إنشاء المربع الرصاصي وعرضه
+    const rankBox = document.createElement('div');
+    rankBox.className = 'rank-box';
+    rankBox.textContent = `المرتبة ${rank}`;
 
-        // إضافة المربع إلى الحاوية
-        const posterContainer = document.getElementById('poster-container');
-        posterContainer.innerHTML = ''; // مسح المحتويات السابقة
-        posterContainer.appendChild(currentPoster);
-        posterContainer.appendChild(rankBox);
-    }
+    // إضافة المربع إلى الحاوية
+    const posterContainer = document.getElementById('poster-container');
+    posterContainer.innerHTML = ''; // مسح المحتويات السابقة
+    posterContainer.appendChild(currentPoster);
+    posterContainer.appendChild(rankBox);
+
+    // إضافة حدث عند الضغط على البوستر
+    currentPoster.addEventListener('click', () => {
+        const animeName = encodeURIComponent(anime.title); // ترميز اسم الأنمي ليكون آمنًا في الـ URL
+        window.location.href = `/watch.html?title=${animeName}`; // الانتقال إلى صفحة watch.html مع تمرير اسم الأنمي
+    });
+}
 
     // عرض الأنمي السابق
     function showPreviousAnime() {
