@@ -410,8 +410,8 @@ h1 {
     const currentPoster = document.getElementById('current-poster');
     const movieTitle = document.getElementById('movie-title');
     const movieYear = document.getElementById('movie-year');
-    const prevButton = document.getElementById('prev-button'); // زر اليسار
-    const nextButton = document.getElementById('next-button'); // زر اليمين
+    const prevButton = document.getElementById('prev-button');
+    const nextButton = document.getElementById('next-button');
 
     let latestAnimeList = [];
     let currentIndex = 0;
@@ -421,120 +421,73 @@ h1 {
         try {
             const response = await fetch(`${apiUrl}seasons/now`);
             const data = await response.json();
-            latestAnimeList = data.data; // تخزين قائمة الأنميات
+            latestAnimeList = data.data;
             if (latestAnimeList.length > 0) {
-                displayPoster(latestAnimeList[currentIndex], currentIndex + 1); // عرض الأنمي الأول مع الترتيب
+                displayPoster(latestAnimeList[currentIndex], currentIndex + 1);
             }
         } catch (error) {
-            console.error('خطأ في جلب أحدث الأنمي:', error);
+            console.error('خطأ في جلب أحدث الأنميات:', error);
         }
     }
 
-    // عرض البوستر ومعلومات الأنمي
-    // عرض البوستر ومعلومات الأنمي
-function displayPoster(anime, rank) {
-    currentPoster.src = anime.images.jpg.large_image_url;
-    movieTitle.textContent = anime.title;
-    movieYear.textContent = `سنة الإصدار: ${anime.aired.prop.from.year}`;
+    function displayPoster(anime, rank) {
+        currentPoster.src = anime.images.jpg.image_url;
+        movieTitle.textContent = anime.title;
+        movieYear.textContent = anime.year ? anime.year : 'غير معروف';
+        document.getElementById('poster-rank').textContent = rank;
+        currentPoster.onclick = () => redirectToWatchPage(anime.title);
+        movieTitle.onclick = () => redirectToWatchPage(anime.title);
+    }
 
-    // إنشاء المربع الرصاصي وعرضه
-    const rankBox = document.createElement('div');
-    rankBox.className = 'rank-box';
-    rankBox.textContent = `المرتبة ${rank}`;
+    function redirectToWatchPage(animeTitle) {
+        const encodedTitle = encodeURIComponent(animeTitle);
+        window.location.href = `watch.html?title=${encodedTitle}`;
+    }
 
-    // إضافة المربع إلى الحاوية
-    const posterContainer = document.getElementById('poster-container');
-    posterContainer.innerHTML = ''; // مسح المحتويات السابقة
-    posterContainer.appendChild(currentPoster);
-    posterContainer.appendChild(rankBox);
-
-    // إضافة حدث عند الضغط على البوستر
-    currentPoster.addEventListener('click', () => {
-        const animeName = encodeURIComponent(anime.title); // ترميز اسم الأنمي ليكون آمنًا في الـ URL
-        window.location.href = `/watch.html?title=${animeName}`; // الانتقال إلى صفحة watch.html مع تمرير اسم الأنمي
+    prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex === 0) ? latestAnimeList.length - 1 : currentIndex - 1;
+        displayPoster(latestAnimeList[currentIndex], currentIndex + 1);
     });
-}
 
-    // عرض الأنمي السابق
-    function showPreviousAnime() {
-        if (currentIndex > 0) {
-            currentIndex--;
-            displayPoster(latestAnimeList[currentIndex], currentIndex + 1);
+    nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex === latestAnimeList.length - 1) ? 0 : currentIndex + 1;
+        displayPoster(latestAnimeList[currentIndex], currentIndex + 1);
+    });
+
+    // البحث عن الأنميات
+    searchInput.addEventListener('input', async () => {
+        const query = searchInput.value.trim();
+        if (query.length > 2) {
+            try {
+                const response = await fetch(`${apiUrl}anime?q=${query}`);
+                const data = await response.json();
+                displaySearchResults(data.data);
+            } catch (error) {
+                console.error('خطأ في البحث عن الأنميات:', error);
+            }
+        } else {
+            movieList.innerHTML = '';
+            movieList.classList.remove('show');
         }
-    }
+    });
 
-    // عرض الأنمي التالي
-    function showNextAnime() {
-        if (currentIndex < latestAnimeList.length - 1) {
-            currentIndex++;
-            displayPoster(latestAnimeList[currentIndex], currentIndex + 1);
-        }
-    }
-
-    // جلب نتائج البحث من Jikan API
-    async function searchAnime(query) {
-        try {
-            const response = await fetch(`${apiUrl}anime?q=${query}&limit=5`);
-            const data = await response.json();
-            displaySearchResults(data.data);
-        } catch (error) {
-            console.error('خطأ في البحث عن الأنمي:', error);
-        }
-    }
-
-    // عرض نتائج البحث في القائمة المنسدلة مع البوستر
-    function displaySearchResults(animeList) {
-        movieList.innerHTML = ''; // مسح القائمة الحالية
-        if (animeList.length === 0) {
-            movieList.style.display = 'none'; // إخفاء القائمة إذا لم يكن هناك نتائج
-            return;
-        }
-
-        animeList.forEach(anime => {
+    function displaySearchResults(results) {
+        movieList.innerHTML = '';
+        results.forEach(anime => {
             const li = document.createElement('li');
-            li.classList.add('search-result-item');
-
-            // إضافة البوستر
-            const img = document.createElement('img');
-            img.src = anime.images.jpg.small_image_url; // استخدام الصورة الصغيرة
-            img.alt = anime.title;
-            img.classList.add('search-result-poster');
-
-            // إضافة العنوان
-            const title = document.createElement('span');
-            title.textContent = anime.title;
-            title.classList.add('search-result-title');
-
-            li.appendChild(img); // إضافة الصورة
-            li.appendChild(title); // إضافة العنوان
-
-            li.addEventListener('click', () => {
-                const animeName = encodeURIComponent(anime.title); // ترميز اسم الأنمي ليكون آمنًا في الـ URL
-                window.location.href = `/watch.html?title=${animeName}`;
-            });
-
+            li.classList.add('movie-item');
+            li.innerHTML = `
+                <img src="${anime.images.jpg.image_url}" alt="بوستر الأنمي">
+                <span>${anime.title}</span>
+            `;
+            li.onclick = () => redirectToWatchPage(anime.title);
             movieList.appendChild(li);
         });
-        movieList.style.display = 'block'; // عرض القائمة
+        movieList.classList.add('show');
     }
 
-    // حدث البحث عند كتابة المستخدم
-    searchInput.addEventListener('input', () => {
-        const query = searchInput.value.trim();
-        if (query.length > 2) { // البدء في البحث عند إدخال 3 أحرف أو أكثر
-            searchAnime(query);
-        } else {
-            movieList.innerHTML = ''; // مسح القائمة إذا لم يكن هناك بحث
-            movieList.style.display = 'none'; // إخفاء القائمة إذا كانت المدخلات أقل من 3 أحرف
-        }
-    });
-
-    // إضافة أحداث الأزرار
-    prevButton.addEventListener('click', showPreviousAnime);
-    nextButton.addEventListener('click', showNextAnime);
-
-    // جلب وعرض أحدث الأنميات عند تحميل الصفحة
+    // استدعاء جلب أحدث الأنميات عند تحميل الصفحة
     fetchLatestAnime();
-</script>
+    </script>
 </body>
 </html>
