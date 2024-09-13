@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jikan API Example</title>
+    <title>أحدث الأنميات باستخدام Jikan API</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,29 +13,39 @@
         .anime-info {
             margin-top: 20px;
         }
+        .anime-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
     </style>
 </head>
 <body>
-    <h1>بحث عن أنمي باستخدام Jikan API</h1>
-    <input type="text" id="animeQuery" placeholder="ادخل اسم الأنمي" />
-    <button onclick="searchAnime()">بحث</button>
+    <h1>أحدث الأنميات الموسمية</h1>
+    <button onclick="getLatestAnime()">جلب أحدث الأنميات</button>
 
-    <div class="anime-info" id="animeInfo"></div>
+    <div class="anime-info" id="latestAnime"></div>
 
     <script>
-        function searchAnime() {
-            const query = document.getElementById('animeQuery').value;
-            fetch(`https://api.jikan.moe/v4/anime?q=${query}`)
+        function getLatestAnime() {
+            fetch('https://api.jikan.moe/v4/seasons/now')
                 .then(response => response.json())
                 .then(data => {
-                    const anime = data.data[0];
-                    const animeInfo = `
-                        <h2>${anime.title}</h2>
-                        <p><strong>التقييم:</strong> ${anime.score}</p>
-                        <p><strong>الحلقات:</strong> ${anime.episodes}</p>
-                        <p><strong>القصة:</strong> ${anime.synopsis}</p>
-                    `;
-                    document.getElementById('animeInfo').innerHTML = animeInfo;
+                    const animeList = data.data;
+                    let output = '';
+                    animeList.forEach(anime => {
+                        output += `
+                            <div class="anime-item">
+                                <h2>${anime.title}</h2>
+                                <img src="${anime.images.jpg.image_url}" alt="${anime.title}" width="150" />
+                                <p><strong>التقييم:</strong> ${anime.score || 'غير متاح'}</p>
+                                <p><strong>الحلقات:</strong> ${anime.episodes || 'غير متاح'}</p>
+                                <p><strong>القصة:</strong> ${anime.synopsis || 'لا توجد قصة متاحة'}</p>
+                            </div>
+                        `;
+                    });
+                    document.getElementById('latestAnime').innerHTML = output;
                 })
                 .catch(error => {
                     console.error('حدث خطأ:', error);
