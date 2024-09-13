@@ -439,10 +439,19 @@ h1 {
         movieTitle.onclick = () => redirectToWatchPage(anime.title);
     }
 
-    function redirectToWatchPage(animeTitle) {
-        const encodedTitle = encodeURIComponent(animeTitle);
-        window.location.href = `watch.html?title=${encodedTitle}`;
-    }
+    function encodeTitle(title) {
+    // استبدال المسافات بعلامة "-", علامات ":" بعلامة "-", وتحويل النص إلى حروف صغيرة
+    return title.trim()
+                .replace(/[:\s]+/g, '-') // استبدال علامات ":" والمسافات بعلامة "-"
+                .replace(/['"]/g, '') // إزالة علامات الاقتباس
+                .toLowerCase(); // تحويل النص إلى حروف صغيرة
+}
+
+function redirectToWatchPage(animeTitle) {
+    const formattedTitle = encodeTitle(animeTitle);
+    window.location.href = `watch.html?title=${formattedTitle}`;
+}
+
 
     prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex === 0) ? latestAnimeList.length - 1 : currentIndex - 1;
