@@ -2,503 +2,55 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>فهرس الافلام</title>
-    <script src="script.js" defer></script>
-    <script src=".htaccess" defer></script>
-    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أحدث الأنميات باستخدام Jikan API</title>
     <style>
-     body {
-    font-family: 'Arial', sans-serif;
-    background-color: #141414;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    overflow-x: hidden;
-      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
-}
-
-a {
-    text-decoration: none; /* إزالة التسطير من الرابط */
-    color: inherit; /* استخدام نفس لون النص */
-}
-
-header {
-    text-align: center; /* توسيط النص */
-    font-size: 3em; /* حجم الخط الكبير */
-    color: red; /* اللون الأحمر للنص */
-    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
-    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
-}
-
-
-
-
-
-h1 {
-    text-align: center; /* توسيط النص */
-    font-size: 1.5em; /* حجم الخط */
-    color: #fffefe; /* لون النص */
-    text-shadow: 2px 2px 4px rgba(251, 0, 0, 0.5); /* إضافة ظل للنص */
-}
-
-.content {
-    padding: 20px;
-    text-align: center;
-}
-
-.search-container {
-    position: relative;
-    margin: 20px auto;
-    max-width: 600px;
-    margin-bottom: 330px; /* قم بتعديل المسافة حسب الحاجة */
-    
-}
-
-#search-input {
-    width: 100%;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid #444;
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-#search-input:focus {
-    outline: none;
-    border-color: #e50914;
-    box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
-}
-
-.movie-list {
-    list-style: none;
-    padding: 0;
-    max-height: 300px;
-    overflow-y: auto;
-    margin: 0;
-    border-radius: 0 0 5px 5px;
-    background-color: #333;
-    border: 1px solid #444;
-    position: absolute;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    display: none;
-    z-index: 1;
-}
-
-.movie-list.show {
-    display: block;
-}
-
-.movie-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #444;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    color: #fff;
-}
-
-.movie-item:hover {
-    background-color: #555;
-}
-
-.movie-item img {
-    width: 75px;
-    height: 100px;
-    border-radius: 5px;
-    margin-right: 10px;
-    transition: transform 0.3s ease;
-}
-
-.movie-item img:hover {
-    transform: scale(1.1);
-}
-
-.movie-item span {
-    flex: 1;
-    text-align: left;
-}
-
-.poster-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px 0;
-      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
-}
-
-#poster-wrapper {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 300px; /* أقصى عرض للبستر */
-    height: auto; /* ارتفاع تلقائي للبستر */
-}
-
-.poster {
-    border: 5px solid #444;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
-    overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-    width: 100%; /* اجعل العرض 100% ليتطابق مع الإطار */
-    height: 100%; /* اجعل الارتفاع 100% ليتطابق مع الإطار */
-    display: flex; /* لضمان تساوي حجم البوستر والإطار */
-    justify-content: center;
-    align-items: center;
-}
-
-.poster.selected {
-    border-color: #e50914;
-    border-width: 7px;
-}
-
-.poster:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
-}
-
-
-.poster img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* لضمان أن الصورة تغطي الإطار بالكامل */
-    display: block; /* إزالة أي فراغات ناتجة عن عرض الصورة */
-}
-
-#movie-details {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.details-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* لضمان توزيع الأزرار بشكل متساوي على الأطراف */
-    margin-top: 10px;
-    padding: 0 20px;
-    gap: 15px; /* لضبط المسافة بين الأزرار */
-}
-
-
-#movie-title {
-    flex-grow: 1; /* يجعل العنوان يتمدد لملء المساحة المتاحة بين الأزرار */
-    font-size: 28px;
-    margin: 0;
-    font-weight: bold;
-    color: #e50914;
-    text-align: center;
-    white-space: normal; /* يسمح للنص بالانتقال إلى سطر جديد إذا كان طويلًا */
-    word-wrap: break-word; /* يقوم بكسر الكلمات الطويلة جداً لتجنب تمدد النص خارج الصفحة */
-      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
-}
-
-#movie-year {
-    font-size: 18px;
-    color: #aaa;
-    margin: 0;
-      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
-}
-
-.nav-buttons {
-    position: fixed; /* اجعل الأزرار ثابتة */
-    bottom: 20px; /* المسافة من أسفل الصفحة */
-    left: 50%;
-    transform: translateX(-50%); /* لتوسيط الأزرار بشكل أفقي */
-    display: flex;
-    gap: 10px; /* لضبط المسافة بين الأزرار */
-    z-index: 1000; /* تأكد من ظهور الأزرار فوق العناصر الأخرى */
-      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
-}
-
-.nav-button {
-    cursor: pointer;
-    font-size: 24px;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    user-select: none;
-    margin: 0; /* إزالة المسافة بين الأزرار */
-}
-
-.nav-button:hover {
-    background-color: #f40612;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
-}
-
-.nav-button:disabled {
-    background-color: #666;
-    cursor: not-allowed;
-}
-
-.poster-rank {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-
-.home-button {
-    display: inline-flex; /* لجعل العنصر يستخدم flexbox */
-    align-items: center; /* توسيط النص عموديًا */
-    justify-content: center; /* توسيط النص أفقيًا */
-    padding: 2vw 4vw; /* إضافة padding كنسبة مئوية من عرض النافذة */
-    background-color: red; /* لون الخلفية الأحمر */
-    color: white; /* لون النص الأبيض */
-    font-size: 5vw; /* حجم الخط نسبة إلى عرض نافذة العرض */
-    text-align: center; /* توسيط النص */
-    border-radius: 0.2em; /* زوايا دائرية للزر */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* إضافة ظل ثلاثي الأبعاد */
-    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الزر */
-    text-decoration: none; /* إزالة التسطير إذا كان هناك نص تحت */
-    margin: 2vw 0; /* إضافة هامش أعلى وأسفل كنسبة مئوية من عرض النافذة */
-    transition: background-color 0.3s, box-shadow 0.3s; /* إضافة تأثيرات الانتقال */
-    width: auto; /* السماح للعرض بالتكيف تلقائيًا */
-    max-width: 90vw; /* الحد الأقصى للعرض لضمان تناسق التصميم */
-}
-
-.home-button:hover {
-    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
-    background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.search-result-item {
-    width: 100%;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid #444;
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    text-align: center;
-    }
-
-    .search-result-item:hover {
-        background-color: #444;
-    }
-
-    .search-result-poster {
-        width: 75px;
-    height: 100px;
-    border-radius: 5px;
-    margin-right: 10px;
-    transition: transform 0.3s ease;
-    }
-
-    .search-result-title {
-        font-size: 16px;
-        font-weight: bold;
-        text-align: left;
-    }
-
-    /* تخصيص القائمة المنسدلة */
-    
-
-    .movie-list li {
-        display: flex;
-        text-align: center;
-        align-items: center;
-    }
-
-
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .anime-info {
+            margin-top: 20px;
+        }
+        .anime-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
     </style>
 </head>
 <body>
-    <a href="/">
-        <header>فهرس</header>
-    </a>
+    <h1>أحدث الأنميات الموسمية</h1>
+    <button onclick="getLatestAnime()">جلب أحدث الأنميات</button>
 
-    <div class="content">
-        <h1>البحث عن الأنمي يكون فقط عن طريق مربع البحث وليس هناك أي صفحات أخرى</h1>
+    <div class="anime-info" id="latestAnime"></div>
 
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="ابحث عن أنمي هنا">
-            <ul class="movie-list"></ul>
-        </div>
-        
-        <h1>أحدث الأنميات</h1>
-        <div class="poster-container">
-            <div id="poster-wrapper">
-                <div class="poster">
-                    <span class="poster-rank" id="poster-rank"></span>
-                    <img id="current-poster" src="" alt="بوستر الأنمي">
-                </div>
-            </div>
-        </div>
-
-        <div id="movie-details">
-            <div class="details-container">
-                <button id="prev-button" class="nav-button" disabled>&#10094;</button>
-                <div>
-                    <h2 id="movie-title">عنوان الأنمي</h2>
-                    <p id="movie-year">سنة الإصدار</p>
-                </div>
-                <button id="next-button" class="nav-button" disabled>&#10095;</button>
-            </div>
-        </div>
-        <div class="home-button" onclick="window.location.href = '/'">
-            رجوع للصفحة الرئيسية
-        </div>
-    </div>
     <script>
-    const apiUrl = 'https://api.jikan.moe/v4/';
-    const searchInput = document.getElementById('search-input');
-    const movieList = document.querySelector('.movie-list');
-    const currentPoster = document.getElementById('current-poster');
-    const movieTitle = document.getElementById('movie-title');
-    const movieYear = document.getElementById('movie-year');
-    const prevButton = document.getElementById('prev-button'); // زر اليسار
-    const nextButton = document.getElementById('next-button'); // زر اليمين
-
-    let latestAnimeList = [];
-    let currentIndex = 0;
-
-    // جلب أحدث الأنميات
-    async function fetchLatestAnime() {
-        try {
-            const response = await fetch(`${apiUrl}seasons/now`);
-            const data = await response.json();
-            latestAnimeList = data.data; // تخزين قائمة الأنميات
-            if (latestAnimeList.length > 0) {
-                displayPoster(latestAnimeList[currentIndex]); // عرض الأنمي الأول
-            }
-        } catch (error) {
-            console.error('خطأ في جلب أحدث الأنمي:', error);
+        function getLatestAnime() {
+            fetch('https://api.jikan.moe/v4/seasons/now')
+                .then(response => response.json())
+                .then(data => {
+                    const animeList = data.data;
+                    let output = '';
+                    animeList.forEach(anime => {
+                        output += `
+                            <div class="anime-item">
+                                <h2><a href="anime.html?id=${anime.mal_id}">${anime.title}</a></h2>
+                                <img src="${anime.images.jpg.image_url}" alt="${anime.title}" width="150" />
+                                <p><strong>التقييم:</strong> ${anime.score || 'غير متاح'}</p>
+                                <p><strong>الحلقات:</strong> ${anime.episodes || 'غير متاح'}</p>
+                                <p><strong>القصة:</strong> ${anime.synopsis || 'لا توجد قصة متاحة'}</p>
+                            </div>
+                        `;
+                    });
+                    document.getElementById('latestAnime').innerHTML = output;
+                })
+                .catch(error => {
+                    console.error('حدث خطأ:', error);
+                });
         }
-    }
-
-    // عرض البوستر ومعلومات الأنمي
-    function displayPoster(anime) {
-        currentPoster.src = anime.images.jpg.large_image_url;
-        movieTitle.textContent = anime.title;
-        movieYear.textContent = `سنة الإصدار: ${anime.aired.prop.from.year}`;
-    }
-
-    // عرض الأنمي السابق
-    function showPreviousAnime() {
-        if (currentIndex > 0) {
-            currentIndex--;
-            displayPoster(latestAnimeList[currentIndex]);
-        }
-    }
-
-    // عرض الأنمي التالي
-    function showNextAnime() {
-        if (currentIndex < latestAnimeList.length - 1) {
-            currentIndex++;
-            displayPoster(latestAnimeList[currentIndex]);
-        }
-    }
-
-    // جلب نتائج البحث من Jikan API
-    async function searchAnime(query) {
-        try {
-            const response = await fetch(`${apiUrl}anime?q=${query}&limit=5`);
-            const data = await response.json();
-            displaySearchResults(data.data);
-        } catch (error) {
-            console.error('خطأ في البحث عن الأنمي:', error);
-        }
-    }
-
-    // عرض نتائج البحث في القائمة المنسدلة مع البوستر
-    function displaySearchResults(animeList) {
-        movieList.innerHTML = ''; // مسح القائمة الحالية
-        if (animeList.length === 0) {
-            movieList.style.display = 'none'; // إخفاء القائمة إذا لم يكن هناك نتائج
-            return;
-        }
-
-        animeList.forEach(anime => {
-            const li = document.createElement('li');
-            li.classList.add('search-result-item');
-
-            // إضافة البوستر
-            const img = document.createElement('img');
-            img.src = anime.images.jpg.small_image_url; // استخدام الصورة الصغيرة
-            img.alt = anime.title;
-            img.classList.add('search-result-poster');
-
-            // إضافة العنوان
-            const title = document.createElement('span');
-            title.textContent = anime.title;
-            title.classList.add('search-result-title');
-
-            li.appendChild(img); // إضافة الصورة
-            li.appendChild(title); // إضافة العنوان
-
-            li.addEventListener('click', () => {
-                const animeName = encodeURIComponent(anime.title); // ترميز اسم الأنمي ليكون آمنًا في الـ URL
-                window.location.href = `/watch.html?title=${animeName}`;
-            });
-
-            movieList.appendChild(li);
-        });
-        movieList.style.display = 'block'; // عرض القائمة
-    }
-
-    // حدث البحث عند كتابة المستخدم
-    searchInput.addEventListener('input', () => {
-        const query = searchInput.value.trim();
-        if (query.length > 2) { // البدء في البحث عند إدخال 3 أحرف أو أكثر
-            searchAnime(query);
-        } else {
-            movieList.innerHTML = ''; // مسح القائمة إذا لم يكن هناك بحث
-            movieList.style.display = 'none'; // إخفاء القائمة إذا كانت المدخلات أقل من 3 أحرف
-        }
-    });
-
-    // إضافة أحداث الأزرار
-    prevButton.addEventListener('click', showPreviousAnime);
-    nextButton.addEventListener('click', showNextAnime);
-
-    // جلب وعرض أحدث الأنميات عند تحميل الصفحة
-    fetchLatestAnime();
-</script>
+    </script>
 </body>
 </html>
