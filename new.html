@@ -314,10 +314,8 @@ h1 {
         <h1>البحث عن الفلم يكون فقط عن طريق مربع البحث وليس هناك اي صفحات اخرى</h1>
 
         <div class="search-container">
-            <input type="text" id="search-input" placeholder="ابحث عن فلمك هنا">
-            <ul class="movie-list"></ul>
-        </div>
-        
+            <input type="text" id="search-input" placeholder="ابحث عن فيلم..." oninput="searchMovies()" />
+<ul id="search-results"></ul>
         
         <h1>أحدث الافلام الاجنبية</h1>
         <div class="poster-container">
@@ -424,11 +422,41 @@ async function fetchMoviesByIds() {
     }
 }
 
+// وظيفة البحث بناءً على المدخلات
+function searchMovies() {
+    const query = document.getElementById('search-input').value.trim().toLowerCase(); // تحويل المدخلات إلى أحرف صغيرة
+    const searchResults = document.getElementById('search-results');
+    searchResults.innerHTML = ''; // تفريغ النتائج السابقة
+
+    // تحقق من أن المستخدم أدخل شيئًا للبحث عنه
+    if (query === '') return;
+
+    // البحث عن الأفلام التي تتطابق مع الإدخال
+    const filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(query)); // البحث باستخدام العنوان باللغة العربية
+
+    // عرض النتائج في قائمة
+    filteredMovies.forEach(movie => {
+        const li = document.createElement('li');
+        li.textContent = `${movie.title} (${movie.release_date.split('-')[0]})`;
+        li.addEventListener('click', () => {
+            updatePoster(movie); // تحديث البوستر عند النقر على نتيجة
+        });
+        searchResults.appendChild(li);
+    });
+
+    // إذا لم يتم العثور على نتائج، إظهار رسالة
+    if (filteredMovies.length === 0) {
+        const noResultsMessage = document.createElement('li');
+        noResultsMessage.textContent = 'لا توجد نتائج مطابقة';
+        searchResults.appendChild(noResultsMessage);
+    }
+}
+
 // جلب الأفلام عند تحميل الصفحة
 window.onload = async () => {
     await fetchMoviesByIds();
+    document.getElementById('search-input').addEventListener('input', searchMovies); // ربط البحث بوظيفة الإدخال
 };
-
     </script>
 
 </body>
