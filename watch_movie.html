@@ -289,7 +289,7 @@ async function displayMovieDetails() {
   if (movieData) {
     document.querySelector('h1').textContent = movieData.title || 'لا يوجد عنوان';
     document.querySelector('img').src = movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : '';
-    document.getElementById('release-date').textContent = movieData.release_date || 'غير متوفر';
+    document.getElementById('release-date').textContent = movieData.release_date ? new Date(movieData.release_date).getFullYear() : 'غير متوفر';
     document.getElementById('overview').textContent = movieData.overview || 'لا يوجد ملخص متاح.';
 
     // Display genre

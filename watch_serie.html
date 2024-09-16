@@ -284,7 +284,7 @@ img {
             if (tvShowData) {
                 document.querySelector('h1').textContent = tvShowData.name || 'لا يوجد عنوان';
                 document.querySelector('img').src = tvShowData.poster_path ? `https://image.tmdb.org/t/p/w500/${tvShowData.poster_path}` : '';
-                document.getElementById('release-date').textContent = tvShowData.first_air_date || 'غير متوفر';
+                document.getElementById('release-date').textContent = tvShowData.first_air_date ? new Date(tvShowData.first_air_date).getFullYear() : 'غير متوفر';
                 document.getElementById('overview').textContent = tvShowData.overview || 'لا يوجد ملخص متاح.';
 
                 // Display genre
