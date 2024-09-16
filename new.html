@@ -178,6 +178,19 @@ img {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
         }
 
+
+.movie-info {
+        background-color: #f0f0f0; /* لون الخلفية الرصاصي */
+        padding: 15px;
+        border-radius: 8px; /* زوايا مستديرة */
+        border: 1px solid #ccc; /* إطار خفيف */
+        max-width: 600px; /* عرض أقصى للصندوق */
+        margin: 20px auto; /* يتمركز الصندوق في منتصف الصفحة */
+    }
+
+    .movie-info p {
+        margin: 10px 0; /* مسافة بين الفقرات */
+    }
     </style>
 </head>
 <header onclick="window.location.href='/'" style="cursor: pointer; font-family: 'Bangers', cursive; top: 0; width: 100%; z-index: 100;">
@@ -188,10 +201,13 @@ img {
     <div class="movie-details" id="movie-details">
         <img src="" alt="Movie Poster">
         <h1>Movie Title</h1>
-        <p><strong>تاريخ الاصدار : </strong> <span id="release-date">N/A</span></p>
-        <p><strong>القصة : </strong> <span id="overview">No overview available.</span></p>
-        <p><strong>النوع : </strong> <span id="genre">N/A</span></p>
-        <p><strong>التقييم : </strong> <span id="rating">N/A</span></p>
+        <div class="movie-info">
+    <p><strong>تاريخ الاصدار : </strong> <span id="release-date">N/A</span></p>
+    <p><strong>القصة : </strong> <span id="overview">No overview available.</span></p>
+    <p><strong>النوع : </strong> <span id="genre">N/A</span></p>
+    <p><strong>التقييم : </strong> <span id="rating">N/A</span></p>
+</div>
+
         <h2>التريلر</h2>
         <div class="trailer-container" id="trailer-container"></div>
         <h2>مشاهدة الفيلم</h2>
