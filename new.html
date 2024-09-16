@@ -361,9 +361,10 @@ function updatePoster(movie) {
     const rank = movies.indexOf(movie) + 1;
     document.getElementById('poster-rank').textContent = `المرتبة : ${rank}`;
 
+    // عندما يتم النقر على البوستر، يتم تحويل المستخدم إلى صفحة الفيلم بناءً على معرف TMDB
     document.getElementById('current-poster').addEventListener('click', () => {
         const tmdbId = movie.id;
-        const url = `watch_movie?tmdb_id=${tmdbId}`;
+        const url = `watch${tmdbId}.html`; // التحويل إلى صفحة خاصة بالفيلم بناءً على TMDB ID
         window.location.href = url;
     });
 }
