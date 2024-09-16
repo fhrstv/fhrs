@@ -345,17 +345,15 @@ h1 {
     </div>
     <script>
       const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-const watchPageMapping = {
-    1091657: 'watch/arabic/٥-جولات-2023.html', // استبدل 123 بمعرف الفيلم الفعلي
-    456: 'watch/456', // استبدل 456 بمعرف الفيلم الفعلي
-    789: 'watch/789'  // استبدل 789 بمعرف الفيلم الفعلي
-};
 let allMovies = [];
 let hideTimeout;
 let movies = [];
 let currentIndex = 0;
+let displayedMovies = [];
 
-// جلب الأفلام بناءً على استعلام البحث
+// مصفوفة معرفات TMDB المسموح بها
+const allowedTmdbIds = [550, 155, 157336, 299536]; // ضع هنا معرفات TMDB المسموح بها
+
 async function searchMovies(query) {
     const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=en-US`;
     try {
@@ -368,12 +366,12 @@ async function searchMovies(query) {
     }
 }
 
-// ترتيب الأفلام بناءً على الاستعلام
 function sortMovies(movies, query) {
     const lowerCaseQuery = query.toLowerCase();
     return movies.sort((a, b) => {
         const aTitle = a.title.toLowerCase();
         const bTitle = b.title.toLowerCase();
+
         const aExactMatch = aTitle === lowerCaseQuery;
         const bExactMatch = bTitle === lowerCaseQuery;
 
@@ -391,47 +389,41 @@ function sortMovies(movies, query) {
     });
 }
 
-// تحديث قائمة الأفلام بناءً على الاستعلام
 function updateMovieList(movies, query) {
     const sortedMovies = sortMovies(movies, query);
     const movieList = document.querySelector('.movie-list');
     movieList.innerHTML = '';
 
     sortedMovies.forEach(movie => {
-        const movieItem = document.createElement('li');
-        movieItem.className = 'movie-item';
-        movieItem.style.display = 'flex';
-        movieItem.style.alignItems = 'center';
-        movieItem.style.justifyContent = 'space-between';
+        if (allowedTmdbIds.includes(movie.id)) { // التحقق إذا كان معرف الفيلم مسموحًا
+            const movieItem = document.createElement('li');
+            movieItem.className = 'movie-item';
+            movieItem.style.display = 'flex';
+            movieItem.style.alignItems = 'center';
+            movieItem.style.justifyContent = 'space-between';
 
-        const poster = document.createElement('img');
-        poster.src = movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : 'default_poster.png';
-        poster.alt = `${movie.title} Poster`;
-        poster.style.width = '75px';
-        poster.style.height = '100px';
-        poster.style.marginLeft = '10px';
+            const poster = document.createElement('img');
+            poster.src = movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : 'default_poster.png';
+            poster.alt = `${movie.title} Poster`;
+            poster.style.width = '75px';
+            poster.style.height = '100px';
+            poster.style.marginLeft = '10px';
 
-        const movieText = document.createElement('span');
-        movieText.textContent = `${movie.title || 'Unnamed Movie'} (${new Date(movie.release_date).getFullYear() || ''})`;
-        movieText.style.flexGrow = '1';
-        movieText.style.textAlign = 'center';
+            const movieText = document.createElement('span');
+            movieText.textContent = `${movie.title || 'Unnamed Movie'} (${new Date(movie.release_date).getFullYear() || ''})`;
+            movieText.style.flexGrow = '1';
+            movieText.style.textAlign = 'center';
 
-        movieItem.appendChild(movieText);
-        movieItem.appendChild(poster);
-        movieItem.dataset.id = movie.id;
+            movieItem.appendChild(movieText);
+            movieItem.appendChild(poster);
+            movieItem.dataset.id = movie.id;
 
-        // تحقق مما إذا كان الفيلم يجب أن يحول المستخدم إلى صفحة معينة
-        if (watchPageMapping[movie.id]) {
             movieItem.addEventListener('click', () => {
-                window.location.href = watchPageMapping[movie.id];
+                window.location.href = `watch_movie?tmdb_id=${movie.id}`;
             });
-        } else {
-            movieItem.addEventListener('click', () => {
-                alert('هذه الصفحة غير مخصصة بعد.');
-            });
+
+            movieList.appendChild(movieItem);
         }
-
-        movieList.appendChild(movieItem);
     });
 
     movieList.style.display = sortedMovies.length ? 'block' : 'none';
@@ -468,6 +460,12 @@ document.addEventListener('click', function(event) {
     }
 });
 
+// تحديث حالة الأزرار
+function updateButtonStates() {
+    document.getElementById('prev-button').disabled = false;
+    document.getElementById('next-button').disabled = false;
+}
+
 // الانتقال إلى اليسار
 document.getElementById('prev-button').addEventListener('click', () => {
     if (movies.length > 1) {
@@ -476,6 +474,7 @@ document.getElementById('prev-button').addEventListener('click', () => {
             currentIndex = movies.length - 1;
         }
         updatePoster(movies[currentIndex]);
+        updateButtonStates();
     }
 });
 
@@ -487,6 +486,7 @@ document.getElementById('next-button').addEventListener('click', () => {
             currentIndex = 0;
         }
         updatePoster(movies[currentIndex]);
+        updateButtonStates();
     }
 });
 
@@ -501,7 +501,7 @@ function updatePoster(movie) {
 
     document.getElementById('current-poster').addEventListener('click', () => {
         const tmdbId = movie.id;
-        const url = watchPageMapping[tmdbId] || '#';
+        const url = `watch_movie?tmdb_id=${tmdbId}`;
         window.location.href = url;
     });
 }
@@ -515,6 +515,7 @@ async function fetchNowPlayingMovies() {
         movies = data.results;
         if (movies.length > 0) {
             updatePoster(movies[0]);
+            updateButtonStates();
         }
     } catch (error) {
         console.error('خطأ في جلب الأفلام:', error);
@@ -525,7 +526,6 @@ async function fetchNowPlayingMovies() {
 window.onload = async () => {
     fetchNowPlayingMovies();
 };
-
     </script>
 
 </body>
