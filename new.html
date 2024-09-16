@@ -18,10 +18,6 @@
     line-height: 1.6;
     overflow-x: hidden;
       touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
-    justify-content: center; /* جعل المحتوى في المنتصف أفقياً */
-    align-items: center; /* جعل المحتوى في المنتصف عمودياً */
-    height: 100vh; /* ملء الشاشة */
-    margin: 0;
 }
 
 
@@ -194,27 +190,6 @@ img {
     .movie-info p {
         margin: 10px 0; /* مسافة بين الفقرات */
     }
-
-    .movie-details {
-    display: flex;
-    flex-direction: row; /* البوستر في اليسار والتفاصيل في اليمين */
-    align-items: center; /* جعل النصوص محاذية للبوستر في الوسط عمودياً */
-    gap: 10px; /* تقليل المسافة بين الصورة والتفاصيل */
-}
-
-#movie-poster {
-    max-width: 300px; /* التحكم في حجم البوستر */
-    height: auto; /* الحفاظ على النسبة */
-    border-radius: 10px; /* زوايا مستديرة للصورة */
-}
-
-.movie-info {
-    flex-grow: 1; /* يجعل التفاصيل تأخذ المساحة المتبقية */
-    direction: rtl; /* يجعل النصوص بالعربية تظهر بشكل صحيح */
-    text-align: center; /* يجعل النصوص في الوسط */
-}
-
-
     </style>
 </head>
 <header onclick="window.location.href='/'" style="cursor: pointer; font-family: 'Bangers', cursive; top: 0; width: 100%; z-index: 100;">
@@ -222,17 +197,15 @@ img {
     </header>
 <body>
     
-  <div class="movie-details" id="movie-details">
-    <img src="" alt="Movie Poster" id="movie-poster">
-    <div class="movie-info">
+    <div class="movie-details" id="movie-details">
+        <img src="" alt="Movie Poster">
         <h1>Movie Title</h1>
-        <p><strong>تاريخ الاصدار : </strong> <span id="release-date">N/A</span></p>
-        <p><strong>القصة : </strong> <span id="overview">No overview available.</span></p>
-        <p><strong>النوع : </strong> <span id="genre">N/A</span></p>
-        <p><strong>التقييم : </strong> <span id="rating">N/A</span></p>
-    </div>
+        <div class="movie-info">
+    <p><strong>تاريخ الاصدار : </strong> <span id="release-date">N/A</span></p>
+    <p><strong>القصة : </strong> <span id="overview">No overview available.</span></p>
+    <p><strong>النوع : </strong> <span id="genre">N/A</span></p>
+    <p><strong>التقييم : </strong> <span id="rating">N/A</span></p>
 </div>
-
 
         <h2>التريلر</h2>
         <div class="trailer-container" id="trailer-container"></div>
