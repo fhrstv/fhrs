@@ -346,10 +346,11 @@ h1 {
     <script>
       const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
 
-// مصفوفة معرفات TMDB المحددة في السكريبت
+// مصفوفة معرفات TMDB المحددة
 const allowedTmdbIds = [550, 155, 157336, 299536]; // أضف هنا معرفات TMDB الخاصة بالأفلام التي تريد عرضها
 
 let movies = [];
+let filteredMovies = [];
 let currentIndex = 0;
 
 // تحديث البوستر
@@ -361,10 +362,10 @@ function updatePoster(movie) {
     const rank = movies.indexOf(movie) + 1;
     document.getElementById('poster-rank').textContent = `المرتبة : ${rank}`;
 
-    // عندما يتم النقر على البوستر، يتم تحويل المستخدم إلى صفحة الفيلم بناءً على معرف TMDB
+    // التحويل إلى صفحة خاصة بالفيلم بناءً على TMDB ID
     document.getElementById('current-poster').addEventListener('click', () => {
         const tmdbId = movie.id;
-        const url = `watch${tmdbId}.html`; // التحويل إلى صفحة خاصة بالفيلم بناءً على TMDB ID
+        const url = `watch${tmdbId}.html`;
         window.location.href = url;
     });
 }
@@ -377,24 +378,24 @@ function updateButtonStates() {
 
 // الانتقال إلى اليسار
 document.getElementById('prev-button').addEventListener('click', () => {
-    if (movies.length > 1) {
+    if (filteredMovies.length > 1) {
         currentIndex--;
         if (currentIndex < 0) {
-            currentIndex = movies.length - 1;
+            currentIndex = filteredMovies.length - 1;
         }
-        updatePoster(movies[currentIndex]);
+        updatePoster(filteredMovies[currentIndex]);
         updateButtonStates();
     }
 });
 
 // الانتقال إلى اليمين
 document.getElementById('next-button').addEventListener('click', () => {
-    if (movies.length > 1) {
+    if (filteredMovies.length > 1) {
         currentIndex++;
-        if (currentIndex >= movies.length) {
+        if (currentIndex >= filteredMovies.length) {
             currentIndex = 0;
         }
-        updatePoster(movies[currentIndex]);
+        updatePoster(filteredMovies[currentIndex]);
         updateButtonStates();
     }
 });
@@ -402,7 +403,7 @@ document.getElementById('next-button').addEventListener('click', () => {
 // جلب الأفلام بناءً على معرفات TMDB المحددة
 async function fetchMoviesByIds() {
     const moviePromises = allowedTmdbIds.map(async (id) => {
-        const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`;
+        const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=ar`;
         try {
             const response = await fetch(url);
             if (!response.ok) throw new Error(`Error fetching movie with ID ${id}`);
@@ -415,14 +416,35 @@ async function fetchMoviesByIds() {
 
     const movieResults = await Promise.all(moviePromises);
     movies = movieResults.filter(movie => movie !== null); // تصفية الأفلام الناجحة فقط
+    filteredMovies = [...movies]; // نسخ جميع الأفلام لعرضها في البداية
 
-    if (movies.length > 0) {
-        updatePoster(movies[0]);
+    if (filteredMovies.length > 0) {
+        updatePoster(filteredMovies[0]);
         updateButtonStates();
     } else {
         console.log('No movies found with the specified TMDB IDs.');
     }
 }
+
+// البحث الفوري أثناء الكتابة
+document.getElementById('search-box').addEventListener('input', (event) => {
+    const searchTerm = event.target.value.toLowerCase();
+
+    if (searchTerm.length > 0) {
+        filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(searchTerm));
+    } else {
+        filteredMovies = [...movies]; // إذا كانت خانة البحث فارغة، نعرض كل الأفلام
+    }
+
+    // تحديث العرض بناءً على نتائج البحث
+    if (filteredMovies.length > 0) {
+        currentIndex = 0; // العودة إلى أول نتيجة
+        updatePoster(filteredMovies[currentIndex]);
+        updateButtonStates();
+    } else {
+        console.log('No movies match your search.');
+    }
+});
 
 // جلب الأفلام عند تحميل الصفحة
 window.onload = async () => {
