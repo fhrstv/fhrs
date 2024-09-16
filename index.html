@@ -30,16 +30,24 @@
     
 
     <style>
-         body {
-            font-family: 'Arial', sans-serif;
+    html, body {
+    font-family: 'Arial', sans-serif;
     background-color: #141414;
     color: #fff;
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    overflow-x: hidden;
-      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
-        }
+    overflow-x: hidden; /* منع التمرير الأفقي */
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+         
 
         header {
             text-align: center; /* توسيط النص */
