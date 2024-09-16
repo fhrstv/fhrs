@@ -173,6 +173,18 @@ img {
     background-color: #008CBA;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
         }
+
+        .movie-info {
+    padding: 15px;
+    border-radius: 8px; /* زوايا مستديرة */
+    border: 1px solid transparent; /* إطار شفاف بالكامل */
+    max-width: 600px; /* عرض أقصى للصندوق */
+    margin: 20px auto; /* يتمركز الصندوق في منتصف الصفحة */
+}
+
+    .movie-info p {
+        margin: 10px 0; /* مسافة بين الفقرات */
+    }
     </style>
 </head>
 <header onclick="window.location.href='/'" style="cursor: pointer; font-family: 'Bangers', cursive; top: 0; width: 100%; z-index: 100;">
@@ -182,6 +194,7 @@ img {
         <div class="tv-show-details" id="tv-show-details">
             <img src="" alt="TV Show Poster">
             <h1>TV Show Title</h1>
+            <div class="movie-info">
             <p><strong>تاريخ الاصدار : </strong> <span id="release-date">N/A</span></p>
             <p><strong>القصة : </strong> <span id="overview">No overview available.</span></p>
             <p><strong>النوع : </strong> <span id="genre">N/A</span></p>
