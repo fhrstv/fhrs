@@ -1,19 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Player</title>
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.5/plyr.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مشغل فيديو HLS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    #video {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+    }
+  </style>
 </head>
 <body>
-    <video id="player" controls>
-        <source src="http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/283184.m3u8" type="application/x-mpegURL">
-    </video>
+  <h1>مشغل فيديو HLS</h1>
+  <video id="video" controls></video>
 
-    <script src="https://cdn.plyr.io/3.7.5/plyr.js"></script>
-    <script>
-        const player = new Plyr('#player');
-    </script>
+  <!-- أضف مكتبة HLS.js -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>
+    // تحقق مما إذا كانت المكتبة مدعومة في المتصفح
+    if (Hls.isSupported()) {
+      var video = document.getElementById('video');
+      var hls = new Hls();
+
+      // رابط HLS
+      var hlsUrl = 'http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/283184.m3u8';
+
+      // تحميل الفيديو من الرابط HLS
+      hls.loadSource(hlsUrl);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function() {
+        video.play();
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // إذا كان المتصفح يدعم natively HLS
+      video.src = 'http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/283184.m3u8';
+      video.addEventListener('loadedmetadata', function() {
+        video.play();
+      });
+    } else {
+      console.error('HLS is not supported in this browser.');
+    }
+  </script>
 </body>
 </html>
