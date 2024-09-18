@@ -3,52 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تشغيل ملف M3U</title>
-    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+    <title>مشغل HLS</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        #video-player { width: 100%; max-width: 800px; margin: 20px auto; }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+        }
+        video {
+            width: 80%;
+            max-width: 800px;
+            height: auto;
+        }
     </style>
 </head>
 <body>
-    <div id="video-player">
-        <video id="video" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
-            <source id="video-source" type="application/x-mpegURL">
-        </video>
-    </div>
 
-    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+    <video id="video" controls></video>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
-        function parseM3U(content) {
-            const lines = content.split('\n');
-            for (let i = 0; i < lines.length; i++) {
-                if (lines[i].startsWith('http')) {
-                    return lines[i];
-                }
-            }
-            return null;
+        if(Hls.isSupported()) {
+            var video = document.getElementById('video');
+            var hls = new Hls();
+            // رابط الفيديو الذي ترغب في تشغيله
+            var videoSrc = 'http://goldiptvofficiel.tv:25461/Dominique/B8DsYJKBk6jYKEHEIEJVKDBU/1871';
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play();
+            });
         }
-
-        function fetchM3UFile(url) {
-            fetch(url)
-                .then(response => response.text())
-                .then(content => {
-                    const videoUrl = parseM3U(content);
-                    if (videoUrl) {
-                        document.getElementById('video-source').src = videoUrl;
-                        videojs('video').ready(function() {
-                            this.play();
-                        });
-                    } else {
-                        console.error('لم يتم العثور على رابط الفيديو.');
-                    }
-                })
-                .catch(error => console.error('خطأ في تحميل ملف M3U:', error));
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            // لأجهزة تدعم HLS بشكل افتراضي مثل أجهزة Apple
+            video.src = 'http://goldiptvofficiel.tv:25461/Dominique/B8DsYJKBk6jYKEHEIEJVKDBU/1871';
+            video.addEventListener('loadedmetadata', function() {
+                video.play();
+            });
         }
-
-        // استخدم الرابط الفعلي لملف M3U الخاص بك
-        const m3uFileUrl = 'AR BEIN BEIN SPORTS 1 FHD_alliptvlinks.com.m3u';
-        fetchM3UFile(m3uFileUrl);
     </script>
+
 </body>
 </html>
