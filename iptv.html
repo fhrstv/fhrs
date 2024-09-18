@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مشغل فيديو HLS</title>
+  <title>مشغل فيديو HLS باستخدام Video.js</title>
+  <!-- إضافة أنماط Video.js -->
+  <link href="https://vjs.zencdn.net/7.20.2/video-js.css" rel="stylesheet" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -20,10 +22,12 @@
   </style>
 </head>
 <body>
-  <h1>مشغل فيديو HLS</h1>
-  <video id="video" controls></video>
+  <h1>مشغل فيديو HLS باستخدام Video.js</h1>
+  <video id="video" class="video-js vjs-default-skin" controls></video>
 
-  <!-- أضف مكتبة HLS.js -->
+  <!-- إضافة مكتبة Video.js -->
+  <script src="https://vjs.zencdn.net/7.20.2/video.min.js"></script>
+  <!-- إضافة مكتبة HLS.js -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script>
     // تحقق مما إذا كانت المكتبة مدعومة في المتصفح
