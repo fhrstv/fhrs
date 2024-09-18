@@ -4,41 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مشغل الفيديو</title>
+    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet">
     <style>
         #videoContainer {
             width: 100%;
             max-width: 800px;
             margin: auto;
         }
-        video {
-            width: 100%;
-            height: auto;
-        }
     </style>
 </head>
 <body>
     <div id="videoContainer">
-        <video id="video" controls></video>
+        <video id="video" class="video-js vjs-default-skin" controls width="640" height="360">
+            <source src="http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/283184.m3u8" type="application/x-mpegURL">
+        </video>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script>
-        var video = document.getElementById('video');
-        var videoSrc = 'http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/283184.m3u8';
-
-        if (Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource(videoSrc);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function () {
-                video.play();
-            });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = videoSrc;
-            video.addEventListener('loadedmetadata', function () {
-                video.play();
-            });
-        }
-    </script>
+    <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
 </body>
 </html>
