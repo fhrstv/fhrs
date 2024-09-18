@@ -1,58 +1,44 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مشغل فيديو HLS باستخدام Video.js</title>
-  <!-- إضافة أنماط Video.js -->
-  <link href="https://vjs.zencdn.net/7.20.2/video-js.css" rel="stylesheet" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 20px;
-      background-color: #f4f4f4;
-    }
-    #video {
-      max-width: 100%;
-      height: auto;
-      border: 1px solid #ccc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشغل الفيديو</title>
+    <style>
+        #videoContainer {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
+        video {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
-  <h1>مشغل فيديو HLS باستخدام Video.js</h1>
-  <video id="video" class="video-js vjs-default-skin" controls></video>
+    <div id="videoContainer">
+        <video id="video" controls></video>
+    </div>
 
-  <!-- إضافة مكتبة Video.js -->
-  <script src="https://vjs.zencdn.net/7.20.2/video.min.js"></script>
-  <!-- إضافة مكتبة HLS.js -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <script>
-    // تحقق مما إذا كانت المكتبة مدعومة في المتصفح
-    if (Hls.isSupported()) {
-      var video = document.getElementById('video');
-      var hls = new Hls();
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        var video = document.getElementById('video');
+        var videoSrc = 'http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/283184.m3u8';
 
-      // رابط HLS
-      var hlsUrl = 'http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/283184.m3u8';
-
-      // تحميل الفيديو من الرابط HLS
-      hls.loadSource(hlsUrl);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, function() {
-        video.play();
-      });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      // إذا كان المتصفح يدعم natively HLS
-      video.src = 'http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/283184.m3u8';
-      video.addEventListener('loadedmetadata', function() {
-        video.play();
-      });
-    } else {
-      console.error('HLS is not supported in this browser.');
-    }
-  </script>
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                video.play();
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = videoSrc;
+            video.addEventListener('loadedmetadata', function () {
+                video.play();
+            });
+        }
+    </script>
 </body>
 </html>
