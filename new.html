@@ -7,12 +7,17 @@
 </head>
 <body>
     <h1>اضغط لتحميل الفيديو</h1>
-    <a id="downloadLink" href="https://server.sanime.net/Video3/3186/5.mp4" download>
-        <button>تحميل الفيديو</button>
-    </a>
+    <button id="downloadButton">تحميل الفيديو</button>
 
     <script>
-        document.getElementById("downloadLink").click();
+        document.getElementById('downloadButton').addEventListener('click', function() {
+            const link = document.createElement('a');
+            link.href = 'https://server.sanime.net/Video3/3186/5.mp4';
+            link.setAttribute('download', 'video.mp4');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
     </script>
 </body>
 </html>
