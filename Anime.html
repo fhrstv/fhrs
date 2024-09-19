@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>FHRS TV</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>فهرس</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js" defer></script>
@@ -10,8 +10,8 @@
 <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Bangers" rel="stylesheet" />
 
-  <style>
-    body {
+    <style>
+      body {
         font-family: 'Arial', sans-serif;
     background-color: #141414;
     color: #fff;
@@ -21,7 +21,7 @@
     overflow-x: hidden;
       touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
 }
-
+    
 header {
             text-align: center; /* توسيط النص */
             background-color: #141414;
@@ -33,11 +33,12 @@ header {
     
         }
 
-h1 {
+        h1 {
     text-align: center; /* توسيط النص */
     font-size: 1.5em; /* حجم الخط */
     color: #fffefe; /* لون النص */
     text-shadow: 2px 2px 4px rgba(251, 0, 0, 0.5); /* إضافة ظل للنص */
+
 }
 
 h2 {
@@ -48,7 +49,6 @@ h2 {
 
 
 }
-
 
 .content {
     padding: 20px;
@@ -67,11 +67,11 @@ h2 {
   text-align: center;
 }
 
-.movie-item {
-  margin: 10px;
-}
+        .movie-item {
+            margin: 10px;
+        }
 
-a {
+        a {
     text-decoration: none;
     color: #ffffff;
     display: block;
@@ -95,69 +95,185 @@ a:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
 }
 
+        
+
 .search-box {
-  text-align: center;
-  margin-top: 20px;
-}
+            text-align: center;
+            margin-top: 20px;
+        }
 
-input[type="text"] {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 100%;
-  max-width: 600px;
-}
+        input[type="text"] {
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
 
-input[type="submit"] {
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #e50914;
+            box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
+        }
 
-#search-input {
-    width: 100%;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid #444;
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    text-align: center;
-}
+        input[type="submit"] {
+            background-color: #333;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
 
-#search-input:focus {
-    outline: none;
-    border-color: #e50914;
-    box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
-}
-
-  </style>
+        /* تعديل للشاشات الصغيرة (تقنية التجاوب) */
+        @media (max-width: 600px) {
+            h2 {
+                font-size: 24px; /* تصغير حجم العنوان للهواتف الصغيرة */
+            }
+            .search-box {
+                margin-top: 10px;
+            }
+        }
+    </style>
+    <!-- تضمين الخط العربي Tajawal -->
 </head>
 <body>
-  <header onclick="window.location.href='/'" style="cursor: pointer; font-family: 'Bangers', cursive; top: 0; width: 100%; z-index: 100;">
-    Fhrs Tv
-</header>
-
-  <div class="content">
-    <h1>الافلام و المسلسلات الانمي</h1>
+    <header onclick="window.location.href='/'" style="cursor: pointer; font-family: 'Bangers', cursive; top: 0; width: 100%; z-index: 100;">
+        Fhrs Tv
+    </header>
+    <div class="content">
+        <h1>الافلام و المسلسلات الانمي</h1>
     <h2>يتم تنزيل الافلام و المسلسلات الانمي كاملة بناء على طلب ، للطلب ارسل اسم الفيلم او المسلسل 
 <span style="color: #0088cc; cursor: pointer;" onclick="window.open('https://t.me/fhrs_report', '_blank')">هنا</span>
-</h2>
+</h2>       
 
         <div class="search-box">
-      <input type="text" id="search-input" dir="auto" style="text-align: center;" placeholder="اكتب اسم الفيلم او المسلسل هنا">
-    </div>
-    <ul class="head-center">
-      <li class="head-item"><a href="/">رجوع</a></li>
+            <form action="#" method="get" id="searchForm">
+                <input type="text" name="search" id="searchInput" placeholder="ابحث عن فلمك هنا">
+            </form>
+        </div>
+        <!-- نتائج البحث -->
+        <div class="search-results" id="searchResults">
+            <!-- هنا سيتم عرض نتائج البحث -->
+        </div>
+        <!-- قائمة الأفلام والمسلسلات الأخرى -->
+        <ul class="head-center">
+            <li class="head-item"><a href="/">رجوع</a></li>
         </ul>
-            <ul class="movie-list" id="movie-list">
-  <li id="loading-message">جاري تحميل...</li>
-</ul>
-<script src="Anime.js"></script>
+        <ul class="movie-list">
+                   <!-- إضافة العناصر هنا -->
+                    <li class="movie-item"><a href="watch/anime/7-seeds.html">7 Seeds</a></li>
+                    <li class="movie-item"><a href="watch/anime/akame-ga-kill-2014.html">Akame Ga Kill 2014</a></li>
+                    <li class="movie-item"><a href="watch/anime/berserk.html">Berserk</a></li>
+                    <li class="movie-item"><a href="watch/anime/bleach-sennen-kessen-hen.html">Bleach Sennen Kessen Hen</a></li>
+                    <li class="movie-item"><a href="watch/anime/bleach.html">Bleach</a></li>
+                    <li class="movie-item"><a href="watch/anime/blue-lock.html">Blue Lock</a></li>
+                    <li class="movie-item"><a href="watch/anime/boku-no-hero.html">Boku No Hero</a></li>
+                    <li class="movie-item"><a href="watch/anime/boruto-naruto-next-generations.html">Boruto</a></li>
+                    <li class="movie-item"><a href="watch/anime/chainsaw-man.html">Chainsaw Man</a></li>
+                    <li class="movie-item"><a href="watch/anime/death-note.html">Death Note</a></li>
+                    <li class="movie-item"><a href="watch/anime/detective-conan.html">Detective Conan</a></li>
+                    <li class="movie-item"><a href="watch/anime/haikyuu-movie-1-owari-to-hajimari-2015.html">Haikyuu movie 1 Owari To Hajimari 2015</a></li>
+                    <li class="movie-item"><a href="watch/anime/haikyuu.html">Haikyuu</a></li>
+                    <li class="movie-item"><a href="watch/anime/hanma-baki-vs-kengan-ashura-2024.html">Hanma Baki vs Kengan Ashura 2024</a></li>
+                    <li class="movie-item"><a href="watch/anime/hunter-x-hunter.html">Hinter x Hunter</a></li>
+                    <li class="movie-item"><a href="watch/anime/jujutsu-kaisen.html">Jujutsu Kaisen</a></li>
+                    <li class="movie-item"><a href="watch/anime/kimetsu-no-yaiba-mugen-ressha-hen-2020.html">Kimetsu No Yaiba Mugen Ressha Hen 2020</a></li>
+                    <li class="movie-item"><a href="watch/anime/kimetsu-no-yaiba.html">Kimetsu No Yaiba</a></li>
+                    <li class="movie-item"><a href="watch/anime/kingdom.html">kingdom/a></li>
+                    <li class="movie-item"><a href="watch/anime/kitarou-tanjou:-gegege-no-nazo-2023.html">kitarou Tanjou: Gegege No Nazo 2023</a></li>
+                    <li class="movie-item"><a href="watch/anime/mashle.html">Mashle</a></li>
+                    <li class="movie-item"><a href="watch/anime/monster.html">Monster</a></li>
+                    <li class="movie-item"><a href="watch/anime/naruto-shippuuden-movie-1-2007.html">Naruto Shippuuden Movie 1 (2007)</a></li>
+                    <li class="movie-item"><a href="watch/anime/naruto-shippuuden-movie-2.html">Naruto Shippuuden Movie 2</a></li>
+                    <li class="movie-item"><a href="watch/anime/naruto-shippuuden-movie-3.html">Naruto Shippuuden Movie 3</a></li>
+                    <li class="movie-item"><a href="watch/anime/naruto-shippuuden-movie-4.html">Naruto Shippuuden Movie 4</a></li>
+                    <li class="movie-item"><a href="watch/anime/naruto-shippuuden-movie-5.html">Naruto Shippuuden Movie 5</a></li>
+                    <li class="movie-item"><a href="watch/anime/ninja-kamui.html">Ninja Kamui</a></li>
+                    <li class="movie-item"><a href="watch/anime/one-piece-film-gold-2016.html">One Piece Film Gold 2016</a></li>
+                    <li class="movie-item"><a href="watch/anime/one-piece.html">One Piece</a></li>
+                    <li class="movie-item"><a href="watch/anime/one-punch-man.html">One Punch Man</a></li>
+                    <li class="movie-item"><a href="watch/anime/road-to-ninja-naruto-the-movie-2012.html">Road to Ninja Naruto The Movie 2012</a></li>
+                    <li class="movie-item"><a href="watch/anime/solo-leveling.html">Solo Leveling</a></li>
+                    <li class="movie-item"><a href="watch/anime/spy-x-family-movie-code-white-2023.html">Spy x Family Movie Code White 2023</a></li>
+                    <li class="movie-item"><a href="watch/anime/sword-art-online-alicization.html">Sword Art Online Alicization</a></li>
+                    <li class="movie-item"><a href="watch/anime/sword-art-online.html">Sword Art Online</a></li>
+                    <li class="movie-item"><a href="watch/anime/the-fable.html">The Fable</a></li>
+                    <li class="movie-item"><a href="watch/anime/the-last-naruto-the-movie-2014.html">The Last Naruto The Movie 2014</a></li>
+                    <li class="movie-item"><a href="watch/anime/tokyo-ghoul.html">Tokyo Ghoul</a></li>
+                    <li class="movie-item"><a href="watch/anime/tokyo-revengers.html">Tokyo Revengers</a></li>
+                    <li class="movie-item"><a href="watch/anime/undead-unluck.html">Undead Unluck</a></li>
+                    <li class="movie-item"><a href="watch/anime/vinland-saga.html">Vinland Saga</a></li>
+                    <li class="movie-item"><a href="watch/anime/violet-evergarden-movie-2019.html">Violet Evergarden Movie 2019</a></li>
+                    <li class="movie-item"><a href="watch/anime/violet-evergarden-movie-2020.html">Violet Evergarden Movie 2020</a></li>
+                    <li class="movie-item"><a href="watch/anime/yakusoku-no-neverland.html">Yakusoku No Neverland</a></li>
+
+
+
+
+
+
+
+
+
+
+
+                      
+
+
+
+
+
+     
+      <!-- يمكنك إضافة المزيد من الأفلام والمسلسلات هنا -->
+        </ul>
+    </div>
+<script>
+    document.getElementById("searchInput").addEventListener("input", function () {
+    // الحصول على قيمة مربع البحث
+    var searchTerm = this.value.toLowerCase();
+    
+    // الحصول على قائمة الأفلام
+    var movieList = document.getElementsByClassName("movie-item");
+
+    // عرض أو إخفاء الأفلام بناءً على البحث
+    for (var i = 0; i < movieList.length; i++) {
+        var movieName = movieList[i].innerText.toLowerCase();
+        if (movieName.includes(searchTerm)) {
+            movieList[i].style.display = "block"; // إظهار العنصر
+        } else {
+            movieList[i].style.display = "none"; // إخفاء العنصر
+        }
+    }
+});
+
+</script>
+<script>
+    // احصل على العناصر داخل القائمة
+    var movieList = document.querySelector(".movie-list");
+
+    // احصل على الروابط داخل القائمة وقم بتحويلها إلى مصفوفة
+    var links = Array.from(movieList.querySelectorAll("a"));
+
+    // قم بفرز المصفوفة بالترتيب الأبجدي
+    links.sort(function(a, b) {
+        return a.textContent.localeCompare(b.textContent);
+    });
+
+    // قم بإعادة ترتيب الروابط داخل القائمة
+    links.forEach(function(link) {
+        movieList.appendChild(link.parentElement);
+    });
+</script>
 </body>
 </html>
+</body>
+</head>
+                </html>
+
