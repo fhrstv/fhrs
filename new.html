@@ -27,6 +27,8 @@
     <script src="scripit.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Lemonada&display=swap" rel="stylesheet">
 
+    
+
     <style>
     html, body {
     font-family: 'Arial', sans-serif;
@@ -57,18 +59,6 @@
     cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
         overflow-x: hidden;
         }
-        
-        h1 {
-        text-align: center; /* توسيط النص */
-            background-color: #141414;
-    font-size: 15px; /* حجم الخط الكبير */
-    color: red; /* اللون الأحمر للنص */
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
-
-        font-family: 'Bangers' ;
-    }
-    
-    
       
       .container {
             max-width: 800px;
@@ -100,8 +90,14 @@
 
         /* عنوان الصفحة */
         h1 {
-            margin: 0;
-        }
+        text-align: center; /* توسيط النص */
+            background-color: #141414;
+    font-size: 15px; /* حجم الخط الكبير */
+    color: red; /* اللون الأحمر للنص */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
+
+        font-family: 'Bangers' ;
+    }
 
         /* منطقة العرض للأفلام والمسلسلات */
         .content {
@@ -162,12 +158,9 @@ a:hover {
     border: none;
     display: inline-block;
     font-size: 100px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
     text-shadow: 2px 2px 5px rgba(0, 132, 255, 0.5); /* ظل أزرق خفيف */
-            background-color: #141414;
-    color: red; /* اللون الأحمر للنص */
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
-
-        font-family: 'Bangers' ;
 }
 
 
@@ -200,8 +193,6 @@ h3{
 h5{
   font-size: 20px;
 }
-
-
 
 
 
@@ -848,9 +839,7 @@ h5{
 }
 
 
-
-
-       #subtitle {
+#subtitle {
     text-align: center; /* لتوسيط النصوص */
     position: relative;
   }
@@ -862,8 +851,6 @@ h5{
     left: 0;
     right: 0;
   }
-
-
     </style>
     <!-- تضمين الخط العربي Tajawal -->
 </head>
@@ -872,14 +859,12 @@ h5{
         Fhrs Tv
     </header>
     
-  <h1 id="subtitle" style="text-align: center;">
+    <h1 id="subtitle" style="text-align: center;">
   <span id="arabic-text" style="font-family: Lemonada; font-size: 12px; opacity: 1;">اكثر من 100 الف فيلم و مسلسل مترجم بالعربية</span>
   <span id="english-text" style="font-family: Bangers; font-size: 16px; opacity: 0;">More Than 100k Movies & Series Translated to Arabic</span>
 </h1>
 
-
     <div class="content">
-        
 
 
 
@@ -887,9 +872,9 @@ h5{
 
 
 <h4 class="telegram-link">
-
-
-Simple & Easy
+  <span onclick="window.open('https://t.me/fhrstv', '_blank');">
+    <img src="https://telegram.org/img/t_logo.png" alt="تليجرام">
+Join us in Telegram
   </span>
 </h4>
         <!-- نتائج البحث -->
@@ -955,6 +940,5 @@ Simple & Easy
   // تغيير النصوص كل 3 ثواني مع تأثير التلاشي البطيء
   setInterval(toggleText, 8000);
 </script>
-
 </body>
 </html>
