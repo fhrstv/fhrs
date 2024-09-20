@@ -935,20 +935,32 @@ h1, h6 {
 <script src="scripit.js"></script>
 <script src="random.js"></script>
 <script>
-    // Show h6 first
     const h6 = document.getElementById("subtitle");
     const h1 = document.getElementById("title");
 
-    // Show h6 initially
+    let isH6Visible = true; // To track which element is currently visible
+
+    function toggleElements() {
+        if (isH6Visible) {
+            h6.style.opacity = 0; // Hide h6
+            setTimeout(() => {
+                h1.style.opacity = 1; // Show h1
+            }, 1000); // Wait for h6 to fade out
+        } else {
+            h1.style.opacity = 0; // Hide h1
+            setTimeout(() => {
+                h6.style.opacity = 1; // Show h6
+            }, 1000); // Wait for h1 to fade out
+        }
+        isH6Visible = !isH6Visible; // Toggle visibility state
+    }
+
+    // Initial display of h6
     h6.style.opacity = 1;
 
-    // After 3 seconds, hide h6 and show h1
-    setTimeout(() => {
-        h6.style.opacity = 0;
-        setTimeout(() => {
-            h1.style.opacity = 1;
-        }, 1000); // Wait for h6 to fade out
-    }, 3000);
+    // Start toggling every 3 seconds
+    setInterval(toggleElements, 4000); // 4 seconds for smooth transition and delay
 </script>
+
 </body>
 </html>
