@@ -857,10 +857,12 @@ h5{
 
 
 
-   #text-container {
+   
+h1, h6 {
+            display: inline;
             opacity: 0;
             transition: opacity 1s ease-in-out;
-            display: inline;
+            margin: 0 10px; /* Optional: space between h1 and h6 */
         }
 
     </style>
@@ -872,11 +874,10 @@ h5{
     </header>
     
    <div class="container">
-    <span id="text-container">
-        <h6 id="subtitle" style="display: inline;">اكثر من 100 الف فيلم و مسلسل مترجم بالعربية</h6>
-        <h1 id="title" style="font-size: 16px; display: inline;">More Than 100k Movies & Series Translated to Arabic</h1>
-    </span>
+    <h6 id="subtitle">اكثر من 100 الف فيلم و مسلسل مترجم بالعربية</h6>
+    <h1 id="title" style="font-size: 16px;">More Than 100k Movies & Series Translated to Arabic</h1>
 </div>
+
 
 
     <div class="content">
@@ -940,31 +941,32 @@ h5{
 <script src="scripit.js"></script>
 <script src="random.js"></script>
 <script>
-    const subtitle = document.getElementById("subtitle");
-    const title = document.getElementById("title");
-    const textContainer = document.getElementById("text-container");
+    const h6 = document.getElementById("subtitle");
+    const h1 = document.getElementById("title");
 
     let isH6Visible = true; // To track which element is currently visible
 
     function toggleElements() {
         if (isH6Visible) {
-            subtitle.style.display = "none"; // Hide h6
-            title.style.display = "inline"; // Show h1
+            h6.style.opacity = 0; // Hide h6
+            setTimeout(() => {
+                h1.style.opacity = 1; // Show h1
+            }, 1000); // Wait for h6 to fade out
         } else {
-            title.style.display = "none"; // Hide h1
-            subtitle.style.display = "inline"; // Show h6
+            h1.style.opacity = 0; // Hide h1
+            setTimeout(() => {
+                h6.style.opacity = 1; // Show h6
+            }, 1000); // Wait for h1 to fade out
         }
         isH6Visible = !isH6Visible; // Toggle visibility state
-        textContainer.style.opacity = 1; // Ensure the container is visible
     }
 
     // Initial display of h6
-    subtitle.style.display = "inline";
-    title.style.display = "none"; // Hide h1 initially
-    textContainer.style.opacity = 1; // Show the text container
+    h6.style.opacity = 1;
 
-    // Start toggling every 3 seconds
-    setInterval(toggleElements, 3000); // 3 seconds interval for toggling
+    // Start toggling every 4 seconds
+    setInterval(toggleElements, 4000); // 4 seconds for smooth transition and delay
 </script>
+
 </body>
 </html>
