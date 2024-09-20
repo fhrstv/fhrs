@@ -855,7 +855,10 @@ h5{
 
 
 
-   
+     #arabic-text, #english-text {
+    transition: opacity 2s ease-in-out;
+    position: absolute;
+  }
 
 
     </style>
@@ -867,10 +870,9 @@ h5{
     </header>
     
   <h1 id="subtitle">
-  <span id="arabic-text" style="font-family: Lemonada; font-size: 12px;">اكثر من 100 الف فيلم و مسلسل مترجم بالعربية</span>
-  <span id="english-text" style="font-family: Bangers; font-size: 16px; display: none;">More Than 100k Movies & Series Translated to Arabic</span>
+  <span id="arabic-text" style="font-family: Lemonada; font-size: 12px; opacity: 1;">اكثر من 100 الف فيلم و مسلسل مترجم بالعربية</span>
+  <span id="english-text" style="font-family: Bangers; font-size: 16px; opacity: 0;">More Than 100k Movies & Series Translated to Arabic</span>
 </h1>
-
 
     <div class="content">
         
@@ -933,22 +935,20 @@ h5{
 <script src="scripit.js"></script>
 <script src="random.js"></script>
 <script>
-  // حدد النصوص العربية والانجليزية
   const arabicText = document.getElementById('arabic-text');
   const englishText = document.getElementById('english-text');
 
-  // وظيفة للتبديل بين النصوص
   function toggleText() {
-    if (arabicText.style.display === 'none') {
-      arabicText.style.display = 'inline';
-      englishText.style.display = 'none';
+    if (arabicText.style.opacity == '1') {
+      arabicText.style.opacity = '0';
+      englishText.style.opacity = '1';
     } else {
-      arabicText.style.display = 'none';
-      englishText.style.display = 'inline';
+      arabicText.style.opacity = '1';
+      englishText.style.opacity = '0';
     }
   }
 
-  // تبديل النصوص كل 3 ثواني (3000 مللي ثانية)
+  // تغيير النصوص كل 3 ثواني مع تأثير التلاشي البطيء
   setInterval(toggleText, 3000);
 </script>
 
