@@ -57,17 +57,33 @@
     </div>
     
 <script>
-const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // استخدم مفتاح TMDB API الخاص بك
+const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // استخدم مفتاح API الخاص بك
 
 // دالة لتحويل النصوص إلى الحروف الكبيرة في بداية كل كلمة
 function capitalizeWords(str) {
     return str.replace(/\b\w/g, char => char.toUpperCase());
 }
 
-// دالة لاستخراج tmdb_id من الـ URL
-function getQueryParameter(name) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(name);
+// دالة لتنسيق الرابط بناءً على الجودة
+function formatUrl(title, year, quality, source) {
+    const formattedTitle = encodeURIComponent(capitalizeWords(title)).replace(/%20/g, ' '); // تحويل الحروف الأولى لكل كلمة إلى كبيرة والحفاظ على المسافات
+    const formattedTitleWithDots = capitalizeWords(title).replace(/\s+/g, '.'); // تحويل المسافات إلى نقاط بعد تحويل الحروف الأولى إلى كبيرة
+
+    let formattedUrl = '';
+
+    // بناء الرابط النهائي بناءً على الجودة
+    if (quality === '2160p') {
+        formattedUrl = `${formattedTitle} (${year}) %5B2160p%5D %5B4K%5D %5BWEB%5D %5B5.1%5D %5BYTS.MX%5D/${formattedTitleWithDots}.${year}.2160p.4K.WEB.x265.10bit.AAC5.1-%5BYTS.MX%5D.mkv`;
+    } else if (quality === '1080p') {
+        formattedUrl = `${formattedTitle} (${year}) %5B1080p%5D %5BWEBRip%5D %5B5.1%5D %5BYTS.MX%5D/${formattedTitleWithDots}.${year}.1080p.WEBRip.x264.AAC5.1-%5BYTS.MX%5D.mp4`;
+    } else if (quality === '720p') {
+        formattedUrl = `${formattedTitle} (${year}) %5B720p%5D %5BWEBRip%5D %5BYTS.MX%5D/${formattedTitleWithDots}.${year}.720p.WEBRip.x264.AAC-%5BYTS.MX%5D.mp4`;
+    } else {
+        // في حال وجود جودة أخرى يمكن إضافة صيغة أخرى
+        formattedUrl = `${formattedTitle} (${year}) %5B${quality}%5D %5BWEBRip%5D %5BYTS.MX%5D/${formattedTitleWithDots}.${year}.${quality}.WEBRip.x264.AAC-%5BYTS.MX%5D.mp4`;
+    }
+
+    return formattedUrl;
 }
 
 // دالة لجلب IMDb ID من TMDB ID
@@ -106,51 +122,58 @@ async function fetchMovieTorrents(imdbId) {
                 const quality = torrent.quality || 'N/A';  // جودة الفيديو (مثل 720p, 1080p)
                 const type = torrent.type || 'WEB';        // نوع الجودة (مثل WEB أو BluRay)
                 const size = torrent.size || 'غير متوفر'; // حجم الملف (مثل 1.5 GB, 700 MB)
-                const hash = torrent.hash; // الهاش الخاص بالتورنت
-                const fileName = `${movie.title}.${torrent.quality}.${torrent.type}-${torrent.hash}.mp4`; // اسم الملف بناءً على العنوان والجودة
-                const magnetLink = `magnet:?xt=urn:btih:${hash}&dn=${encodeURIComponent(movie.title)}&tr=udp://open.demonii.com:1337`;
+                const codec = torrent.codec || 'H.264';    // ترميز الفيديو (مثل H.264 أو H.265)
+                const fileHash = torrent.hash.toLowerCase(); // تحويل الهاش إلى حروف صغيرة
+
+                // تعديل اسم الفيلم للصيغة المطلوبة
+                const title = movie.title;
+                const year = movie.year;
+                const formattedUrl = formatUrl(title, year, quality, type, codec); // يستخدم الجودة والنوع والترميز
+                const baseUrl = `https://abra--7537ca20.api.brilliant-bittern.buzz/${fileHash}/`;
+                const downloadUrl = `${baseUrl}${formattedUrl}?user-id=32c790ec2ace811cc18a75ea22e41cb7&download=true&download-id=a05657765ed855dd2f7621a64b018eda&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZ2VudCI6Ik1vemlsbGEvNS4wIChpUGhvbmU7IENQVSBpUGhvbmUgT1MgMTZfN18xMCBsaWtlIE1hYyBPUyBYKSBBcHBsZVdlYktpdC82MDUuMS4xNSAoS0hUTUwsIGxpa2UgR2Vja28pIFZlcnNpb24vMTYuNiBNb2JpbGUvMTVFMTQ4IFNhZmFyaS82MDQuMSIsInJlbW90ZUFkZHJlc3MiOiIyYTAwOjE4ZDg6Nzk6ZmU0MTo1OWQ2OmFjMTo0NTc6NWY3MiIsImRvbWFpbiI6IndlYnRvci5pbyIsImV4cCI6MTcyNzM4MDQzNCwic2Vzc2lvbklEIjoicDF6TXRJSnpzTWJ6U05XRXkxLWpnWE5qTk1VeGNjSVIiLCJyYXRlIjoiMTBNIiwicm9sZSI6Im5vYm9keSJ9.O3rFhGkNo3ZGKIXO2qqideEl6r-I54V-8k1PEJVNxdo&api-key=8acbcf1e-732c-4574-a3bf-27e6a85b86f`;
 
                 const button = document.createElement('button');
                 button.textContent = `${quality} (${type})  (${size})`;  // عرض الجودة والنوع والحجم
-                button.setAttribute('data-file', fileName);
-                button.setAttribute('data-magnet', magnetLink);
+                button.setAttribute('data-url', downloadUrl);
                 resolutionOptions.appendChild(button);
 
                 button.addEventListener('click', function() {
-                    const magnetUrl = this.getAttribute('data-magnet');
-                    const fileName = this.getAttribute('data-file');
-                    if (magnetUrl && fileName) {
-                        const webtorUrl = `https://webtor.io/#/show?file=${encodeURIComponent(fileName)}&magnet=${encodeURIComponent(magnetUrl)}`;
-                        window.open(webtorUrl, '_blank'); // فتح رابط webtor.io في نافذة جديدة
+                    const torrentUrl = this.getAttribute('data-url');
+                    if (torrentUrl) {
+                        window.open(torrentUrl, '_blank'); // فتح الرابط في نافذة جديدة
                     }
                 });
             });
+
         } else {
             const resolutionOptions = document.getElementById('resolution-options');
             resolutionOptions.innerHTML = '<p>لا توجد جودات متاحة</p>';
         }
     } catch (error) {
-        console.error('خطأ في جلب جودات الفيلم:', error);
+        console.error('خطأ في البحث عن الفيلم في YTS:', error);
     }
 }
 
-// دالة لبدء جلب المعلومات بناءً على TMDB ID
-async function loadMovieTorrents(tmdbId) {
-    const imdbId = await getImdbIdFromTmdb(tmdbId);
-    if (imdbId) {
-        await fetchMovieTorrents(imdbId);
+
+// دالة لجلب معلومات الفيلم وعرض التورنت
+async function displayMovieTorrents() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tmdbId = urlParams.get('tmdb_id');
+    
+    if (tmdbId) {
+        const imdbId = await getImdbIdFromTmdb(tmdbId);
+        if (imdbId) {
+            await fetchMovieTorrents(imdbId);
+        } else {
+            document.getElementById('resolution-options').innerHTML = '<p>فشل في جلب IMDb ID</p>';
+        }
     } else {
-        document.getElementById('resolution-options').innerHTML = '<p>لم يتم العثور على IMDb ID</p>';
+        document.getElementById('resolution-options').innerHTML = '<p>لم يتم توفير TMDB ID</p>';
     }
 }
 
-// استدعاء الدالة لتحميل الجودات لفيلم معين باستخدام TMDB ID من الـ URL
-const tmdbId = getQueryParameter('tmdb_id'); // جلب tmdb_id من الـ URL
-if (tmdbId) {
-    loadMovieTorrents(tmdbId);
-} else {
-    document.getElementById('resolution-options').innerHTML = '<p>لم يتم العثور على TMDB ID في الرابط</p>';
-}
+// استدعاء الدالة عند تحميل الصفحة
+window.onload = displayMovieTorrents;
 
 </script>
 

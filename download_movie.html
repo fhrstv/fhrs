@@ -124,18 +124,9 @@
         </h3>
     </h2>
     <iframe id="direct1Iframe" width="100%" height="400px" src=""></iframe>
-    <h2>( تحميل الفيلم مباشر )
-        <h3>إذا كانت إحدى الجودات لا تعمل حاول عن طريق تحميل الفيلم برابط مباشر
-        </h3>
+    <h2>( تحميل الفيلم مباشر عن طريق موقع Webtor)
     </h2>
     <iframe id="direct2Iframe" width="100%" height="400px" src=""></iframe>
-    <h2>( تحميل الفيلم برابط مباشر )
-        <h3> يكون الفيلم نهاية رابطه هو
-        <br>.mkv أو .mp4
-        </h3>
-    </h2>
-    <iframe id="direct3Iframe" width="100%" height="400px" src=""></iframe>
-
     <button class="button" id="download-subtitles">تحميل الترجمة</button>
 
     <!-- زر الرجوع مع تمرير tmdb_id -->
@@ -149,7 +140,6 @@
         if (tmdbId) {
             // تمرير tmdb_id إلى صفحات iframe
             document.getElementById('direct2Iframe').src = `direct2.html?tmdb_id=${tmdbId}`;
-            document.getElementById('direct3Iframe').src = `direct3.html?tmdb_id=${tmdbId}`;
             document.getElementById('direct1Iframe').src = `direct1.html?tmdb_id=${tmdbId}`;
 
             // تعيين وظيفة للزر الرجوع
