@@ -923,6 +923,22 @@ h5{
     </div>
 <script src="scripit.js"></script>
 <script src="random.js"></script>
+<script>
+  const arabicText = document.getElementById('arabic-text');
+  const englishText = document.getElementById('english-text');
 
+  function toggleText() {
+    if (arabicText.style.opacity == '1') {
+      arabicText.style.opacity = '0';
+      englishText.style.opacity = '1';
+    } else {
+      arabicText.style.opacity = '1';
+      englishText.style.opacity = '0';
+    }
+  }
+
+  // تغيير النصوص كل 3 ثواني مع تأثير التلاشي البطيء
+  setInterval(toggleText, 8000);
+</script>
 </body>
 </html>
