@@ -25,9 +25,7 @@
 <script src=".htaccess" defer></script>
 <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
     <script src="scripit.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@400&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Lemonada&display=swap" rel="stylesheet">
 
     <style>
     html, body {
@@ -872,10 +870,10 @@ h1, h6 {
         Fhrs Tv
     </header>
     
-   <h1 id="subtitle">اكثر من 100 الف فيلم و مسلسل مترجم بالعربية</h1>
-<h1 id="title" style="font-size: 16px;">More Than 100k Movies & Series Translated to Arabic</h1>
-
-
+  <h1 id="subtitle">
+  <span id="arabic-text" style="font-family: Lemonada;">اكثر من 100 الف فيلم و مسلسل مترجم بالعربية</span>
+  <span id="english-text" style="font-family: Bangers; font-size: 16px; display: none;">More Than 100k Movies & Series Translated to Arabic</span>
+</h1>
 
 
     <div class="content">
@@ -939,31 +937,23 @@ h1, h6 {
 <script src="scripit.js"></script>
 <script src="random.js"></script>
 <script>
-    const h6 = document.getElementById("subtitle");
-    const h1 = document.getElementById("title");
+  // حدد النصوص العربية والانجليزية
+  const arabicText = document.getElementById('arabic-text');
+  const englishText = document.getElementById('english-text');
 
-    let isH6Visible = true; // To track which element is currently visible
-
-    function toggleElements() {
-        if (isH6Visible) {
-            h6.style.opacity = 0; // Hide h6
-            setTimeout(() => {
-                h1.style.opacity = 1; // Show h1
-            }, 1000); // Wait for h6 to fade out
-        } else {
-            h1.style.opacity = 0; // Hide h1
-            setTimeout(() => {
-                h6.style.opacity = 1; // Show h6
-            }, 1000); // Wait for h1 to fade out
-        }
-        isH6Visible = !isH6Visible; // Toggle visibility state
+  // وظيفة للتبديل بين النصوص
+  function toggleText() {
+    if (arabicText.style.display === 'none') {
+      arabicText.style.display = 'inline';
+      englishText.style.display = 'none';
+    } else {
+      arabicText.style.display = 'none';
+      englishText.style.display = 'inline';
     }
+  }
 
-    // Initial display of h6
-    h6.style.opacity = 1;
-
-    // Start toggling every 3 seconds
-    setInterval(toggleElements, 4000); // 4 seconds for smooth transition and delay
+  // تبديل النصوص كل 3 ثواني (3000 مللي ثانية)
+  setInterval(toggleText, 3000);
 </script>
 
 </body>
