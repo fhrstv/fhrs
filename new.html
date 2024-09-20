@@ -855,9 +855,17 @@ h5{
 
 
 
-     #arabic-text, #english-text {
+       #subtitle {
+    text-align: center; /* لتوسيط النصوص */
+    position: relative;
+  }
+
+  #arabic-text, #english-text {
     transition: opacity 2s ease-in-out;
     position: absolute;
+    width: 100%; /* لضمان أن النص يكون في المنتصف */
+    left: 0;
+    right: 0;
   }
 
 
@@ -869,7 +877,7 @@ h5{
         Fhrs Tv
     </header>
     
-  <h1 id="subtitle">
+  <h1 id="subtitle" style="text-align: center;">
   <span id="arabic-text" style="font-family: Lemonada; font-size: 12px; opacity: 1;">اكثر من 100 الف فيلم و مسلسل مترجم بالعربية</span>
   <span id="english-text" style="font-family: Bangers; font-size: 16px; opacity: 0;">More Than 100k Movies & Series Translated to Arabic</span>
 </h1>
