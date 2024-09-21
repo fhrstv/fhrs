@@ -1,61 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
-  <title>M3U8 Player</title>
-  <style>
-    #player-container {
-      width: 640px;
-      height: 480px;
-      margin: 40px auto;
-      background-color: #f0f0f0;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    #video-player {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشغل فيديو IPTV</title>
 </head>
 <body>
-  <div id="player-container">
-    <video id="video-player" width="640" height="480" controls>
-      <source src="" type="application/x-mpegURL">
-    </video>
-  </div>
+    <h1>مشغل فيديو IPTV</h1>
+    <video id="video" controls width="640" height="360"></video>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        var video = document.getElementById('video');
+        var videoSrc = 'http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/100';
 
-  <script>
-    const videoPlayer = document.getElementById('video-player');
-    const source = document.createElement('source');
-
-    // Set the M3U8 link
-    const m3u8Link = 'http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/100';
-
-    // Create a new Hls.js instance
-    const hls = new Hls();
-
-    // Load the M3U8 link
-    hls.loadSource(m3u8Link);
-
-    // Attach the Hls.js instance to the video player
-    hls.attachMedia(videoPlayer);
-
-    // Set up event listeners for playback
-    videoPlayer.addEventListener('play', () => {
-      console.log('Video playback started');
-    });
-
-    videoPlayer.addEventListener('pause', () => {
-      console.log('Video playback paused');
-    });
-
-    videoPlayer.addEventListener('ended', () => {
-      console.log('Video playback ended');
-    });
-  </script>
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play();
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = videoSrc;
+            video.addEventListener('loadedmetadata', function() {
+                video.play();
+            });
+        }
+    </script>
 </body>
 </html>
