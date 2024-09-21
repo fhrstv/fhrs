@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشغل فيديو IPTV</title>
+    <title>تشغيل IPTV</title>
+    <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .video-container {
+            width: 80%;
+            max-width: 800px;
+        }
+    </style>
 </head>
 <body>
-    <h1>مشغل فيديو IPTV</h1>
-    <video id="video" controls width="640" height="360"></video>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script>
-        var video = document.getElementById('video');
-        var videoSrc = 'http://myteve.online:8080/GenIptv2023/XkgMCdR7PJzShK5m/100';
+    <div class="video-container">
+        <video id="iptv-player" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
+            <source src="http://goldiptvofficiel.tv:25461/Dominique/B8DsYJKBk6jYKEHEIEJVKDBU/7671" type="application/x-mpegURL">
+        </video>
+    </div>
 
-        if (Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource(videoSrc);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                video.play();
-            });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = videoSrc;
-            video.addEventListener('loadedmetadata', function() {
-                video.play();
-            });
-        }
-    </script>
+    <script src="https://vjs.zencdn.net/7.14.3/video.js"></script>
 </body>
 </html>
