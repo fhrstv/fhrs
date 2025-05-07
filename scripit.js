@@ -66,7 +66,7 @@ document.getElementById("nextNewsButton").addEventListener("click", function () 
 
 
 
-<script type='text/javascript' src='//pl26581173.profitableratecpm.com/63/6d/6c/636d6cacab6b497056f9cd121ec3e176.js'></script>
+
 
 
 
