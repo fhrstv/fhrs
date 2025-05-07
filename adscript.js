@@ -1,6 +1,6 @@
 // السكريبت الأول
 var script1 = document.createElement('script');
-script1.src = "//pl21174538.toprevenuegate.com/b648da115a008d9509a7fac590057c1b/invoke.js";
+script1.src = "//pl26581353.profitableratecpm.com/e7/d2/67/e7d2670b713058131818a78c74dc100f.js";
 script1.async = true;
 script1.setAttribute('data-cfasync', 'false');
 document.body.appendChild(script1);
