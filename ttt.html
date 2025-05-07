@@ -1,78 +1,33 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Ad Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقع Anime4Up</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            height: calc(100vh - 60px); /* Adjust based on header height */
-        }
-        .info {
-            padding: 20px;
-            background-color: #f4f4f4;
-            border-bottom: 2px solid #ddd;
-        }
-        .iframe-container {
-            flex: 1;
-            position: relative;
-            overflow: hidden;
-        }
-        .iframe-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
 </head>
 <body>
-    <div class="header">
-        <h1>موقع Anime4Up</h1>
-    </div>
-    <div class="main-content">
-        <div class="info">
-            <h2>معلومات الموقع</h2>
-            <p>مرحبا بكم في صفحة عرض موقع Anime4Up. هنا يمكنكم مشاهدة محتوى الموقع مباشرة ضمن إطار في هذه الصفحة. استمتعوا بالتصفح!</p>
-            <p>إذا كنت تبحث عن محتوى معين أو تحتاج إلى مساعدة، لا تتردد في التواصل معنا.</p>
-        </div>
-        <div class="iframe-container">
-            <iframe id="anime-iframe" src="" allowfullscreen></iframe>
-        </div>
-    </div>
-    <script>
-        function getQueryParameter(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
 
-        function setIframeSrc() {
-            const title = getQueryParameter('title');
-            if (title) {
-                const iframe = document.getElementById('anime-iframe');
-                iframe.src = `https://anime4up.lol/episode/${encodeURIComponent(title)}`;
-            } else {
-                console.error('معلمة "title" غير موجودة في عنوان URL.');
-            }
-        }
-
-        window.onload = setIframeSrc;
-    </script>
-    
+    <!-- Ad 1 -->
     <script type='text/javascript' src='//pl26581173.profitableratecpm.com/63/6d/6c/636d6cacab6b497056f9cd121ec3e176.js'></script>
+
+    <!-- Ad 2 -->
+    <script type='text/javascript' src='//pl26581184.profitableratecpm.com/36/43/98/3643981d6f4e63793cc9b026b7cecb39.js'></script>
+
+    <!-- Ad 3 (with container div) -->
+    <script async="async" data-cfasync="false" src="//pl26581212.profitableratecpm.com/7de5e71d591d0f760f8f54f9e63e8293/invoke.js"></script>
+    <div id="container-7de5e71d591d0f760f8f54f9e63e8293" style="margin: 20px 0;"></div>
+
+    <!-- Ad 4 (iframe format) -->
+    <script type="text/javascript">
+        atOptions = {
+            'key' : '31d0098aafcb385d33776e36aea868d0',
+            'format' : 'iframe',
+            'height' : 60,
+            'width' : 468,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/31d0098aafcb385d33776e36aea868d0/invoke.js"></script>
+
 </body>
 </html>
