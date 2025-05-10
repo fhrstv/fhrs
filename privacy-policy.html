@@ -1,23 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
-     <!-- Google Adsense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6609460399264787"
-     crossorigin="anonymous"></script>
-
-     <title>FHRS TV</title>
+    <!-- Google Adsense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6609460399264787" crossorigin="anonymous"></script>
+    <title>FHRS TV</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
-<script src=".htaccess" defer></script>
-<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
-<link href="https://fonts.googleapis.com/css2?family=Bangers" rel="stylesheet" />
-
+    <meta name="description" content="اكبر موقع فهرسة للافلام والمسلسلات">
+    <script src=".htaccess" defer></script>
+    <link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers" rel="stylesheet" />
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #141414;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        header {
+            text-align: center;
+            background-color: #141414;
+            font-size: 4em;
+            color: red;
+            margin: 20px 0;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+        .content {
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .faq-box {
+            border: 0.125rem solid rgb(0, 0, 0);
+            border-radius: 0.625rem;
+            padding: 1.25rem;
+            margin: 0 auto;
+            max-width: 90%;
+            background-color: #ffffff;
+            color: black;
+            font-size: 1.5rem;
+        }
+
+        .faq-box p {
+            line-height: 1.5;
+        }
+
+        h3 {
+            color: #ffffff;
+            font-size: 55px;
+            margin: 20px auto;
+            max-width: 80%;
+            text-align: center;
+            line-height: 1.5;
+            text-shadow:
+                -1px -1px 0 #000000,
+                1px -1px 0 #000000,
+                -1px 1px 0 #000000,
+                1px 1px 0 #000000;
+        }
 
         .movie-list {
             list-style-type: none;
             padding: 0;
-            text-align: center; /* توسيط العناصر */
+            text-align: center;
         }
 
         .movie-item {
@@ -25,176 +77,80 @@
         }
 
         a {
-    text-decoration: none;
-    color: #ffffff;
-    display: block;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: red;
-    transition: transform 0.3s, box-shadow 0.3s;
-    font-size: 25px;
-    text-align: center;
-    margin: 20px auto;
-    width: 60%;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    perspective: 1000px; /* إضافة منظور لتحقيق التأثير ثلاثي الأبعاد */
-}
-
-/* تأثير ثلاثي الأبعاد عند تمرير الفأرة */
-a:hover {
-    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
-    background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
-}
-
-
-
-
-
-
-
-
-
-
-
-        body {
-            font-family: 'Arial', sans-serif;
-    background-color: #141414;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    overflow-x: hidden;
-      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
-        }
-
-       header {
-            text-align: center; /* توسيط النص */
-            background-color: #141414;
-    font-size: 4em; /* حجم الخط الكبير */
-    color: red; /* اللون الأحمر للنص */
-    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
-    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
-    
-        }
-
-        .content {
+            text-decoration: none;
+            color: #ffffff;
+            display: block;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center; /* توسيط المحتوى */
+            border-radius: 10px;
+            background-color: red;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-size: 25px;
+            text-align: center;
+            margin: 20px auto;
+            width: 60%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            perspective: 1000px;
         }
 
-        .faq-box {
-    border: 0.125rem solid rgb(0, 0, 0); /* استخدام rem للحدود */
-    border-radius: 0.625rem; /* استخدام rem للحواف الدائرية */
-    padding: 1.25rem; /* استخدام rem للحشو */
-    margin: 0 auto; /* توسيط العنصر */
-    max-width: 90%; /* جعل العرض مرنًا بالنسبة لحجم الشاشة */
-    background-color: #ffffff;
-    color: black;
-    font-size: 4vw; /* حجم النص متلائم مع عرض الشاشة */
-}
+        a:hover {
+            transform: scale(1.05) translateZ(15px);
+            background-color: darkred;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
 
-.faq-box p {
-    font-size: 1.5rem; /* حجم النص داخل الفقرات يكون نسبي */
-    line-height: 1.5; /* لضمان سهولة القراءة */
-}
-
-
-
-        h3 {
-    color: #ffffff; /* لون النص أبيض */
-    font-size: 55px;
-    margin: 20px auto;
-    max-width: 80%;
-    text-align: center;
-    line-height: 1.5;
-    text-shadow: 
-        -1px -1px 0 #000000,  
-         1px -1px 0 #000000,
-        -1px  1px 0 #000000,
-         1px  1px 0 #000000; /* إضافة حواف سوداء */
-}
-
-
-
+        .telegram-link {
+            color: red;
+            font-weight: bold;
+        }
     </style>
-    <!-- Link to the Arabic font Tajawal -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap">
 </head>
 <body>
-   <header onclick="window.location.href='/'" style="cursor: pointer; font-family: 'Bangers', cursive; top: 0; width: 100%; z-index: 100;">
+    <header onclick="window.location.href='/'" style="cursor: pointer; font-family: 'Bangers', cursive;">
         Fhrs Tv
     </header>
 
     <div class="content">
         <h3>Privacy Policy</h3>
         <div class="faq-box">
-            
+            <p><strong>
+                fhrs.site respects your privacy. We do not collect personal data from users.
 
+                We may use cookies for basic website functionality and analytics (such as knowing which pages are visited). We do not use these cookies to identify you personally.
 
+                This website may contain external links to third-party websites. We are not responsible for the privacy practices or content of those websites.
 
-    <p><strong>
-        fhrs.site respects your privacy. We do not collect personal data from users.
+                By using this site, you agree to this simple Privacy Policy.
 
-We may use cookies for basic website functionality and analytics (such as knowing which pages are visited). We do not use these cookies to identify you personally.
+                If you have any questions, you can contact us via <a href="https://t.me/fhrstv" class="telegram-link" target="_blank">Telegram</a>.
+            </strong></p>
 
-This website may contain external links to third-party websites. We are not responsible for the privacy practices or content of those websites.
+            <hr style="border-top: 2px solid red; margin: 20px 0;">
 
-By using this site, you agree to this simple Privacy Policy.
+            <p><strong>
+                نحن في fhrs.site نحترم خصوصيتك. لا نقوم بجمع أي بيانات شخصية من المستخدمين.
 
-If you have any questions, you can contact us via Telegram.
-        
-        
-    </strong>
+                قد نستخدم ملفات تعريف الارتباط (Cookies) لتحسين تجربة الاستخدام وتحليل الزيارات، ولكن لا يتم استخدامها لتحديد هويتك.
 
-  <hr style="border-top: 2px solid red; margin: 20px 0;">
-    
-<p><strong>
-    نحن في fhrs.site نحترم خصوصيتك. لا نقوم بجمع أي بيانات شخصية من المستخدمين.
+                يحتوي الموقع على روابط لمواقع خارجية، ولسنا مسؤولين عن سياسات الخصوصية أو المحتوى الخاص بتلك المواقع.
 
-قد نستخدم ملفات تعريف الارتباط (Cookies) لتحسين تجربة الاستخدام وتحليل الزيارات، ولكن لا يتم استخدامها لتحديد هويتك.
+                باستخدامك لهذا الموقع، فإنك توافق على هذه السياسة البسيطة.
 
-يحتوي الموقع على روابط لمواقع خارجية، ولسنا مسؤولين عن سياسات الخصوصية أو المحتوى الخاص بتلك المواقع.
+                لأي استفسار، يمكنك التواصل معنا عبر <a href="https://t.me/fhrstv" class="telegram-link" target="_blank">تليجرام</a>.
+            </strong></p>
+        </div>
 
-باستخدامك لهذا الموقع، فإنك توافق على هذه السياسة البسيطة.
-
-لأي استفسار، يمكنك التواصل معنا عبر تليجرام .
-    
-    
-    
-</strong>
-
-    <!-- Add more question and answer pairs if needed -->
-</div>
-<div>
-        <ul class="movie-list">
-
-            <!-- إضافة العناصر هنا -->
-
-            <li class="movie-item"><a href="/">الصفحة الرئيسية</a></li>
-</ul>
-</div>
-            <!-- Your FAQ content goes here -->
+        <div>
+            <ul class="movie-list">
+                <li class="movie-item"><a href="/">الصفحة الرئيسية</a></li>
+            </ul>
         </div>
     </div>
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6609460399264787" crossorigin="anonymous"></script>
+    <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-6609460399264787" data-ad-slot="5050312085"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 </body>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6609460399264787"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="autorelaxed"
-     data-ad-client="ca-pub-6609460399264787"
-     data-ad-slot="5050312085"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-
-
-
 </html>
