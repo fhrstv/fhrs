@@ -292,10 +292,8 @@ async function displayMovieDetails() {
     const rating = movieData.vote_average ? movieData.vote_average.toFixed(1) : 'غير متوفر';
     document.getElementById('rating').textContent = `${rating} / 10`;
 
-    // Embed movie from Vidsrc
-    document.getElementById('movie-embed-container').innerHTML = `
-      <iframe src="https://watch.fhrs.site/embed/movie?tmdb=${tmdbId}" allowfullscreen></iframe>
-    `;
+
+    
 
     // Check the iframe message
     checkIframeMessage();
