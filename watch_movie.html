@@ -211,7 +211,7 @@ img {
         <div class="trailer-container" id="trailer-container"></div>
 
         <div class="movie-embed-container" id="movie-embed-container"></div>
-        <button id="downloadBtn" class="download-button">تحميل الفيلم</button>
+
 
         <a href="Movies">رجوع</a>
     </div>
@@ -283,8 +283,6 @@ img {
       const rating = movieData.vote_average ? movieData.vote_average.toFixed(1) : 'غير متوفر';
       document.getElementById('rating').textContent = `${rating} / 10`;
 
-      // لا يوجد تضمين Vidsrc
-
       // عرض التريلر من يوتيوب إن وجد
       const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
       if (trailer) {
@@ -298,15 +296,6 @@ img {
       document.getElementById('movie-details').innerHTML = '<p>فشل في تحميل تفاصيل الفيلم.</p>';
     }
   }
-
-  document.getElementById('downloadBtn').addEventListener('click', function () {
-    const tmdbId = getQueryParameter('tmdb_id');
-    if (tmdbId) {
-      window.location.href = `download_movie?tmdb_id=${tmdbId}`;
-    } else {
-      alert('لا يوجد TMDB ID في عنوان URL.');
-    }
-  });
 
   window.onload = displayMovieDetails;
 </script>
