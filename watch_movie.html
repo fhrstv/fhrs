@@ -209,58 +209,111 @@ img {
 </div>
         <h2>التريلر</h2>
         <div class="trailer-container" id="trailer-container"></div>
-
+        <h2>مشاهدة الفيلم</h2>
+        <div class="movie-embed-container" id="movie-embed-container"></div>
+        <h3>اذا لم تظهر الترجمة العربية<br>[cc] اضغط على مربع  
+            <br>[ Arabic ] و اختار كلمة 
+            <br> و اختار الترجمة المناسبة ، قم بتغيير الترجمة اذا في تاخير او تسريع 
+            <br> اذا لم تجد الترجمة المناسبة و جميع الترجمات العربية متاخرة او مسرعة او السيرفر لا يعمل  أرجوك قم بنسخ الرابط و أرساله لنا بسرعة لتغييره  
+            <br>  من خلال الذهاب الى صفحة اتصل بنا
+            </h3>
+            <button id="downloadBtn" class="download-button">تحميل الفيلم</button>
         <a href="Movies">رجوع</a>
     </div>
 </header>
     
 
    <script>
-async function displayMovieDetails() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const tmdbId = urlParams.get('tmdb_id');
-
-  if (!tmdbId) {
-    document.getElementById('movie-details').innerHTML = '<p>لا يوجد TMDB ID في الرابط.</p>';
-    return;
-  }
-
   const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
-  const movieUrl = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=ar`;
-  const videosUrl = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}&language=ar`;
 
-  try {
-    const [movieResponse, videosResponse] = await Promise.all([
-      fetch(movieUrl),
-      fetch(videosUrl)
-    ]);
+  async function fetchMovieDetails(tmdbId) {
+    const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=ar`;
 
-    const movieDetails = await movieResponse.json();
-    const movieVideos = (await videosResponse.json()).results;
-
-    document.getElementById('movie-details').innerHTML = `
-      <h2>${movieDetails.title}</h2>
-      <p>${movieDetails.overview}</p>
-      <p><strong>تاريخ الإصدار:</strong> ${movieDetails.release_date}</p>
-      <p><strong>التقييم:</strong> ${movieDetails.vote_average}</p>
-    `;
-
-    const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
-    if (trailer) {
-      document.getElementById('trailer-container').innerHTML = `
-        <iframe width="100%" height="400" src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>
-      `;
-    } else {
-      document.getElementById('trailer-container').innerHTML = '<p>لا يوجد تريلر متاح.</p>';
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('فشل في جلب تفاصيل الفيلم.');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('خطأ في جلب تفاصيل الفيلم:', error);
+      return null;
     }
-  } catch (error) {
-    document.getElementById('movie-details').innerHTML = '<p>حدث خطأ أثناء جلب بيانات الفيلم.</p>';
-    console.error(error);
   }
-}
 
-// تشغيل الدالة بعد تحميل الصفحة
-window.onload = displayMovieDetails;
+  async function fetchMovieVideos(tmdbId) {
+    const url = `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=${apiKey}&language=en`;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('فشل في جلب فيديوهات الفيلم.');
+      }
+      const data = await response.json();
+      return data.results;
+    } catch (error) {
+      console.error('خطأ في جلب فيديوهات الفيلم:', error);
+      return [];
+    }
+  }
+
+  function getQueryParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+  }
+
+  async function displayMovieDetails() {
+    const tmdbId = getQueryParameter('tmdb_id');
+
+    if (!tmdbId) {
+      document.getElementById('movie-details').innerHTML = '<p>لم يتم توفير معرّف الفيلم.</p>';
+      return;
+    }
+
+    const movieData = await fetchMovieDetails(tmdbId);
+    const movieVideos = await fetchMovieVideos(tmdbId);
+
+    if (movieData) {
+      document.querySelector('h1').textContent = movieData.title || 'لا يوجد عنوان';
+      document.querySelector('img').src = movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : '';
+      document.getElementById('release-date').textContent = movieData.release_date ? new Date(movieData.release_date).getFullYear() : 'غير متوفر';
+      document.getElementById('overview').textContent = movieData.overview || 'لا يوجد ملخص متاح.';
+
+      // عرض التصنيفات
+      const genres = movieData.genres.map(genre => genre.name).join(', ');
+      document.getElementById('genre').textContent = genres || 'غير متوفر';
+
+      // عرض التقييم
+      const rating = movieData.vote_average ? movieData.vote_average.toFixed(1) : 'غير متوفر';
+      document.getElementById('rating').textContent = `${rating} / 10`;
+
+
+
+      // عرض التريلر من يوتيوب إن وجد
+      const trailer = movieVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+      if (trailer) {
+        document.getElementById('trailer-container').innerHTML = `
+          <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
+        `;
+      } else {
+        document.getElementById('trailer-container').innerHTML = '<p>لا يوجد تريلر متاح.</p>';
+      }
+    } else {
+      document.getElementById('movie-details').innerHTML = '<p>فشل في تحميل تفاصيل الفيلم.</p>';
+    }
+  }
+
+  document.getElementById('downloadBtn').addEventListener('click', function () {
+    const tmdbId = getQueryParameter('tmdb_id');
+    if (tmdbId) {
+      window.location.href = `download_movie?tmdb_id=${tmdbId}`;
+    } else {
+      alert('لا يوجد TMDB ID في عنوان URL.');
+    }
+  });
+
+  window.onload = displayMovieDetails;
 </script>
 
 </body>
