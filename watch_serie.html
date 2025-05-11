@@ -201,140 +201,91 @@ img {
             <p><strong>التقييم : </strong> <span id="rating">N/A</span></p>
             <h2>التريلر</h2>
             <div class="trailer-container" id="trailer-container"></div>
-            <h2>مشاهدة المسلسل</h2>
-            <div class="tv-show-embed-container" id="tv-show-embed-container"></div>
-            <h3>اذا لم تظهر الترجمة العربية
-                <br>[cc] اضغط على مربع  
-    <br>[ Arabic ] و اختار كلمة 
-    <br>و اختار الترجمة المناسبة للحلقة ، قم بتغيير الترجمة اذا في تاخيير او تسريع 
-    <br>لتغيير الى الحلقات او المواسم 
-    <br>اضغط على المربع الموجود 
-    <br>في أعلى يسار المشغل 
-    <br> اذا لم تجد الترجمة المناسبة و جميع الترجمات العربية متاخرة او مسرعة او السيرفر لا يعمل  أرجوك قم بنسخ الرابط و أرساله لنا بسرعة لتغييره  
-</h3>
-<button id="downloadBtn" class="download-button">تحميل</button>
+            
+
             <a href="Series">رجوع</a>
         </div>
     </div>
 </header>
 
     <script>
-        const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
+    const apiKey = 'cf64a661774f647b7513facb9f1e55e5';
 
-        async function fetchTVShowDetails(tmdbId) {
-            const url = `https://api.themoviedb.org/3/tv/${tmdbId}?api_key=${apiKey}&language=ar`;
+    async function fetchTVShowDetails(tmdbId) {
+        const url = `https://api.themoviedb.org/3/tv/${tmdbId}?api_key=${apiKey}&language=ar`;
 
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('فشل في جلب تفاصيل المسلسل.');
-                }
-                const data = await response.json();
-                return data;
-            } catch (error) {
-                console.error('خطأ في جلب تفاصيل المسلسل:', error);
-                return null;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('فشل في جلب تفاصيل المسلسل.');
             }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('خطأ في جلب تفاصيل المسلسل:', error);
+            return null;
         }
+    }
 
-        async function fetchTVShowVideos(tmdbId) {
-            const url = `https://api.themoviedb.org/3/tv/${tmdbId}/videos?api_key=${apiKey}&language=en`;
+    async function fetchTVShowVideos(tmdbId) {
+        const url = `https://api.themoviedb.org/3/tv/${tmdbId}/videos?api_key=${apiKey}&language=en`;
 
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('فشل في جلب فيديوهات المسلسل.');
-                }
-                const data = await response.json();
-                return data.results;
-            } catch (error) {
-                console.error('خطأ في جلب فيديوهات المسلسل:', error);
-                return [];
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('فشل في جلب فيديوهات المسلسل.');
             }
+            const data = await response.json();
+            return data.results;
+        } catch (error) {
+            console.error('خطأ في جلب فيديوهات المسلسل:', error);
+            return [];
+        }
+    }
+
+    function getQueryParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    async function displayTVShowDetails() {
+        const tmdbId = getQueryParameter('tmdb_id');
+
+        if (!tmdbId) {
+            document.getElementById('tv-show-details').innerHTML = '<p>لم يتم توفير معرّف المسلسل.</p>';
+            return;
         }
 
-        function getQueryParameter(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
+        const tvShowData = await fetchTVShowDetails(tmdbId);
+        const tvShowVideos = await fetchTVShowVideos(tmdbId);
 
-        async function checkIframeMessage() {
-            const iframe = document.getElementById('tv-show-embed-container').querySelector('iframe');
-            iframe.onload = function() {
-                const iframeContent = iframe.contentDocument || iframe.contentWindow.document;
-                const messageElement = iframeContent.querySelector('h4');
-                if (messageElement && messageElement.textContent === 'This media is unavailable at the moment.') {
-                    // Redirect to a custom error page or previous page
-                    window.location.href = '/error-page.html'; // or '/previous-page.html'
-                }
-            };
-        }
+        if (tvShowData) {
+            document.querySelector('h1').textContent = tvShowData.name || 'لا يوجد عنوان';
+            document.querySelector('img').src = tvShowData.poster_path ? `https://image.tmdb.org/t/p/w500/${tvShowData.poster_path}` : '';
+            document.getElementById('release-date').textContent = tvShowData.first_air_date ? new Date(tvShowData.first_air_date).getFullYear() : 'غير متوفر';
+            document.getElementById('overview').textContent = tvShowData.overview || 'لا يوجد ملخص متاح.';
 
-        async function displayTVShowDetails() {
-            const tmdbId = getQueryParameter('tmdb_id');
+            const genres = tvShowData.genres.map(genre => genre.name).join(', ');
+            document.getElementById('genre').textContent = genres || 'غير متوفر';
 
-            if (!tmdbId) {
-                document.getElementById('tv-show-details').innerHTML = '<p>لم يتم توفير معرّف المسلسل.</p>';
-                return;
-            }
+            const rating = tvShowData.vote_average ? tvShowData.vote_average.toFixed(1) : 'غير متوفر';
+            document.getElementById('rating').textContent = `${rating} / 10`;
 
-            const tvShowData = await fetchTVShowDetails(tmdbId);
-            const tvShowVideos = await fetchTVShowVideos(tmdbId);
-
-            if (tvShowData) {
-                document.querySelector('h1').textContent = tvShowData.name || 'لا يوجد عنوان';
-                document.querySelector('img').src = tvShowData.poster_path ? `https://image.tmdb.org/t/p/w500/${tvShowData.poster_path}` : '';
-                document.getElementById('release-date').textContent = tvShowData.first_air_date ? new Date(tvShowData.first_air_date).getFullYear() : 'غير متوفر';
-                document.getElementById('overview').textContent = tvShowData.overview || 'لا يوجد ملخص متاح.';
-
-                // Display genre
-                const genres = tvShowData.genres.map(genre => genre.name).join(', ');
-                document.getElementById('genre').textContent = genres || 'غير متوفر';
-
-                // Display rating (formatted to 1 decimal place)
-                const rating = tvShowData.vote_average ? tvShowData.vote_average.toFixed(1) : 'غير متوفر';
-                document.getElementById('rating').textContent = `${rating} / 10`;
-
-                // Embed TV show from Vidsrc
-                document.getElementById('tv-show-embed-container').innerHTML = `
-                    <iframe src="https://watch.fhrs.site/embed/tv?tmdb=${tmdbId}" allowfullscreen></iframe>
+            // Display trailer if available
+            const trailer = tvShowVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+            if (trailer) {
+                document.getElementById('trailer-container').innerHTML = `
+                    <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
                 `;
-
-                // Check the iframe message
-                checkIframeMessage();
-
-                // Find and display the first trailer
-                const trailer = tvShowVideos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
-                if (trailer) {
-                    document.getElementById('trailer-container').innerHTML = `
-                        <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
-                    `;
-                } else {
-                    document.getElementById('trailer-container').innerHTML = '<p>لا يوجد تريلر متاح.</p>';
-                }
             } else {
-                document.getElementById('tv-show-details').innerHTML = '<p>فشل في تحميل تفاصيل المسلسل.</p>';
+                document.getElementById('trailer-container').innerHTML = '<p>لا يوجد تريلر متاح.</p>';
             }
+        } else {
+            document.getElementById('tv-show-details').innerHTML = '<p>فشل في تحميل تفاصيل المسلسل.</p>';
         }
+    }
 
-        function getQueryParameter(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
-
-        document.getElementById('downloadBtn').addEventListener('click', function() {
-            const tmdbId = getQueryParameter('tmdb_id');
-            if (tmdbId) {
-                window.location.href = `download_serie?tmdb_id=${tmdbId}`;
-            } else {
-                alert('لا يوجد TMDB ID في عنوان URL.');
-            }
-        });
-
-        window.onload = displayTVShowDetails;
-        
-
-    </script>
-
+    window.onload = displayTVShowDetails;
+</script>
 </body>
 </html>
