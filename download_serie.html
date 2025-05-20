@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+      <title>FHRS TV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="اكبر موقع فهرسه للافلام و المسلسلات">
+<script src=".htaccess" defer></script>
+<link rel="icon" href="فهرس (شعار).png" type="image/x-icon">
+    <style>
+        body {
+        font-family: 'Arial', sans-serif;
+    background-color: #141414;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+}
+header {
+    text-align: center; /* توسيط النص */
+    font-size: 3em; /* حجم الخط الكبير */
+    color: red; /* اللون الأحمر للنص */
+    margin: 20px 0; /* إضافة هامش أعلى وأسفل */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* إضافة ظل للنص */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق النص */
+}
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        #iframe-container {
+            position: relative;
+            width: 100%;
+            height: 500px; /* يمكن تعديل الارتفاع حسب الحاجة */
+            overflow: hidden; /* يمنع التمرير */
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: auto; /* يتيح التفاعل مع المحتوى داخل iframe */
+        }
+        
+        #controls {
+            margin: 20px 0;
+        }
+        select {
+            margin-right: 10px;
+        }
+
+
+/* تنسيق عنوان المسلسل */
+#series-title {
+    color: #ffffff; /* لون النص أبيض */
+    font-size: 30px;
+    margin: 20px auto;
+    max-width: 80%;
+    text-align: center;
+    line-height: 1.5;
+    text-shadow: 
+        -1px -1px 0 #000000,  
+         1px -1px 0 #000000,
+        -1px  1px 0 #000000,
+         1px  1px 0 #000000; /* إضافة حواف سوداء */
+}
+
+/* تنسيق تاريخ الإصدار */
+#release-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    direction: rtl;
+}
+#overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: red;
+            opacity: 0; /* الافتراضي هو عدم الظهور */
+            z-index: 10; /* تأكد من أن العنصر يكون فوق iframe */
+            pointer-events: none; /* يسمح بتفاعل المستخدم مع iframe من خلال overlay */
+        }
+
+#overlay {
+  
+    background: rgba(0, 0, 0, 0.7); /* خلفية مظللة */
+    display: flex; /* استخدام flexbox لمحاذاة المحتوى */
+    justify-content: center; /* محاذاة المحتوى أفقياً في المنتصف */
+    align-items: center; /* محاذاة المحتوى عمودياً في المنتصف */
+    opacity: 0; /* بدءًا من حالة الإخفاء */
+    transition: opacity 0.5s ease; /* تأثير التلاشي */
+}
+
+#overlay div {
+    color: white !important; /* ضمان تطبيق اللون */
+    font-size: 24px;
+    font-family: Arial, sans-serif; /* تحديد نوع الخط */
+    text-align: center; /* محاذاة النص في المنتصف */
+    padding: 20px; /* إضافة حشوة لتوفير مساحة حول النص */
+}
+
+
+a {
+    text-decoration: none;
+    color: #ffffff; /* لون النص الأبيض */
+    display: block;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: red; /* لون الخلفية */
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 25px;
+    text-align: center;
+    margin: 20px auto;
+    width: 60%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    perspective: 1000px; /* إضافة منظور لتحقيق التأثير ثلاثي الأبعاد */
+}
+
+
+/* تأثير ثلاثي الأبعاد عند تمرير الفأرة */
+a:hover {
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
+    background-color: darkred; /* تغيير اللون عند التمرير فوق العنصر */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
+}
+
+
+
+
+
+
+
+
+
+
+
+#subtitle-button {
+    background-color: #00bfff; /* أزرق سماوي */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 30px auto; /* إضافة مسافة أعلى وأسفل، توسيط الزر */
+    display: block; /* جعل الزر يظهر في سطر منفصل */
+    width: 50%; /* عريض بنسبة 50% من الحاوية */
+    font-size: 18px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#subtitle-button:hover {
+    background-color: #009acd; /* أزرق سماوي داكن عند التمرير */
+    transform: scale(1.05) translateZ(15px); /* تكبير المربع وتحريكه في المحور Z */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* زيادة الظل عند التمرير فوق العنصر */
+}
+
+
+
+
+
+
+
+#controls {
+    display: flex; /* استخدام flexbox لترتيب العناصر بشكل أفقي */
+    flex-direction: column; /* ترتيب العناصر عموديًا */
+    gap: 15px; /* المسافة بين العناصر */
+    padding: 20px; /* حشوة داخل العنصر */
+    border-radius: 8px; /* زوايا دائرية للحدود */
+    width: 300px; /* تحديد عرض العنصر */
+    margin: 0 auto; /* توسيط العنصر أفقيًا */
+}
+
+#controls label {
+    font-size: 1.5rem; /* حجم الخط للتسميات */
+    font-family: Arial, sans-serif; /* نوع الخط */
+    color: #ffffff; /* لون النص للتسميات */
+    font-weight: bold;
+
+}
+
+#controls select {
+    padding: 8px; /* حشوة داخل القوائم المنسدلة */
+    font-size: 16px; /* حجم الخط للقوائم المنسدلة */
+    border: 1px solid #ccc; /* حدود خفيفة للقوائم المنسدلة */
+    border-radius: 4px; /* زوايا دائرية للقوائم المنسدلة */
+    background-color: white; /* لون خلفية للقوائم المنسدلة */
+    width: 100%; /* ملء العرض المتاح */
+    box-sizing: border-box; /* يشمل الحشوة والحدود في العرض الإجمالي */
+    cursor: pointer; /* تغيير شكل المؤشر عند المرور على القوائم المنسدلة */
+    direction: rtl;
+}
+
+#controls select:focus {
+    border-color: #007bff; /* تغيير لون الحدود عند التركيز */
+    outline: none; /* إزالة الخط الخارجي عند التركيز */
+}
+
+    </style>
+</head>
+<header onclick="window.location.href='/'" style="cursor: pointer;">
+    فهرس
+</header>
+<body>
+    <div id="container">
+        <div id="series-info">
+            <h1 id="series-title">عنوان المسلسل</h1>
+            <p id="release-date">تاريخ الإصدار: غير متوفر</p>
+        </div>
+        <div id="controls">
+            <label for="season-select">اختر الموسم</label>
+            <select id="season-select"></select>
+            
+            <label for="episode-select">اختر الحلقة</label>
+            <select id="episode-select"></select>
+        </div>
+        <div id="iframe-container">
+            <iframe id="video-iframe" src="" frameborder="0"></iframe>
+            <div id="overlay"></div>
+        </div>
+
+        <button id="subtitle-button">تحميل الترجمة</button>
+
+        
+
+        <a href="#" id="backButton">رجوع</a>
+    </div>
+
+    <script>
+const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // مفتاح API الخاص بك
+let tmdbId = getQueryParameter('tmdb_id');
+let episodesPerSeason = {};
+
+function getQueryParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+async function fetchSeriesDetails(tmdbId) {
+    const url = `https://api.themoviedb.org/3/tv/${tmdbId}?api_key=${apiKey}&language=en`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('فشل في جلب تفاصيل المسلسل.');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('خطأ في جلب تفاصيل المسلسل:', error);
+        return null;
+    }
+}
+
+async function fetchSeasonDetails(tmdbId, seasonNumber) {
+    const url = `https://api.themoviedb.org/3/tv/${tmdbId}/season/${seasonNumber}?api_key=${apiKey}&language=ar`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('فشل في جلب تفاصيل الموسم.');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('خطأ في جلب تفاصيل الموسم:', error);
+        return null;
+    }
+}
+
+function searchForSubtitles(seriesName, seasonNumber) {
+    if (seriesName && seasonNumber) {
+        // تحويل المسافات إلى شرطات وإزالة الرموز الخاصة
+        const formattedSeriesName = seriesName.trim().toLowerCase().replace(/ /g, '-').replace(/:/g, '');
+        const subtitlesUrl = `https://subsource.net/subtitles/${formattedSeriesName}/season-${seasonNumber}`;
+        window.open(subtitlesUrl, '_blank');
+    } else {
+        console.error('اسم المسلسل أو رقم الموسم غير متوفر.');
+    }
+}
+
+function formatReleaseDate(dateString) {
+    if (dateString) {
+        const year = new Date(dateString).getFullYear();
+        return year;
+    }
+    return 'غير متوفر';
+}
+
+async function populateSeasonAndEpisodeSelectors() {
+    const seriesDetails = await fetchSeriesDetails(tmdbId);
+    if (seriesDetails && seriesDetails.seasons) {
+        const seasonSelect = document.getElementById('season-select');
+        const episodeSelect = document.getElementById('episode-select');
+        const subtitleButton = document.getElementById('subtitle-button');
+
+        // Clear existing options
+        seasonSelect.innerHTML = '';
+        episodeSelect.innerHTML = '';
+
+        // Update series info on the page
+        document.getElementById('series-title').textContent = seriesDetails.name || 'غير متوفر';
+        document.getElementById('release-date').textContent = formatReleaseDate(seriesDetails.first_air_date) || 'غير متوفر';
+
+        let seasons = [];
+        for (const season of seriesDetails.seasons) {
+            if (season.air_date && new Date(season.air_date) <= new Date() && season.season_number > 0) {
+                seasons.push(season.season_number);
+            }
+        }
+
+        seasons.sort((a, b) => a - b);
+
+        for (const seasonNumber of seasons) {
+            const seasonOption = document.createElement('option');
+            seasonOption.value = seasonNumber;
+            seasonOption.textContent = `الموسم ${seasonNumber}`;
+            seasonSelect.appendChild(seasonOption);
+
+            const seasonDetails = await fetchSeasonDetails(tmdbId, seasonNumber);
+            if (seasonDetails) {
+                episodesPerSeason[seasonNumber] = seasonDetails.episodes.length;
+            }
+        }
+
+        seasonSelect.addEventListener('change', () => {
+            populateEpisodes(seasonSelect.value);
+        });
+
+        episodeSelect.addEventListener('change', updateIframe);
+
+        if (seasonSelect.options.length > 0) {
+            seasonSelect.value = seasonSelect.options[0].value;
+            populateEpisodes(seasonSelect.value);
+            episodeSelect.value = 1;
+            updateIframe();
+        }
+
+        subtitleButton.addEventListener('click', () => {
+            searchForSubtitles(seriesDetails.name, seasonSelect.value);
+        });
+    }
+}
+
+function populateEpisodes(seasonNumber) {
+    const episodeSelect = document.getElementById('episode-select');
+    episodeSelect.innerHTML = ''; // Clear existing options
+
+    for (let i = 1; i <= episodesPerSeason[seasonNumber]; i++) {
+        const episodeOption = document.createElement('option');
+        episodeOption.value = i;
+        episodeOption.textContent = `الحلقة ${i}`;
+        episodeSelect.appendChild(episodeOption);
+    }
+
+    updateIframe();
+}
+
+function updateIframe() {
+    const season = document.getElementById('season-select').value;
+    const episode = document.getElementById('episode-select').value;
+    const iframe = document.getElementById('video-iframe');
+
+    if (season && episode) {
+        iframe.src = `https://vid2c.xyz/t/${tmdbId}/${season}/${episode}`;
+    }
+}
+
+function initialize() {
+    if (tmdbId) {
+        populateSeasonAndEpisodeSelectors();
+    } else {
+        document.getElementById('container').innerHTML = '<p>معرف المسلسل غير متوفر.</p>';
+    }
+}
+const overlay = document.getElementById('overlay');
+const overlayText = document.createElement('div');
+overlayText.textContent = 'الرجاء الانتظار قليلا';
+overlay.appendChild(overlayText);
+
+// Set the overlay to be visible initially
+overlay.style.opacity = 1;
+
+// Add event listeners to season and episode select elements
+document.getElementById('season-select').addEventListener('change', () => {
+  overlay.style.opacity = 1; // Show overlay
+});
+
+document.getElementById('episode-select').addEventListener('change', () => {
+  overlay.style.opacity = 1; // Show overlay
+});
+
+// Add an event listener to the iframe to hide the overlay when the content is loaded
+document.getElementById('video-iframe').addEventListener('load', () => {
+  overlay.style.opacity = 0; // Hide overlay
+});
+
+initialize();
+
+
+
+document.getElementById('backButton').addEventListener('click', function() {
+        // الحصول على الـ URL الحالي
+        const currentUrl = new URL(window.location.href);
+        
+        // استخراج الـ tmdb_id من الـ URL
+        const tmdbId = currentUrl.searchParams.get('tmdb_id');
+        
+        // توجيه المستخدم إلى صفحة 'watch_movie' مع تمرير الـ tmdb_id
+        if (tmdbId) {
+            window.location.href = `watch_serie?tmdb_id=${tmdbId}`;
+        } else {
+            window.location.href = 'watch_serie'; // إذا لم يكن هناك tmdb_id في الـ URL
+        }
+    });
+    </script>
+</body>
+</html>
