@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خيارات الجودات المتاحة</title>
+    <style>
+        body {
+        font-family: 'Arial', sans-serif;
+    background-color: #141414;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
+      touch-action: manipulation; /* يمنع التكبير التلقائي عند النقر المتعدد */
+}
+        .resolution-selector {
+        margin-top: 10px;
+    }
+
+    .resolution-options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* مسافة بين كل جودة */
+        align-items: center; /* محاذاة العناصر من البداية */
+        padding: 20px; /* مسافة داخلية حول الأزرار */
+        border-radius: 10px; /* استدارة زوايا الحاوية */
+    }
+
+    .resolution-options button {
+        padding: 10px;
+        font-size: 16px;
+        width: 250px; /* عرض الأزرار المعدل */
+        max-width: 100%; /* عرض الأزرار لا يتجاوز عرض الحاوية */
+        background-color: red; /* اللون الأحمر للأزرار */
+        border: 1px solid #cc0000; /* لون الحدود الأحمر الداكن */
+        border-radius: 8px; /* استدارة زوايا الأزرار */
+        color: white; /* لون النص الأبيض */
+        cursor: pointer;
+        transition: transform 0.3s ease, background-color 0.3s; /* تأثير الانتقال عند التمرير */
+    }
+
+    .resolution-options button:hover {
+        background-color: #e63946; /* لون أغمق عند التمرير */
+        transform: translateY(-5px); /* حركة الأزرار للأعلى */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل حول الزر */
+    }
+    </style>
+</head>
+<body>
+
+    <div class="resolution-selector">
+        <div class="resolution-options" id="resolution-options">
+            <!-- سيتم إضافة خيارات الجودة هنا -->
+        </div>
+    </div>
+    
+<script>
+const apiKey = 'cf64a661774f647b7513facb9f1e55e5'; // استخدم مفتاح TMDB API الخاص بك
+
+// دالة لتحويل النصوص إلى الحروف الكبيرة في بداية كل كلمة
+function capitalizeWords(str) {
+    return str.replace(/\b\w/g, char => char.toUpperCase());
+}
+
+// دالة لاستخراج tmdb_id من الـ URL
+function getQueryParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+// دالة لجلب IMDb ID من TMDB ID
+async function getImdbIdFromTmdb(tmdbId) {
+    const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${apiKey}&language=ar`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('فشل في جلب معلومات الفيلم من TMDB.');
+        }
+        const data = await response.json();
+        return data.imdb_id || null;
+    } catch (error) {
+        console.error('خطأ في جلب IMDb ID:', error);
+        return null;
+    }
+}
+
+// دالة للبحث عن الفيلم في YTS باستخدام imdb_id
+async function fetchMovieTorrents(imdbId) {
+    try {
+        const response = await fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${imdbId}&limit=1`);
+        if (!response.ok) {
+            throw new Error('فشل في البحث عن الفيلم في YTS.');
+        }
+        const data = await response.json();
+        const movies = data.data.movies;
+
+        if (movies && movies.length > 0) {
+            const movie = movies[0]; // يفترض العثور على الفيلم الأول المتطابق
+            const resolutionOptions = document.getElementById('resolution-options');
+            resolutionOptions.innerHTML = '';
+
+            movie.torrents.forEach(torrent => {
+                const quality = torrent.quality || 'N/A';  // جودة الفيديو (مثل 720p, 1080p)
+                const type = torrent.type || 'WEB';        // نوع الجودة (مثل WEB أو BluRay)
+                const size = torrent.size || 'غير متوفر'; // حجم الملف (مثل 1.5 GB, 700 MB)
+                const hash = torrent.hash; // الهاش الخاص بالتورنت
+                const fileName = `${movie.title}.${torrent.quality}.${torrent.type}-${torrent.hash}.mp4`; // اسم الملف بناءً على العنوان والجودة
+                const magnetLink = `magnet:?xt=urn:btih:${hash}&dn=${encodeURIComponent(movie.title)}&tr=udp://open.demonii.com:1337`;
+
+                const button = document.createElement('button');
+                button.textContent = `${quality} (${type})  (${size})`;  // عرض الجودة والنوع والحجم
+                button.setAttribute('data-file', fileName);
+                button.setAttribute('data-magnet', magnetLink);
+                resolutionOptions.appendChild(button);
+
+                button.addEventListener('click', function() {
+                    const magnetUrl = this.getAttribute('data-magnet');
+                    const fileName = this.getAttribute('data-file');
+                    if (magnetUrl && fileName) {
+                        const webtorUrl = `https://webtor.io/#/show?file=${encodeURIComponent(fileName)}&magnet=${encodeURIComponent(magnetUrl)}`;
+                        window.open(webtorUrl, '_blank'); // فتح رابط webtor.io في نافذة جديدة
+                    }
+                });
+            });
+        } else {
+            const resolutionOptions = document.getElementById('resolution-options');
+            resolutionOptions.innerHTML = '<p>لا توجد جودات متاحة</p>';
+        }
+    } catch (error) {
+        console.error('خطأ في جلب جودات الفيلم:', error);
+    }
+}
+
+// دالة لبدء جلب المعلومات بناءً على TMDB ID
+async function loadMovieTorrents(tmdbId) {
+    const imdbId = await getImdbIdFromTmdb(tmdbId);
+    if (imdbId) {
+        await fetchMovieTorrents(imdbId);
+    } else {
+        document.getElementById('resolution-options').innerHTML = '<p>لم يتم العثور على IMDb ID</p>';
+    }
+}
+
+// استدعاء الدالة لتحميل الجودات لفيلم معين باستخدام TMDB ID من الـ URL
+const tmdbId = getQueryParameter('tmdb_id'); // جلب tmdb_id من الـ URL
+if (tmdbId) {
+    loadMovieTorrents(tmdbId);
+} else {
+    document.getElementById('resolution-options').innerHTML = '<p>لم يتم العثور على TMDB ID في الرابط</p>';
+}
+
+</script>
+
+
+</body>
+</html>

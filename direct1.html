@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل ملفات التورنت</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 0;
+    }
+
+    #torrent-links {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* محاذاة العناصر من البداية */
+    }
+
+    .torrent {
+            background-color: #2f7b00; /* اللون الأخضر للتورنت */
+            border: 1px solid #005610; /* لون الحدود الداكن */
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            width: 250px; /* عرض الأزرار المعدل */
+            align-items: center;
+            transition: transform 0.3s ease, background-color 0.3s; /* تأثير الانتقال عند التمرير */
+        }
+
+        .torrent:hover {
+            background-color: #093a00; /* اللون الأخضر الداكن عند التمرير */
+            transform: translateY(-5px); /* حركة الأزرار للأعلى */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل حول الزر */
+        }
+
+        .torrent a {
+            text-decoration: none;
+            color: #ffffff; /* لون النص أبيض */
+            display: block;
+            font-weight: bold; /* جعل النص سميك */
+        }
+
+        .torrent a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="torrent-links">جاري جلب روابط التورنت...</div>
+
+    <script>
+        const API_KEY = 'cf64a661774f647b7513facb9f1e55e5'; // استبدله بمفتاح API الخاص بك
+
+        // استخراج TMDB ID من URL
+        function getTMDBIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('tmdb_id');
+        }
+
+        // جلب IMDb ID من TMDB ID
+        async function fetchIMDbId(tmdbId) {
+            const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${API_KEY}&language=en-US`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('فشل في جلب بيانات الفيلم من TMDB.');
+                const data = await response.json();
+                return data.imdb_id;
+            } catch (error) {
+                console.error(error);
+                return null;
+            }
+        }
+
+        // جلب بيانات التورنت من موقع YTS باستخدام IMDb ID
+        async function fetchYTSData(imdbId) {
+            const searchUrl = `https://yts.mx/api/v2/list_movies.json?query_term=${encodeURIComponent(imdbId)}`;
+            try {
+                const response = await fetch(searchUrl);
+                if (!response.ok) throw new Error('فشل في جلب بيانات YTS.');
+                return await response.json();
+            } catch (error) {
+                console.error(error);
+                return null;
+            }
+        }
+
+        // عرض روابط التورنت
+        function displayTorrents(torrents) {
+            const container = document.getElementById('torrent-links');
+            container.innerHTML = '';
+            if (torrents.length === 0) {
+                container.innerHTML = '<p>لا توجد روابط تورنت متاحة.</p>';
+                return;
+            }
+            torrents.forEach(torrent => {
+                const div = document.createElement('div');
+                div.classList.add('torrent');
+                div.innerHTML = `
+                    ${torrent.quality} (${torrent.type}) (${torrent.size})
+                `;
+                div.onclick = () => {
+                    window.open(torrent.url, '_blank');
+                };
+                container.appendChild(div);
+            });
+        }
+
+        // دمج البيانات واستخراج روابط التورنت
+        async function getTorrentLinks() {
+            const tmdbId = getTMDBIdFromUrl();
+            if (!tmdbId) {
+                document.getElementById('torrent-links').innerHTML = '<p>الرجاء إدخال TMDB ID في URL.</p>';
+                return;
+            }
+
+            const imdbId = await fetchIMDbId(tmdbId);
+            if (!imdbId) {
+                document.getElementById('torrent-links').innerHTML = '<p>فشل في جلب IMDb ID.</p>';
+                return;
+            }
+
+            const ytsData = await fetchYTSData(imdbId);
+
+            if (!ytsData || !ytsData.data || !ytsData.data.movies) {
+                document.getElementById('torrent-links').innerHTML = '<p>فشل في جلب بيانات YTS.</p>';
+                return;
+            }
+
+            const movie = ytsData.data.movies.find(movie => movie.imdb_code === imdbId);
+            if (movie && movie.torrents) {
+                displayTorrents(movie.torrents);
+            } else {
+                displayTorrents([]);
+            }
+        }
+
+        // تشغيل السكريبت عند تحميل الصفحة
+        window.onload = getTorrentLinks;
+    </script>
+</body>
+</html>
