@@ -2,317 +2,146 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>البحث عن مسلسل من الصورة (TMDB)</title>
+  <title>البحث عن اسم المسلسل من الصورة</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Tesseract.js من CDN (OCR في المتصفح) -->
   <script src="https://unpkg.com/tesseract.js@v6.0.0/dist/tesseract.min.js"></script>
+
   <style>
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0b1020;
-      color: #f5f5f5;
-      margin: 0;
-      padding: 1.5rem;
-      display: flex;
-      justify-content: center;
-    }
-    .container {
-      max-width: 800px;
-      width: 100%;
-      background: #12172a;
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-    }
-    h1 {
-      font-size: 1.4rem;
-      margin-top: 0;
+      background: #0b1220;
+      color: white;
+      font-family: sans-serif;
+      padding: 20px;
       text-align: center;
-    }
-    .upload-box {
-      border: 2px dashed #2d3b70;
-      border-radius: 12px;
-      padding: 1rem;
-      text-align: center;
-      margin-bottom: 1rem;
-      background: #171c33;
-    }
-    input[type="file"] {
-      margin-top: 0.5rem;
     }
     #preview {
-      max-width: 100%;
-      max-height: 260px;
-      margin-top: 0.75rem;
-      border-radius: 12px;
+      max-width: 300px;
+      margin-top: 15px;
+      border-radius: 8px;
       display: none;
     }
     button {
-      margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 600;
-      background: linear-gradient(135deg,#3b82f6,#a855f7);
+      padding: 10px 20px;
+      margin-top: 15px;
+      background: #4f46e5;
       color: white;
-    }
-    button:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-    .status {
-      margin-top: 0.75rem;
-      font-size: 0.9rem;
-      color: #e5e7eb;
-      min-height: 1.2rem;
-    }
-    .small-label {
-      font-size: 0.8rem;
-      opacity: 0.8;
-      margin-top: 0.5rem;
-    }
-    #ocrText {
-      width: 100%;
-      min-height: 60px;
-      margin-top: 0.5rem;
+      border: none;
       border-radius: 8px;
-      border: 1px solid #374151;
-      background: #0f172a;
-      color: #e5e7eb;
-      padding: 0.5rem;
-      font-size: 0.85rem;
-      resize: vertical;
-      box-sizing: border-box;
+      cursor: pointer;
+      font-size: 16px;
     }
-    .results {
-      margin-top: 1rem;
-    }
-    .result-item {
-      border-radius: 12px;
-      background: #0e1425;
-      padding: 0.75rem;
-      display: flex;
-      gap: 0.75rem;
-      margin-bottom: 0.6rem;
-      align-items: flex-start;
-    }
-    .result-item img {
-      width: 70px;
-      border-radius: 8px;
-      object-fit: cover;
-      background: #020617;
-      flex-shrink: 0;
-    }
-    .result-details h3 {
-      margin: 0 0 0.25rem 0;
-      font-size: 0.95rem;
-    }
-    .result-details p {
-      margin: 0;
-      font-size: 0.8rem;
-      color: #9ca3af;
-    }
-    a {
-      color: #60a5fa;
-      text-decoration: none;
-      font-size: 0.8rem;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .note {
-      font-size: 0.8rem;
-      color: #9ca3af;
-      margin-top: 0.5rem;
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #38bdf8;
+      font-weight: bold;
     }
   </style>
 </head>
+
 <body>
-<div class="container">
-  <h1>🔍 ابحث عن المسلسل من الصورة (TMDB)</h1>
 
-  <div class="upload-box">
-    <div>اختر بوستر أو لقطة فيها اسم المسلسل</div>
-    <input id="imageInput" type="file" accept="image/*" />
-    <img id="preview" alt="Preview" />
-    <div class="note">
-      الأفضل تكون الصورة واضحة وفيها اسم العمل بالإنجليزي أو بحروف واضحة.
-    </div>
-  </div>
+  <h2>🔍 معرفة اسم المسلسل من الصورة (TMDB)</h2>
 
-  <div class="small-label">النص المستخرج من الصورة (تقدر تعدله قبل البحث):</div>
-  <textarea id="ocrText" placeholder="راح يظهر هنا اسم المسلسل تقريباً بعد قراءة الصورة..."></textarea>
+  <input id="imageInput" type="file" accept="image/*" />
+  <br />
+  <img id="preview" alt="preview" />
 
-  <button id="analyzeBtn">1️⃣ اقرأ النص من الصورة</button>
-  <button id="searchBtn">2️⃣ ابحث في TMDB عن المسلسل</button>
+  <button onclick="processImage()">ابحث عن اسم المسلسل</button>
 
-  <div class="status" id="status"></div>
-
-  <div class="results" id="results"></div>
-
-  <div class="note">
-    ملاحظة: هذا الموقع تجريبي ويستخدم TMDB API + Tesseract.js فقط من المتصفح.
-  </div>
-</div>
+  <div id="status"></div>
+  <div id="result"></div>
 
 <script>
-  // ⚠️ ضع هنا TMDB API Key حقك
   const TMDB_API_KEY = "cf64a661774f647b7513facb9f1e55e5";
 
   const imageInput = document.getElementById("imageInput");
   const preview = document.getElementById("preview");
-  const statusEl = document.getElementById("status");
-  const ocrTextArea = document.getElementById("ocrText");
-  const analyzeBtn = document.getElementById("analyzeBtn");
-  const searchBtn = document.getElementById("searchBtn");
-  const resultsEl = document.getElementById("results");
+  const statusBox = document.getElementById("status");
+  const resultBox = document.getElementById("result");
 
   let selectedFile = null;
 
-  imageInput.addEventListener("change", (e) => {
+  // عرض الصورة
+  imageInput.addEventListener("change", e => {
     const file = e.target.files[0];
     selectedFile = file || null;
-    resultsEl.innerHTML = "";
+    resultBox.textContent = "";
+    statusBox.textContent = "";
+
     if (!file) {
       preview.style.display = "none";
-      statusEl.textContent = "";
       return;
     }
+
     const reader = new FileReader();
-    reader.onload = (ev) => {
+    reader.onload = ev => {
       preview.src = ev.target.result;
       preview.style.display = "block";
     };
     reader.readAsDataURL(file);
-    statusEl.textContent = "الصورة جاهزة، اضغط على (1️⃣ اقرأ النص من الصورة)";
   });
 
-  async function runOCR() {
+  // تشغيل OCR ثم البحث
+  async function processImage() {
     if (!selectedFile) {
-      statusEl.textContent = "حمّل صورة أولاً.";
+      statusBox.textContent = "رجاءً اختر صورة أولاً.";
       return;
     }
-    analyzeBtn.disabled = true;
-    searchBtn.disabled = true;
-    statusEl.textContent = "جاري قراءة النص من الصورة (OCR)... هذا قد يأخذ عدة ثواني.";
+
+    statusBox.textContent = "📖 جاري قراءة النص من الصورة...";
+    resultBox.textContent = "";
 
     try {
-      const worker = await Tesseract.createWorker({
-        logger: (m) => {
-          // تقدر تشوف التقدم في الـ console لو حاب
-          // console.log(m);
-        }
-      });
+      // OCR
+      const worker = await Tesseract.createWorker();
       await worker.load();
-      await worker.loadLanguage("eng"); // لو حاب تضيف لغات ثانية ممكن لاحقاً
+      await worker.loadLanguage("eng");
       await worker.initialize("eng");
 
       const { data: { text } } = await worker.recognize(selectedFile);
       await worker.terminate();
 
-      const cleaned = text
-        .split("\n")
-        .map(t => t.trim())
-        .filter(Boolean)
-        .join(" ");
+      // تنظيف النص
+      const cleaned = text.replace(/\n/g, " ").trim();
 
-      ocrTextArea.value = cleaned || text || "";
-      if (ocrTextArea.value.trim()) {
-        statusEl.textContent = "تم استخراج النص، تقدر تعدله واضغط (2️⃣ ابحث في TMDB).";
-      } else {
-        statusEl.textContent = "ما قدر يقرأ نص واضح من الصورة، جرّب صورة أنظف أو بوستر ثاني.";
-      }
-    } catch (err) {
-      console.error(err);
-      statusEl.textContent = "صار خطأ أثناء قراءة النص من الصورة.";
-    } finally {
-      analyzeBtn.disabled = false;
-      searchBtn.disabled = false;
-    }
-  }
-
-  async function searchTMDB() {
-    const query = ocrTextArea.value.trim();
-    resultsEl.innerHTML = "";
-    if (!query) {
-      statusEl.textContent = "اكتب اسم المسلسل (أو استخرجه من الصورة) قبل البحث.";
-      return;
-    }
-    if (!TMDB_API_KEY || TMDB_API_KEY === "YOUR_TMDB_API_KEY_HERE") {
-      statusEl.textContent = "⚠️ لازم تحط TMDB API Key في الكود قبل ما يشتغل البحث.";
-      return;
-    }
-
-    searchBtn.disabled = true;
-    analyzeBtn.disabled = true;
-    statusEl.textContent = `جاري البحث في TMDB عن: "${query}" ...`;
-
-    try {
-      const url = new URL("https://api.themoviedb.org/3/search/tv");
-      url.searchParams.set("api_key", TMDB_API_KEY);
-      url.searchParams.set("query", query);
-      url.searchParams.set("language", "en-US");
-
-      const res = await fetch(url.toString());
-      if (!res.ok) throw new Error("TMDB request failed");
-      const data = await res.json();
-
-      if (!data.results || data.results.length === 0) {
-        statusEl.textContent = "ما لقيت مسلسلات تطابق النص المستخرج. عدّل الاسم وحاول مرة ثانية.";
+      if (!cleaned) {
+        statusBox.textContent = "ما في نص مفهوم في الصورة.";
         return;
       }
 
-      statusEl.textContent = `تم العثور على ${data.results.length} نتيجة (أول 5 تظهر تحت).`;
-      const top = data.results.slice(0, 5);
-      for (const tv of top) {
-        const item = document.createElement("div");
-        item.className = "result-item";
+      statusBox.textContent = "🔎 جاري البحث في TMDB...";
+      searchTMDB(cleaned);
 
-        const img = document.createElement("img");
-        if (tv.poster_path) {
-          img.src = "https://image.tmdb.org/t/p/w200" + tv.poster_path;
-          img.alt = tv.name;
-        } else {
-          img.style.display = "none";
-        }
-
-        const details = document.createElement("div");
-        details.className = "result-details";
-
-        const title = document.createElement("h3");
-        title.textContent = tv.name + (tv.first_air_date ? ` (${tv.first_air_date.slice(0,4)})` : "");
-
-        const overview = document.createElement("p");
-        overview.textContent = tv.overview || "لا يوجد وصف متوفر.";
-
-        const link = document.createElement("a");
-        link.href = `https://www.themoviedb.org/tv/${tv.id}`;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.textContent = "عرض صفحة المسلسل في TMDB";
-
-        details.appendChild(title);
-        details.appendChild(overview);
-        details.appendChild(link);
-
-        item.appendChild(img);
-        item.appendChild(details);
-
-        resultsEl.appendChild(item);
-      }
     } catch (err) {
       console.error(err);
-      statusEl.textContent = "صار خطأ أثناء الاتصال بـ TMDB. تأكد من الـ API Key والإنترنت.";
-    } finally {
-      searchBtn.disabled = false;
-      analyzeBtn.disabled = false;
+      statusBox.textContent = "خطأ أثناء معالجة الصورة.";
     }
   }
 
-  analyzeBtn.addEventListener("click", runOCR);
-  searchBtn.addEventListener("click", searchTMDB);
+  // البحث عن اسم المسلسل فقط
+  async function searchTMDB(query) {
+    try {
+      const url = `https://api.themoviedb.org/3/search/tv?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=en-US`;
+
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (!data.results || data.results.length === 0) {
+        statusBox.textContent = "❌ لم يتم العثور على أي مسلسل.";
+        return;
+      }
+
+      const first = data.results[0]; // أول نتيجة فقط
+      statusBox.textContent = "✔️ تم العثور على مسلسل:";
+      resultBox.textContent = first.name;
+
+    } catch (err) {
+      console.error(err);
+      statusBox.textContent = "حدث خطأ أثناء الاتصال بـ TMDB.";
+    }
+  }
 </script>
+
 </body>
 </html>
